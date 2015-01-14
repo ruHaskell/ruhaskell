@@ -1,0 +1,12 @@
+<ul class="post-list">
+    $for(posts)$
+        <li>
+            <div class="post-title">
+                <span class="name-of-category">$postCategory$</span><a href="$url$">$title$</a>
+            </div>
+            <div class="post-date">
+                $date$
+            </div>
+        </li>
+    $endfor$
+</ul>

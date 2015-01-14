@@ -1,0 +1,476 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,400italic,700&subset=latin,cyrillic);
+
+body {
+    color: black;
+    font-size: 17px;
+    font-family: 'PT Sans', sans-serif;
+    background: #f5f3ee;
+    padding-top: 70px;
+}
+
+div#ruhaskell-logo .navbar-brand {
+    padding-top: 12px;
+}
+
+.navbar a, .navbar-header a {
+    border-bottom: 0 !important;
+    text-decoration: none !important;
+}
+
+.navbar-default {
+    background-color: #FFF;
+    border-color: #E7E7E7;
+    opacity: 0.98;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #222;
+}
+
+.community-title {
+    padding-top: 25px;
+    font-size: 17px;
+}
+
+.main-menu {
+    padding-top: 15px;
+    text-align: center;
+    font-size: 19px;
+}
+
+.main-menu-links-separator {
+    padding-left: 25px;
+}
+
+.intro {
+    padding-bottom: 41px;
+    padding-left: 35px;
+    padding-right: 35px;
+    border-bottom: solid 1px #ccc;
+    color: #444;
+}
+
+.clear-button {
+    padding-top: 24px;
+}
+
+.clear-button a {
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+}
+
+.footer-links-separator {
+    padding-left: 10px;
+}
+
+.follow-us {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    float: left;
+}
+
+.powered-by {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: right;
+}
+
+span#google-plus-link {
+    color: #E34839;
+    padding-right: 6px;
+}
+
+span#google-plus-link a {
+    text-decoration: none !important;
+    color: #E34839 !important;
+    border-bottom: 0;
+}
+
+span#github-link {
+    color: #000;
+    padding-right: 6px;
+}
+
+span#github-link a {
+    text-decoration: none !important;
+    color: #000 !important;
+    border-bottom: 0;
+}
+
+span#rss-link {
+    color: #FF9132;
+    padding-right: 6px;
+}
+
+span#rss-link a {
+    text-decoration: none !important;
+    color: #FF9132 !important;
+    border-bottom: 0;
+}
+
+.monospace-follow {
+    font-size: 19px;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.dropdown-menu {
+    font-size: 15px;
+}
+
+blockquote {
+    margin-left: 0 !important;
+    padding-left: 20px !important;
+    color: #777;
+    border-left: 5px solid #FF8000;
+}
+
+.href-to-original {
+    text-align: right;
+    font-size: 15px;
+}
+
+div#header {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 30px;
+    padding: 12px 0px 12px 0px;
+    position: fixed;
+    width: 800px;
+    background: #f5f3ee;
+    top: 0
+}
+
+div#content {
+    padding-top: 20px;
+}
+
+div#logo a {
+    color: black;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+}
+
+div#logo a:hover {
+    color: #5493ff;
+    text-decoration: none;
+}
+
+.logo-note {
+    color: #888;
+    float: left;
+    font-size: 90%;
+    padding-left: 10px;
+    padding-top: 6px;
+    font-weight: 400;
+}
+
+div#header #navigation {
+    text-align: right;
+    padding-top: 3px;
+}
+
+div#header #navigation a {
+    color: black;
+    font-size: 16px;
+    margin-left: 20px;
+    border: none;
+    /* text-transform: uppercase; */
+}
+
+div#header #navigation a:hover {
+    color: #5493ff;
+    text-decoration: none;
+}
+
+.footer {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    font-size: 14px;
+}
+
+div#social {
+    float: left;
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 16px;
+}
+
+div#tagsCloud {
+    font-family: 'Ubuntu Mono';
+    text-align: center;
+}
+
+span#twitter {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+span#github {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+}
+
+span#googleplus {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+}
+
+span#facebook {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+}
+
+span#linkedin {
+    color: black;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+span#root_link {
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 28px;
+    text-align: center;
+    font-weight: 500 !important;
+    padding-bottom: 30px;
+}
+
+h2 {
+    font-size: 22px !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 20px !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.name-of-category {
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #ABD0F5; /* Параметры границы */
+    background: #B0E5F3; /* Цвет фона */
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-right: 15px;
+}
+
+.post-info {
+    color: #777;
+    font-size: 16px;
+    font-family: 'Ubuntu Mono', monospace;
+    text-align: left;
+    padding-bottom: 40px;
+}
+
+.post-list {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    font-size: 110%;
+}
+
+.post-list li {
+    margin-top: 15px;
+    padding-bottom: 21px;
+    border-bottom: 1px #aaa dotted;
+}
+
+.post-list a {
+    text-decoration: none;
+    border: none;
+}
+
+.post-list a:hover {
+    text-decoration: none;
+    border: none;
+}
+
+a, a:visited, a:active {
+    color: #2d3644;
+    text-decoration: none;
+    border-bottom: 1px #333 dotted;
+}
+
+a:hover {
+    color: #5493ff;
+    text-decoration: none;
+    border-bottom: 1px #999 solid;
+}
+
+.post-title {
+    float:left;
+}
+
+.post-date {
+    text-align: right;
+    color: #777;
+    font-size: 16px;
+}
+
+.gsc-control-cse {
+    font-family: Arial, sans-serif;
+    border-color: #f5f3ee !important;
+    background-color: #f5f3ee !important;
+}
+
+div#searchForm {
+    text-align: center !important;
+    padding-top: 40px;
+}
+
+/* Loosely based on pygment's default colors */
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode pre 
+   { margin: 0; padding: 0; border: 0; vertical-align: baseline; border: none; }
+td.lineNumbers { border-right: 1px solid #AAAAAA; text-align: right; color: #AAAAAA; padding-right: 5px; padding-left: 5px; } 
+td.sourceCode { padding-left: 5px; }
+pre.sourceCode { }
+pre.sourceCode span.kw { color: #007020; font-weight: bold; } 
+pre.sourceCode span.dt { color: #902000; }
+pre.sourceCode span.dv { color: #40a070; }
+pre.sourceCode span.bn { color: #40a070; }
+pre.sourceCode span.fl { color: #40a070; }
+pre.sourceCode span.ch { color: #4070a0; }
+pre.sourceCode span.st { color: #4070a0; }
+pre.sourceCode span.co { color: #60a0b0; font-style: italic; }
+pre.sourceCode span.ot { color: #007020; }
+pre.sourceCode span.al { color: red; font-weight: bold; }
+pre.sourceCode span.fu { color: #06287e; }
+pre.sourceCode span.re { }
+pre.sourceCode span.er { color: red; font-weight: bold; }
+
+pre.sourceCode {
+    font-family: 'Ubuntu Mono', monospace !important;
+    font-size: 100% !important;
+    border: 1px solid #FBE7D8; /* Параметры границы */
+    border-radius: 3px;
+    background: #fdf6e3; /* Цвет фона */
+    padding: 7px; /* Поля вокруг текста */
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.sourceCode code {
+    font-family: 'Ubuntu Mono', monospace !important;
+}
+
+#content p>code {
+    font-family: 'Ubuntu Mono', monospace !important;
+    font-size: 105% !important;
+    border-radius: 3px;
+    border: 1px solid #FBE7D8; /* Параметры границы */
+    background: #fdf6e3; /* Цвет фона */
+    padding: 1px; /* Поля вокруг текста */
+    color: #000;
+}
+
+#socialButtons {
+    padding-top: 35px;
+    padding-bottom: 30px;
+}
+
+#gsc-iw-id1{
+    height: 30px;
+    border-color: #898989;
+}
+
+input.gsc-search-button-v2{
+    width: 71px;
+    height: 29px;
+}
+
+.gsc-search-button {
+    display: none;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color: #F5F3EE;
+    color: #000;
+}
+
+.custom-tabs {
+    margin-bottom: 35px;
+}
+
+.links-divider {
+    padding-top: 6px;
+}
+
+.links-group-title {
+    font-size: 20px;
+    padding-bottom: 15px;
+}
+
+.links-indent {
+    padding-left: 15px;
+}
+
+.archive-link {
+    color: #777;
+    margin-right: 9px;
+}
+
+.tags-link {
+    color: #777;
+    margin-right: 7px;
+}
+
+.categories-link {
+    color: #777;
+    margin-right: 9px;
+}
+
+.authors-link {
+    color: #777;
+    margin-right: 7px;
+}
+
+.forum-link {
+    color: #777;
+    margin-right: 7px;
+}
+
+.chat-link {
+    color: #777;
+    margin-right: 10px;
+}
+
+.badge-for-tag-link {
+    font-size: 60%;
+    border-radius: 11px;
+    border: 1px solid #888;
+    background: none repeat scroll 0% 0% #999;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 4px;
+    color: #fff;
+}
+
+.tag-in-title {
+    color: #777;
+}
+
+.copyright-note {
+    padding-top: 10px;
+    font-size: 12px;
+    color: #888;
+}
+
