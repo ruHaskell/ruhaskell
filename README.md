@@ -95,7 +95,7 @@ URL этой статьи станет таким:
 Вы можете собрать сайт локально. Подразумевается, что [Haskell Platform](https://www.haskell.org/platform/) у вас уже установлена. Итак:
 
 ```bash
-$ git clone git@github.com:denisshevchenko/ruhaskell.git
+$ git clone git@github.com:ruHaskell/ruhaskell.git
 $ cd ruhaskell
 $ cabal sandbox init
 $ cabal install --only-dependencies
