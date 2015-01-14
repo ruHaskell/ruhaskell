@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Структура Yesod-проекта: базовая конфигурация</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="forum-link">
+                                <span class="fa fa-comments"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://gitter.im/denisshevchenko/haskell" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/denisshevchenko/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Структура Yesod-проекта: базовая конфигурация</h1>
+
+<div class="row">
+    <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2594%25D0%25B5%25D0%25BD%25D0%25B8%25D1%2581%2520%25D0%25A8%25D0%25B5%25D0%25B2%25D1%2587%25D0%25B5%25D0%25BD%25D0%25BA%25D0%25BE.html">Денис Шевченко</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= "19 декабря 2014"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/web.html">Веб</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/Yesod.html">Yesod</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4"></div>
+  
+    <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p>Приветствую!</p>
+<p>После <a href="http://blog.dshevchenko.biz/2014/12/18/yesod-hello-world.html">первого знакомства</a> с Yesod пришла пора заглянуть внутрь нашего проекта. Должны же мы узнать, что сделала команда <code>yesod init</code>, не так ли? Давайте же заглянем в корень:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Application.hs</span>
+<span class="kw">Foundation.hs</span> 
+<span class="kw">Model.hs</span>       
+<span class="kw">Settings.hs</span>    
+<span class="kw">devel.hs</span>       
+<span class="kw">webhs.cabal</span>
+<span class="kw">Import.hs</span>      
+<span class="kw">Handler/</span>        
+<span class="kw">config/</span>         
+<span class="kw">messages/</span>       
+<span class="kw">templates/</span>      
+<span class="kw">Settings/</span>       
+<span class="kw">app/</span>            
+<span class="kw">deploy/</span>         
+<span class="kw">dist/</span>           
+<span class="kw">static/</span>         
+<span class="kw">test/</span>           
+<span class="kw">yesod-devel/</span></code></pre>
+<p>В этой заметке мы рассмотрим содержимое одного-единственного каталога, <code>config</code>. В этом каталоге содержатся базовые конфигурационные файлы, без которых приложение категорически откажется работать.</p>
+<p>Вот содержимое, созданное по умолчанию:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">favicon.ico</span>    
+<span class="kw">robots.txt</span>     
+<span class="kw">postgresql.yml</span> 
+<span class="kw">keter.yml</span>      
+<span class="kw">models</span>         
+<span class="kw">routes</span>         
+<span class="kw">settings.yml</span></code></pre>
+<p>Полагаю, назначение файлов <code>favicon.ico</code> и <code>robots.txt</code> вопросов не вызывает, не правда ли? С файлом <code>postgresql.yml</code> вы уже познакомились, когда настраивали параметры доступа приложения к Postgres.</p>
+<h2 id="сетевая-конфигурация">Сетевая конфигурация</h2>
+<p>Вглянем на содержимое важного файла <code>settings.yml</code>:</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">Default:</span> <span class="dt">&amp;defaults</span>
+  <span class="fu">host:</span> <span class="st">&quot;*4&quot;</span><span class="er"> # any IPv4 host</span>
+  <span class="fu">port:</span> 3000
+  <span class="fu">approot:</span> <span class="st">&quot;http://localhost:3000&quot;</span>
+  <span class="fu">copyright:</span> Insert copyright statement here
+  <span class="co">#analytics: UA-YOURCODE</span>
+
+<span class="fu">Development:</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span>
+
+<span class="fu">Testing:</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span>
+
+<span class="fu">Staging:</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span>
+
+<span class="fu">Production:</span>
+  <span class="co">#approot: &quot;http://www.example.com&quot;</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span></code></pre>
+<p>Помните, в <a href="http://blog.dshevchenko.biz/2014/12/18/yesod-hello-world.html">прошлой заметке</a> я упомянул о том, что приложение можно запустить не через <code>yesod devel</code>, а непосредственно? И там упоминались четыре возможные окружения: <code>Development</code>, <code>Testing</code>, <code>Staging</code> и <code>Production</code>. Полагаю, теперь, когда вы увидели содержимое файла <code>settings.yml</code>, всё встало на свои места: для каждого из окружений мы можем задать свои сетевые параметры. Например, можно переопределить значение параметра <code>approot</code>, чтобы различные версии нашего приложения ассоциировали себя с разными URL-ами, и то же самое можно сделать с параметрами <code>host</code> и <code>port</code>. Вот возможный результат:</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">Default:</span> <span class="dt">&amp;defaults</span>
+  <span class="fu">host:</span> <span class="st">&quot;127.0.0.1&quot;</span>
+  <span class="co">#analytics: UA-YOURCODE</span>
+
+<span class="fu">Development:</span>
+  <span class="fu">port:</span> 3001
+  <span class="fu">approot:</span> <span class="st">&quot;http://dev.my-service.com&quot;</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span>
+
+<span class="fu">Testing:</span>
+  <span class="fu">port:</span> 3002
+  <span class="fu">approot:</span> <span class="st">&quot;http://test.my-service.com&quot;</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span>
+
+<span class="fu">Staging:</span>
+  <span class="fu">port:</span> 3003
+  <span class="fu">approot:</span> <span class="st">&quot;http://stage.my-service.com&quot;</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span>
+
+<span class="fu">Production:</span>
+  <span class="fu">port:</span> 3000
+  <span class="fu">approot:</span> <span class="st">&quot;http://my-service.com&quot;</span>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span></code></pre>
+<h2 id="разворачивание-через-keter">Разворачивание через Keter</h2>
+<p>Содержимое файла <code>keter.yml</code> мы сейчас рассматривать не будем. Это конфигурационный файл для утилиты <code>keter</code>, предназначенной для автоматического разворачивания нашего приложения в виде специального бандла. Подробнее об этом рассказано <a href="http://www.yesodweb.com/blog/2012/05/keter-app-deployment">здесь</a>. Однако на данный момент я деплою приложение другим (более простым и понятным мне) способом. Кстати, об этом способе мы поговорим в следующих заметках.</p>
+<h2 id="маршруты">Маршруты</h2>
+<p>Теперь взглянем на файл <code>routes</code>. Этот файл - один из самых важных для нашего приложения. Взглянем внутрь:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/static</span>         StaticR     Static getStatic
+<span class="kw">/auth</span>           AuthR       Auth   getAuth
+   
+<span class="kw">/favicon.ico</span>    FaviconR    GET
+<span class="kw">/robots.txt</span>     RobotsR     GET
+   
+<span class="kw">/</span>               HomeR       GET POST</code></pre>
+<p>Перед нами маршруты (routes). Обычный маршрут определяет три сущности (слева направо):</p>
+<ol style="list-style-type: decimal">
+<li>Путь, то есть URL (начиная от корня), по которому мы обращаемся к той или иной странице нашего приложения.</li>
+<li>Ресурс, объединяющий обработчик(и) запросов, направленных по тому или иному пути.</li>
+<li>Типы запросов, которые мы можем направить по тому или иному пути.</li>
+</ol>
+<p>Рассмотрим корневой маршрут:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/</span>               HomeR       GET POST</code></pre>
+<p>Путь понятен - это корень нашего приложения (домашняя страница). Ресурс <code>HomeR</code> отвечает за обработку запросов, направленных к корню приложения. И, как видите, домашняя страница нашего приложения способна принимать как <code>GET</code>, так и <code>POST</code>-запросы.</p>
+<p>Таким образом, по мере расширения функциональности нашего веб-приложения мы будем довольно часто обращаться к файлу <code>routes</code>, чтобы дописать новые маршруты.</p>
+<p>Вы спросите, почему же первые два маршрута выглядят необычно? Например:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/auth</span>           AuthR       Auth   getAuth</code></pre>
+<p>Об этом будет подробнее рассказано в следующих заметках. В частности, путь <code>/auth</code> скрывает несколько возможных запросов, связанных, как вы уже поняли, с авторизацией.</p>
+<h2 id="модели">Модели</h2>
+<p>Взглянем на содержимое файла <code>models</code>:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">User</span>
+    <span class="kw">ident</span> Text
+    <span class="kw">password</span> Text Maybe
+    <span class="kw">UniqueUser</span> ident
+    <span class="kw">deriving</span> Typeable
+<span class="kw">Email</span>
+    <span class="kw">email</span> Text
+    <span class="kw">user</span> UserId Maybe
+    <span class="kw">verkey</span> Text Maybe
+    <span class="kw">UniqueEmail</span> email
+ 
+<span class="kw">--</span> By default this file is used in Model.hs (which is imported by Foundation.hs)</code></pre>
+<p>Перед нами - модели для работы с БД. Но об этом мы поговорим особо. Поверьте, эта тема достойна отдельной заметки.</p>
+<h2 id="расположение">Расположение</h2>
+<p>Содержимое каталога <code>config</code> уже вполне пригодно для реального использования. Осталось уточнить одну деталь, касающуюся расположения этого каталога, ведь, как уже было сказано выше, без конфигурационных файлов, расположенных в нём, наше приложение не сможет работать.</p>
+<p>Попробуем запустить наше приложение вот так:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> dist/build/webhs
+$ <span class="kw">./webhs</span> Development -p 3001</code></pre>
+<p>Ага, разбежались! Получите ошибку:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">webhs</span>: InvalidYaml (Just (YamlException <span class="st">&quot;Yaml file not found: config/settings.yml&quot;</span>))</code></pre>
+<p>Файл <code>config/settings.yml</code> не найден, и это вполне ожидаемо. Наше приложение рассчитывает на то, что каталог <code>config</code> расположен не абы где, а в строго определённом месте. Правило очень простое: этот каталог должен располагаться в том же месте, откуда мы запускаем наше приложение.</p>
+<p>Например, мы могли бы расположить этот каталог рядом с исполняемым файлом:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> dist/build/webhs
+$ <span class="kw">cp</span> -R ../../../config .
+$ <span class="kw">./webhs</span> Development -p 3001</code></pre>
+<p>Так заработает. Но можно просто запустить из того места, где <code>config</code> уже лежит:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./dist/build/webhs/webhs</span> Development -p 3001</code></pre>
+<p>Впрочем, я опять вас немного обманул, потому что исполняемый файл рассчитывает не только на каталог <code>config</code>, но и ещё на кое-что. Однако об этом в отдельной заметке.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/denisshevchenko/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/denisshevchenko/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+  </body>
+</html>
+

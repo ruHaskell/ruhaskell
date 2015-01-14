@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>http://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/tasks/2014/12/29/haskell-fur-tree.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/27/yesod-raw-deploy.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/26/yesod-i18n.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/24/yesod-widgets.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/23/yesod-templates.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/22/yesod-structure-others.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/21/yesod-structure-templates.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/20/yesod-structure-handler.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/19/yesod-structure-config.html</loc>
+    </url>
+
+    <url>
+        <loc>http://ruhaskell.org/posts/web/2014/12/18/yesod-hello-world.html</loc>
+    </url>
+
+</urlset>

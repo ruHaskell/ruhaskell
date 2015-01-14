@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Yesod: знакомство</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="forum-link">
+                                <span class="fa fa-comments"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://gitter.im/denisshevchenko/haskell" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/denisshevchenko/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Yesod: знакомство</h1>
+
+<div class="row">
+    <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2594%25D0%25B5%25D0%25BD%25D0%25B8%25D1%2581%2520%25D0%25A8%25D0%25B5%25D0%25B2%25D1%2587%25D0%25B5%25D0%25BD%25D0%25BA%25D0%25BE.html">Денис Шевченко</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= "18 декабря 2014"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/web.html">Веб</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/Yesod.html">Yesod</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4"></div>
+  
+    <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p>Приветствую!</p>
+<p>Итак, Yesod… Я начинаю серию практичных заметок, посвящённых этому прекрасному инструменту. Сегодня мы узнаем, что это такое, зачем он нужен и как начать с ним работать.</p>
+<h2 id="фундамент">Фундамент</h2>
+<p>Да, именно так слово “yesod” переводится с еврейского языка. Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Прекрасный фундамент для наших веб-приложений.</p>
+<p>На главной странице <a href="http://www.yesodweb.com">официального сайта</a> приводятся основные, по мнению создателей, сильные стороны этого фреймворка:</p>
+<ol style="list-style-type: decimal">
+<li>Ошибки времени выполнения становятся ошибками времени компиляции.</li>
+<li>Простая асинхронная работа.</li>
+<li>Расширяемость и эффективность.</li>
+<li>Легковесный синтаксис.</li>
+</ol>
+<p>Я не стану расписывать в радужных красках эти преимущества. К тому же есть <a href="http://www.yesodweb.com/book">офицальная книга по Yesod</a>. Цель этой заметки не в том, чтобы спеть славную оду в адрес Yesod и уговорить вас его попробовать, а в том, чтобы помочь тем, кто <em>уже</em> решил его попробовать. Впрочем, от себя скажу, что лично мне Yesod очень понравился.</p>
+<h2 id="готовимся">Готовимся</h2>
+<p>Разумеется, нам нужны пакеты семейства <code>yesod</code>. Начнём:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> update
+$ <span class="kw">cabal</span> install yesod-bin alex happy</code></pre>
+<p>Установка этого пакета потянет за собой ооооочень много других пакетиков, так что наберитесь терпения: их установка займёт на среднем современном ноутбуке минут 15.</p>
+<p>После того, как всё готово, упростим себе жизнь: пропишем пути к новым утилитам в нашу <code>PATH</code>, дабы было удобнее. Откроем файл <code>~/.bashrc</code> и добавим в него строку наподобие такой:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">export</span> <span class="ot">PATH=$PATH</span>:<span class="ot">$HOME</span>/.cabal/bin</code></pre>
+<p>Убедитесь, что команда <code>yesod</code> доступна в терминале.</p>
+<h2 id="скелет">Скелет</h2>
+<p>Теперь необходимо создать скелет нашего будущего веб-приложения. Для этого выполняем:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span>
+$ <span class="kw">yesod</span> init</code></pre>
+<p>После этого вы увидите приглашение к краткой беседе:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Welcome</span> to the Yesod scaffolder.
+<span class="kw">I</span><span class="st">'m going to be creating a skeleton Yesod project for you.</span></code></pre>
+<p>Затем вам следует ответить на два простых вопроса. Во-первых, указать имя проекта. Во-вторых, выбрать СУБД. Yesod поддерживает классическую четвёрку: SQLite, PostgreSQL, MySQL и MongoDB. Можно, конечно, и без СУБД (ну, для совсем helloworld-ных случаев), но мы с вами знаем, что без БД в реальном веб-приложении чрезвычайно скучно. Я выбрал Postgres. Далее подразумевается, что вы имеете (хотя бы минимальный) навык работы с <code>psql</code>.</p>
+<p><em>Кстати! Haskell-овский пакет, взаимодействующий с Postgres, завязан на стандартную C-шную библиотеку <code>libpq</code>. Если вы решили использовать Postgres и у вас ещё нет этой библиотеки, обязательно установите её из своего репозитория.</em></p>
+<p>После этого вы увидите вот такую забавную картинку:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">                     <span class="kw">___</span>
+                            {<span class="kw">-</span>)   <span class="kw">|\</span>
+                       [<span class="kw">m</span>,].-<span class="st">&quot;-.   /</span>
+<span class="st">      [][__][__]         \(/\__/\)/</span>
+<span class="st">      [__][__][__][__]~~~~  |  |</span>
+<span class="st">      [][__][__][__][__][] /   |</span>
+<span class="st">      [__][__][__][__][__]| /| |</span>
+<span class="st">      [][__][__][__][__][]| || |  ~~~~</span>
+<span class="st">  ejm [__][__][__][__][__]__,__,  \__/</span></code></pre>
+<p>а это значит, что дело сделано. У нас появился каталог по имени нашего проекта, пусть это будет <code>webhs</code>. Внутри этого каталога расположился наш проект. Причём он далеко не такой уж и helloworld-ный, каким может показаться…</p>
+<h2 id="стартуем">Стартуем</h2>
+<p>Вперёд:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> webhs
+$ <span class="kw">cabal</span> install</code></pre>
+<p>В результате этой команды наш проект будет собран, и мы готовы впервые лицезреть его. Для этого запускаем:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3001</code></pre>
+<p>Запустится отладочный сервер, и приложение будет доступно на порту <code>3001</code>. Если же не указывать порт, по умолчанию используется <code>3000</code>.</p>
+<p>Впрочем, я обманул вас. На данный момент запустить приложение нам не удастся. Причина проста: мы же выбрали работу с Postgres, однако никак к этому не подготовились. Потому мы и увидим в терминале нечто подобное:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Devel</span> application launched: http://localhost:3001
+<span class="kw">devel.hs</span>: libpq: failed (FATAL:  role <span class="st">&quot;webhs&quot;</span> does not exist</code></pre>
+<p>Дабы исправить эту досадную оплошность, открываем файл <code>config/postgresql.yml</code> и вносим в него нужные параметры. Я не буду описывать их, потому что там всё предельно просто: указываем имя БД, пользователя и пароль (в качестве последних двух по умолчанию используется имя нашего проекта). Естественно, далее я исхожу из того, что соответствующую БД вы уже создали и предоставили права на неё соответствующему пользователю.</p>
+<p>Теперь мы готовы. Запускаем:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3001</code></pre>
+<p>заглядываем в <code>http://localhost:3001</code> и любуемся. Конечно, любоваться особенно нечем, но начало положено.</p>
+<h2 id="пояснение-по-приложению">Пояснение по приложению</h2>
+<p>Вы спросите, а что же такое мы запустили? Чем является наше приложение с технической точки зрения?</p>
+<p>Всё предельно просто. В каталоге нашего проекта, после его сборки, появился следующий файл: <code>~/webhs/dist/build/webhs/webhs</code>. Это и есть исполняемый файл нашего приложения. Команда <code>yesod devel -p 3001</code> просто запустила его в отладочном режиме (что очень удобно на стадии знакомства с системой), однако мы можем запустить этот файл и напрямую:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./dist/build/webhs/webhs</span>
+<span class="kw">Usage</span>: webhs <span class="kw">&lt;</span>environment<span class="kw">&gt;</span> [--port <span class="kw">&lt;</span>port<span class="kw">&gt;</span>]
+<span class="kw">Valid</span> environments: [Development,Testing,Staging,Production]</code></pre>
+<p>Здесь следует указать среду <code>Development</code> и, если нужно, порт. И всё запустится точно так же.</p>
+<p>Но вы спросите меня, а как же веб-сервер? Ведь запросы на <code>http://localhost:3001</code> должен кто-то принимать, не так ли? Совершенно верно, но для первого знакомства нам не понадобится ни наш любимый <code>nginx</code>, ни его братья. Наше приложение уже содержит в себе свой собственный веб-сервер. Называется он <code>warp</code>. Его можно использовать и как отдельный, легковесный http-сервер, но в Yesod-приложении он уже и так есть. Разумеется, если вы хотите, чтобы поверх него работал, например, <code>nginx</code>, вы можете сделать простое перенаправление на <code>localhost:3001</code>. Именно так я сделал на моём продакшн-сервере.</p>
+<p>Ну что ж, для первой заметки достаточно. В следующей заметке мы поговорим о структуре нашего проекта.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/denisshevchenko/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/denisshevchenko/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+  </body>
+</html>
+
