@@ -48,6 +48,7 @@ russianNamesOfCategories :: M.Map String String
 russianNamesOfCategories = M.fromList[ ("web",      "Веб")
                                      , ("tasks",    "Задачи")
                                      , ("projects", "Проекты")
+                                     , ("utils",    "Утилиты")
                                      ]
 
 getRussianNameOfCategory :: String -> String
