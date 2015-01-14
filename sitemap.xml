@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/utils/2015/01/15/npy-parsing.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</loc>
     </url>
 

@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Sat, 10 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Thu, 15 Jan 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Парсинг бинарных данных, part I</title>
+    <link>http://ruhaskell.org/posts/utils/2015/01/15/npy-parsing.html</link>
+    <description><![CDATA[Первый шаг на пути создания библиотеки для работы с npy файлами в Haskell]]></description>
+    <pubDate>Thu, 15 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/utils/2015/01/15/npy-parsing.html</guid>
+</item>
+<item>
     <title>О погоде функционально</title>
     <link>http://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</link>
     <description><![CDATA[Написание CLI-утилиты, запрашивающей прогноз погоды у Yahoo]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Изучаем структуру нашего проекта. На очереди - обработчики запросов.]]></description>
     <pubDate>Sat, 20 Dec 2014 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2014/12/20/yesod-structure-handler.html</guid>
-</item>
-<item>
-    <title>Структура Yesod-проекта: базовая конфигурация</title>
-    <link>http://ruhaskell.org/posts/web/2014/12/19/yesod-structure-config.html</link>
-    <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Пришла пора изучить структуру нашего проекта. И начнём мы с базовой конфигурации.]]></description>
-    <pubDate>Fri, 19 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/web/2014/12/19/yesod-structure-config.html</guid>
 </item>
 
     </channel> 
