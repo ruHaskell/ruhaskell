@@ -34,10 +34,10 @@ data DictHeader = DictHeader {
 
 *Header* будет содержать данные о файле в целом:
 
-* magic (6 bit) -> всегда ``` "x93NUMPY" ```
-* maxVersion (1 bit) -> основная цифра версии формата файла
-* minVersion (1 bit) -> минорная цифра версии формата файла
-* headerLen (2 bit) -> длинна заголовка файла
+* magic (6 byte) -> всегда ``` "x93NUMPY" ```
+* maxVersion (1 byte) -> основная цифра версии формата файла
+* minVersion (1 byte) -> минорная цифра версии формата файла
+* headerLen (2 byte) -> длинна заголовка файла
 * header -> собственно, заголовок 
 
 *DictHeader* представляет данные, которые хранятся в ```Header.header```.
