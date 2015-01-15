@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,13 +106,6 @@
                   </a>
                   <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="http://forum.ruhaskell.org" target="_blank">
-                            <span class="forum-link">
-                                <span class="fa fa-comments"></span>
-                            </span>Форум
-                        </a>
-                    </li>
-                    <li>
                         <a href="https://gitter.im/ruHaskell/forall" target="_blank">
                             <span class="chat-link">
                                 <span class="fa fa-smile-o"></span>
@@ -202,10 +195,10 @@
     } <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre>
 <p><em>Header</em> будет содержать данные о файле в целом:</p>
 <ul>
-<li>magic (6 bit) -&gt; всегда <code>&quot;x93NUMPY&quot;</code></li>
-<li>maxVersion (1 bit) -&gt; основная цифра версии формата файла</li>
-<li>minVersion (1 bit) -&gt; минорная цифра версии формата файла</li>
-<li>headerLen (2 bit) -&gt; длинна заголовка файла</li>
+<li>magic (6 byte) -&gt; всегда <code>&quot;x93NUMPY&quot;</code></li>
+<li>maxVersion (1 byte) -&gt; основная цифра версии формата файла</li>
+<li>minVersion (1 byte) -&gt; минорная цифра версии формата файла</li>
+<li>headerLen (2 byte) -&gt; длинна заголовка файла</li>
 <li>header -&gt; собственно, заголовок</li>
 </ul>
 <p><em>DictHeader</em> представляет данные, которые хранятся в <code>Header.header</code>.</p>
