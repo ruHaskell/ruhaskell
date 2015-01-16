@@ -95,6 +95,7 @@ ruTimeLocale =  TimeLocale { wDays  = []
 postContext :: TagsAndAuthors -> Context String
 postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , dateFieldWith ruTimeLocale "date" "%d %B %Y"
+                                     , dateField "haskellDate" "%Y %b %d"
                                      , quottedTagField "postTags" $ tagsAndAuthors !! 0
                                      , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
