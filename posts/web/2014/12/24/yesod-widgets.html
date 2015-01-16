@@ -211,7 +211,8 @@ getHomeR <span class="fu">=</span> defaultLayout <span class="fu">$</span> <span
     <span class="fu">$</span>(widgetFile <span class="st">&quot;home/login/login&quot;</span>)
     <span class="fu">$</span>(widgetFile <span class="st">&quot;home/socialLogin/socialLogin&quot;</span>)
     <span class="fu">$</span>(widgetFile <span class="st">&quot;home/register/register&quot;</span>)</code></pre>
-<p>Как вы уже догадались, функция <code>widgetFile</code>, получая название виджета, сама находит соответствующие шаблонные файлы и вытаскивает из них содержимое. И как вы видите, скомпоновать страницу из нескольких виджетов проще простого, нужно лишь перечислить их друг за другом. ## Умолчальная обёртка</p>
+<p>Как вы уже догадались, функция <code>widgetFile</code>, получая название виджета, сама находит соответствующие шаблонные файлы и вытаскивает из них содержимое. И как вы видите, скомпоновать страницу из нескольких виджетов проще простого, нужно лишь перечислить их друг за другом.</p>
+<h2 id="умолчальная-обёртка">Умолчальная обёртка</h2>
 <p>Взглянем ещё раз на функцию <code>getHomeR</code>:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
 getHomeR <span class="fu">=</span> defaultLayout <span class="fu">$</span> <span class="kw">do</span>
