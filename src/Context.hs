@@ -77,12 +77,12 @@ categoryFieldInRussian = tagsFieldWith getCategory simpleRenderLinkForRussianCat
 -- Остальные поля типа TimeLocale инициализированы пустыми значениями.
 ruTimeLocale :: TimeLocale
 ruTimeLocale =  TimeLocale { wDays  = []
-                           , months = [("января",   "янв"),  ("февраля", "фев"),
-                                       ("марта",    "мар"),  ("апреля",  "апр"),
-                                       ("мая",      "мая"),  ("июня",    "июн"),
-                                       ("июля",     "июл"),  ("августа", "авг"),
-                                       ("сентября", "сент"), ("октября", "окт"),
-                                       ("ноября",   "нояб"), ("декабря", "дек")]
+                           , months = [("января",   "1"),  ("февраля", "2"),
+                                       ("марта",    "3"),  ("апреля",  "4"),
+                                       ("мая",      "5"),  ("июня",    "6"),
+                                       ("июля",     "7"),  ("августа", "8"),
+                                       ("сентября", "9"),  ("октября", "10"),
+                                       ("ноября",   "11"), ("декабря", "12")]
                            , intervals = []
                            , amPm = ("", "")
                            , dateTimeFmt = "" 
@@ -95,7 +95,7 @@ ruTimeLocale =  TimeLocale { wDays  = []
 postContext :: TagsAndAuthors -> Context String
 postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , dateFieldWith ruTimeLocale "date" "%d %B %Y"
-                                     , dateField "haskellDate" "%Y %b %d"
+                                     , dateFieldWith ruTimeLocale "haskellDate" "%Y %b %d"
                                      , quottedTagField "postTags" $ tagsAndAuthors !! 0
                                      , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
