@@ -27,7 +27,7 @@ import Hakyll
 
 -- Код данной функции для формирования простой ссылки взят из исходников Hakyll.
 simpleRenderLink :: String 
-                 -> (Maybe FilePath) 
+                 -> Maybe FilePath
                  -> Maybe H.Html
 simpleRenderLink _   Nothing         = Nothing
 simpleRenderLink tag (Just filePath) =
@@ -40,7 +40,7 @@ authorField = tagsFieldWith getNameOfAuthor simpleRenderLink (mconcat . interspe
 
 -- Оборачиваем ссылку-тег в программерские кавычки, чтобы было как в Haskell-коде. ;-)
 simpleRenderQuottedLink :: String 
-                        -> (Maybe FilePath) 
+                        -> Maybe FilePath
                         -> Maybe H.Html
 simpleRenderQuottedLink _   Nothing         = Nothing
 simpleRenderQuottedLink tag (Just filePath) =
@@ -58,7 +58,7 @@ quottedTagField = tagsFieldWith getTags simpleRenderQuottedLink (mconcat . inter
 
 -- Формируем ссылку, конвертируя "родное файловое" имя категории в русскоязычный аналог...
 simpleRenderLinkForRussianCategory :: String 
-                                   -> (Maybe FilePath) 
+                                   -> Maybe FilePath
                                    -> Maybe H.Html
 simpleRenderLinkForRussianCategory _   Nothing         = Nothing
 simpleRenderLinkForRussianCategory tag (Just filePath) =
@@ -96,7 +96,7 @@ postContext :: TagsAndAuthors -> Context String
 postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , dateFieldWith ruTimeLocale "date" "%d %B %Y"
                                      , dateFieldWith ruTimeLocale "haskellDate" "%Y %b %d"
-                                     , quottedTagField "postTags" $ tagsAndAuthors !! 0
+                                     , quottedTagField "postTags" $ head tagsAndAuthors
                                      , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
                                      , defaultContext
