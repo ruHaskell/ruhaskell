@@ -29,10 +29,8 @@ import Hakyll
 simpleRenderLink :: String 
                  -> Maybe FilePath
                  -> Maybe H.Html
-simpleRenderLink _   Nothing         = Nothing
-simpleRenderLink tag (Just filePath) =
-    -- Формируем тег <a href...>
-    Just $ H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
+simpleRenderLink tag = fmap $ \filePath -> -- Формируем тег <a href...>
+    H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
 
 -- Превращает имя автора в ссылку, ведущую к списку статей данного автора.
 authorField :: String -> Tags -> Context a
@@ -42,13 +40,10 @@ authorField = tagsFieldWith getNameOfAuthor simpleRenderLink (mconcat . interspe
 simpleRenderQuottedLink :: String 
                         -> Maybe FilePath
                         -> Maybe H.Html
-simpleRenderQuottedLink _   Nothing         = Nothing
-simpleRenderQuottedLink tag (Just filePath) =
-    -- Формируем тег <a href...>
+simpleRenderQuottedLink tag = fmap $ \filePath -> -- Формируем тег <a href...>
     let rawHref = H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
         quote = toHtml ("\"" :: String)
-    in
-    Just $ quote >> rawHref >> quote 
+    in quote >> rawHref >> quote
 
 -- Превращает имя ссылки в ссылку, ведущую к списку статей данного автора.
 quottedTagField :: String 
@@ -60,10 +55,8 @@ quottedTagField = tagsFieldWith getTags simpleRenderQuottedLink (mconcat . inter
 simpleRenderLinkForRussianCategory :: String 
                                    -> Maybe FilePath
                                    -> Maybe H.Html
-simpleRenderLinkForRussianCategory _   Nothing         = Nothing
-simpleRenderLinkForRussianCategory tag (Just filePath) =
-    -- Формируем тег <a href...>
-    Just $ H.a ! A.href (toValue $ toUrl filePath) $ toHtml (getRussianNameOfCategory tag)
+simpleRenderLinkForRussianCategory tag = fmap $ \filePath ->
+    H.a ! A.href (toValue $ toUrl filePath) $ toHtml (getRussianNameOfCategory tag)
 
 -- Код данной функции, извлекающей имя категории из файлового пути, взят из исходников Hakyll.
 getCategory :: MonadMetadata m => Identifier -> m [String]
