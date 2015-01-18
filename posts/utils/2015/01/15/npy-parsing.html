@@ -183,7 +183,7 @@
 <span class="ot">    magic           ::</span> <span class="dt">BC.ByteString</span>,
 <span class="ot">    minVersion      ::</span> <span class="dt">Word8</span>,
 <span class="ot">    maxVersion      ::</span> <span class="dt">Word8</span>,
-<span class="ot">    headeLen        ::</span> <span class="dt">Integer</span>,
+<span class="ot">    headerLen       ::</span> <span class="dt">Integer</span>,
 <span class="ot">    header          ::</span> <span class="dt">BC.ByteString</span>,
 <span class="ot">    npyData         ::</span> [<span class="dt">Double</span>]
     } <span class="kw">deriving</span> (<span class="dt">Show</span>)
@@ -198,7 +198,7 @@
 <li>magic (6 byte) -&gt; всегда <code>&quot;x93NUMPY&quot;</code></li>
 <li>maxVersion (1 byte) -&gt; основная цифра версии формата файла</li>
 <li>minVersion (1 byte) -&gt; минорная цифра версии формата файла</li>
-<li>headerLen (2 byte) -&gt; длинна заголовка файла</li>
+<li>headerLen (2 byte) -&gt; длина заголовка файла</li>
 <li>header -&gt; собственно, заголовок</li>
 </ul>
 <p><em>DictHeader</em> представляет данные, которые хранятся в <code>Header.header</code>.</p>
@@ -214,7 +214,7 @@ input <span class="ot">&lt;-</span> BL.hGetContents file
         print <span class="fu">$</span> header npyParsedData
         print <span class="fu">$</span> dictHeader
         print <span class="fu">$</span> npyData npyParsedData</code></pre>
-<p>В коде есть один интересный (<code>runGetLazy</code>) и один неинтересный момент (<code>unwrap</code>). Последняя предназначена для обработки заголовка, и она не использует готовые библиотеки для парсинга JSON. Дело в том, что это не совсем JSON, а python dictionary, поэтому <code>Aeson`` и</code>Text.JSON``` не хотят с ним работать. Но т.к. формат его достаточно прост и врядли будет меняться, я просто выдрал нужные данные из строки без посредников.</p>
+<p>В коде есть один интересный (<code>runGetLazy</code>) и один неинтересный момент (<code>unwrap</code>). Последняя предназначена для обработки заголовка, и она не использует готовые библиотеки для парсинга JSON. Дело в том, что это не совсем JSON, а python dictionary, поэтому <code>Aeson</code> и <code>Text.JSON</code> не хотят с ним работать. Но т.к. формат его достаточно прост и вряд ли будет меняться, я просто выдрал нужные данные из строки без посредников.</p>
 <p><code>runGetLazy</code> возвращает либо итоговые данные, либо сообщение об ошибке (<code>Either String a</code>), и использует следующую функцию:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">npyHeader ::</span> <span class="dt">Get</span> <span class="dt">Header</span>
 
