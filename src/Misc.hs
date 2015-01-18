@@ -36,11 +36,8 @@ getNameOfAuthor :: MonadMetadata m => Identifier -> m [String]
 getNameOfAuthor identifier = do
     -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
     metadata <- getMetadata identifier
-    let maybeAuthor = M.lookup "author" metadata
-    return $ case maybeAuthor of
-        -- Поразумевается, что у статьи всегда один автор, а не несколько.
-        Nothing -> ["Не указан"]
-        Just nameOfAuthor -> [trim nameOfAuthor]
+    let author = M.findWithDefault "Не указан" "author" metadata
+    return [trim author]
 
 -- Имена категорий извлекаются из файлового пути, поэтому они всегда английские.
 -- Это не красиво, поэтому мы формируем словарь русских имён для категорий.
