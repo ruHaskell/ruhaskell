@@ -49,8 +49,4 @@ russianNamesOfCategories = M.fromList[ ("web",      "Веб")
                                      ]
 
 getRussianNameOfCategory :: String -> String
-getRussianNameOfCategory englishName = 
-    case (M.lookup englishName russianNamesOfCategories) of
-        Nothing   -> englishName
-        Just name -> name
-
+getRussianNameOfCategory englishName = M.findWithDefault englishName englishName russianNamesOfCategories
