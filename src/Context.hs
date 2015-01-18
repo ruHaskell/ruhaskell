@@ -27,12 +27,10 @@ import Hakyll
 
 -- Код данной функции для формирования простой ссылки взят из исходников Hakyll.
 simpleRenderLink :: String 
-                 -> (Maybe FilePath) 
+                 -> Maybe FilePath
                  -> Maybe H.Html
-simpleRenderLink _   Nothing         = Nothing
-simpleRenderLink tag (Just filePath) =
-    -- Формируем тег <a href...>
-    Just $ H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
+simpleRenderLink tag = fmap $ \filePath -> -- Формируем тег <a href...>
+    H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
 
 -- Превращает имя автора в ссылку, ведущую к списку статей данного автора.
 authorField :: String -> Tags -> Context a
@@ -40,15 +38,12 @@ authorField = tagsFieldWith getNameOfAuthor simpleRenderLink (mconcat . interspe
 
 -- Оборачиваем ссылку-тег в программерские кавычки, чтобы было как в Haskell-коде. ;-)
 simpleRenderQuottedLink :: String 
-                        -> (Maybe FilePath) 
+                        -> Maybe FilePath
                         -> Maybe H.Html
-simpleRenderQuottedLink _   Nothing         = Nothing
-simpleRenderQuottedLink tag (Just filePath) =
-    -- Формируем тег <a href...>
+simpleRenderQuottedLink tag = fmap $ \filePath -> -- Формируем тег <a href...>
     let rawHref = H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
         quote = toHtml ("\"" :: String)
-    in
-    Just $ quote >> rawHref >> quote 
+    in quote >> rawHref >> quote
 
 -- Превращает имя ссылки в ссылку, ведущую к списку статей данного автора.
 quottedTagField :: String 
@@ -58,12 +53,10 @@ quottedTagField = tagsFieldWith getTags simpleRenderQuottedLink (mconcat . inter
 
 -- Формируем ссылку, конвертируя "родное файловое" имя категории в русскоязычный аналог...
 simpleRenderLinkForRussianCategory :: String 
-                                   -> (Maybe FilePath) 
+                                   -> Maybe FilePath
                                    -> Maybe H.Html
-simpleRenderLinkForRussianCategory _   Nothing         = Nothing
-simpleRenderLinkForRussianCategory tag (Just filePath) =
-    -- Формируем тег <a href...>
-    Just $ H.a ! A.href (toValue $ toUrl filePath) $ toHtml (getRussianNameOfCategory tag)
+simpleRenderLinkForRussianCategory tag = fmap $ \filePath ->
+    H.a ! A.href (toValue $ toUrl filePath) $ toHtml (getRussianNameOfCategory tag)
 
 -- Код данной функции, извлекающей имя категории из файлового пути, взят из исходников Hakyll.
 getCategory :: MonadMetadata m => Identifier -> m [String]
@@ -96,7 +89,7 @@ postContext :: TagsAndAuthors -> Context String
 postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , dateFieldWith ruTimeLocale "date" "%d %B %Y"
                                      , dateFieldWith ruTimeLocale "haskellDate" "%Y %b %d"
-                                     , quottedTagField "postTags" $ tagsAndAuthors !! 0
+                                     , quottedTagField "postTags" $ head tagsAndAuthors
                                      , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
                                      , defaultContext
