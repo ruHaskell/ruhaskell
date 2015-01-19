@@ -174,7 +174,7 @@
 <p>Существует много различных библиотек для разбора опций командной строки, таких как <a href="http://hackage.haskell.org/package/optparse-applicative">optparse-aplicative</a>, <a href="https://hackage.haskell.org/package/options">options</a>, и <a href="https://www.haskell.org/haskellwiki/Command_line_option_parsers">прочие</a>. Однако в данном посте я хочу рассмотреть необычную библиотеку для разбора опций командной строки <a href="https://hackage.haskell.org/package/hflags-0.4">hflags</a>.</p>
 <p>Библиотека <code>hlflags</code> была написана (экс-?)работниками Google, теперь работающими в <a href="http://nilcons.com/">Nilcons</a> на основе библиотеки <a href="https://code.google.com/p/gflags/">flags</a>, для проектов на C++. Как хорошо известно в Google придерживаются мнения, что все опции для программы должны быть опциями командной строки, и библиотеки оптимизированы именно под такой случай.</p>
 <p>Основной идеей <code>hflags</code> предоставить работать с каждой из опций в полной изолированости от остальных, так, чтобы изменение удаление или добавление опции не приводило к изменениям в остальных частях программы. В результате пользователю не нужно иметь централизованный тип данных описывающий все возможные опции, напротив, для каждый из флагов определяется деклараций в том модуле, в котором он используется (или откуда экспортируется). По данным декларациям автоматически формируется парсер командной строки.</p>
-<h1 id="общий-принцип-работы.">Общий принцип работы.</h1>
+<h2 id="общий-принцип-работы">Общий принцип работы</h2>
 <p>Для создания опции используется одна из возможных деклараций флага, являющихся шаблонным методом, с помощью <a href="https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/template-haskell.html">Template Haskell</a> генерируются блоки описывающиe флаг, а так же описание экземпляра класса ‘Flag’. Ниже приведен вывод <code>-ddump-splices</code>, вывод кода генерируемого <code>Template Haskell</code>, для флага из примеров идущих с библиотекой:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell">    defineFlag <span class="st">&quot;name&quot;</span> (<span class="st">&quot;Indiana Jones&quot;</span><span class="ot"> ::</span> <span class="dt">String</span>) <span class="st">&quot;Who to greet.&quot;</span>
   <span class="fu">======&gt;</span>
@@ -207,7 +207,7 @@
                [getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_repeat</span>),
                 getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_name</span>)]))</code></pre>
 <p>Таким образом если не обращать внимание на <code>unsafePerformIO</code> и глобальные переменные, а так же Template Haskell то, данная библиотека представляет очень простой и расширяемый подход для определения опций.</p>
-<h1 id="немного-примеров">Немного примеров</h1>
+<h2 id="немного-примеров">Немного примеров</h2>
 <p>В библиотеке существуют базовый примитив для создания опций <code>defineCustomFlag</code> позволяющий задать:</p>
 <ol style="list-style-type: decimal">
 <li>короткое и полное имя опции в формате <span class="citation">@s:long</span>@</li>
@@ -238,7 +238,7 @@ defineEQFlag &quot;favorite_color&quot; [| Yellow :: Color |] &quot;COLOR&quot; 
 </ol>
 <p>Так же все опции можно задавать и через переменные окружения используя переменные вида <code>HFLAG_FLAGNAME</code>. В случае если хочется использовать другой формат переменных окружения, то авторы предлагают запускать <code>initFlag</code> после обработки переменных окружения функциями <code>getEnv</code>, <code>setEnv</code> из модуля <code>System.Environment</code></p>
 <p>Поскольку для генерации используется Template Haskell, то нужно помнить об изменившимся в ghc-7.8.2 поведении при обработке шаблонов и в случае использования переменных в главном модуле использовать <a href="https://github.com/errge/hflags/issues/8">известный workaround</a>.</p>
-<h1 id="выводы">Выводы</h1>
+<h2 id="выводы">Выводы</h2>
 <p>Несмотря на достаточную ограниченность возможностей, и использование небезопасных методов (врочем не сравнимых с используемыми библиотекой <code>cmdargs</code>) библиотека <code>hflags</code> предлагает очень простой API позволяющий элегантно решить проблемы не покрываемые другими библиотеками. Тем более, что <code>hflags</code> можно использовать и вместе с другими библиотеками для задания дополнительных опций имеющих значение по умолчанию и рантайм конфигурации, например так:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="st">#!/usr/bin/env runhaskell</span>
 
