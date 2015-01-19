@@ -453,6 +453,11 @@ input.gsc-search-button-v2{
     margin-right: 10px;
 }
 
+.group-link {
+    color: #777;
+    margin-right: 7px;
+}
+
 .badge-for-tag-link {
     font-size: 60%;
     border-radius: 11px;
