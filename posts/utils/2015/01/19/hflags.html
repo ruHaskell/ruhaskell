@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Библиотека разбора опций командной строки hflags</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Библиотека разбора опций командной строки hflags</h1>
+
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2592%25D0%25B5%25D1%2580%25D1%2588%25D0%25B8%25D0%25BB%25D0%25BE%25D0%25B2%2520%25D0%2590%25D0%25BB%25D0%25B5%25D0%25BA%25D1%2581%25D0%25B0%25D0%25BD%25D0%25B4%25D1%2580.html">Вершилов Александр</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 jan 19<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/utils.html">Утилиты</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/options.html">options</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+  
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p>Существует много различных библиотек для разбора опций командной строки, таких как <a href="http://hackage.haskell.org/package/optparse-applicative">optparse-aplicative</a>, <a href="https://hackage.haskell.org/package/options">options</a>, и <a href="https://www.haskell.org/haskellwiki/Command_line_option_parsers">прочие</a>. Однако в данном посте я хочу рассмотреть необычную библиотеку для разбора опций командной строки <a href="https://hackage.haskell.org/package/hflags-0.4">hflags</a>.</p>
+<p>Библиотека <code>hlflags</code> была написана (экс-?)работниками Google, теперь работающими в <a href="http://nilcons.com/">Nilcons</a> на основе библиотеки <a href="https://code.google.com/p/gflags/">flags</a>, для проектов на C++. Как хорошо известно в Google придерживаются мнения, что все опции для программы должны быть опциями командной строки, и библиотеки оптимизированы именно под такой случай.</p>
+<p>Основной идеей <code>hflags</code> предоставить работать с каждой из опций в полной изолированости от остальных, так, чтобы изменение удаление или добавление опции не приводило к изменениям в остальных частях программы. В результате пользователю не нужно иметь централизованный тип данных описывающий все возможные опции, напротив, для каждый из флагов определяется деклараций в том модуле, в котором он используется (или откуда экспортируется). По данным декларациям автоматически формируется парсер командной строки.</p>
+<h1 id="общий-принцип-работы.">Общий принцип работы.</h1>
+<p>Для создания опции используется одна из возможных деклараций флага, являющихся шаблонным методом, с помощью <a href="https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/template-haskell.html">Template Haskell</a> генерируются блоки описывающиe флаг, а так же описание экземпляра класса ‘Flag’. Ниже приведен вывод <code>-ddump-splices</code>, вывод кода генерируемого <code>Template Haskell</code>, для флага из примеров идущих с библиотекой:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">    defineFlag <span class="st">&quot;name&quot;</span> (<span class="st">&quot;Indiana Jones&quot;</span><span class="ot"> ::</span> <span class="dt">String</span>) <span class="st">&quot;Who to greet.&quot;</span>
+  <span class="fu">======&gt;</span>
+    SimpleExample.hs<span class="fu">:</span><span class="dv">7</span><span class="fu">:</span><span class="dv">1</span><span class="fu">-</span><span class="dv">59</span>
+    <span class="kw">data</span> <span class="dt">HFlag_name</span> <span class="fu">=</span> <span class="dt">HFlagC_name</span>
+    <span class="kw">instance</span> <span class="dt">Flag</span> <span class="dt">HFlag_name</span> <span class="kw">where</span>
+      getFlagData _
+        <span class="fu">=</span> <span class="dt">HFlags.FlagData</span>
+            <span class="st">&quot;name&quot;</span>
+            <span class="dt">Nothing</span>
+            (id (<span class="st">&quot;Indiana Jones&quot;</span><span class="ot"> ::</span> <span class="dt">String</span>))
+            <span class="st">&quot;STRING&quot;</span>
+            <span class="st">&quot;Who to greet.&quot;</span>
+            <span class="st">&quot;Main&quot;</span>
+            (<span class="dt">HFlagC_name</span>
+             <span class="ot">`seq`</span> ((GHC.IO.evaluate flags_name) <span class="fu">&gt;&gt;</span> (return <span class="dt">GHC.Tuple</span><span class="fu">.</span>())))
+    <span class="ot">{-# NOINLINE flags_name #-}</span>
+<span class="ot">    flags_name ::</span> <span class="dt">String</span>
+    flags_name <span class="fu">=</span> id (HFlags.lookupFlag <span class="st">&quot;name&quot;</span> <span class="st">&quot;Main&quot;</span>)</code></pre>
+<p>Здесь <code>HFlag_name = HFlagC_name</code> уникальный тип данных соотвествующий каждому создаваемогу флагу, вида <code>HFlag_&lt;имя_модуля&gt;_&lt;имя_флага&gt;</code>, экземпляр <code>Flag</code> для созданного типа данных и функцию доступа к флагу. <code>HFlags.lookupFlag</code> это поиск в глобальной изменяемой переменной <code>globalFlags :: IORef (Maybe (Map String String))</code> завернутое в <a href="https://hackage.haskell.org/package/base-4.7.0.2/docs/System-IO-Unsafe.html">unsafePerformIO</a>, по этой причине для функции доступа стоит прагма <code>{-# NOINLINE #-}</code>.</p>
+<p>Создание экземпляра класса является основной идеей вокруг которой построена реализация данной библиотеки, поскольку все модули рекурсивно экспортируют определенные экземпляры классов типов, то в основном модуле будут находиться все экземпляры для флагов определенных в программе. Далее с помощью Template Haskell в главном модуля на основе всех существующих экземплятор строится парсер.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">    initHFlags
+  <span class="fu">======&gt;</span>
+    \ progDescription_a39e
+      <span class="ot">-&gt;</span> (System.Environment.getArgs
+          <span class="fu">&gt;&gt;=</span>
+            (HFlags.initFlags
+               (const <span class="fu">$</span> (const <span class="fu">$</span> (const [])))
+               progDescription_a39e
+               [getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_repeat</span>),
+                getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_name</span>)]))</code></pre>
+<p>Таким образом если не обращать внимание на <code>unsafePerformIO</code> и глобальные переменные, а так же Template Haskell то, данная библиотека представляет очень простой и расширяемый подход для определения опций.</p>
+<h1 id="немного-примеров">Немного примеров</h1>
+<p>В библиотеке существуют базовый примитив для создания опций <code>defineCustomFlag</code> позволяющий задать:</p>
+<ol style="list-style-type: decimal">
+<li>короткое и полное имя опции в формате <span class="citation">@s:long</span>@</li>
+<li>значение по умолчанию</li>
+<li>строку помощи, определяющую тип аргумента</li>
+<li>функцию read, которая будет применяться к строке при чтении аргумента</li>
+<li>функцию show, которая будет применяться к строковому представлению аргумента</li>
+<li>строку подсказки</li>
+</ol>
+<p>И две более простые функции <code>defineFlag</code> использующу методы <code>read</code> и <code>show</code> для обработки значения, и <code>defineEQFlag</code> возволяющую задать еще и тип аргумента.</p>
+<p>Несколько примеров:</p>
+<ol style="list-style-type: decimal">
+<li><pre><code>defineFlag &quot;name&quot; (&quot;Indiana Jones&quot;::String) &quot;Who to greet.&quot;</code></pre>
+<p>создает флаг <code>name</code> со значением по умолчанию “Indiana Jones”</p></li>
+<li><pre><code>defineFlag &quot;d:dry_run&quot; False &quot;Don't print anything, just exit.&quot;</code></pre>
+<p>создает флаг с длинной (<code>--dry_run</code>) и короткой опцией <code>-d</code></p></li>
+<li><pre><code>data Color = Red | Yellow | Green deriving (Show, Read)
+defineEQFlag &quot;favorite_color&quot; [| Yellow :: Color |] &quot;COLOR&quot; &quot;Your favorite color.&quot;</code></pre>
+<p>создание опции использующей метод read по умолчанию и определющей тип значения.</p></li>
+<li><pre><code>defineCustomFlag &quot;percent&quot; [| 100 :: Double |] &quot;PERCENTAGE&quot;
+  [| \s -&gt; let p = read s
+       in if 0.0 &lt;= p &amp;&amp; p &lt;= 100.0
+          then p
+          else error &quot;Percentage value has to be between 0 and 100.&quot;
+   |]
+  [| show |]</code></pre>
+<p>создание опции со своим методом read.</p></li>
+</ol>
+<p>Так же все опции можно задавать и через переменные окружения используя переменные вида <code>HFLAG_FLAGNAME</code>. В случае если хочется использовать другой формат переменных окружения, то авторы предлагают запускать <code>initFlag</code> после обработки переменных окружения функциями <code>getEnv</code>, <code>setEnv</code> из модуля <code>System.Environment</code></p>
+<p>Поскольку для генерации используется Template Haskell, то нужно помнить об изменившимся в ghc-7.8.2 поведении при обработке шаблонов и в случае использования переменных в главном модуле использовать <a href="https://github.com/errge/hflags/issues/8">известный workaround</a>.</p>
+<h1 id="выводы">Выводы</h1>
+<p>Несмотря на достаточную ограниченность возможностей, и использование небезопасных методов (врочем не сравнимых с используемыми библиотекой <code>cmdargs</code>) библиотека <code>hflags</code> предлагает очень простой API позволяющий элегантно решить проблемы не покрываемые другими библиотеками. Тем более, что <code>hflags</code> можно использовать и вместе с другими библиотеками для задания дополнительных опций имеющих значение по умолчанию и рантайм конфигурации, например так:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="st">#!/usr/bin/env runhaskell</span>
+
+<span class="ot">{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}</span>
+
+<span class="kw">import </span><span class="dt">Control.Applicative</span>
+<span class="kw">import </span><span class="dt">Control.Monad</span>
+<span class="kw">import </span><span class="dt">Options</span>
+<span class="kw">import </span><span class="dt">HFlags</span>
+
+<span class="kw">import </span><span class="dt">System.Environment</span>
+
+<span class="kw">data</span> <span class="dt">Sample</span> <span class="fu">=</span> <span class="dt">Sample</span>
+  {<span class="ot"> hello ::</span> <span class="dt">String</span> }
+
+<span class="kw">instance</span> <span class="dt">Options</span> <span class="dt">Sample</span> <span class="kw">where</span>
+    defineOptions <span class="fu">=</span> pure <span class="dt">Sample</span>
+       <span class="fu">&lt;*&gt;</span> simpleOption <span class="st">&quot;hello&quot;</span> <span class="st">&quot;who&quot;</span> <span class="st">&quot;A message to show the user.&quot;</span>
+
+defineFlag <span class="st">&quot;repeat&quot;</span> (<span class="dv">3</span> <span class="fu">+</span> <span class="dv">4</span><span class="ot"> ::</span> <span class="dt">Int</span>) <span class="st">&quot;Number of times to repeat the message.&quot;</span>
+
+<span class="fu">$</span>(return [])
+
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> runCommand <span class="fu">$</span> \opts args <span class="ot">-&gt;</span> <span class="kw">do</span>
+  withArgs args (<span class="fu">$</span>initHFlags <span class="st">&quot;&quot;</span>)
+  greet opts 
+
+<span class="ot">greet ::</span> <span class="dt">Sample</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+greet (<span class="dt">Sample</span> h) <span class="fu">=</span> replicateM_ flags_repeat <span class="fu">$</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Hello, &quot;</span> <span class="fu">++</span> h</code></pre>
+<p>В этом примере все параметры передающиеся как аргументы, после символа <code>--</code> будут обработаны <code>hflags</code>.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+  </body>
+</html>
+
