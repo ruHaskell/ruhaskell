@@ -172,10 +172,10 @@
 </div>
 
 <p>Существует много различных библиотек для разбора опций командной строки, таких как <a href="http://hackage.haskell.org/package/optparse-applicative">optparse-aplicative</a>, <a href="https://hackage.haskell.org/package/options">options</a>, и <a href="https://www.haskell.org/haskellwiki/Command_line_option_parsers">прочие</a>. Однако в данном посте я хочу рассмотреть необычную библиотеку для разбора опций командной строки <a href="https://hackage.haskell.org/package/hflags-0.4">hflags</a>.</p>
-<p>Библиотека <code>hlflags</code> была написана (экс-?)работниками Google, теперь работающими в <a href="http://nilcons.com/">Nilcons</a> на основе библиотеки <a href="https://code.google.com/p/gflags/">flags</a>, для проектов на C++. Как хорошо известно в Google придерживаются мнения, что все опции для программы должны быть опциями командной строки, и библиотеки оптимизированы именно под такой случай.</p>
-<p>Основной идеей <code>hflags</code> предоставить работать с каждой из опций в полной изолированости от остальных, так, чтобы изменение удаление или добавление опции не приводило к изменениям в остальных частях программы. В результате пользователю не нужно иметь централизованный тип данных описывающий все возможные опции, напротив, для каждый из флагов определяется деклараций в том модуле, в котором он используется (или откуда экспортируется). По данным декларациям автоматически формируется парсер командной строки.</p>
+<p>Библиотека <code>hlflags</code> была написана (экс-?)работниками Google, теперь работающими в <a href="http://nilcons.com/">Nilcons</a>, на основе библиотеки <a href="https://code.google.com/p/gflags/">flags</a>, для проектов на C++. Как хорошо известно в Google придерживаются мнения, что все опции для программы должны быть опциями командной строки, и библиотеки оптимизированы именно под такой случай.</p>
+<p>Основной идеей <code>hflags</code> предоставить работать с каждой из опций в полной изолированности от остальных так, чтобы изменение удаление или добавление опции не приводило к изменениям в остальных частях программы. В результате пользователю не нужно иметь централизованный тип данных описывающий все возможные опции, напротив, для каждый из флагов определяется деклараций в том модуле, в котором он используется (или откуда экспортируется). По данным декларациям автоматически формируется парсер командной строки.</p>
 <h2 id="общий-принцип-работы">Общий принцип работы</h2>
-<p>Для создания опции используется одна из возможных деклараций флага, являющихся шаблонным методом, с помощью <a href="https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/template-haskell.html">Template Haskell</a> генерируются блоки описывающиe флаг, а так же описание экземпляра класса ‘Flag’. Ниже приведен вывод <code>-ddump-splices</code>, вывод кода генерируемого <code>Template Haskell</code>, для флага из примеров идущих с библиотекой:</p>
+<p>Для создания опции используется одна из возможных деклараций флага, являющихся шаблонным методом, с помощью <a href="https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/template-haskell.html">Template Haskell</a> генерируются блоки описывающие флаг, а так же описание экземпляра класса ‘Flag’. Ниже приведен вывод <code>-ddump-splices</code>, вывод кода генерируемого <code>Template Haskell</code> для флага из примеров идущих с библиотекой:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell">    defineFlag <span class="st">&quot;name&quot;</span> (<span class="st">&quot;Indiana Jones&quot;</span><span class="ot"> ::</span> <span class="dt">String</span>) <span class="st">&quot;Who to greet.&quot;</span>
   <span class="fu">======&gt;</span>
     SimpleExample.hs<span class="fu">:</span><span class="dv">7</span><span class="fu">:</span><span class="dv">1</span><span class="fu">-</span><span class="dv">59</span>
@@ -194,8 +194,8 @@
     <span class="ot">{-# NOINLINE flags_name #-}</span>
 <span class="ot">    flags_name ::</span> <span class="dt">String</span>
     flags_name <span class="fu">=</span> id (HFlags.lookupFlag <span class="st">&quot;name&quot;</span> <span class="st">&quot;Main&quot;</span>)</code></pre>
-<p>Здесь <code>HFlag_name = HFlagC_name</code> уникальный тип данных соотвествующий каждому создаваемогу флагу, вида <code>HFlag_&lt;имя_модуля&gt;_&lt;имя_флага&gt;</code>, экземпляр <code>Flag</code> для созданного типа данных и функцию доступа к флагу. <code>HFlags.lookupFlag</code> это поиск в глобальной изменяемой переменной <code>globalFlags :: IORef (Maybe (Map String String))</code> завернутое в <a href="https://hackage.haskell.org/package/base-4.7.0.2/docs/System-IO-Unsafe.html">unsafePerformIO</a>, по этой причине для функции доступа стоит прагма <code>{-# NOINLINE #-}</code>.</p>
-<p>Создание экземпляра класса является основной идеей вокруг которой построена реализация данной библиотеки, поскольку все модули рекурсивно экспортируют определенные экземпляры классов типов, то в основном модуле будут находиться все экземпляры для флагов определенных в программе. Далее с помощью Template Haskell в главном модуля на основе всех существующих экземплятор строится парсер.</p>
+<p>Здесь <code>HFlag_name = HFlagC_name</code> уникальный тип данных соотвествующий каждому создаваемому флагу вида <code>HFlag_&lt;имя_модуля&gt;_&lt;имя_флага&gt;</code>, экземпляр <code>Flag</code> для созданного типа данных и функцию доступа к флагу. <code>HFlags.lookupFlag</code> — это поиск в глобальной изменяемой переменной <code>globalFlags :: IORef (Maybe (Map String String))</code> завернутое в <a href="https://hackage.haskell.org/package/base-4.7.0.2/docs/System-IO-Unsafe.html">unsafePerformIO</a>, по этой причине для функции доступа стоит прагма <code>{-# NOINLINE #-}</code>.</p>
+<p>Создание экземпляра класса является основной идеей вокруг которой построена реализация данной библиотеки, поскольку все модули рекурсивно экспортируют определенные экземпляры классов типов, то в основном модуле будут находиться все экземпляры для флагов определенных в программе. Далее с помощью Template Haskell в главном модуля на основе всех существующих экземпляров строится парсер.</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell">    initHFlags
   <span class="fu">======&gt;</span>
     \ progDescription_a39e
@@ -206,18 +206,18 @@
                progDescription_a39e
                [getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_repeat</span>),
                 getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_name</span>)]))</code></pre>
-<p>Таким образом если не обращать внимание на <code>unsafePerformIO</code> и глобальные переменные, а так же Template Haskell то, данная библиотека представляет очень простой и расширяемый подход для определения опций.</p>
+<p>Таким образом если не обращать внимание на <code>unsafePerformIO</code> и глобальные переменные, а так же Template Haskell, то данная библиотека представляет очень простой и расширяемый подход для определения опций.</p>
 <h2 id="немного-примеров">Немного примеров</h2>
 <p>В библиотеке существуют базовый примитив для создания опций <code>defineCustomFlag</code> позволяющий задать:</p>
 <ol style="list-style-type: decimal">
-<li>короткое и полное имя опции в формате <span class="citation">@s:long</span>@</li>
+<li>короткое и полное имя опции в формате <code>@s:long@</code></li>
 <li>значение по умолчанию</li>
 <li>строку помощи, определяющую тип аргумента</li>
-<li>функцию read, которая будет применяться к строке при чтении аргумента</li>
-<li>функцию show, которая будет применяться к строковому представлению аргумента</li>
+<li>функцию <code>read</code>, которая будет применяться к строке при чтении аргумента</li>
+<li>функцию <code>show</code>, которая будет применяться к строковому представлению аргумента</li>
 <li>строку подсказки</li>
 </ol>
-<p>И две более простые функции <code>defineFlag</code> использующу методы <code>read</code> и <code>show</code> для обработки значения, и <code>defineEQFlag</code> возволяющую задать еще и тип аргумента.</p>
+<p>И две более простые функции <code>defineFlag</code> использующу методы <code>read</code> и <code>show</code> для обработки значения, и <code>defineEQFlag</code> позволяющую задать еще и тип аргумента.</p>
 <p>Несколько примеров:</p>
 <ol style="list-style-type: decimal">
 <li><pre><code>defineFlag &quot;name&quot; (&quot;Indiana Jones&quot;::String) &quot;Who to greet.&quot;</code></pre>
@@ -226,7 +226,7 @@
 <p>создает флаг с длинной (<code>--dry_run</code>) и короткой опцией <code>-d</code></p></li>
 <li><pre><code>data Color = Red | Yellow | Green deriving (Show, Read)
 defineEQFlag &quot;favorite_color&quot; [| Yellow :: Color |] &quot;COLOR&quot; &quot;Your favorite color.&quot;</code></pre>
-<p>создание опции использующей метод read по умолчанию и определющей тип значения.</p></li>
+<p>создание опции использующей метод <code>read</code> по умолчанию и определющей тип значения.</p></li>
 <li><pre><code>defineCustomFlag &quot;percent&quot; [| 100 :: Double |] &quot;PERCENTAGE&quot;
   [| \s -&gt; let p = read s
        in if 0.0 &lt;= p &amp;&amp; p &lt;= 100.0
@@ -234,12 +234,12 @@ defineEQFlag &quot;favorite_color&quot; [| Yellow :: Color |] &quot;COLOR&quot; 
           else error &quot;Percentage value has to be between 0 and 100.&quot;
    |]
   [| show |]</code></pre>
-<p>создание опции со своим методом read.</p></li>
+<p>создание опции со своим методом <code>read</code>.</p></li>
 </ol>
-<p>Так же все опции можно задавать и через переменные окружения используя переменные вида <code>HFLAG_FLAGNAME</code>. В случае если хочется использовать другой формат переменных окружения, то авторы предлагают запускать <code>initFlag</code> после обработки переменных окружения функциями <code>getEnv</code>, <code>setEnv</code> из модуля <code>System.Environment</code></p>
+<p>Так же все опции можно задавать и через переменные окружения, используя переменные вида <code>HFLAG_FLAGNAME</code>. В случае если хочется использовать другой формат переменных окружения, то авторы предлагают запускать <code>initFlag</code> после обработки переменных окружения функциями <code>getEnv</code> и <code>setEnv</code> из модуля <code>System.Environment</code></p>
 <p>Поскольку для генерации используется Template Haskell, то нужно помнить об изменившимся в ghc-7.8.2 поведении при обработке шаблонов и в случае использования переменных в главном модуле использовать <a href="https://github.com/errge/hflags/issues/8">известный workaround</a>.</p>
 <h2 id="выводы">Выводы</h2>
-<p>Несмотря на достаточную ограниченность возможностей, и использование небезопасных методов (врочем не сравнимых с используемыми библиотекой <code>cmdargs</code>) библиотека <code>hflags</code> предлагает очень простой API позволяющий элегантно решить проблемы не покрываемые другими библиотеками. Тем более, что <code>hflags</code> можно использовать и вместе с другими библиотеками для задания дополнительных опций имеющих значение по умолчанию и рантайм конфигурации, например так:</p>
+<p>Несмотря на достаточную ограниченность возможностей и использование небезопасных методов (впрочем не сравнимых с используемыми библиотекой <code>cmdargs</code>) библиотека <code>hflags</code> предлагает очень простой API позволяющий элегантно решить проблемы не покрываемые другими библиотеками. Тем более что <code>hflags</code> можно использовать и вместе с другими библиотеками, для задания дополнительных опций имеющих значение по умолчанию и рантайм конфигурации, например так:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="st">#!/usr/bin/env runhaskell</span>
 
 <span class="ot">{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}</span>
@@ -269,7 +269,7 @@ main <span class="fu">=</span> runCommand <span class="fu">$</span> \opts args <
 
 <span class="ot">greet ::</span> <span class="dt">Sample</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
 greet (<span class="dt">Sample</span> h) <span class="fu">=</span> replicateM_ flags_repeat <span class="fu">$</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Hello, &quot;</span> <span class="fu">++</span> h</code></pre>
-<p>В этом примере все параметры передающиеся как аргументы, после символа <code>--</code> будут обработаны <code>hflags</code>.</p>
+<p>В этом примере все параметры передающиеся как аргументы после символа <code>--</code> будут обработаны <code>hflags</code>.</p>
 
 <div id="socialButtons">
     <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
