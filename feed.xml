@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Mon, 19 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Jan 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Что такое монады: заблуждение из мира Haskell</title>
+    <link>http://ruhaskell.org/posts/theory/2015/01/20/the-what-are-monads-fallacy.html</link>
+    <description><![CDATA[В Haskell-сообществе существует проблема с монадами. Попробуем понять.]]></description>
+    <pubDate>Tue, 20 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/theory/2015/01/20/the-what-are-monads-fallacy.html</guid>
+</item>
+<item>
     <title>Библиотека разбора опций командной строки hflags</title>
     <link>http://ruhaskell.org/posts/utils/2015/01/19/hflags.html</link>
     <description><![CDATA[Статья рассматривает одну из библиотек разбора опций командной строки, использующую нестандартный подход.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Изучаем структуру нашего проекта. Осталось ещё кое-что...]]></description>
     <pubDate>Mon, 22 Dec 2014 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2014/12/22/yesod-structure-others.html</guid>
-</item>
-<item>
-    <title>Структура Yesod-проекта: шаблоны</title>
-    <link>http://ruhaskell.org/posts/web/2014/12/21/yesod-structure-templates.html</link>
-    <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Продлжаем изучение структуры нашего проекта. На очереди - шаблоны страниц.]]></description>
-    <pubDate>Sun, 21 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/web/2014/12/21/yesod-structure-templates.html</guid>
 </item>
 
     </channel> 
