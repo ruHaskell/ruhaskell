@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Священный грааль динамической диспетчеризации</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://groups.google.com/forum/#!forum/haskell-russian" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Священный грааль динамической диспетчеризации</h1>
+
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2590%25D0%25BB%25D0%25B5%25D0%25BA%25D1%2581%25D0%25B0%25D0%25BD%25D0%25B4%25D1%2580%2520%25D0%2591%25D0%25BE%25D0%25BD%25D0%25B4%25D0%25B0%25D1%2580%25D0%25B5%25D0%25BD%25D0%25BA%25D0%25BE.html">Александр Бондаренко</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2013 jun 08<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/dynamic.html">Динамика</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/dynamic.html">dynamic</a>&quot;, &quot;<a href="../../../../../tags/containers.html">containers</a>&quot;, &quot;<a href="../../../../../tags/RPC.html">RPC</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+  
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p><s>Большой бедой</s> Узким местом статической типизации являются гетерогенные коллекции и [поли]вариадические функции. Поэтому в RPC-библиотеках часто встречается подход, когда входящие данные так и лежат одним ADT-куском, а для методов один такой же плоский тип <code>[Foo] -&gt; IO Foo</code>, реализации которого копипастят десериализацию/сериализацию, что неудобно и плодит ошибки, в т.ч. рантаймовые.</p>
+<p>Решение этой задачи меня беспокоило практически с самого начала практического применения мной хаскеля и, наконец, вчера ночью на меня снизошло вдохновение аж в 6.5 миллиолега и после сеанса гадания на ошибках и беседы с <code>ghci</code> у меня всё получилось.</p>
+<div class="figure">
+<img src="https://i.imgur.com/0zYSSRg.jpg" alt="whatIf" />
+<p class="caption">whatIf</p>
+</div>
+<p>Допустим мы хотим сделать список/словарь вида “Текст -&gt; Метод”. И сразу же облом:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">methods ::</span> [(<span class="dt">String</span>, <span class="fu">????</span>)]
+methods <span class="fu">=</span> [ (<span class="st">&quot;add&quot;</span>, \x y <span class="ot">-&gt;</span> return (x <span class="fu">+</span> y))
+          , (<span class="st">&quot;reverse&quot;</span>, \s <span class="ot">-&gt;</span> return (reverse s))
+          ]</code></pre>
+<p>Все методы имеют разный тип. Это можно решить, положив их в непрозрачную коробку.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> a
+
+<span class="ot">methods ::</span> [(<span class="dt">String</span>, <span class="dt">BaconBox</span>)]</code></pre>
+<p>Но такую коробку нельзя распаковать т.к. непонятно что вообще с ними можно делать, распаковав. Это значит, что нужен класс типов, которые могут в ней находиться и описывающий как привести функцию к нормальному виду т.е. функции готовой к десериализации входных данных и сериализации результата.</p>
+<p>В этом примере будет использоваться “протокол” <code>Read</code>/<code>Show</code>. Не самый лучший, но для остальных всё тоже самое. Типом данных, соответственно будет <code>String</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Tossable</span> t <span class="kw">where</span>
+<span class="ot">    toss ::</span> [<span class="dt">String</span>] <span class="ot">-&gt;</span> t <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">String</span>
+
+<span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> (<span class="dt">Tossable</span> a) <span class="ot">=&gt;</span> <span class="dt">BaconBox</span> a</code></pre>
+<p>С таким определением уже понятно даже компилятору, что внутрь коробки можно положить любой тип, для которого определена функция toss, которая…. Бах! Тут мы плавно переходим ко второй проблеме. Ведь хочется, чтобы вызываемые методы могли иметь любые аргументы и в любом количестве. Т.е. чтобы в коробку можно было просто взять и положить любой обработчик RPC, для которого определены процедуры маршалинга. У Олега и на хаскельной вики есть пример кое-чего похожего - printf с любым количеством аргументов любого типа: http://www.haskell.org/haskellwiki/Varargs. Но это не совсем то. Но и не совсем не то! <img src="https://i.imgur.com/Hpo7n9A.gif" alt="awesome" /></p>
+<p>Трюк основывается на двух инстансах - базовая форма и свёртывание аргументов. Базовая форма определяет что же всё-таки делать, когда данные собраны. В ней же опредляется класс выходного типа метода.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Show</span> a) <span class="ot">=&gt;</span> <span class="dt">Tossable</span> (<span class="dt">IO</span> a) <span class="kw">where</span>
+    toss [] f <span class="fu">=</span> fmap show f
+    toss _ _ <span class="fu">=</span> fail <span class="st">&quot;Избыточное количество аргументов&quot;</span></code></pre>
+<p>Если все аргументы использованы и у нас на руках есть готовое значние (в данном случае это действие, которое надо выполнить), т.е. к функции применены все аргументы - мы его выполняем и сразу же сериализуем результат. Оставшиеся аргументы можно выбросить, а можно и ругнуться - я предпочитаю кинуть ошибку, чем гадать о корректности.</p>
+<p>Для свёртывания аргументов используется весьма интересный инстанс, демонстрирующий во всей красе мощщъ функционального подхода в целом и правильной системы типов в частности. Тут фиксируется класс входных аргументов, гарантирующий <s>успешность</s> наличие десерилизатора для типа, используемого в вызове RPC метода.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Read</span> a, <span class="dt">Tossable</span> t) <span class="ot">=&gt;</span> <span class="dt">Tossable</span> (a <span class="ot">-&gt;</span> t) <span class="kw">where</span>
+    toss [] _ <span class="fu">=</span> fail <span class="st">&quot;Недостаточно аргументов&quot;</span>
+    toss (a<span class="fu">:</span>as) f <span class="fu">=</span> toss as (f (read a))</code></pre>
+<p>Не смотря на магичность определения, происходящее довольно тривиально. Если наш тип это функция <code>(a -&gt; t)</code>, а у нас есть ещё для неё аргументы, то мы десериализуем следующий аргумент в соответствии с типом, который ожидает функция и применяем его к ней.</p>
+<p>Если результат получился в виде базовой формы - хорошо, если после применения аргумента к функции, снова получилась функция - повторяем процедуру.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">doAnd ::</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Bool</span>
+doAnd a b <span class="fu">=</span> return (a <span class="fu">&amp;&amp;</span> b)
+
+<span class="ot">doSum3 ::</span> <span class="dt">Double</span> <span class="ot">-&gt;</span> <span class="dt">Double</span> <span class="ot">-&gt;</span> <span class="dt">Double</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Bool</span>
+doSum3 x y z <span class="fu">=</span> return (x <span class="fu">+</span> y <span class="fu">+</span> z)
+
+main <span class="fu">=</span> <span class="kw">do</span>
+    toss [] (doAnd <span class="dt">True</span> <span class="dt">True</span>) <span class="fu">&gt;&gt;=</span> print
+    toss [<span class="st">&quot;True&quot;</span>] (doAnd <span class="dt">True</span>) <span class="fu">&gt;&gt;=</span> print
+    toss [<span class="st">&quot;True&quot;</span>, <span class="st">&quot;True&quot;</span>] doAnd <span class="fu">&gt;&gt;=</span> print
+
+    toss [<span class="st">&quot;42&quot;</span>, <span class="st">&quot;2.71828&quot;</span>, <span class="st">&quot;3.14159&quot;</span>] doSum3 <span class="fu">&gt;&gt;=</span> print </code></pre>
+<p>Et voila! Функция спокойно распаковывает и скармливает аргументы и упаковывает результат.</p>
+<p>Остался последний штрих - динамическая диспетчеризация методов из коробок. Добавим в нашу коробку немного метаданных и функцию поиска по ним.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> (<span class="dt">Tossable</span> a) <span class="ot">=&gt;</span> <span class="dt">BaconBox</span> <span class="dt">String</span> a
+
+<span class="ot">tossBacon ::</span> (<span class="dt">Show</span> a) <span class="ot">=&gt;</span> [<span class="dt">BaconBox</span>] <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> [<span class="dt">String</span>] <span class="ot">-&gt;</span> <span class="dt">IO</span> a
+tossBacon [] _ _ <span class="fu">=</span> fail <span class="st">&quot;Метод не найден&quot;</span>
+tossBacon (<span class="dt">BaconBox</span> bn bf <span class="fu">:</span> bs) name args
+    <span class="fu">|</span> bn <span class="fu">==</span> name <span class="fu">=</span> toss args bf
+    <span class="fu">|</span> otherwise <span class="fu">=</span> tossBacon bs name args</code></pre>
+<p>Специальная функция нужна для того, чтобы у компилятора не взорвался мозг(sic!) при раскрытии экзистенциального контейнера любым способом кроме паттерн-матчинга. FP-world problems…</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- класс, инстансы, функции как раньше</span>
+
+<span class="ot">bacon ::</span> [<span class="dt">BaconBox</span>]
+bacon <span class="fu">=</span> [ <span class="dt">BaconBox</span> <span class="st">&quot;bool.and&quot;</span> doAnd
+        , <span class="dt">BaconBox</span> <span class="st">&quot;num.sum3&quot;</span> doSum3
+        ]
+
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    (method<span class="fu">:</span>args) <span class="ot">&lt;-</span> getArgs
+    tossBacon bacon method args <span class="fu">&gt;&gt;=</span> print</code></pre>
+<p>Итак, у нас получился контейнер, позволяющий совать внутрь функции с произвольным (но строго ограниченым по вводу и выводу) типом и вызывать их по имени, автоматически выполняя рутинную работу по маршалингу. Меньше кода - меньше багов. Ура!</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+  </body>
+</html>
+
