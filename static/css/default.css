@@ -378,7 +378,7 @@ pre.sourceCode {
     border-radius: 3px;
     border: 1px solid #FBE7D8; /* Параметры границы */
     background: #fdf6e3; /* Цвет фона */
-    padding: 1px; /* Поля вокруг текста */
+    /* padding: 1px; Поля вокруг текста */
     color: #000;
 }
 
