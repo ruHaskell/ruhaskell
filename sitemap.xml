@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/packages/2015/01/21/configurator.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/theory/2015/01/20/the-what-are-monads-fallacy.html</loc>
     </url>
 
