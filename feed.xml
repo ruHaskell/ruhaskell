@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Wed, 21 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Thu, 22 Jan 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Начало проекта на Elm</title>
+    <link>http://ruhaskell.org/posts/elm/2015/01/22/elm-hello.html</link>
+    <description><![CDATA[Hello, FRP world!]]></description>
+    <pubDate>Thu, 22 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/elm/2015/01/22/elm-hello.html</guid>
+</item>
+<item>
     <title>Работа с конфигурационными файлами в Haskell</title>
     <link>http://ruhaskell.org/posts/packages/2015/01/21/configurator.html</link>
     <description><![CDATA[Ни одно достаточно крупное приложение не обходится без конфигурационных файлов. Познакомимся с конфигуратором.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня поговорим о важной концепции Yesod - о виджете.]]></description>
     <pubDate>Wed, 24 Dec 2014 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2014/12/24/yesod-widgets.html</guid>
-</item>
-<item>
-    <title>Yesod: Гамлет и прочие</title>
-    <link>http://ruhaskell.org/posts/web/2014/12/23/yesod-templates.html</link>
-    <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня продробнее рассмотрим уже известные нам веб-шаблоны.]]></description>
-    <pubDate>Tue, 23 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/web/2014/12/23/yesod-templates.html</guid>
 </item>
 
     </channel> 
