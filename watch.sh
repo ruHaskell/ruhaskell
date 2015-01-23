@@ -1,5 +1,6 @@
-while true; do
+while inotifywait -qq -e modify -r posts/ src/
+do
     clear
     cabal run build
-    inotifywait -qq -e modify -r posts/ src/
+    echo "BrowserReload();" | nc localhost 4242  > /dev/null
 done
