@@ -341,7 +341,7 @@ div#searchForm {
 /* Hscolour. Solarized palette */
 .hs-keyglyph, .hs-layout   {color: #b58900}
 .hs-keyword                {color: #007020}
-.hs-comment, .hs-comment a {color: #dc322f}
+.hs-comment, .hs-comment a {color: #dc322f;font-style: italic;}
 .hs-str, .hs-chr           {color: #6c71c4}
 .hs-cpp                    {color: #b58900}
 .hs-conid                  {color: #2aa198}
