@@ -31,7 +31,7 @@ GUI на Haskell, достаточное для того, чтобы иметь 
 Примером нам будет служить приложение, имитирующее настольный калькулятор
 с базовым набором операций. Его мы и разработаем. Итак, поехали!
 
-![Banana](https://www.haskell.org/wikiupload/7/7c/Reactive-Banana-banana.png)
+![](https://www.haskell.org/wikiupload/7/7c/Reactive-Banana-banana.png)
 
 ## Окно
 
