@@ -349,7 +349,7 @@ pre.sourceCode span.dv { color: #40a070; }
 pre.sourceCode span.bn { color: #40a070; }
 pre.sourceCode span.fl { color: #40a070; }
 pre.sourceCode span.ch { color: #4070a0; }
-pre.sourceCode span.st { color: #4070a0; }
+pre.sourceCode span.st { /* color: #4070a0; */ }
 pre.sourceCode span.co { color: #60a0b0; font-style: italic; }
 pre.sourceCode span.ot { color: #007020; }
 pre.sourceCode span.al { color: red; font-weight: bold; }
