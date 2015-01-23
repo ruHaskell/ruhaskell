@@ -363,13 +363,13 @@ main <span class="fu">=</span>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span>
 <span class="ot">{-# LANGUAGE FlexibleInstances #-}</span></code></pre>
 <p>Теперь изменим экземпляры класса для наших типов:</p>
-<pre><code>instance HasName Athlete Text where
-    getName athlete = athleteName athlete
-    setName newName athlete = athlete { athleteName = newName }
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="dt">Text</span> <span class="kw">where</span>
+    getName athlete <span class="fu">=</span> athleteName athlete
+    setName newName athlete <span class="fu">=</span> athlete { athleteName <span class="fu">=</span> newName }
 
-instance HasName Club String where
-    getName club = clubName club
-    setName newName club = club { clubName = newName }</code></pre>
+<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="dt">String</span> <span class="kw">where</span>
+    getName club <span class="fu">=</span> clubName club
+    setName newName club <span class="fu">=</span> club { clubName <span class="fu">=</span> newName }</code></pre>
 <p>Здесь мы учли разность типов имён атлетов и клубов. И теперь пишем:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span> 
