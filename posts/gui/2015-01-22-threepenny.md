@@ -117,8 +117,8 @@ buttonLabels = map words $ lines "7 8 9 CE C\n4 5 6 + -\n1 2 3 * /\n . 0 ="
 
 ## Логика
 
-> I'm the operator with my pocket calculator
-> I am adding, and subtracting
+> I'm the operator with my pocket calculator<br/>
+> I am adding, and subtracting<br/>
 > I'm controlling, and composing (© Kraftwerk)
 
 Логика работы калькулятора реализована в модуле ``Calc``. В статье потребуется
@@ -135,7 +135,7 @@ buttonLabels = map words $ lines "7 8 9 CE C\n4 5 6 + -\n1 2 3 * /\n . 0 ="
 
 ## Интерактив
 
-> By pressing down a special key,
+> By pressing down a special key,<br/>
 > it plays a little melody (© Kraftwerk)
 
 В Reactive Banana интерактивность описывется в терминах ``Event`` и ``Behaviour``.
@@ -148,7 +148,7 @@ event-driven системах, а поток событий, выдаваемы�
 
 ```haskell
 UI.unionWith :: (a -> a -> a) -> Event a -> Event a -> Event a
-```.
+```
 
 Этот комбинатор, помимо, собственно, объединения потоков, занимается обработкой
 ситуации, когда два события из разных потоков имеют одинаковую временную отметку:
