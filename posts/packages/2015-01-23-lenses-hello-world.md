@@ -297,7 +297,7 @@ class HasName a b where
 
 Теперь изменим экземпляры класса для наших типов:
 
-```
+```haskell
 instance HasName Athlete Text where
     getName athlete = athleteName athlete
     setName newName athlete = athlete { athleteName = newName }
