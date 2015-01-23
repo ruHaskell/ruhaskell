@@ -1,7 +1,7 @@
 ---
 author:      Алексей Пирогов
 title:       Знакомство с Threepenny-GUI
-tags:        GUI,FRP
+tags:        gui,frp
 description: Демонстрация создания простого GUI на основе Threepenny-GUI и Reactive Banana
 ---
 
