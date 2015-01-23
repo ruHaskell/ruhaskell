@@ -180,6 +180,14 @@
 </div>
 
 <h2 id="что-же-это">Что же это?</h2>
+<pre class="sourceCode haskell" id="mycode"><code class="sourceCode haskell"><span class="co">-- cmnt</span>
+
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    d <span class="st"># s</span>
+    qsort []     <span class="fu">=</span> []
+    qsort (x<span class="fu">:</span>xs) <span class="fu">=</span> qsort (filter (<span class="fu">&lt;</span> x) xs) <span class="fu">++</span> [x] <span class="fu">++</span>
+                   qsort (filter (<span class="fu">&gt;=</span> x) xs)</code></pre>
 <p>Реализация графического интерфейса для приложений, это, к сожалению, пока ещё непростая задача (по крайней мере, для разработчиков на Haskell). Ещё больше усложняет задачу необходимость сделать приложение кроссплатформенным. Создатель <a href="https://www.haskell.org/haskellwiki/Threepenny-gui">Threepenny-GUI</a> предлагает одно из решений данной проблемы - использование в качестве средства отображения интерфейса браузер. Такое решение даёт очевидные преимущества: используя браузер, мы получаем отличную кросплатформенность и богатые возможности для оформления интерфейса. А кроме того Threepenny-GUI даёт нам возможность использовать при разработке ещё и FRP - Function Reactive Programming - очень мощный подход для разработки ПО, особенно - интерактивного. FRP в данном случае основывается на библиотеке <a href="https://www.haskell.org/haskellwiki/Reactive-banana">Reactive Banana</a>.</p>
 <p>Замечу, что не стоит делать поспешных выводов и решать для себя, что разработка приложений, рассчитанных на отображение в браузере, подразумевает под собой создание странички на HTML+JS с прикручиванием оной к простенькому серверу. К счастью, в данном случае это не так!</p>
 <p>Данная статья, надеюсь, даст представление о возможности быстрой разработки GUI на Haskell, достаточное для того, чтобы иметь данный подход ввиду, буде такая задача возникнет.</p>
