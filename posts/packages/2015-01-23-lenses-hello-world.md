@@ -355,16 +355,7 @@ clubNameLens = Lens { get = \club -> clubName club
                     }
 ```
 
-Мы определили линзу `athleteNameLens` для фокусировки на имени атлета, а также линзу `clubNameLens` для фокусировки на имени клуба. Рассмотрим внимательнее:
-
-```haskell
-athleteNameLens :: Lens Athlete Text
-athleteNameLens = Lens { get = \athlete -> athleteName athlete
-                       , set = \athlete newName -> athlete { athleteName = newName }
-                       }
-```
-
-Видите? Фактически, `get` и `set` - это лямбда-обёртки для работы с уже известным нам полем `athleteName`.
+Мы определили линзу `athleteNameLens` для фокусировки на имени атлета, а также линзу `clubNameLens` для фокусировки на имени клуба. Фактически, `get` и `set` - это лямбда-обёртки для работы с уже известным нам полем `athleteName`.
 
 Возможно, вы спросите, зачем нужны такие сложности? Но взгляните на новое определение экземпляров класса `HasName`:
 
