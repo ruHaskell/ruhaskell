@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Thu, 22 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Jan 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Линзы: Hello World!</title>
+    <link>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</link>
+    <description><![CDATA[Введение в линзы. Только для новичков, опытным хаскелистам не читать!]]></description>
+    <pubDate>Fri, 23 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</guid>
+</item>
+<item>
     <title>Начало проекта на Elm</title>
     <link>http://ruhaskell.org/posts/elm/2015/01/22/elm-hello.html</link>
     <description><![CDATA[Hello, FRP world!]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня чуть подробнее поговорим об интернационализации.]]></description>
     <pubDate>Fri, 26 Dec 2014 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2014/12/26/yesod-i18n.html</guid>
-</item>
-<item>
-    <title>Yesod: виджеты</title>
-    <link>http://ruhaskell.org/posts/web/2014/12/24/yesod-widgets.html</link>
-    <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня поговорим о важной концепции Yesod - о виджете.]]></description>
-    <pubDate>Wed, 24 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/web/2014/12/24/yesod-widgets.html</guid>
 </item>
 
     </channel> 
