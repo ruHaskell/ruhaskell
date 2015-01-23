@@ -399,12 +399,7 @@ athleteNameLens <span class="fu">=</span> <span class="dt">Lens</span> { get <sp
 clubNameLens <span class="fu">=</span> <span class="dt">Lens</span> { get <span class="fu">=</span> \club <span class="ot">-&gt;</span> clubName club
                     , set <span class="fu">=</span> \newName club <span class="ot">-&gt;</span> club { clubName <span class="fu">=</span> newName }
                     }</code></pre>
-<p>Мы определили линзу <code>athleteNameLens</code> для фокусировки на имени атлета, а также линзу <code>clubNameLens</code> для фокусировки на имени клуба. Рассмотрим внимательнее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">athleteNameLens ::</span> <span class="dt">Lens</span> <span class="dt">Athlete</span> <span class="dt">Text</span>
-athleteNameLens <span class="fu">=</span> <span class="dt">Lens</span> { get <span class="fu">=</span> \athlete <span class="ot">-&gt;</span> athleteName athlete
-                       , set <span class="fu">=</span> \athlete newName <span class="ot">-&gt;</span> athlete { athleteName <span class="fu">=</span> newName }
-                       }</code></pre>
-<p>Видите? Фактически, <code>get</code> и <code>set</code> - это лямбда-обёртки для работы с уже известным нам полем <code>athleteName</code>.</p>
+<p>Мы определили линзу <code>athleteNameLens</code> для фокусировки на имени атлета, а также линзу <code>clubNameLens</code> для фокусировки на имени клуба. Фактически, <code>get</code> и <code>set</code> - это лямбда-обёртки для работы с уже известным нам полем <code>athleteName</code>.</p>
 <p>Возможно, вы спросите, зачем нужны такие сложности? Но взгляните на новое определение экземпляров класса <code>HasName</code>:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasName</span> a b <span class="kw">where</span>
 <span class="ot">    name ::</span> <span class="dt">Lens</span> a b
