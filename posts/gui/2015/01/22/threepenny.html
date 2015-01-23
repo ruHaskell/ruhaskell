@@ -180,14 +180,6 @@
 </div>
 
 <h2 id="что-же-это">Что же это?</h2>
-<pre class="sourceCode haskell" id="mycode"><code class="sourceCode haskell"><span class="co">-- cmnt</span>
-
-<span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> <span class="kw">do</span>
-    d <span class="st"># s</span>
-    qsort []     <span class="fu">=</span> []
-    qsort (x<span class="fu">:</span>xs) <span class="fu">=</span> qsort (filter (<span class="fu">&lt;</span> x) xs) <span class="fu">++</span> [x] <span class="fu">++</span>
-                   qsort (filter (<span class="fu">&gt;=</span> x) xs)</code></pre>
 <p>Реализация графического интерфейса для приложений, это, к сожалению, пока ещё непростая задача (по крайней мере, для разработчиков на Haskell). Ещё больше усложняет задачу необходимость сделать приложение кроссплатформенным. Создатель <a href="https://www.haskell.org/haskellwiki/Threepenny-gui">Threepenny-GUI</a> предлагает одно из решений данной проблемы - использование в качестве средства отображения интерфейса браузер. Такое решение даёт очевидные преимущества: используя браузер, мы получаем отличную кросплатформенность и богатые возможности для оформления интерфейса. А кроме того Threepenny-GUI даёт нам возможность использовать при разработке ещё и FRP - Function Reactive Programming - очень мощный подход для разработки ПО, особенно - интерактивного. FRP в данном случае основывается на библиотеке <a href="https://www.haskell.org/haskellwiki/Reactive-banana">Reactive Banana</a>.</p>
 <p>Замечу, что не стоит делать поспешных выводов и решать для себя, что разработка приложений, рассчитанных на отображение в браузере, подразумевает под собой создание странички на HTML+JS с прикручиванием оной к простенькому серверу. К счастью, в данном случае это не так!</p>
 <p>Данная статья, надеюсь, даст представление о возможности быстрой разработки GUI на Haskell, достаточное для того, чтобы иметь данный подход ввиду, буде такая задача возникнет.</p>
@@ -248,7 +240,7 @@ buttonLabels <span class="fu">=</span> map words <span class="fu">$</span> lines
 <p>Теперь интерфейс в наличии, настало время его “оживить”!</p>
 <h2 id="логика">Логика</h2>
 <blockquote>
-<p>I’m the operator with my pocket calculator I am adding, and subtracting I’m controlling, and composing (© Kraftwerk)</p>
+<p>I’m the operator with my pocket calculator<br /> I am adding, and subtracting<br /> I’m controlling, and composing (© Kraftwerk)</p>
 </blockquote>
 <p>Логика работы калькулятора реализована в модуле <code>Calc</code>. В статье потребуется лишь API, предоставляемый модулем:</p>
 <ul>
@@ -259,11 +251,11 @@ buttonLabels <span class="fu">=</span> map words <span class="fu">$</span> lines
 <p>Пройдя по ссылке на исходники в конце статьи, можно познакомиться с содержимым модуля.</p>
 <h2 id="интерактив">Интерактив</h2>
 <blockquote>
-<p>By pressing down a special key, it plays a little melody (© Kraftwerk)</p>
+<p>By pressing down a special key,<br /> it plays a little melody (© Kraftwerk)</p>
 </blockquote>
 <p>В Reactive Banana интерактивность описывется в терминах <code>Event</code> и <code>Behaviour</code>.</p>
 <p><code>Event a</code> представляет собой, не одиночное событие, как это бывает в классических event-driven системах, а поток событий, выдаваемых потоком по мере того, как оные происходят. Каждое событие в потоке сопровождается временной отметкой и содержит некие данные (типа <code>a</code>), характеризующие событие. Два потока событий одного типа можно объединить в один с помощью комбинатора</p>
-<p><code>haskell UI.unionWith :: (a -&gt; a -&gt; a) -&gt; Event a -&gt; Event a -&gt; Event a</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">UI.unionWith<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Event</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> a</code></pre>
 <p>Этот комбинатор, помимо, собственно, объединения потоков, занимается обработкой ситуации, когда два события из разных потоков имеют одинаковую временную отметку: в этом случае вызывается функция, передаваемая в комбинатор первым параметром - она то и решает, что делать с данными.</p>
 <p><code>Behaviour a</code>, в свою очередь, изображает некую “ячейку”, в которой <em>содержатся</em> данные типа <code>a</code>. Данные в коробке всегда имеют некое мгновенное значение, меняющееся с течением времени под действием событий.</p>
 <p>Наша программа изображает некое устройство (калькулятор), имеющее начальное состояние, возникающее единожды при “включении”. В процессе работы это состояние меняется под действием команд (нажатий кнопок). Индикатор же калькулятора занимается отображением значения, характеризующего это сотояние. При этом, состояние существует в течении всего времени работы кальклятора.</p>
