@@ -184,36 +184,36 @@
 <p>Основной идеей <code>hflags</code> предоставить работать с каждой из опций в полной изолированности от остальных так, чтобы изменение удаление или добавление опции не приводило к изменениям в остальных частях программы. В результате пользователю не нужно иметь централизованный тип данных описывающий все возможные опции, напротив, для каждый из флагов определяется деклараций в том модуле, в котором он используется (или откуда экспортируется). По данным декларациям автоматически формируется парсер командной строки.</p>
 <h2 id="общий-принцип-работы">Общий принцип работы</h2>
 <p>Для создания опции используется одна из возможных деклараций флага, являющихся шаблонным методом, с помощью <a href="https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/template-haskell.html">Template Haskell</a> генерируются блоки описывающие флаг, а так же описание экземпляра класса ‘Flag’. Ниже приведен вывод <code>-ddump-splices</code>, вывод кода генерируемого <code>Template Haskell</code> для флага из примеров идущих с библиотекой:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">    defineFlag <span class="st">&quot;name&quot;</span> (<span class="st">&quot;Indiana Jones&quot;</span><span class="ot"> ::</span> <span class="dt">String</span>) <span class="st">&quot;Who to greet.&quot;</span>
-  <span class="fu">======&gt;</span>
-    SimpleExample.hs<span class="fu">:</span><span class="dv">7</span><span class="fu">:</span><span class="dv">1</span><span class="fu">-</span><span class="dv">59</span>
-    <span class="kw">data</span> <span class="dt">HFlag_name</span> <span class="fu">=</span> <span class="dt">HFlagC_name</span>
-    <span class="kw">instance</span> <span class="dt">Flag</span> <span class="dt">HFlag_name</span> <span class="kw">where</span>
-      getFlagData _
-        <span class="fu">=</span> <span class="dt">HFlags.FlagData</span>
-            <span class="st">&quot;name&quot;</span>
-            <span class="dt">Nothing</span>
-            (id (<span class="st">&quot;Indiana Jones&quot;</span><span class="ot"> ::</span> <span class="dt">String</span>))
-            <span class="st">&quot;STRING&quot;</span>
-            <span class="st">&quot;Who to greet.&quot;</span>
-            <span class="st">&quot;Main&quot;</span>
-            (<span class="dt">HFlagC_name</span>
-             <span class="ot">`seq`</span> ((GHC.IO.evaluate flags_name) <span class="fu">&gt;&gt;</span> (return <span class="dt">GHC.Tuple</span><span class="fu">.</span>())))
-    <span class="ot">{-# NOINLINE flags_name #-}</span>
-<span class="ot">    flags_name ::</span> <span class="dt">String</span>
-    flags_name <span class="fu">=</span> id (HFlags.lookupFlag <span class="st">&quot;name&quot;</span> <span class="st">&quot;Main&quot;</span>)</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="hs-varid">defineFlag</span> <span class="hs-str">"name"</span> <span class="hs-layout">(</span><span class="hs-str">"Indiana Jones"</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span><span class="hs-layout">)</span> <span class="hs-str">"Who to greet."</span>
+  <span class="hs-varop">======&gt;</span>
+    <span class="hs-conid">SimpleExample</span><span class="hs-varop">.</span><span class="hs-varid">hs</span><span class="hs-conop">:</span><span class="hs-num">7</span><span class="hs-conop">:</span><span class="hs-num">1</span><span class="hs-comment">-</span><span class="hs-num">59</span>
+    <span class="hs-keyword">data</span> <span class="hs-conid">HFlag_name</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HFlagC_name</span>
+    <span class="hs-keyword">instance</span> <span class="hs-conid">Flag</span> <span class="hs-conid">HFlag_name</span> <span class="hs-keyword">where</span>
+      <span class="hs-varid">getFlagData</span> <span class="hs-keyword">_</span>
+        <span class="hs-keyglyph">=</span> <span class="hs-conid">HFlags</span><span class="hs-varop">.</span><span class="hs-conid">FlagData</span>
+            <span class="hs-str">"name"</span>
+            <span class="hs-conid">Nothing</span>
+            <span class="hs-layout">(</span><span class="hs-varid">id</span> <span class="hs-layout">(</span><span class="hs-str">"Indiana Jones"</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+            <span class="hs-str">"STRING"</span>
+            <span class="hs-str">"Who to greet."</span>
+            <span class="hs-str">"Main"</span>
+            <span class="hs-layout">(</span><span class="hs-conid">HFlagC_name</span>
+             <span class="hs-varop">`seq`</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-conid">GHC</span><span class="hs-varop">.</span><span class="hs-conid">IO</span><span class="hs-varop">.</span><span class="hs-varid">evaluate</span> <span class="hs-varid">flags_name</span><span class="hs-layout">)</span> <span class="hs-varop">&gt;&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">return</span> <span class="hs-conid">GHC</span><span class="hs-varop">.</span><span class="hs-conid">Tuple</span><span class="hs-varop">.</span><span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+    <span class="hs-comment">{-# NOINLINE flags_name #-}</span>
+    <span class="hs-varid">flags_name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span>
+    <span class="hs-varid">flags_name</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">id</span> <span class="hs-layout">(</span><span class="hs-conid">HFlags</span><span class="hs-varop">.</span><span class="hs-varid">lookupFlag</span> <span class="hs-str">"name"</span> <span class="hs-str">"Main"</span><span class="hs-layout">)</span></code></pre>
 <p>Здесь <code>HFlag_name = HFlagC_name</code> уникальный тип данных соотвествующий каждому создаваемому флагу вида <code>HFlag_&lt;имя_модуля&gt;_&lt;имя_флага&gt;</code>, экземпляр <code>Flag</code> для созданного типа данных и функцию доступа к флагу. <code>HFlags.lookupFlag</code> — это поиск в глобальной изменяемой переменной <code>globalFlags :: IORef (Maybe (Map String String))</code> завернутое в <a href="https://hackage.haskell.org/package/base-4.7.0.2/docs/System-IO-Unsafe.html">unsafePerformIO</a>, по этой причине для функции доступа стоит прагма <code>{-# NOINLINE #-}</code>.</p>
 <p>Создание экземпляра класса является основной идеей вокруг которой построена реализация данной библиотеки, поскольку все модули рекурсивно экспортируют определенные экземпляры классов типов, то в основном модуле будут находиться все экземпляры для флагов определенных в программе. Далее с помощью Template Haskell в главном модуля на основе всех существующих экземпляров строится парсер.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">    initHFlags
-  <span class="fu">======&gt;</span>
-    \ progDescription_a39e
-      <span class="ot">-&gt;</span> (System.Environment.getArgs
-          <span class="fu">&gt;&gt;=</span>
-            (HFlags.initFlags
-               (const <span class="fu">$</span> (const <span class="fu">$</span> (const [])))
-               progDescription_a39e
-               [getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_repeat</span>),
-                getFlagData (undefined<span class="ot"> ::</span> <span class="dt">HFlag_name</span>)]))</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="hs-varid">initHFlags</span>
+  <span class="hs-varop">======&gt;</span>
+    <span class="hs-keyglyph">\</span> <span class="hs-varid">progDescription_a39e</span>
+      <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Environment</span><span class="hs-varop">.</span><span class="hs-varid">getArgs</span>
+          <span class="hs-varop">&gt;&gt;=</span>
+            <span class="hs-layout">(</span><span class="hs-conid">HFlags</span><span class="hs-varop">.</span><span class="hs-varid">initFlags</span>
+               <span class="hs-layout">(</span><span class="hs-varid">const</span> <span class="hs-varop">$</span> <span class="hs-layout">(</span><span class="hs-varid">const</span> <span class="hs-varop">$</span> <span class="hs-layout">(</span><span class="hs-varid">const</span> <span class="hs-conid">[]</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+               <span class="hs-varid">progDescription_a39e</span>
+               <span class="hs-keyglyph">[</span><span class="hs-varid">getFlagData</span> <span class="hs-layout">(</span><span class="hs-varid">undefined</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">HFlag_repeat</span><span class="hs-layout">)</span><span class="hs-layout">,</span>
+                <span class="hs-varid">getFlagData</span> <span class="hs-layout">(</span><span class="hs-varid">undefined</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">HFlag_name</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
 <p>Таким образом если не обращать внимание на <code>unsafePerformIO</code> и глобальные переменные, а так же Template Haskell, то данная библиотека представляет очень простой и расширяемый подход для определения опций.</p>
 <h2 id="немного-примеров">Немного примеров</h2>
 <p>В библиотеке существуют базовый примитив для создания опций <code>defineCustomFlag</code> позволяющий задать:</p>
@@ -248,35 +248,35 @@ defineEQFlag &quot;favorite_color&quot; [| Yellow :: Color |] &quot;COLOR&quot; 
 <p>Поскольку для генерации используется Template Haskell, то нужно помнить об изменившимся в ghc-7.8.2 поведении при обработке шаблонов и в случае использования переменных в главном модуле использовать <a href="https://github.com/errge/hflags/issues/8">известный workaround</a>.</p>
 <h2 id="выводы">Выводы</h2>
 <p>Несмотря на достаточную ограниченность возможностей и использование небезопасных методов (впрочем не сравнимых с используемыми библиотекой <code>cmdargs</code>) библиотека <code>hflags</code> предлагает очень простой API позволяющий элегантно решить проблемы не покрываемые другими библиотеками. Тем более что <code>hflags</code> можно использовать и вместе с другими библиотеками, для задания дополнительных опций имеющих значение по умолчанию и рантайм конфигурации, например так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="st">#!/usr/bin/env runhaskell</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-cpp">#!/</span><span class="hs-varid">usr</span><span class="hs-varop">/</span><span class="hs-varid">bin</span><span class="hs-varop">/</span><span class="hs-varid">env</span> <span class="hs-varid">runhaskell</span>
 
-<span class="ot">{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}</span>
+<span class="hs-comment">{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}</span>
 
-<span class="kw">import </span><span class="dt">Control.Applicative</span>
-<span class="kw">import </span><span class="dt">Control.Monad</span>
-<span class="kw">import </span><span class="dt">Options</span>
-<span class="kw">import </span><span class="dt">HFlags</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Monad</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Options</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">HFlags</span>
 
-<span class="kw">import </span><span class="dt">System.Environment</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Environment</span>
 
-<span class="kw">data</span> <span class="dt">Sample</span> <span class="fu">=</span> <span class="dt">Sample</span>
-  {<span class="ot"> hello ::</span> <span class="dt">String</span> }
+<span class="hs-keyword">data</span> <span class="hs-conid">Sample</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Sample</span>
+  <span class="hs-layout">{</span> <span class="hs-varid">hello</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span>
 
-<span class="kw">instance</span> <span class="dt">Options</span> <span class="dt">Sample</span> <span class="kw">where</span>
-    defineOptions <span class="fu">=</span> pure <span class="dt">Sample</span>
-       <span class="fu">&lt;*&gt;</span> simpleOption <span class="st">&quot;hello&quot;</span> <span class="st">&quot;who&quot;</span> <span class="st">&quot;A message to show the user.&quot;</span>
+<span class="hs-keyword">instance</span> <span class="hs-conid">Options</span> <span class="hs-conid">Sample</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">defineOptions</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">pure</span> <span class="hs-conid">Sample</span>
+       <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">simpleOption</span> <span class="hs-str">"hello"</span> <span class="hs-str">"who"</span> <span class="hs-str">"A message to show the user."</span>
 
-defineFlag <span class="st">&quot;repeat&quot;</span> (<span class="dv">3</span> <span class="fu">+</span> <span class="dv">4</span><span class="ot"> ::</span> <span class="dt">Int</span>) <span class="st">&quot;Number of times to repeat the message.&quot;</span>
+<span class="hs-definition">defineFlag</span> <span class="hs-str">"repeat"</span> <span class="hs-layout">(</span><span class="hs-num">3</span> <span class="hs-varop">+</span> <span class="hs-num">4</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span><span class="hs-layout">)</span> <span class="hs-str">"Number of times to repeat the message."</span>
 
-<span class="fu">$</span>(return [])
+<span class="hs-varop">$</span><span class="hs-layout">(</span><span class="hs-varid">return</span> <span class="hs-conid">[]</span><span class="hs-layout">)</span>
 
-<span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> runCommand <span class="fu">$</span> \opts args <span class="ot">-&gt;</span> <span class="kw">do</span>
-  withArgs args (<span class="fu">$</span>initHFlags <span class="st">&quot;&quot;</span>)
-  greet opts 
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">runCommand</span> <span class="hs-varop">$</span> <span class="hs-keyglyph">\</span><span class="hs-varid">opts</span> <span class="hs-varid">args</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyword">do</span>
+  <span class="hs-varid">withArgs</span> <span class="hs-varid">args</span> <span class="hs-layout">(</span><span class="hs-varop">$</span><span class="hs-varid">initHFlags</span> <span class="hs-str">""</span><span class="hs-layout">)</span>
+  <span class="hs-varid">greet</span> <span class="hs-varid">opts</span> 
 
-<span class="ot">greet ::</span> <span class="dt">Sample</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
-greet (<span class="dt">Sample</span> h) <span class="fu">=</span> replicateM_ flags_repeat <span class="fu">$</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Hello, &quot;</span> <span class="fu">++</span> h</code></pre>
+<span class="hs-definition">greet</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Sample</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">greet</span> <span class="hs-layout">(</span><span class="hs-conid">Sample</span> <span class="hs-varid">h</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">replicateM_</span> <span class="hs-varid">flags_repeat</span> <span class="hs-varop">$</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-str">"Hello, "</span> <span class="hs-varop">++</span> <span class="hs-varid">h</span></code></pre>
 <p>В этом примере все параметры передающиеся как аргументы после символа <code>--</code> будут обработаны <code>hflags</code>.</p>
 
 <div id="socialButtons">

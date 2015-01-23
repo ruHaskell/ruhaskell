@@ -194,23 +194,23 @@
 <p>Как видите, синтаксис конфига прост и понятен. Также в конфиге можно импортировать другие конфиги:</p>
 <pre class="sourceCode yaml"><code class="sourceCode yaml">import <span class="st">&quot;$(HOME)/someapp.conf&quot;</span></code></pre>
 <p>Основные функции для работы с конфигурационными файлами следующие:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">empty ::</span> <span class="dt">Config</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">empty</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Config</span></code></pre>
 <p>Создаем новый пустой конфиг.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">load ::</span> [<span class="dt">Worth</span> FilePath] <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Config</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">load</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Worth</span> <span class="hs-conid">FilePath</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">Config</span></code></pre>
 <p>Читаем конфигурационные файлы с диска. Тип <code>Worth</code> определяется примерно как <code>data Worth a = Required a | Optional a</code>.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">subconfig ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Config</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">subconfig</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Name</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Config</span></code></pre>
 <p>Получение части конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">reload ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">reload</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
 <p>Перечитываем конфиги. При этом конфиги, полученные с помощью функции <code>subconfig</code>, также обновляются.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">lookup<span class="ot"> ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Maybe</span> a)</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">lookup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Configured</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Name</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Maybe</span> <span class="hs-varid">a</span><span class="hs-layout">)</span></code></pre>
 <p>Чтение параметра из конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lookupDefault ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> a</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">lookupDefault</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Configured</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Name</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-varid">a</span></code></pre>
 <p>Аналогично предыдущей функции, только в случае отсутствия параметра будет использовано значение по умолчанию.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">require ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> a</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">require</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Configured</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Name</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-varid">a</span></code></pre>
 <p>Аналогично <code>lookup</code>, только в случае отсутствия параметра вместо того, чтобы вернуть <code>Nothing</code>, будет брошено исключение.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">display ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">display</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
 <p>Вспомогательная функция для вывода конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getMap ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">HashMap</span> <span class="dt">Name</span> <span class="dt">Value</span>)</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getMap</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">HashMap</span> <span class="hs-conid">Name</span> <span class="hs-conid">Value</span><span class="hs-layout">)</span></code></pre>
 <p>Преобразуем конфиг в простой <code>HashMap</code>. Удобно, например, для последующей передачи этого <code>HashMap</code> в чистые функции.</p>
 <p>Теперь дружно скажем <code>cabal install configurator</code> и запустим <code>ghci</code>:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> import qualified Data.Configurator as C
@@ -236,14 +236,14 @@
 <span class="kw">5432</span></code></pre>
 <p>Совсем не сложно, правда?</p>
 <p>Теперь попробуем разобраться с автоматическим обновлением конфигов. Типы и функции, которые нам понадобятся, следующие:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">AutoConfig</span> <span class="fu">=</span> <span class="dt">AutoConfig</span> {
-<span class="ot">      interval ::</span> <span class="dt">Int</span>
-    ,<span class="ot"> onError ::</span> <span class="dt">SomeException</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
-    }</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">AutoConfig</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">AutoConfig</span> <span class="hs-layout">{</span>
+      <span class="hs-varid">interval</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span>
+    <span class="hs-layout">,</span> <span class="hs-varid">onError</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">SomeException</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+    <span class="hs-layout">}</span></code></pre>
 <p>Этот тип определяет, как часто следует перечитывать конфиг и что делать в случае возникновения ошибки.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">autoConfig ::</span> <span class="dt">AutoConfig</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">autoConfig</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">AutoConfig</span></code></pre>
 <p>Возвращает значение по умолчанию типа <code>AutoConfig</code>. Интервал равен одной секунде, ошибки игнорируются.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">autoReload ::</span> <span class="dt">AutoConfig</span> <span class="ot">-&gt;</span> [<span class="dt">Worth</span> FilePath] <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Config</span>, <span class="dt">ThreadId</span>)</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">autoReload</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">AutoConfig</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Worth</span> <span class="hs-conid">FilePath</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Config</span><span class="hs-layout">,</span> <span class="hs-conid">ThreadId</span><span class="hs-layout">)</span></code></pre>
 <p>Создает автоматически обновляемый конфиг.</p>
 <p>Посмотрим на все это хозяйство в действии. Говорим:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let paths = [C.Required <span class="st">&quot;/home/eax/test.conf&quot;</span>]
@@ -255,13 +255,13 @@
 <span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;guest&quot;</span>), <span class="kw">...</span></code></pre>
 <p>Кажется, работает! Ну, почти. На момент написания этих строк в <code>configurator</code>было несколько неисправленных багов. Например, если использовать в пути к конфигу переменную <code>$(HOME)</code>, он не будет обновляться. Ознакомиться со списком известных багов можно <a href="https://github.com/bos/configurator/issues">здесь</a>.</p>
 <p>Также configurator позволяет подписаться на обновления определенных частей конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prefix ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">prefix</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Pattern</span></code></pre>
 <p>Возвращает шаблон для подписки на определенную часть конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">exact ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">exact</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Pattern</span></code></pre>
 <p>Создает шаблон для подписки на один конкретный параметр.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChangeHandler</span> <span class="fu">=</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">ChangeHandler</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Name</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Value</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
 <p>Тип функции, вызываемой при внесении изменений в конфиге.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">subscribe ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span> <span class="ot">-&gt;</span> <span class="dt">ChangeHandler</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">subscribe</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Pattern</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">ChangeHandler</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
 <p>Подписаться на изменения.</p>
 <p>Проверяем:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> :{

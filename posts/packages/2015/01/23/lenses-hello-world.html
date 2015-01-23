@@ -184,73 +184,73 @@
 <p>В основу данной заметки лёг мой вольный перевод <a href="http://taylor.fausak.me/2014/08/03/lenses-from-the-ground-up/">прекрасной статьи</a>, с некоторыми изменениями.</p>
 <h2 id="атлет">Атлет</h2>
 <p>Есть у нас атлет, и есть у него имя. Определим следующий тип:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Main.hs</span>
-<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Main.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Athlete</span> <span class="fu">=</span> <span class="dt">Athlete</span> <span class="dt">String</span></code></pre>
+<span class="hs-keyword">data</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-conid">String</span></code></pre>
 <p>И захотелось нам изменять/получать имя атлета. Определяем две функции:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getName ::</span> <span class="dt">Athlete</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
-getName (<span class="dt">Athlete</span> name) <span class="fu">=</span> name
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
+<span class="hs-definition">getName</span> <span class="hs-layout">(</span><span class="hs-conid">Athlete</span> <span class="hs-varid">name</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">name</span>
 
-<span class="ot">setName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Athlete</span> <span class="ot">-&gt;</span> <span class="dt">Athlete</span>
-setName newName (<span class="dt">Athlete</span> _) <span class="fu">=</span> <span class="dt">Athlete</span> newName</code></pre>
+<span class="hs-definition">setName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Athlete</span>
+<span class="hs-definition">setName</span> <span class="hs-varid">newName</span> <span class="hs-layout">(</span><span class="hs-conid">Athlete</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-varid">newName</span></code></pre>
 <p>Теперь главный код:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span>
-        realAthlete        <span class="fu">=</span> setName <span class="st">&quot;Taylor Fausak&quot;</span> athleteWithoutName
-        nameOfRealAthlete  <span class="fu">=</span> getName realAthlete
-    <span class="kw">in</span> putStrLn nameOfRealAthlete</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">setName</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-varid">athleteWithoutName</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">getName</span> <span class="hs-varid">realAthlete</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varid">nameOfRealAthlete</span></code></pre>
 <p>Перед нами - классические геттер (<code>getName</code>) и сеттер (<code>setName</code>). Всё предельно просто. Однако в реальном проекте так делать не рекомендуется. Рано или поздно у атлета вслед за именем появится дата рождения, рост, знак Зодиака, любимое блюдо, девичья фамилия мамы и т.п. И что же, на каждое такое поле определять свою пару геттер/сеттер?? Нет, нас категорически не устраивает такое решение.</p>
 <h2 id="упрощаем">Упрощаем</h2>
 <p>Автоматизация - наше всё. Пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Main.hs</span>
-<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Main.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Athlete</span> <span class="fu">=</span> <span class="dt">Athlete</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }
+<span class="hs-keyword">data</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span>
 
-<span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span>
-        realAthlete        <span class="fu">=</span> athleteWithoutName { name <span class="fu">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }
-        nameOfRealAthlete  <span class="fu">=</span> name realAthlete
-    <span class="kw">in</span> putStrLn nameOfRealAthlete</code></pre>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-layout">}</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">name</span> <span class="hs-varid">realAthlete</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varid">nameOfRealAthlete</span></code></pre>
 <p>Вооот, так уже значительно лучше. Компилятор сделал скучную работу за нас. Теперь у нас есть поле <code>name</code>, которое <em>уже</em> является и сеттером, и геттером. Ура, победа! Но, как вы видите, заметка на этом не заканчивается, ибо имеется ещё одна проблема.</p>
 <h2 id="одноимённые-поля">Одноимённые поля</h2>
 <p>Атлеты атлетами, но вскоре у нас появился клуб (возможно, атлетов):</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Main.hs</span>
-<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Main.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Athlete</span> <span class="fu">=</span> <span class="dt">Athlete</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }
+<span class="hs-keyword">data</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span>
 
-<span class="kw">data</span> <span class="dt">Club</span> <span class="fu">=</span> <span class="dt">Club</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }
+<span class="hs-keyword">data</span> <span class="hs-conid">Club</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span>
 
-<span class="fu">...</span></code></pre>
+<span class="hs-varop">...</span></code></pre>
 <p>Увы и ах, компилятор грубо оборвёт наше счастье следующей ошибкой:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Multiple</span> declarations of ‘name’</code></pre>
 <p>К сожалению, нельзя использовать одно и то же поле <code>name</code> в подобной манере, ибо компилятор путается, что где. Ну что ж, поможем компилятору и разнесём типы <code>Athlete</code> и <code>Club</code> по разным модулям:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Club.hs</span>
-<span class="kw">module</span> <span class="dt">Club</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Club.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Club</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Club</span> <span class="fu">=</span> <span class="dt">Club</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }
+<span class="hs-keyword">data</span> <span class="hs-conid">Club</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span>
 
-<span class="co">-- Athlete.hs</span>
-<span class="kw">module</span> <span class="dt">Athlete</span> <span class="kw">where</span>
+<span class="hs-comment">-- Athlete.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Athlete</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Athlete</span> <span class="fu">=</span> <span class="dt">Athlete</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }</code></pre>
+<span class="hs-keyword">data</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span></code></pre>
 <p>Теперь пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Main.hs</span>
-<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Main.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
 
-<span class="kw">import </span><span class="dt">Athlete</span>
-<span class="kw">import </span><span class="dt">Club</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Athlete</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Club</span>
 
-<span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span>
-        realAthlete        <span class="fu">=</span> athleteWithoutName { name <span class="fu">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }
-        nameOfRealAthlete  <span class="fu">=</span> name realAthlete
-    <span class="kw">in</span> putStrLn nameOfRealAthlete</code></pre>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-layout">}</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">name</span> <span class="hs-varid">realAthlete</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varid">nameOfRealAthlete</span></code></pre>
 <p>Но капризный компилятор и этому варианту не будет рад, ибо хотя прежняя ошибка ушла, пришла новая:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">src</span>/Main.hs:<span class="kw">9</span>:51:
     <span class="kw">Ambiguous</span> occurrence ‘name’
@@ -261,88 +261,88 @@ main <span class="fu">=</span>
                              <span class="kw">imported</span> from ‘Club’ at src/Main.hs:4:1-11
                              <span class="kw">(and</span> originally defined at src/Club.hs:3:20-23<span class="kw">)</span></code></pre>
 <p>Когда мы с вами глядим на эту строку:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">athleteWithoutName { name <span class="fu">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">athleteWithoutName</span> <span class="hs-layout">{</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-layout">}</span></code></pre>
 <p>нам предельно ясно, какое <code>name</code> имеется в виду, но компилятор не столь понятлив. Ладно, удовлетворим его каприз и уточним:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Main.hs</span>
-<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Main.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
 
-<span class="kw">import </span><span class="dt">Athlete</span> <span class="kw">as</span> <span class="dt">A</span>
-<span class="kw">import </span><span class="dt">Club</span>    <span class="kw">as</span> <span class="dt">C</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Athlete</span> <span class="hs-keyword">as</span> <span class="hs-conid">A</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Club</span>    <span class="hs-keyword">as</span> <span class="hs-conid">C</span>
 
-<span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span>
-        realAthlete        <span class="fu">=</span> athleteWithoutName { A.name <span class="fu">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }
-        nameOfRealAthlete  <span class="fu">=</span> A.name realAthlete
-        clubWithoutName    <span class="fu">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span>
-        realClub           <span class="fu">=</span> clubWithoutName { C.name <span class="fu">=</span> <span class="st">&quot;Fixed Touring&quot;</span> }
-        nameOfRealClub     <span class="fu">=</span> C.name realClub
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> nameOfRealAthlete <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> nameOfRealClub</code></pre>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-layout">{</span> <span class="hs-conid">A</span><span class="hs-varop">.</span><span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-layout">}</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-conid">A</span><span class="hs-varop">.</span><span class="hs-varid">name</span> <span class="hs-varid">realAthlete</span>
+        <span class="hs-varid">clubWithoutName</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realClub</span>           <span class="hs-keyglyph">=</span> <span class="hs-varid">clubWithoutName</span> <span class="hs-layout">{</span> <span class="hs-conid">C</span><span class="hs-varop">.</span><span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Fixed Touring"</span> <span class="hs-layout">}</span>
+        <span class="hs-varid">nameOfRealClub</span>     <span class="hs-keyglyph">=</span> <span class="hs-conid">C</span><span class="hs-varop">.</span><span class="hs-varid">name</span> <span class="hs-varid">realClub</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">nameOfRealAthlete</span> <span class="hs-varop">++</span> <span class="hs-str">", "</span> <span class="hs-varop">++</span> <span class="hs-varid">nameOfRealClub</span></code></pre>
 <p>Теперь всё работает. Но такое решение тоже не торт. Рано или поздно количество модулей увеличится, и между alias-именами модулей могут возникнуть коллизии. Конечно, мы можем не использовать alias-имена и указывать имя модуля целиком:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">Athlete.name realAthlete</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-conid">Athlete</span><span class="hs-varop">.</span><span class="hs-varid">name</span> <span class="hs-varid">realAthlete</span></code></pre>
 <p>но каждый раз уточнять “модульную принадлежность” наших полей - это скучновато.</p>
 <h2 id="отказ-от-одноимённых-полей">Отказ от одноимённых полей</h2>
 <p>В конце концов, раз от них проблемы, так давайте же избавимся от них:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Club.hs</span>
-<span class="kw">module</span> <span class="dt">Club</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Club.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Club</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Club</span> <span class="fu">=</span> <span class="dt">Club</span> {<span class="ot"> clubName ::</span> <span class="dt">String</span> }
+<span class="hs-keyword">data</span> <span class="hs-conid">Club</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-layout">{</span> <span class="hs-varid">clubName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span>
 
-<span class="co">-- Athlete.hs</span>
-<span class="kw">module</span> <span class="dt">Athlete</span> <span class="kw">where</span>
+<span class="hs-comment">-- Athlete.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Athlete</span> <span class="hs-keyword">where</span>
 
-<span class="kw">data</span> <span class="dt">Athlete</span> <span class="fu">=</span> <span class="dt">Athlete</span> {<span class="ot"> athleteName ::</span> <span class="dt">String</span> }</code></pre>
+<span class="hs-keyword">data</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-layout">}</span></code></pre>
 <p>И далее пишем так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Main.hs</span>
-<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Main.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
 
-<span class="kw">import </span><span class="dt">Athlete</span>
-<span class="kw">import </span><span class="dt">Club</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Athlete</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Club</span>
 
-<span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span>
-        realAthlete        <span class="fu">=</span> athleteWithoutName { athleteName <span class="fu">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }
-        nameOfRealAthlete  <span class="fu">=</span> athleteName realAthlete
-        clubWithoutName    <span class="fu">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span>
-        realClub           <span class="fu">=</span> clubWithoutName { clubName <span class="fu">=</span> <span class="st">&quot;Fixed Touring&quot;</span> }
-        nameOfRealClub     <span class="fu">=</span> clubName realClub
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> nameOfRealAthlete <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> nameOfRealClub</code></pre>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-layout">}</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteName</span> <span class="hs-varid">realAthlete</span>
+        <span class="hs-varid">clubWithoutName</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realClub</span>           <span class="hs-keyglyph">=</span> <span class="hs-varid">clubWithoutName</span> <span class="hs-layout">{</span> <span class="hs-varid">clubName</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Fixed Touring"</span> <span class="hs-layout">}</span>
+        <span class="hs-varid">nameOfRealClub</span>     <span class="hs-keyglyph">=</span> <span class="hs-varid">clubName</span> <span class="hs-varid">realClub</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">nameOfRealAthlete</span> <span class="hs-varop">++</span> <span class="hs-str">", "</span> <span class="hs-varop">++</span> <span class="hs-varid">nameOfRealClub</span></code></pre>
 <p>Никаких коллизий, всё прекрасно работает, но это некрасивое решение. Ведь мы постоянно сами себя повторяем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">athleteWithoutName { athleteName <span class="fu">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">athleteWithoutName</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-layout">}</span></code></pre>
 <p>Читается как “масло масляное”. Нет, мы любим Haskell за его красоту, поэтому желаем чего-то лучшего.</p>
 <h2 id="именной-класс-типов">Именной класс типов</h2>
 <p>Определим класс для работы с типами, имеющими имя:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasName</span> a <span class="kw">where</span>
-<span class="ot">    getName ::</span> a <span class="ot">-&gt;</span> <span class="dt">String</span>
-<span class="ot">    setName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">class</span> <span class="hs-conid">HasName</span> <span class="hs-varid">a</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
+    <span class="hs-varid">setName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span></code></pre>
 <p>Теперь создадим экземпляры этого класса для наших атлетов и клубов:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="kw">where</span>
-    getName athlete <span class="fu">=</span> athleteName athlete
-    setName newName athlete <span class="fu">=</span> athlete { athleteName <span class="fu">=</span> newName }
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">HasName</span> <span class="hs-conid">Athlete</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-varid">athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteName</span> <span class="hs-varid">athlete</span>
+    <span class="hs-varid">setName</span> <span class="hs-varid">newName</span> <span class="hs-varid">athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">newName</span> <span class="hs-layout">}</span>
 
-<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="kw">where</span>
-    getName club <span class="fu">=</span> clubName club
-    setName newName club <span class="fu">=</span> club { clubName <span class="fu">=</span> newName }</code></pre>
+<span class="hs-keyword">instance</span> <span class="hs-conid">HasName</span> <span class="hs-conid">Club</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-varid">club</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">clubName</span> <span class="hs-varid">club</span>
+    <span class="hs-varid">setName</span> <span class="hs-varid">newName</span> <span class="hs-varid">club</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">club</span> <span class="hs-layout">{</span> <span class="hs-varid">clubName</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">newName</span> <span class="hs-layout">}</span></code></pre>
 <p>И теперь пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span>
-        realAthlete        <span class="fu">=</span> setName <span class="st">&quot;Taylor Fausak&quot;</span> athleteWithoutName
-        nameOfRealAthlete  <span class="fu">=</span> getName realAthlete
-        clubWithoutName    <span class="fu">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span>
-        realClub           <span class="fu">=</span> setName <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName
-        nameOfRealClub     <span class="fu">=</span> getName realClub
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> nameOfRealAthlete <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> nameOfRealClub</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">setName</span> <span class="hs-str">"Taylor Fausak"</span> <span class="hs-varid">athleteWithoutName</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">getName</span> <span class="hs-varid">realAthlete</span>
+        <span class="hs-varid">clubWithoutName</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realClub</span>           <span class="hs-keyglyph">=</span> <span class="hs-varid">setName</span> <span class="hs-str">"Fixed Touring"</span> <span class="hs-varid">clubWithoutName</span>
+        <span class="hs-varid">nameOfRealClub</span>     <span class="hs-keyglyph">=</span> <span class="hs-varid">getName</span> <span class="hs-varid">realClub</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">nameOfRealAthlete</span> <span class="hs-varop">++</span> <span class="hs-str">", "</span> <span class="hs-varop">++</span> <span class="hs-varid">nameOfRealClub</span></code></pre>
 <p>Ну что ж, такое решение значительно красивее, ведь никакого “масла масляного” уже нет. Казалось бы, мы нашли идеальное решение, но…</p>
 <h2 id="разные-типы">Разные типы</h2>
 <p>Что произойдёт, если тип поля <code>name</code> у атлета станет другим, нежели у клуба? Допустим, мы решили использовать более продвинутый тип <code>Text</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Athlete.hs</span>
-<span class="kw">module</span> <span class="dt">Athlete</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Athlete.hs</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">Athlete</span> <span class="hs-keyword">where</span>
 
-<span class="kw">import </span><span class="dt">Data.Text</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Text</span>
 
-<span class="kw">data</span> <span class="dt">Athlete</span> <span class="fu">=</span> <span class="dt">Athlete</span> {<span class="ot"> athleteName ::</span> <span class="dt">Text</span> }</code></pre>
+<span class="hs-keyword">data</span> <span class="hs-conid">Athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span> <span class="hs-layout">}</span></code></pre>
 <p>К сожалению, всё тут же сломается:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">src</span>/Main.hs:<span class="kw">11</span>:25:
     <span class="kw">Couldn</span><span class="st">'t match type ‘Data.Text.Internal.Text’ with ‘[Char]’</span>
@@ -352,78 +352,78 @@ main <span class="fu">=</span>
 <span class="st">    In an equation for ‘getName’:</span>
 <span class="st">        getName athlete = athleteName athlete</span></code></pre>
 <p>Вспомним класс типов <code>HasName</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasName</span> a <span class="kw">where</span>
-<span class="ot">    getName ::</span> a <span class="ot">-&gt;</span> <span class="dt">String</span>
-<span class="ot">    setName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">class</span> <span class="hs-conid">HasName</span> <span class="hs-varid">a</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
+    <span class="hs-varid">setName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span></code></pre>
 <p>Методы этого класса дружат с обыкновенной строкой, а им тут подсовывают какой-то <code>Text</code>… Но врагу не сдаётся наш гордый Варяг! Сделаем класс более обобщённым:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasName</span> a b <span class="kw">where</span>
-<span class="ot">    getName ::</span> a <span class="ot">-&gt;</span> b
-<span class="ot">    setName ::</span> b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">class</span> <span class="hs-conid">HasName</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">b</span>
+    <span class="hs-varid">setName</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span></code></pre>
 <p>Кстати, чтобы это работало, добавим необходимые Haskell-расширения в начале модуля <code>Main.hs</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span>
-<span class="ot">{-# LANGUAGE FlexibleInstances #-}</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">{-# LANGUAGE MultiParamTypeClasses #-}</span>
+<span class="hs-comment">{-# LANGUAGE FlexibleInstances #-}</span></code></pre>
 <p>Теперь изменим экземпляры класса для наших типов:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="dt">Text</span> <span class="kw">where</span>
-    getName athlete <span class="fu">=</span> athleteName athlete
-    setName newName athlete <span class="fu">=</span> athlete { athleteName <span class="fu">=</span> newName }
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">HasName</span> <span class="hs-conid">Athlete</span> <span class="hs-conid">Text</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-varid">athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteName</span> <span class="hs-varid">athlete</span>
+    <span class="hs-varid">setName</span> <span class="hs-varid">newName</span> <span class="hs-varid">athlete</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">newName</span> <span class="hs-layout">}</span>
 
-<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="dt">String</span> <span class="kw">where</span>
-    getName club <span class="fu">=</span> clubName club
-    setName newName club <span class="fu">=</span> club { clubName <span class="fu">=</span> newName }</code></pre>
+<span class="hs-keyword">instance</span> <span class="hs-conid">HasName</span> <span class="hs-conid">Club</span> <span class="hs-conid">String</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">getName</span> <span class="hs-varid">club</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">clubName</span> <span class="hs-varid">club</span>
+    <span class="hs-varid">setName</span> <span class="hs-varid">newName</span> <span class="hs-varid">club</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">club</span> <span class="hs-layout">{</span> <span class="hs-varid">clubName</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">newName</span> <span class="hs-layout">}</span></code></pre>
 <p>Здесь мы учли разность типов имён атлетов и клубов. И теперь пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> empty
-        realAthlete        <span class="fu">=</span> setName (pack <span class="st">&quot;Taylor Fausak&quot;</span>) athleteWithoutName
-        nameOfRealAthlete  <span class="fu">=</span> getName realAthlete
-        clubWithoutName    <span class="fu">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span>
-        realClub           <span class="fu">=</span> setName <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName
-        nameOfRealClub     <span class="fu">=</span> getName realClub
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> unpack nameOfRealAthlete <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> nameOfRealClub</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-varid">empty</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">setName</span> <span class="hs-layout">(</span><span class="hs-varid">pack</span> <span class="hs-str">"Taylor Fausak"</span><span class="hs-layout">)</span> <span class="hs-varid">athleteWithoutName</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">getName</span> <span class="hs-varid">realAthlete</span>
+        <span class="hs-varid">clubWithoutName</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realClub</span>           <span class="hs-keyglyph">=</span> <span class="hs-varid">setName</span> <span class="hs-str">"Fixed Touring"</span> <span class="hs-varid">clubWithoutName</span>
+        <span class="hs-varid">nameOfRealClub</span>     <span class="hs-keyglyph">=</span> <span class="hs-varid">getName</span> <span class="hs-varid">realClub</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">unpack</span> <span class="hs-varid">nameOfRealAthlete</span> <span class="hs-varop">++</span> <span class="hs-str">", "</span> <span class="hs-varop">++</span> <span class="hs-varid">nameOfRealClub</span></code></pre>
 <p>Работает:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Taylor</span> Fausak, Fixed Touring</code></pre>
 <p>Это весьма хорошее решение, и мы могли бы на этом остановиться, но существует иной путь.</p>
 <h2 id="линзы">Линзы</h2>
 <p>Определим новый тип:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Lens</span> a b <span class="fu">=</span> <span class="dt">Lens</span> {<span class="ot"> get ::</span> a <span class="ot">-&gt;</span> b
-                     ,<span class="ot"> set ::</span> b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a
-                     }</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Lens</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Lens</span> <span class="hs-layout">{</span> <span class="hs-varid">get</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">b</span>
+                     <span class="hs-layout">,</span> <span class="hs-varid">set</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">a</span>
+                     <span class="hs-layout">}</span></code></pre>
 <p>Перед нами - главная идея линз. Мы ведь хотим сделать работу с геттерами и сеттерами максимально изящной, не правда ли? Так вот идея в том, чтобы создать линзу (для русскоязычного читателя привычнее будет термин “лупа”), позволяющую нам сфокусироваться на каком-то значении. А фокусироваться нам нужно как раз для того, чтобы изменять (<code>set</code>) или получать (<code>get</code>).</p>
 <p>Но чтобы всё это работало, мы должны определить линзы для каждого из наших типов:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">athleteNameLens ::</span> <span class="dt">Lens</span> <span class="dt">Athlete</span> <span class="dt">Text</span>
-athleteNameLens <span class="fu">=</span> <span class="dt">Lens</span> { get <span class="fu">=</span> \athlete <span class="ot">-&gt;</span> athleteName athlete
-                       , set <span class="fu">=</span> \newName athlete <span class="ot">-&gt;</span> athlete { athleteName <span class="fu">=</span> newName }
-                       }
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">athleteNameLens</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Lens</span> <span class="hs-conid">Athlete</span> <span class="hs-conid">Text</span>
+<span class="hs-definition">athleteNameLens</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Lens</span> <span class="hs-layout">{</span> <span class="hs-varid">get</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">athlete</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">athleteName</span> <span class="hs-varid">athlete</span>
+                       <span class="hs-layout">,</span> <span class="hs-varid">set</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">newName</span> <span class="hs-varid">athlete</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">athlete</span> <span class="hs-layout">{</span> <span class="hs-varid">athleteName</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">newName</span> <span class="hs-layout">}</span>
+                       <span class="hs-layout">}</span>
 
-<span class="ot">clubNameLens ::</span> <span class="dt">Lens</span> <span class="dt">Club</span> <span class="dt">String</span>
-clubNameLens <span class="fu">=</span> <span class="dt">Lens</span> { get <span class="fu">=</span> \club <span class="ot">-&gt;</span> clubName club
-                    , set <span class="fu">=</span> \newName club <span class="ot">-&gt;</span> club { clubName <span class="fu">=</span> newName }
-                    }</code></pre>
+<span class="hs-definition">clubNameLens</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Lens</span> <span class="hs-conid">Club</span> <span class="hs-conid">String</span>
+<span class="hs-definition">clubNameLens</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Lens</span> <span class="hs-layout">{</span> <span class="hs-varid">get</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">club</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">clubName</span> <span class="hs-varid">club</span>
+                    <span class="hs-layout">,</span> <span class="hs-varid">set</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">newName</span> <span class="hs-varid">club</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">club</span> <span class="hs-layout">{</span> <span class="hs-varid">clubName</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">newName</span> <span class="hs-layout">}</span>
+                    <span class="hs-layout">}</span></code></pre>
 <p>Мы определили линзу <code>athleteNameLens</code> для фокусировки на имени атлета, а также линзу <code>clubNameLens</code> для фокусировки на имени клуба. Фактически, <code>get</code> и <code>set</code> - это лямбда-обёртки для работы с уже известным нам полем <code>athleteName</code>.</p>
 <p>Возможно, вы спросите, зачем нужны такие сложности? Но взгляните на новое определение экземпляров класса <code>HasName</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasName</span> a b <span class="kw">where</span>
-<span class="ot">    name ::</span> <span class="dt">Lens</span> a b
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">class</span> <span class="hs-conid">HasName</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">name</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Lens</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span>
 
-<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="dt">Text</span> <span class="kw">where</span>
-    name <span class="fu">=</span> athleteNameLens
+<span class="hs-keyword">instance</span> <span class="hs-conid">HasName</span> <span class="hs-conid">Athlete</span> <span class="hs-conid">Text</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">athleteNameLens</span>
 
-<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="dt">String</span> <span class="kw">where</span>
-    name <span class="fu">=</span> clubNameLens</code></pre>
+<span class="hs-keyword">instance</span> <span class="hs-conid">HasName</span> <span class="hs-conid">Club</span> <span class="hs-conid">String</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">clubNameLens</span></code></pre>
 <p>Всё сильно упростилось. Класс <code>HasName</code> теперь содержит одно-единственное “линзовое” значение <code>name</code>. Соответственно, в каждом экземпляре этого класса мы просто заявляем: “Значение <code>name</code> теперь связано с конкретной линзой, определённой для данного типа.”</p>
 <p>И вот теперь наш главный код приобретает следующий вид:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> 
-    <span class="kw">let</span> athleteWithoutName <span class="fu">=</span> <span class="dt">Athlete</span> empty
-        realAthlete        <span class="fu">=</span> set name (pack <span class="st">&quot;Taylor Fausak&quot;</span>) athleteWithoutName
-        nameOfRealAthlete  <span class="fu">=</span> get name realAthlete
-        clubWithoutName    <span class="fu">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span>
-        realClub           <span class="fu">=</span> set name <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName
-        nameOfRealClub     <span class="fu">=</span> get name realClub
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> unpack nameOfRealAthlete <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> nameOfRealClub</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> 
+    <span class="hs-keyword">let</span> <span class="hs-varid">athleteWithoutName</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Athlete</span> <span class="hs-varid">empty</span>
+        <span class="hs-varid">realAthlete</span>        <span class="hs-keyglyph">=</span> <span class="hs-varid">set</span> <span class="hs-varid">name</span> <span class="hs-layout">(</span><span class="hs-varid">pack</span> <span class="hs-str">"Taylor Fausak"</span><span class="hs-layout">)</span> <span class="hs-varid">athleteWithoutName</span>
+        <span class="hs-varid">nameOfRealAthlete</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">get</span> <span class="hs-varid">name</span> <span class="hs-varid">realAthlete</span>
+        <span class="hs-varid">clubWithoutName</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Club</span> <span class="hs-str">""</span>
+        <span class="hs-varid">realClub</span>           <span class="hs-keyglyph">=</span> <span class="hs-varid">set</span> <span class="hs-varid">name</span> <span class="hs-str">"Fixed Touring"</span> <span class="hs-varid">clubWithoutName</span>
+        <span class="hs-varid">nameOfRealClub</span>     <span class="hs-keyglyph">=</span> <span class="hs-varid">get</span> <span class="hs-varid">name</span> <span class="hs-varid">realClub</span>
+    <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">unpack</span> <span class="hs-varid">nameOfRealAthlete</span> <span class="hs-varop">++</span> <span class="hs-str">", "</span> <span class="hs-varop">++</span> <span class="hs-varid">nameOfRealClub</span></code></pre>
 <p>Элегантно, не правда ли? Читается теперь как поэма:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">set name <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">set</span> <span class="hs-varid">name</span> <span class="hs-str">"Fixed Touring"</span> <span class="hs-varid">clubWithoutName</span></code></pre>
 <p>Здесь <code>set</code> фокусируется на имени клуба через линзу <code>name</code>. Мы как будто говорим: “Измени то, на что смотрит эта линза”, или “Получи то, на что смотрит эта линза”. Грубо и схематично это можно представить себе так:</p>
-<pre><code>действие -&gt; линза -&gt; нечто, к чему применяется действие</code></pre>
+<pre><code>действие -> линза -> нечто, к чему применяется действие</code></pre>
 <h2 id="правда">Правда</h2>
 <p>А правда, друзья мои, состоит в том, что всё вышеизложенное есть не более чем мааааааленькая демонстрация. Существует мощный пакет <a href="http://hackage.haskell.org/package/lens">lens</a>, в котором всё уже реализовано очень умными людьми. К рассмотрению возможностей этого пакета мы приступим в следующих статьях.</p>
 

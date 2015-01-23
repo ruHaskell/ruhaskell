@@ -187,17 +187,17 @@
 <p>Все <code>GET-</code> и <code>POST</code>-запросы, направленные к корневой странице нашего приложения, будут обработаны сущностью, называемой <code>HomeR</code>. И теперь пришла пора заглянуть в каталог <code>Handler</code>:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Home.hs</span></code></pre>
 <p>В этом каталоге расположены файлы, содержащие код наших обработчиков. Откроем файл <code>Home.hs</code> и взглянем на них:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Handler.Home</span> <span class="kw">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Handler</span><span class="hs-varop">.</span><span class="hs-conid">Home</span> <span class="hs-keyword">where</span>
 
-<span class="kw">import </span><span class="dt">Import</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Import</span>
 
-<span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
-getHomeR <span class="fu">=</span> <span class="kw">do</span>
-    <span class="fu">...</span>
+<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Handler</span> <span class="hs-conid">Html</span>
+<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varop">...</span>
 
-<span class="ot">postHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
-postHomeR <span class="fu">=</span> <span class="kw">do</span>
-    <span class="fu">...</span></code></pre>
+<span class="hs-definition">postHomeR</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Handler</span> <span class="hs-conid">Html</span>
+<span class="hs-definition">postHomeR</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varop">...</span></code></pre>
 <p>В этом файле есть ещё кое-что, но я специально убрал это, чтобы мы сфокусировались на главном. Итак, ресурс <code>HomeR</code> представлен двумя обработчиками: <code>GET</code>-запросы принимает функция <code>getHomeR</code>, а <code>POST</code>-запросы - функция <code>postHomeR</code>. Обратите внимание: имена этих функций образованы от имени ресурса <code>HomeR</code> путём приписывания к нему префиксов <code>get</code> и <code>post</code> (как вы помните, имя Haskell-функции всегда начинается с маленькой буквы). Впрочем, сейчас мы не станем рассматривать тела этих функций, это тема для отдельного разговора.</p>
 <p>Обратите также внимание на имя модуля <code>Handler.Home</code>. В Yesod-проектах принято, что имя модуля, содержащего код обработчиков для ресурса, совпадает с именем этого ресурса, за вычетом буквы <code>R</code>. Таким образом, ресурсу <code>HomeR</code> соответствует модуль <code>Handler.Home</code>, а, скажем, ресурсу <code>ContactsR</code> будет соответствовать модуль <code>Handler.Contacts</code>.</p>
 <h2 id="иерархия">Иерархия</h2>

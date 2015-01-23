@@ -187,20 +187,20 @@
 </div>
 <p>Для начала немного упростим задачу и будем просто выводить результат разбора одномерного массива данных, сохраненного в npy формате (например, <code>[0.1, 0.2, 0.3, 0.4]</code>).</p>
 <p>Для начала определимся с используемыми типами данных:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Header</span> <span class="fu">=</span> <span class="dt">Header</span> {
-<span class="ot">    magic           ::</span> <span class="dt">BC.ByteString</span>,
-<span class="ot">    minVersion      ::</span> <span class="dt">Word8</span>,
-<span class="ot">    maxVersion      ::</span> <span class="dt">Word8</span>,
-<span class="ot">    headerLen       ::</span> <span class="dt">Integer</span>,
-<span class="ot">    header          ::</span> <span class="dt">BC.ByteString</span>,
-<span class="ot">    npyData         ::</span> [<span class="dt">Double</span>]
-    } <span class="kw">deriving</span> (<span class="dt">Show</span>)
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Header</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Header</span> <span class="hs-layout">{</span>
+    <span class="hs-varid">magic</span>           <span class="hs-keyglyph">::</span> <span class="hs-conid">BC</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span><span class="hs-layout">,</span>
+    <span class="hs-varid">minVersion</span>      <span class="hs-keyglyph">::</span> <span class="hs-conid">Word8</span><span class="hs-layout">,</span>
+    <span class="hs-varid">maxVersion</span>      <span class="hs-keyglyph">::</span> <span class="hs-conid">Word8</span><span class="hs-layout">,</span>
+    <span class="hs-varid">headerLen</span>       <span class="hs-keyglyph">::</span> <span class="hs-conid">Integer</span><span class="hs-layout">,</span>
+    <span class="hs-varid">header</span>          <span class="hs-keyglyph">::</span> <span class="hs-conid">BC</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span><span class="hs-layout">,</span>
+    <span class="hs-varid">npyData</span>         <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Double</span><span class="hs-keyglyph">]</span>
+    <span class="hs-layout">}</span> <span class="hs-keyword">deriving</span> <span class="hs-layout">(</span><span class="hs-conid">Show</span><span class="hs-layout">)</span>
 
-<span class="kw">data</span> <span class="dt">DictHeader</span> <span class="fu">=</span> <span class="dt">DictHeader</span> {
-<span class="ot">    descr           ::</span> <span class="dt">String</span>,
-<span class="ot">    fortran_order   ::</span> <span class="dt">Bool</span>,
-<span class="ot">    shape           ::</span> [<span class="dt">Int</span>]
-    } <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre>
+<span class="hs-keyword">data</span> <span class="hs-conid">DictHeader</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">DictHeader</span> <span class="hs-layout">{</span>
+    <span class="hs-varid">descr</span>           <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span><span class="hs-layout">,</span>
+    <span class="hs-varid">fortran_order</span>   <span class="hs-keyglyph">::</span> <span class="hs-conid">Bool</span><span class="hs-layout">,</span>
+    <span class="hs-varid">shape</span>           <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span>
+    <span class="hs-layout">}</span> <span class="hs-keyword">deriving</span> <span class="hs-layout">(</span><span class="hs-conid">Show</span><span class="hs-layout">)</span></code></pre>
 <p><em>Header</em> будет содержать данные о файле в целом:</p>
 <ul>
 <li>magic (6 byte) -&gt; всегда <code>&quot;x93NUMPY&quot;</code></li>
@@ -211,52 +211,50 @@
 </ul>
 <p><em>DictHeader</em> представляет данные, которые хранятся в <code>Header.header</code>.</p>
 <p>Для извлечения данных из файла будем использовать пакет <a href="http://hackage.haskell.org/package/cereal-0.4.1.1">cereal</a>, т.к. обычно используемая для этих целей библиотека <a href="https://hackage.haskell.org/package/binary">binary</a>, на удивление, не умеет работать с числами с плавающей точкой.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">file <span class="ot">&lt;-</span> openBinaryFile filePath <span class="dt">ReadMode</span>
-input <span class="ot">&lt;-</span> BL.hGetContents file
-<span class="kw">let</span> npyParsedData <span class="fu">=</span> runGetLazy npyHeader input
-<span class="kw">case</span> npyParsedData <span class="kw">of</span>
-    <span class="dt">Left</span> msg <span class="ot">-&gt;</span> print <span class="fu">$</span> msg
-    <span class="dt">Right</span> npyParsedData <span class="ot">-&gt;</span> <span class="kw">do</span>
-        <span class="kw">let</span> dataForParsing <span class="fu">=</span> BC.unpack <span class="fu">.</span> header <span class="fu">$</span> npyParsedData
-        <span class="kw">let</span> dictHeader <span class="fu">=</span> unwrap <span class="fu">.</span> header <span class="fu">$</span> npyParsedData
-        print <span class="fu">$</span> header npyParsedData
-        print <span class="fu">$</span> dictHeader
-        print <span class="fu">$</span> npyData npyParsedData</code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">file</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">openBinaryFile</span> <span class="hs-varid">filePath</span> <span class="hs-conid">ReadMode</span>
+<span class="hs-definition">input</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">BL</span><span class="hs-varop">.</span><span class="hs-varid">hGetContents</span> <span class="hs-varid">file</span>
+<span class="hs-keyword">let</span> <span class="hs-varid">npyParsedData</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">runGetLazy</span> <span class="hs-varid">npyHeader</span> <span class="hs-varid">input</span>
+<span class="hs-keyword">case</span> <span class="hs-varid">npyParsedData</span> <span class="hs-keyword">of</span>
+    <span class="hs-conid">Left</span> <span class="hs-varid">msg</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">print</span> <span class="hs-varop">$</span> <span class="hs-varid">msg</span>
+    <span class="hs-conid">Right</span> <span class="hs-varid">npyParsedData</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyword">do</span>
+        <span class="hs-keyword">let</span> <span class="hs-varid">dataForParsing</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">BC</span><span class="hs-varop">.</span><span class="hs-varid">unpack</span> <span class="hs-varop">.</span> <span class="hs-varid">header</span> <span class="hs-varop">$</span> <span class="hs-varid">npyParsedData</span>
+        <span class="hs-keyword">let</span> <span class="hs-varid">dictHeader</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">unwrap</span> <span class="hs-varop">.</span> <span class="hs-varid">header</span> <span class="hs-varop">$</span> <span class="hs-varid">npyParsedData</span>
+        <span class="hs-varid">print</span> <span class="hs-varop">$</span> <span class="hs-varid">header</span> <span class="hs-varid">npyParsedData</span>
+        <span class="hs-varid">print</span> <span class="hs-varop">$</span> <span class="hs-varid">dictHeader</span>
+        <span class="hs-varid">print</span> <span class="hs-varop">$</span> <span class="hs-varid">npyData</span> <span class="hs-varid">npyParsedData</span></code></pre>
 <p>В коде есть один интересный (<code>runGetLazy</code>) и один неинтересный момент (<code>unwrap</code>). Последняя предназначена для обработки заголовка, и она не использует готовые библиотеки для парсинга JSON. Дело в том, что это не совсем JSON, а python dictionary, поэтому <code>Aeson</code> и <code>Text.JSON</code> не хотят с ним работать. Но т.к. формат его достаточно прост и вряд ли будет меняться, я просто выдрал нужные данные из строки без посредников.</p>
 <p><code>runGetLazy</code> возвращает либо итоговые данные, либо сообщение об ошибке (<code>Either String a</code>), и использует следующую функцию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">npyHeader ::</span> <span class="dt">Get</span> <span class="dt">Header</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">npyHeader</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Get</span> <span class="hs-conid">Header</span>
 
-getNpyData <span class="fu">=</span> <span class="kw">do</span>
-    empty <span class="ot">&lt;-</span> isEmpty
-    <span class="kw">if</span> empty
-        <span class="kw">then</span> return []
-        <span class="kw">else</span> <span class="kw">do</span> 
-            v <span class="ot">&lt;-</span> getFloat64le
-            rest <span class="ot">&lt;-</span> getNpyData
-            return (v <span class="fu">:</span> rest)
+<span class="hs-definition">getNpyData</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">empty</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">isEmpty</span>
+    <span class="hs-keyword">if</span> <span class="hs-varid">empty</span>
+        <span class="hs-keyword">then</span> <span class="hs-varid">return</span> <span class="hs-conid">[]</span>
+        <span class="hs-keyword">else</span> <span class="hs-keyword">do</span> 
+            <span class="hs-varid">v</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getFloat64le</span>
+            <span class="hs-varid">rest</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getNpyData</span>
+            <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">v</span> <span class="hs-conop">:</span> <span class="hs-varid">rest</span><span class="hs-layout">)</span>
 
-npyHeader <span class="fu">=</span> <span class="kw">do</span>
-    magic <span class="ot">&lt;-</span> getByteString <span class="dv">6</span>
-    minVersion <span class="ot">&lt;-</span> getWord8
-    maxVersion <span class="ot">&lt;-</span> getWord8
-    headeLen <span class="ot">&lt;-</span> getWord16le
-    header <span class="ot">&lt;-</span> getByteString <span class="fu">$</span> fromIntegral headeLen
-    npyData <span class="ot">&lt;-</span> getNpyData
-    return <span class="dt">Header</span> {
-        magic<span class="fu">=</span>magic,
-        minVersion<span class="fu">=</span>minVersion,
-        maxVersion<span class="fu">=</span>maxVersion,
-        headeLen<span class="fu">=</span>fromIntegral headeLen,
-        header<span class="fu">=</span>header,
-        npyData<span class="fu">=</span>npyData
-    }</code></pre>
+<span class="hs-definition">npyHeader</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">magic</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getByteString</span> <span class="hs-num">6</span>
+    <span class="hs-varid">minVersion</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getWord8</span>
+    <span class="hs-varid">maxVersion</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getWord8</span>
+    <span class="hs-varid">headeLen</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getWord16le</span>
+    <span class="hs-varid">header</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getByteString</span> <span class="hs-varop">$</span> <span class="hs-varid">fromIntegral</span> <span class="hs-varid">headeLen</span>
+    <span class="hs-varid">npyData</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getNpyData</span>
+    <span class="hs-varid">return</span> <span class="hs-conid">Header</span> <span class="hs-layout">{</span>
+        <span class="hs-varid">magic</span><span class="hs-keyglyph">=</span><span class="hs-varid">magic</span><span class="hs-layout">,</span>
+        <span class="hs-varid">minVersion</span><span class="hs-keyglyph">=</span><span class="hs-varid">minVersion</span><span class="hs-layout">,</span>
+        <span class="hs-varid">maxVersion</span><span class="hs-keyglyph">=</span><span class="hs-varid">maxVersion</span><span class="hs-layout">,</span>
+        <span class="hs-varid">headeLen</span><span class="hs-keyglyph">=</span><span class="hs-varid">fromIntegral</span> <span class="hs-varid">headeLen</span><span class="hs-layout">,</span>
+        <span class="hs-varid">header</span><span class="hs-keyglyph">=</span><span class="hs-varid">header</span><span class="hs-layout">,</span>
+        <span class="hs-varid">npyData</span><span class="hs-keyglyph">=</span><span class="hs-varid">npyData</span>
+    <span class="hs-layout">}</span></code></pre>
 <p>Собственно, для каждого поля мы получаем необходимые данные. Для чтения самого массива чисел, который идет после заголовка, мы используем отдельную функцию, которая (пока!) вытягивает все до последнего без каких-либо проверок, но для простого случая этого достаточно.</p>
 <p>Что удивительно, на этом все =) Полный код можно подсмотреть <a href="https://github.com/erthalion/hnpy">здесь</a>. Теперь, если мы создадим тестовый файл (можно взять из репозитория, или создать самостоятельно <code>np.save('test', np.array([0.1, 0.2, 0.3, 0.4]))</code>), и натравим на него нашу утилитку, мы получим заложенные в нем данные (здесь были белки-истерички, но в финальной версии статьи я их удалил =):</p>
 <pre><code>$ hnpy test.npy
 
-&quot;{'descr': '&lt;f8', 'fortran_order': False, 'shape': (4,), }            \n&quot;
-DictHeader {descr = &quot;&lt;f8&quot;, fortran_order = False, shape = [4]}
-[0.1,0.2,0.3,0.4]</code></pre>
+"{'descr': '<f8', 'fortran_order': False, 'shape': (4,), } \n" DictHeader {descr="<f8" , fortran_order="False," shape="[4]}" [0.1,0.2,0.3,0.4]< code></pre>
 <p>Отдаю на растерзание, буду благодарен за правки и рационализаторские предложения.</p>
 
 <div id="socialButtons">
