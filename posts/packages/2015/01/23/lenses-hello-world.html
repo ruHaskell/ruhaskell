@@ -427,7 +427,7 @@ main <span class="fu">=</span>
     <span class="kw">in</span> putStrLn <span class="fu">$</span> unpack nameOfRealAthlete <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> nameOfRealClub</code></pre>
 <p>Элегантно, не правда ли? Читается теперь как поэма:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell">set name <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName</code></pre>
-<p>Мы как бы берём действие <code>set</code> и, фокусируясь на клубе через клубную линзу <code>name</code>, изменяем этим действием имя клуба. Грубо и схематично это можно представить себе так:</p>
+<p>Здесь <code>set</code> фокусируется на имени клуба через линзу <code>name</code>. Мы как будто говорим: “Измени то, на что смотрит эта линза”, или “Получи то, на что смотрит эта линза”. Грубо и схематично это можно представить себе так:</p>
 <pre><code>действие -&gt; линза -&gt; нечто, к чему применяется действие</code></pre>
 <h2 id="правда">Правда</h2>
 <p>А правда, друзья мои, состоит в том, что всё вышеизложенное есть не более чем мааааааленькая демонстрация. Существует мощный пакет <a href="http://hackage.haskell.org/package/lens">lens</a>, в котором всё уже реализовано очень умными людьми. К рассмотрению возможностей этого пакета мы приступим в следующих статьях.</p>
