@@ -15,6 +15,13 @@
     <guid>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</guid>
 </item>
 <item>
+    <title>Знакомство с Threepenny-GUI</title>
+    <link>http://ruhaskell.org/posts/gui/2015/01/22/threepenny.html</link>
+    <description><![CDATA[Демонстрация создания простого GUI на основе Threepenny-GUI и Reactive Banana]]></description>
+    <pubDate>Thu, 22 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/gui/2015/01/22/threepenny.html</guid>
+</item>
+<item>
     <title>Начало проекта на Elm</title>
     <link>http://ruhaskell.org/posts/elm/2015/01/22/elm-hello.html</link>
     <description><![CDATA[Hello, FRP world!]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня поговорим о разворачивании нашего приложения без использования Keter.]]></description>
     <pubDate>Sat, 27 Dec 2014 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2014/12/27/yesod-raw-deploy.html</guid>
-</item>
-<item>
-    <title>Yesod: и17я</title>
-    <link>http://ruhaskell.org/posts/web/2014/12/26/yesod-i18n.html</link>
-    <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня чуть подробнее поговорим об интернационализации.]]></description>
-    <pubDate>Fri, 26 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/web/2014/12/26/yesod-i18n.html</guid>
 </item>
 
     </channel> 
