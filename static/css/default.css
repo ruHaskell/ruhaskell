@@ -337,6 +337,21 @@ div#searchForm {
     padding-top: 40px;
 }
 
+
+/* Hscolour. Solarized palette */
+.hs-keyglyph, .hs-layout   {color: #b58900}
+.hs-keyword                {color: #007020}
+.hs-comment, .hs-comment a {color: #dc322f}
+.hs-str, .hs-chr           {color: #6c71c4}
+.hs-cpp                    {color: #b58900}
+.hs-conid                  {color: #2aa198}
+.hs-keyword                {color: #d33682}
+.hs-definition             {color: #268bd2}
+.hs-varid, .hs-conop, .hs-varop, .hs-num, .hs-sel {}
+
+
+
+/* Highlighting-kate */
 /* Loosely based on pygment's default colors */
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode pre 
    { margin: 0; padding: 0; border: 0; vertical-align: baseline; border: none; }
@@ -363,6 +378,7 @@ pre.sourceCode {
     border: 1px solid #FBE7D8; /* Параметры границы */
     border-radius: 3px;
     background: #fdf6e3; /* Цвет фона */
+    color: #073642;	 /* solarized’s base02 */
     padding: 7px; /* Поля вокруг текста */
     margin-top: 18px;
     margin-bottom: 18px;
