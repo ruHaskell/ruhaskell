@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</loc>
     </url>
 

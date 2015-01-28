@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 23 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Jan 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Линзы: Real World</title>
+    <link>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</link>
+    <description><![CDATA[Продолжаем изучать линзы, а именно пакет fclabels.]]></description>
+    <pubDate>Wed, 28 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</guid>
+</item>
+<item>
     <title>Линзы: Hello World!</title>
     <link>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</link>
     <description><![CDATA[Введение в линзы. Только для новичков, опытным хаскелистам не читать!]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Данная задача представляет собой одну из множества задач, задаваемых время от времени начинающим разработчикам на собеседованиях.]]></description>
     <pubDate>Mon, 29 Dec 2014 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/tasks/2014/12/29/haskell-fur-tree.html</guid>
-</item>
-<item>
-    <title>Yesod: разворачиваем приложение без Keter</title>
-    <link>http://ruhaskell.org/posts/web/2014/12/27/yesod-raw-deploy.html</link>
-    <description><![CDATA[Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня поговорим о разворачивании нашего приложения без использования Keter.]]></description>
-    <pubDate>Sat, 27 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/web/2014/12/27/yesod-raw-deploy.html</guid>
 </item>
 
     </channel> 
