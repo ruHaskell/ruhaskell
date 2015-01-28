@@ -120,7 +120,7 @@ data Place = Place { _address   :: Address
                    } deriving Show
 ```
 
-Теперь место жительства содержит поле типа `Address`. Теперь пишем:
+Теперь место жительства содержит поле типа `Address`. Далее пишем:
 
 ```haskell
 mkLabels [''Person, ''Place, ''Address]
@@ -140,7 +140,7 @@ main =
 Jan, Bilthoven
 ```
 
-Обратите внимание: мы сгенерировали линзы и для типа `Address`. А теперь красиво комбинируем доступ к названию улицы:
+Обратите внимание: мы сгенерировали линзы и для типа `Address`. А теперь комбинируем поля для доступа к названию улицы:
 
 ```haskell
 janStreet = get (street . address . place) jan
