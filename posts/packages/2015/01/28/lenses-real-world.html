@@ -246,7 +246,7 @@
                    <span class="hs-layout">,</span> <span class="hs-sel">_country</span>
                    <span class="hs-layout">,</span> <span class="hs-sel">_continent</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span>
                    <span class="hs-layout">}</span> <span class="hs-keyword">deriving</span> <span class="hs-conid">Show</span></code></pre>
-<p>Теперь место жительства содержит поле типа <code>Address</code>. Теперь пишем:</p>
+<p>Теперь место жительства содержит поле типа <code>Address</code>. Далее пишем:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">mkLabels</span> <span class="hs-keyglyph">[</span><span class="hs-chr">'</span><span class="hs-chr">'</span><span class="hs-conid">Person</span><span class="hs-layout">,</span> <span class="hs-chr">'</span><span class="hs-chr">'</span><span class="hs-conid">Place</span><span class="hs-layout">,</span> <span class="hs-chr">'</span><span class="hs-chr">'</span><span class="hs-conid">Address</span><span class="hs-keyglyph">]</span>
 
 <span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
@@ -258,7 +258,7 @@
     <span class="hs-keyword">in</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">janName</span> <span class="hs-varop">++</span> <span class="hs-str">", "</span> <span class="hs-varop">++</span> <span class="hs-varid">janStreet</span></code></pre>
 <p>Вывод:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Jan</span>, Bilthoven</code></pre>
-<p>Обратите внимание: мы сгенерировали линзы и для типа <code>Address</code>. А теперь красиво комбинируем доступ к названию улицы:</p>
+<p>Обратите внимание: мы сгенерировали линзы и для типа <code>Address</code>. А теперь комбинируем поля для доступа к названию улицы:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">janStreet</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">get</span> <span class="hs-layout">(</span><span class="hs-varid">street</span> <span class="hs-varop">.</span> <span class="hs-varid">address</span> <span class="hs-varop">.</span> <span class="hs-varid">place</span><span class="hs-layout">)</span> <span class="hs-varid">jan</span></code></pre>
 <p>Красиво, не правда ли? Таким образом, линзовый доступ позволяет нам заглянуть сколь угодно глубоко.</p>
 <h2 id="изменяем">Изменяем</h2>
