@@ -501,8 +501,15 @@ input.gsc-search-button-v2{
     padding-bottom: 15px;
 }
 
-.comments-link {
+.post-comments {
     padding-left: 10px;
     font-size: 14px;
+    color: #888 !important;
+}
+
+.comments-link {
+    padding-left: 5px;
+    font-size: 14px;
+    color: #888 !important;
 }
 
