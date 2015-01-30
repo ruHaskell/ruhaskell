@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</loc>
     </url>
 

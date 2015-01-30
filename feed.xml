@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Wed, 28 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 30 Jan 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Реализация реляционной алгебры</title>
+    <link>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</link>
+    <description><![CDATA[Пост описывает возможности построения реляционных отношений и базовых операций над ними.]]></description>
+    <pubDate>Fri, 30 Jan 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</guid>
+</item>
+<item>
     <title>Линзы: Real World</title>
     <link>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</link>
     <description><![CDATA[Продолжаем изучать линзы, а именно пакет fclabels.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Написание CLI-утилиты, запрашивающей прогноз погоды у Yahoo]]></description>
     <pubDate>Sat, 10 Jan 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</guid>
-</item>
-<item>
-    <title>"Ёлочка"</title>
-    <link>http://ruhaskell.org/posts/tasks/2014/12/29/haskell-fur-tree.html</link>
-    <description><![CDATA[Данная задача представляет собой одну из множества задач, задаваемых время от времени начинающим разработчикам на собеседованиях.]]></description>
-    <pubDate>Mon, 29 Dec 2014 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/tasks/2014/12/29/haskell-fur-tree.html</guid>
 </item>
 
     </channel> 
