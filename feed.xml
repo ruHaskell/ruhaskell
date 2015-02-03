@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 30 Jan 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Tue, 03 Feb 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Aeson: Hello World!</title>
+    <link>http://ruhaskell.org/posts/packages/2015/02/03/aeson-hello-world.html</link>
+    <description><![CDATA[Сегодня подружимся в JSON и познакомимся с пакетом aeson.]]></description>
+    <pubDate>Tue, 03 Feb 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/packages/2015/02/03/aeson-hello-world.html</guid>
+</item>
+<item>
     <title>Реализация реляционной алгебры</title>
     <link>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</link>
     <description><![CDATA[Пост описывает возможности построения реляционных отношений и базовых операций над ними.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Первый шаг на пути создания библиотеки для работы с npy файлами в Haskell]]></description>
     <pubDate>Thu, 15 Jan 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/utils/2015/01/15/npy-parsing.html</guid>
-</item>
-<item>
-    <title>О погоде функционально</title>
-    <link>http://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</link>
-    <description><![CDATA[Написание CLI-утилиты, запрашивающей прогноз погоды у Yahoo]]></description>
-    <pubDate>Sat, 10 Jan 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</guid>
 </item>
 
     </channel> 

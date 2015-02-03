@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Aeson: Hello World!</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Aeson: Hello World!</h1>
+
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2594%25D0%25B5%25D0%25BD%25D0%25B8%25D1%2581%2520%25D0%25A8%25D0%25B5%25D0%25B2%25D1%2587%25D0%25B5%25D0%25BD%25D0%25BA%25D0%25BE.html">Денис Шевченко</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 feb 03<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/packages.html">Пакеты</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/JSON.html">JSON</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+  
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p>Приветствую, друзья!</p>
+<p>Возникла тут у меня насущная потребность изучить работу с JSON в Haskell. Сами знаете, сегодня JSON используется везде и всюду, потому я и захотел разобраться в этом вопросе основательно.</p>
+<p>Разумеется, выбор мой пал на пакет <code>aeson</code>, ибо он мощный, шустрый и весьма широко используемый. В рамках данной статьи мы рассмотрим лишь самые азы работы с ним (которых, впрочем, будет достаточно для базовой работы с JSON).</p>
+<h2 id="привет-json-мир">Привет, JSON-мир!</h2>
+<p>Итак, у нас есть JSON-файл с информацией об одном-единственном хосте:</p>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3000</span>
+<span class="fu">}</span></code></pre>
+<p>Соответственно, требуется распарсить это хозяйство и вывести. Наиболее простым способом использования пакета <code>aeson</code> является чтение в (составной) тип. Определим же его:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Host</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-layout">{</span> <span class="hs-varid">ip</span>   <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span>
+                 <span class="hs-layout">,</span> <span class="hs-varid">port</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span>
+                 <span class="hs-layout">}</span>
+
+<span class="hs-definition">printPretty</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Host</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
+<span class="hs-definition">printPretty</span> <span class="hs-layout">(</span><span class="hs-conid">Host</span> <span class="hs-varid">ip</span> <span class="hs-varid">port</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">ip</span> <span class="hs-varop">++</span> <span class="hs-str">":"</span> <span class="hs-varop">++</span> <span class="hs-varid">show</span> <span class="hs-varid">port</span></code></pre>
+<p>Теперь нужно поведать, <em>каким образом</em> мы желаем извлекать значение этого типа из сырого JSON. Для этого определим экземпляр класса <code>FromJSON</code>:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">FromJSON</span> <span class="hs-conid">Host</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">host</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"ip"</span>
+                                   <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"port"</span>
+
+    <span class="hs-varid">parseJSON</span> <span class="hs-keyword">_</span>             <span class="hs-keyglyph">=</span> <span class="hs-varid">mzero</span></code></pre>
+<p>Как вы поняли, класс типов <code>FromJSON</code> объединяет все типы, значения которых могут быть построены из содержимого JSON. Этот класс включает в себя единственный метод <code>parseJSON</code>, но мы пока не станем рассматривать его подробно.</p>
+<p>Теперь пишем наш главный код:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">{-# LANGUAGE OverloadedStrings #-}</span>
+
+<span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+
+<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span> <span class="hs-keyword">as</span> <span class="hs-conid">B</span>
+<span class="hs-keyword">import</span>           <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Monad</span> <span class="hs-layout">(</span><span class="hs-varid">mzero</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span>           <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">&lt;$&gt;</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varop">&lt;*&gt;</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span>
+
+<span class="hs-varop">...</span>
+
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">B</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"/Users/dshevchenko/our.json"</span>
+    <span class="hs-comment">-- Проверки, связанные с чтением файла, опущены...</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">result</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">decodeStrict</span> <span class="hs-varid">rawJSON</span>
+    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-keyword">case</span> <span class="hs-varid">result</span> <span class="hs-keyword">of</span>
+        <span class="hs-conid">Nothing</span>   <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"Invalid JSON!"</span>
+        <span class="hs-conid">Just</span> <span class="hs-varid">host</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">printPretty</span> <span class="hs-varid">host</span></code></pre>
+<p>При работе с пакетом <code>aeson</code> умолчальным строковым типом является <code>ByteString</code>, а не <code>String</code> (и это хорошо, ибо значиииительно эффективнее). После прочтения файла мы вызываем функцию <code>decodeStrict</code>, которая и делает всю главную работу по извлечению данных из JSON. Обращаю ваше внимание на то, что функция <code>decodeStrict</code> является строгим вариантом функции <code>decode</code>. Мы вынуждены использовать строгий вариант, ибо функция <code>B.readFile</code> читает файл строго, а не лениво.</p>
+<p>После запуска этой программы результат вполне ожидаем:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">127.0.0.1</span>:3000</code></pre>
+<h2 id="из-json">Из JSON</h2>
+<p>Взглянем ещё раз на экземпляр класса <code>FromJSON</code> для нашего хоста:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">FromJSON</span> <span class="hs-conid">Host</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">host</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"ip"</span>
+                                   <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"port"</span>
+
+    <span class="hs-varid">parseJSON</span> <span class="hs-keyword">_</span>             <span class="hs-keyglyph">=</span> <span class="hs-varid">mzero</span></code></pre>
+<p>Обратите внимание на тип <code>Object</code>. Используя этот тип, мы заявляем о нашем желании работать с классическим JSON-объектом (представляющим собой набор пар “ключ-значение”). И в данном случае это именно то, что нам нужно: есть один JSON-объект, содержащий две пары, для IP-адреса и для порта. Поэтому мы формируем значение заготовленного типа <code>Host</code> на основании извлечённых значений, а именно IP-адреса:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"ip"</span></code></pre>
+<p>и порта:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"port"</span></code></pre>
+<p>Ну а второй вариант метода <code>parseJSON</code> для типа <code>Host</code>, как вы уже поняли, представляет собой пустышку: если в JSON не окажется ожидаемого нами объекта, значит ничего и сделать нельзя.</p>
+<p>Кстати, если аппликативный синтаксис вызывает у вас затруднения, метод <code>parseJSON</code> можно переписать в более явной форме:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">host</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">anIP</span>  <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"ip"</span>
+    <span class="hs-varid">aPort</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span> <span class="hs-str">"port"</span>
+    <span class="hs-varid">return</span> <span class="hs-varop">$</span> <span class="hs-conid">Host</span> <span class="hs-varid">anIP</span> <span class="hs-varid">aPort</span></code></pre>
+<p>Здесь мы последовательно извлекаем значения двух ключей и строим из них значение типа <code>Host</code>, возвращая его в монадическую обёртку.</p>
+<h2 id="в-json">В JSON</h2>
+<p>Проделаем обратный фокус - подготовимся к превращаению значения типа <code>Host</code> в JSON. Для этого нам необходимо определить свой экземпляр класса <code>ToJSON</code>:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">ToJSON</span> <span class="hs-conid">Host</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">toJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Host</span> <span class="hs-varid">anIP</span> <span class="hs-varid">aPort</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">object</span> <span class="hs-keyglyph">[</span> <span class="hs-str">"ip"</span>   <span class="hs-varop">.=</span> <span class="hs-varid">anIP</span>
+                                      <span class="hs-layout">,</span> <span class="hs-str">"port"</span> <span class="hs-varop">.=</span> <span class="hs-varid">aPort</span>
+                                      <span class="hs-keyglyph">]</span></code></pre>
+<p>Здесь всё наоборот: берём значение типа <code>Host</code> и указываем его IP-адрес и порт для ключей <code>ip</code> и <code>port</code> соответственно. Обратите внимание на функцию <code>object</code>: раньше мы извлекали JSON-объект, а теперь мы его формируем.</p>
+<p>Пишем главный код:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span><span class="hs-varop">.</span><span class="hs-conid">Lazy</span><span class="hs-varop">.</span><span class="hs-conid">Char8</span> <span class="hs-keyword">as</span> <span class="hs-conid">LC</span>
+
+<span class="hs-varop">...</span>
+
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">host</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
+    <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encode</span> <span class="hs-varid">host</span></code></pre>
+<p>Функция <code>encode</code> сериализует значение хоста, и потому на выходе мы получим ожидаемый результат:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="dt">{&quot;ip&quot;:&quot;127.0.0.1&quot;,&quot;port&quot;:3050}</span></code></pre>
+<h2 id="украшаем">Украшаем</h2>
+<p>Не знаю как вам, друзья, а мне не нравятся вот такие однострочные JSON. Всё-таки иногда JSON читают не только программы, но и люди. К счастью, есть маленький пакет <code>aeson-pretty</code>, который украсит наш результат. Установив его, пишем:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span><span class="hs-varop">.</span><span class="hs-conid">Encode</span><span class="hs-varop">.</span><span class="hs-conid">Pretty</span>
+
+<span class="hs-varop">...</span>
+
+<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">host</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
+    <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varid">host</span></code></pre>
+<p>Вместо функции <code>encode</code> теперь используется функция <code>encodePretty</code>, и поэтому на выходе мы получим вот такую красоту:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
+    <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+    <span class="st">&quot;port&quot;</span>: <span class="kw">3050</span>
+<span class="kw">}</span></code></pre>
+<p>Кстати, если отступ в 4 символа вас не устраивает (я знаю, многие привыкли к двум пробелам), это можно легко изменить:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">host</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
+        <span class="hs-varid">prettyConfig</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Config</span> <span class="hs-layout">{</span> <span class="hs-varid">confIndent</span>  <span class="hs-keyglyph">=</span> <span class="hs-num">2</span>
+                              <span class="hs-layout">,</span> <span class="hs-varid">confCompare</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">mempty</span>
+                              <span class="hs-layout">}</span>
+    <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty'</span> <span class="hs-varid">prettyConfig</span> <span class="hs-varid">host</span></code></pre>
+<p>Мы используем второй вариант функции <code>encodePretty</code>, а именно <code>encodePretty'</code>, потому что лишь этот вариант принимает конфиг в качестве первого аргумента. Результат:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
+  <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+  <span class="st">&quot;port&quot;</span>: <span class="kw">3050</span>
+<span class="kw">}</span></code></pre>
+<h2 id="опциональное-значение">Опциональное значение</h2>
+<p>Пусть наличие порта для хоста будет необязательным, то есть файл может быть и таким:</p>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span>
+<span class="fu">}</span></code></pre>
+<p>В этом случае мы обязаны сообщить об опциональности ключа “port”:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">host</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">anIP</span>  <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">host</span> <span class="hs-varop">.:</span>  <span class="hs-str">"ip"</span>
+    <span class="hs-varid">aPort</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">host</span> <span class="hs-varop">.:?</span> <span class="hs-str">"port"</span> <span class="hs-varop">.!=</span> <span class="hs-num">80</span>
+    <span class="hs-varid">return</span> <span class="hs-varop">$</span> <span class="hs-conid">Host</span> <span class="hs-varid">anIP</span> <span class="hs-varid">aPort</span></code></pre>
+<p>Оператор <code>.:?</code> указывает на то, что значения “port” может не быть. А оператор <code>.!=</code>, в свою очередь, задаёт умолчальное значение порта, в случае его отсутствия в JSON. Просто и понятно.</p>
+<h2 id="массив">Массив</h2>
+<p>Чуток усложним наш JSON. Пусть теперь в нём живёт безымянный массив хостов:</p>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
+    <span class="fu">{</span>
+        <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3000</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+        <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3010</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+        <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3020</span>
+    <span class="fu">}</span>
+<span class="ot">]</span></code></pre>
+<p>Очевидно, теперь в качестве результата мы ожидаем получить список значений типа <code>Host</code>. Нет ничего проще! Пишем:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">B</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"/Users/dshevchenko/our.json"</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">result</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">decodeStrict</span> <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Host</span><span class="hs-keyglyph">]</span>
+    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-keyword">case</span> <span class="hs-varid">result</span> <span class="hs-keyword">of</span>
+        <span class="hs-conid">Nothing</span>    <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"Invalid JSON!"</span>
+        <span class="hs-conid">Just</span> <span class="hs-varid">hosts</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">show</span> <span class="hs-varop">$</span> <span class="hs-varid">printPretty</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">hosts</span></code></pre>
+<p>Видите? Мы всего лишь явно указали тип значения, возвращаемого функцией <code>decodeStrict</code>: раньше тип был <code>Maybe Host</code>, а теперь - <code>Maybe [Host]</code>. Соответственно, в <code>Just</code>-секции мы бежим по извлечённому списку и красиво отображаем каждый из хостов. И вот результат:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre>
+<h2 id="массив---в-json">Массив - в JSON</h2>
+<p>Теперь наоборот: сформируем JSON-массив на основании списка хостов. К счастью, нам ничего не придётся переделывать для этого. Мы просто пишем:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">hosts</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
+                <span class="hs-layout">,</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3070</span>
+                <span class="hs-layout">,</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3080</span>
+                <span class="hs-keyglyph">]</span>
+    <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varid">hosts</span></code></pre>
+<p>То есть просто формируем список хостов и передаём на сериализацию. Готово:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span>
+    {
+        <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+        <span class="st">&quot;port&quot;</span>: 3050
+    },
+    {
+        <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+        <span class="st">&quot;port&quot;</span>: 3070
+    },
+    {
+        <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+        <span class="st">&quot;port&quot;</span>: 3080
+    }
+<span class="kw">]</span></code></pre>
+<h2 id="именованный-массив">Именованный массив</h2>
+<p>Ещё немного усложним наш JSON. Пусть теперь у нас будет именованный массив хостов:</p>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;hosts&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3000</span>
+        <span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3010</span>
+        <span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3020</span>
+        <span class="fu">}</span>
+    <span class="ot">]</span>
+<span class="fu">}</span></code></pre>
+<p>В этом случае достать их прежним способом мы уже, разумеется, не сможем. Ведь теперь у нас есть один JSON-объект на верхнем уровне, содержащий ключ, которому соответствует уже известный нам массив хостов. Поэтому определим ещё один тип:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Hosts</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Hosts</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Host</span><span class="hs-keyglyph">]</span></code></pre>
+<p>Значение типа <code>Hosts</code> хранит список хостов. А раз появился новый тип, нужно и ещё одно парсинговое правило. Определим экземпляр класса <code>FromJSON</code> для типа <code>Hosts</code>:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">FromJSON</span> <span class="hs-conid">Hosts</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">hosts</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">anArray</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">hosts</span> <span class="hs-varop">.:</span> <span class="hs-str">"hosts"</span>
+        <span class="hs-varid">return</span> <span class="hs-varop">$</span> <span class="hs-conid">Hosts</span> <span class="hs-varid">anArray</span></code></pre>
+<p>Тут всё точно так как и прежде, ведь на верхнем иерархическом уровне у нас располагается обычный JSON-объект, с единственным ключом “hosts”. Поэтому главный код остаётся без изменений:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">B</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"/Users/dshevchenko/our.json"</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">result</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">decodeStrict</span> <span class="hs-varid">rawJSON</span>
+    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-keyword">case</span> <span class="hs-varid">result</span> <span class="hs-keyword">of</span>
+        <span class="hs-conid">Nothing</span>            <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"Invalid JSON!"</span>
+        <span class="hs-conid">Just</span> <span class="hs-layout">(</span><span class="hs-conid">Hosts</span> <span class="hs-varid">hosts</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">show</span> <span class="hs-varop">$</span> <span class="hs-varid">printPretty</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">hosts</span></code></pre>
+<p>И наш результат:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre>
+<h2 id="и-вновь-в-json">И вновь в JSON</h2>
+<p>Сделаем обратное действие: сформируем JSON с именованым списком хостов. И поскольку у нас появился тип <code>Hosts</code>, определим правило превращения в JSON и для него:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">ToJSON</span> <span class="hs-conid">Hosts</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">toJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Hosts</span> <span class="hs-varid">hosts</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">object</span> <span class="hs-keyglyph">[</span> <span class="hs-str">"hosts"</span> <span class="hs-varop">.=</span> <span class="hs-varid">hosts</span>
+                                  <span class="hs-keyglyph">]</span></code></pre>
+<p>Полагаю, тут уже всё ясно без комментариев. А теперь пишем:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">hosts</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
+                <span class="hs-layout">,</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3070</span>
+                <span class="hs-layout">,</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3080</span>
+                <span class="hs-keyglyph">]</span>
+    <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varop">$</span> <span class="hs-conid">Hosts</span> <span class="hs-varid">hosts</span></code></pre>
+<p>Как видите, мы передали на сериализацию уже не голый список, а значение типа <code>Hosts</code> (для этого нам и понадобился экземпляр класса <code>ToJSON</code> для данного типа). И вот результат:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
+    <span class="st">&quot;hosts&quot;</span>:<span class="kw"> [</span>
+        {
+            <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+            <span class="st">&quot;port&quot;</span>: 3050
+        },
+        {
+            <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+            <span class="st">&quot;port&quot;</span>: 3070
+        },
+        {
+            <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
+            <span class="st">&quot;port&quot;</span>: 3080
+        }
+   <span class="kw"> ]</span>
+<span class="kw">}</span></code></pre>
+<h2 id="выводы">Выводы</h2>
+<p>Как мы убедились, использовать <code>aeson</code> для работы с простым JSON совершенно несложно. Лично мне очень понравилось. Но, как я и сказал, всё это только азы. В будущих заметках мы изучим более продвинутые возможности этого пакета.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
+
+  </body>
+</html>
+
