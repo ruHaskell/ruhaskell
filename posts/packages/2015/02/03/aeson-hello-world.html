@@ -266,7 +266,7 @@
     <span class="hs-keyword">let</span> <span class="hs-varid">host</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
     <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encode</span> <span class="hs-varid">host</span></code></pre>
 <p>Функция <code>encode</code> сериализует значение хоста, и потому на выходе мы получим ожидаемый результат:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="dt">{&quot;ip&quot;:&quot;127.0.0.1&quot;,&quot;port&quot;:3050}</span></code></pre>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span><span class="dt">&quot;ip&quot;</span><span class="fu">:</span><span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span><span class="dt">&quot;port&quot;</span><span class="fu">:</span><span class="dv">3050</span><span class="fu">}</span></code></pre>
 <h2 id="украшаем">Украшаем</h2>
 <p>Не знаю как вам, друзья, а мне не нравятся вот такие однострочные JSON. Всё-таки иногда JSON читают не только программы, но и люди. К счастью, есть маленький пакет <code>aeson-pretty</code>, который украсит наш результат. Установив его, пишем:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span><span class="hs-varop">.</span><span class="hs-conid">Encode</span><span class="hs-varop">.</span><span class="hs-conid">Pretty</span>
@@ -278,10 +278,10 @@
     <span class="hs-keyword">let</span> <span class="hs-varid">host</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Host</span> <span class="hs-str">"127.0.0.1"</span> <span class="hs-num">3050</span>
     <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varid">host</span></code></pre>
 <p>Вместо функции <code>encode</code> теперь используется функция <code>encodePretty</code>, и поэтому на выходе мы получим вот такую красоту:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
-    <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-    <span class="st">&quot;port&quot;</span>: <span class="kw">3050</span>
-<span class="kw">}</span></code></pre>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
+<span class="fu">}</span></code></pre>
 <p>Кстати, если отступ в 4 символа вас не устраивает (я знаю, многие привыкли к двум пробелам), это можно легко изменить:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
 <span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
@@ -291,10 +291,10 @@
                               <span class="hs-layout">}</span>
     <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty'</span> <span class="hs-varid">prettyConfig</span> <span class="hs-varid">host</span></code></pre>
 <p>Мы используем второй вариант функции <code>encodePretty</code>, а именно <code>encodePretty'</code>, потому что лишь этот вариант принимает конфиг в качестве первого аргумента. Результат:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
-  <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-  <span class="st">&quot;port&quot;</span>: <span class="kw">3050</span>
-<span class="kw">}</span></code></pre>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
+<span class="fu">}</span></code></pre>
 <h2 id="опциональное-значение">Опциональное значение</h2>
 <p>Пусть наличие порта для хоста будет необязательным, то есть файл может быть и таким:</p>
 <pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
@@ -342,20 +342,20 @@
                 <span class="hs-keyglyph">]</span>
     <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varid">hosts</span></code></pre>
 <p>То есть просто формируем список хостов и передаём на сериализацию. Готово:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">[</span>
-    {
-        <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-        <span class="st">&quot;port&quot;</span>: 3050
-    },
-    {
-        <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-        <span class="st">&quot;port&quot;</span>: 3070
-    },
-    {
-        <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-        <span class="st">&quot;port&quot;</span>: 3080
-    }
-<span class="kw">]</span></code></pre>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
+    <span class="fu">{</span>
+        <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+        <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3070</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+        <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3080</span>
+    <span class="fu">}</span>
+<span class="ot">]</span></code></pre>
 <h2 id="именованный-массив">Именованный массив</h2>
 <p>Ещё немного усложним наш JSON. Пусть теперь у нас будет именованный массив хостов:</p>
 <pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
@@ -405,22 +405,22 @@
                 <span class="hs-keyglyph">]</span>
     <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varop">$</span> <span class="hs-conid">Hosts</span> <span class="hs-varid">hosts</span></code></pre>
 <p>Как видите, мы передали на сериализацию уже не голый список, а значение типа <code>Hosts</code> (для этого нам и понадобился экземпляр класса <code>ToJSON</code> для данного типа). И вот результат:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
-    <span class="st">&quot;hosts&quot;</span>:<span class="kw"> [</span>
-        {
-            <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-            <span class="st">&quot;port&quot;</span>: 3050
-        },
-        {
-            <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-            <span class="st">&quot;port&quot;</span>: 3070
-        },
-        {
-            <span class="st">&quot;ip&quot;</span>: <span class="st">&quot;127.0.0.1&quot;</span>,
-            <span class="st">&quot;port&quot;</span>: 3080
-        }
-   <span class="kw"> ]</span>
-<span class="kw">}</span></code></pre>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;hosts&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
+        <span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3070</span>
+        <span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3080</span>
+        <span class="fu">}</span>
+    <span class="ot">]</span>
+<span class="fu">}</span></code></pre>
 <h2 id="выводы">Выводы</h2>
 <p>Как мы убедились, использовать <code>aeson</code> для работы с простым JSON совершенно несложно. Лично мне очень понравилось. Но, как я и сказал, всё это только азы. В будущих заметках мы изучим более продвинутые возможности этого пакета.</p>
 
