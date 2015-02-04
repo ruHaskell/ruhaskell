@@ -392,7 +392,7 @@
 <p>И наш результат:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre>
 <h2 id="и-вновь-в-json">И вновь в JSON</h2>
-<p>Сделаем обратное действие: сформируем JSON с именованым списком хостов. И поскольку у нас появился тип <code>Hosts</code>, определим правило превращения в JSON и для него:</p>
+<p>Сделаем обратное действие: сформируем JSON с именованным списком хостов. И поскольку у нас появился тип <code>Hosts</code>, определим правило превращения в JSON и для него:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">instance</span> <span class="hs-conid">ToJSON</span> <span class="hs-conid">Hosts</span> <span class="hs-keyword">where</span>
     <span class="hs-varid">toJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Hosts</span> <span class="hs-varid">hosts</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">object</span> <span class="hs-keyglyph">[</span> <span class="hs-str">"hosts"</span> <span class="hs-varop">.=</span> <span class="hs-varid">hosts</span>
                                   <span class="hs-keyglyph">]</span></code></pre>
