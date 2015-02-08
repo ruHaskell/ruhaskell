@@ -202,7 +202,7 @@ convertSpecificTagsToLinks :: TagsAndAuthors
 convertSpecificTagsToLinks tagsAndAuthors specificTags aTitle = 
     tagsRules specificTags $ \tag pattern -> do
         let nameOfTag = if "категории" `isInfixOf` aTitle then getRussianNameOfCategory tag else tag
-            title = renderHtml $ H.preEscapedToHtml $ aTitle ++ " <span class=\"tag-in-title\">" ++ nameOfTag ++ "</span>"
+            title = renderHtml $ H.preEscapedToHtml $ aTitle ++ " " ++ nameOfTag
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll pattern
