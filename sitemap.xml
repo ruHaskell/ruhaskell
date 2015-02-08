@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/theory/2015/02/08/template-haskell-hello-world.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/web/2015/02/05/yesod-haste-honey-tar.html</loc>
     </url>
 
