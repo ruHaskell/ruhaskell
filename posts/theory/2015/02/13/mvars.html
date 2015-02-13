@@ -258,12 +258,36 @@ replicateM <span class="dv">3</span> <span class="fu">$</span> forkIO <span clas
 </ol>
 <p>Более полные примеры можно найти в книге Simon Marlow Parallel and Concurrent Programming in Haskell <a href="http://chimera.labs.oreilly.com/books/1230000000929/ch07.html#sec_conc-phonebook">Глава 7</a>.</p>
 <p>Для упрощения работы с <code>MVar</code> можно разбить функции на две группы для работы со случаем <code>(1)</code> и <code>(2)</code>, третий случай попадает в одну из групп в зависимости от конкретной задачи <code>MVar</code> в структуре. И далее в каждом из случаем использовать функции из этой группы:</p>
-<pre><code>передача данных          | контейнер для разделенных данных
------------------------- | ---------------------------------
-putMVar                  | withMVar
-takeMVar                 | modifyMVar
-isEmptyMVar              | readMVar
-tryReadMVar,tryPutMVar   | swapMVar</code></pre>
+<table>
+<colgroup>
+<col width="31%" />
+<col width="43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Передача данных</th>
+<th align="left">Контейнер для разделенных данных</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>putMVar</p></td>
+<td align="left"><p>withMVar</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>takeMVar</p></td>
+<td align="left"><p>modifyMVar</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p>isEmptyMVar</p></td>
+<td align="left"><p>readMVar</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>tryReadMVar,tryPutMVar</p></td>
+<td align="left"><p>swapMVar</p></td>
+</tr>
+</tbody>
+</table>
 <p>Естестсвенно, никто не требует, чтобы при работе с одним из случаем не использовать функции из другой группы, но в этом случае необходимо четко понимать, к каким последствиям это может приводить и учитывать при написании кода. Вот несколько интересных примеров:</p>
 <ol style="list-style-type: decimal">
 <li><p>один поток вызывать <code>withMVar</code> и выполняет действие, после чего должен положить значение назад, но если в это время другой поток “положит” результат в <code>MVar</code> (<code>putMVar</code>), то первый поток будет заблокирован.</p></li>
