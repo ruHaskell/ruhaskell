@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 13 Feb 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Sun, 15 Feb 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Ограниченное IO  и защищенные системы (введение)</title>
+    <link>http://ruhaskell.org/posts/theory/2015/02/15/restricted-io.html</link>
+    <description><![CDATA[В данном посте пойдет речь про возможности для создания защищенных систем и введение во фреймворк, позволяющий писать программы такие программы. В дальнейшем, если будет интерес к данным вопросам, планируется углубление в данную тему.]]></description>
+    <pubDate>Sun, 15 Feb 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/theory/2015/02/15/restricted-io.html</guid>
+</item>
+<item>
     <title>Базовая работа с MVar</title>
     <link>http://ruhaskell.org/posts/theory/2015/02/13/mvars.html</link>
     <description><![CDATA[В данном посте произведен краткий обзор MVar, API, примеров использования.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Ни одно достаточно крупное приложение не обходится без конфигурационных файлов. Познакомимся с конфигуратором.]]></description>
     <pubDate>Wed, 21 Jan 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/packages/2015/01/21/configurator.html</guid>
-</item>
-<item>
-    <title>Что такое монады: заблуждение из мира Haskell</title>
-    <link>http://ruhaskell.org/posts/theory/2015/01/20/the-what-are-monads-fallacy.html</link>
-    <description><![CDATA[В Haskell-сообществе существует проблема с монадами. Попробуем понять.]]></description>
-    <pubDate>Tue, 20 Jan 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/theory/2015/01/20/the-what-are-monads-fallacy.html</guid>
 </item>
 
     </channel> 

