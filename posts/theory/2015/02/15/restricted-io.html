@@ -185,7 +185,7 @@
     </div>
 </div>
 
-<p>В данном посте пойдет речь про возможности для создания защищенных систем и введение во фреймворк, позволяющий писать программы такие программы. В дальнейшем, если будет интерес к данным вопросам, планируется углубление в данную тему.</p>
+<p>В данном посте пойдет речь про возможности для создания защищенных систем и введение во фреймворк, позволяющий писать такие программы. В дальнейшем, если будет интерес к данным вопросам, планируется углубление в данную тему.</p>
 <h2 id="формулировка-проблемы">Формулировка проблемы</h2>
 <p>Под защищенной системой предполагается система, состоящая из одного или более узлов, устойчивая к запуску недоверенного кода, который лишается возможности нарушить инварианты системы.</p>
 <p>Где это может применяться? Простым примером может служить веб-сайт, на котором нужно запускать плагины от третьих лиц. В этом случае желательно, чтобы плагины не могли нарушить работу системы, получить привелигерованный доступ или получить доступ к данным в приложении, которые не должны быть доступны плагину.</p>
@@ -216,7 +216,7 @@
 <p>В дополнение расширение позволяет использовать безопасные импорты, т.е.</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-keyword">safe</span> <span class="hs-conid">Evil</span><span class="hs-varop">.</span><span class="hs-conid">Code</span></code></pre>
 <p>В этом случае подключаемый модуль будет проверен на безопасность (т.е. то, что он не использует небезопасные модули).</p>
-<p>Однако, возникает вопрос, как же можно использовать модуль, работающий с типом <code>ByteString</code>, если для его неализации используются небезопасные функции?</p>
+<p>Однако, возникает вопрос, как же можно использовать модуль, работающий с типом <code>ByteString</code>, если для его реализации используются небезопасные функции?</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">head</span> <span class="hs-keyglyph">::</span> <span class="hs-comment">{- Lazy -}</span> <span class="hs-conid">ByteString</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Word8</span>
 <span class="hs-definition">head</span> <span class="hs-conid">Empty</span>       <span class="hs-keyglyph">=</span> <span class="hs-varid">errorEmptyList</span> <span class="hs-str">"head"</span>
 <span class="hs-definition">head</span> <span class="hs-layout">(</span><span class="hs-conid">Chunk</span> <span class="hs-varid">c</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span><span class="hs-varop">.</span><span class="hs-varid">unsafeHead</span> <span class="hs-varid">c</span>
