@@ -1,0 +1,23 @@
+<h1> $title$ </h1>
+
+<iframe id="forum_embed" src="javascript:void(0)"
+                         scrolling="no"
+                         frameborder="0"
+                         width="1100"
+                         height="700">
+</iframe>
+
+<noscript>
+	Для поддержки отображения форума, необходим включенный javascript.<br />
+	Если вы являетесь идеологическим противником javascript, то архив рассылки
+	всегда можно посмотреть <a href="https://groups.google.com/forum/#!forum/haskell-russian">на сайте google groups</a>
+</noscript>
+
+<script type="text/javascript">
+//<![CDATA[
+document.getElementById("forum_embed").src =
+   "https://groups.google.com/forum/embed/?place=forum/haskell-russian" +
+   "&showsearch=true&showpopout=true&parenturl=" +
+   encodeURIComponent(window.location.href);
+// ]]>
+</script> 

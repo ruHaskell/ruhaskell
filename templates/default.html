@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +30,8 @@
         </script>
     
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     </head>
 
   <body>
@@ -117,17 +119,24 @@
                   </a>
                   <ul class="dropdown-menu" role="menu">
                     <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
                         <a href="http://forum.ruhaskell.org" target="_blank">
-                            <span class="forum-link">
-                                <span class="fa fa-comments"></span>
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
                             </span>Форум
                         </a>
                     </li>
                     <li>
-                        <a href="https://gitter.im/denisshevchenko/haskell" target="_blank">
-                            <span class="chat-link">
-                                <span class="fa fa-smile-o"></span>
-                            </span>Чат
+                        <a href="/maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
                         </a>
                     </li>
                   </ul>
@@ -146,7 +155,7 @@
                   </a>
                   <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="https://github.com/denisshevchenko/ruhaskell" target="_blank">
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
                             <span id="github-link">
                                 <span class="fa fa-github-square"></span>
                             </span>GitHub
@@ -194,12 +203,42 @@
         </div>
 
         <footer class="footer">
-            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/denisshevchenko/ruhaskell" target="_blank">GitHub</a></strong>.
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count"
+                   data-count-href="/ruHaskell/ruhaskell/stargazers" 
+                   data-icon="octicon-star" 
+                   href="https://github.com/ruHaskell/ruhaskell" 
+                   class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" 
+                   data-count-href="/ruHaskell/ruhaskell/network" 
+                   data-icon="octicon-git-branch" 
+                   href="https://github.com/ruHaskell/ruhaskell" 
+                   class="github-button">Fork</a>
+            </div>
+
             <div class="copyright-note">
-                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/denisshevchenko/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
             </div>
         </footer>
     </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
+
   </body>
 </html>
 
