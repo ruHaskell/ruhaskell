@@ -8,9 +8,9 @@
                    type="application/rss+xml" />
         <lastBuildDate>Thu, 19 Feb 2015 00:00:00 UT</lastBuildDate>
         <item>
-    <title>Генерация модулей со статичными данными.</title>
+    <title>Генерация модулей со статичными данными</title>
     <link>http://ruhaskell.org/posts/projects/2015/02/19/static-data-modules.html</link>
-    <description><![CDATA[Генерируем модуль содержаший HTML5 мнемоники]]></description>
+    <description><![CDATA[Генерируем модуль, содержаший HTML5-мнемоники]]></description>
     <pubDate>Thu, 19 Feb 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/projects/2015/02/19/static-data-modules.html</guid>
 </item>
