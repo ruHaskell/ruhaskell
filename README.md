@@ -129,4 +129,4 @@ $ ./watch.sh
 
 ### Обратная связь
 
-Вопросы? Предложения? Критика? Вы можете задать их в нашем [чате](https://gitter.im/ruHaskell/forall), на форуме (скоро будет), в [группе на Google+](https://plus.google.com/communities/117343381540538069054) или же написать [Денису Шевченко](mailto:me@dshevchenko.biz).
+Вопросы? Предложения? Критика? Вы можете задать их в нашем [чате](https://gitter.im/ruHaskell/forall), на [форуме](http://forum.ruhaskell.org), в [группе на Google+](https://plus.google.com/communities/117343381540538069054) или же написать [Денису Шевченко](mailto:me@dshevchenko.biz).
