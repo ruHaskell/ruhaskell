@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Sun, 15 Feb 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Thu, 19 Feb 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Генерация модулей со статичными данными.</title>
+    <link>http://ruhaskell.org/posts/projects/2015/02/19/static-data-modules.html</link>
+    <description><![CDATA[Генерируем модуль содержаший HTML5 мнемоники]]></description>
+    <pubDate>Thu, 19 Feb 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/projects/2015/02/19/static-data-modules.html</guid>
+</item>
+<item>
     <title>Ограниченное IO  и защищенные системы (введение)</title>
     <link>http://ruhaskell.org/posts/theory/2015/02/15/restricted-io.html</link>
     <description><![CDATA[В данном посте пойдет речь про возможности для создания защищенных систем и введение во фреймворк, позволяющий писать такие программы. В дальнейшем, если будет интерес к данным вопросам, планируется углубление в данную тему.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Hello, FRP world!]]></description>
     <pubDate>Thu, 22 Jan 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/elm/2015/01/22/elm-hello.html</guid>
-</item>
-<item>
-    <title>Работа с конфигурационными файлами в Haskell</title>
-    <link>http://ruhaskell.org/posts/packages/2015/01/21/configurator.html</link>
-    <description><![CDATA[Ни одно достаточно крупное приложение не обходится без конфигурационных файлов. Познакомимся с конфигуратором.]]></description>
-    <pubDate>Wed, 21 Jan 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/packages/2015/01/21/configurator.html</guid>
 </item>
 
     </channel> 
