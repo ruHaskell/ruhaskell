@@ -120,7 +120,6 @@ main =
 {
     "firstName": "Denis",
     "lastName": "Shevchenko",
-    "age": 34,
     "social": {
         "GitHub": {
             "blog": "https://github.com/denisshevchenko/blog",
@@ -214,5 +213,5 @@ extractBlogRepoURL = \info -> info .: "social" >>= (.: "GitHub") >>= (.: "blog")
 
 Мы убрали лямбда-уточнения и сильно сократили код. Кому-то подобное сокращение не понравится, но пусть каждый сам выбирает удобную для него форму.
 
-Собственно, на сегодня хватит.
+Ну вот, на сегодня хватит.
 
