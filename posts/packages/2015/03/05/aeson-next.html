@@ -261,7 +261,6 @@
 <pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
     <span class="dt">&quot;firstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Denis&quot;</span><span class="fu">,</span>
     <span class="dt">&quot;lastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Shevchenko&quot;</span><span class="fu">,</span>
-    <span class="dt">&quot;age&quot;</span><span class="fu">:</span> <span class="dv">34</span><span class="fu">,</span>
     <span class="dt">&quot;social&quot;</span><span class="fu">:</span> <span class="fu">{</span>
         <span class="dt">&quot;GitHub&quot;</span><span class="fu">:</span> <span class="fu">{</span>
             <span class="dt">&quot;blog&quot;</span><span class="fu">:</span> <span class="st">&quot;https://github.com/denisshevchenko/blog&quot;</span><span class="fu">,</span>
@@ -323,7 +322,7 @@
 <p>Кстати, как и было обещано, привожу упрощённую форму функции <code>extractBlogRepoURL</code>:</p>
 <pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">extractBlogRepoURL</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">info</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">info</span> <span class="hs-varop">.:</span> <span class="hs-str">"social"</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-layout">(</span><span class="hs-varop">.:</span> <span class="hs-str">"GitHub"</span><span class="hs-layout">)</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-layout">(</span><span class="hs-varop">.:</span> <span class="hs-str">"blog"</span><span class="hs-layout">)</span></code></pre>
 <p>Мы убрали лямбда-уточнения и сильно сократили код. Кому-то подобное сокращение не понравится, но пусть каждый сам выбирает удобную для него форму.</p>
-<p>Собственно, на сегодня хватит.</p>
+<p>Ну вот, на сегодня хватит.</p>
 
 <div id="socialButtons">
     <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
