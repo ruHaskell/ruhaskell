@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/elm/2015/03/06/elm-architecture.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/packages/2015/03/05/aeson-next.html</loc>
     </url>
 
