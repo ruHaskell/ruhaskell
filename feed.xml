@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 06 Mar 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 13 Mar 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Задачка про Святого Клауса</title>
+    <link>http://ruhaskell.org/posts/tasks/2015/03/13/stm-santa-claus-problem.html</link>
+    <description><![CDATA[Выборочный перевод четвёртой статьи из цикла Саймона Пейтона Джонса «Замечательная согласованность»]]></description>
+    <pubDate>Fri, 13 Mar 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/tasks/2015/03/13/stm-santa-claus-problem.html</guid>
+</item>
+<item>
     <title>Архитектура приложения в Elm</title>
     <link>http://ruhaskell.org/posts/elm/2015/03/06/elm-architecture.html</link>
     <description><![CDATA[Мы изучим очень простой способ компоновки прилоложения, представляющий собой бесконечно вкладываемые блоки. Он сильно улучшает модульность, упрощает повторное использование кода и тестирование.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Продолжаем изучать линзы, а именно пакет fclabels.]]></description>
     <pubDate>Wed, 28 Jan 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</guid>
-</item>
-<item>
-    <title>Линзы: Hello World!</title>
-    <link>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</link>
-    <description><![CDATA[Введение в линзы. Только для новичков, опытным хаскелистам не читать!]]></description>
-    <pubDate>Fri, 23 Jan 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</guid>
 </item>
 
     </channel> 

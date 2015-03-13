@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Задачка про Святого Клауса</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Задачка про Святого Клауса</h1>
+
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2590%25D1%2580%25D1%2582%25D1%2583%25D1%2580%2520%25D0%25A4%25D0%25B0%25D0%25B9%25D0%25B7%25D1%2580%25D0%25B0%25D1%2585%25D0%25BC%25D0%25B0%25D0%25BD%25D0%25BE%25D0%25B2.html">Артур Файзрахманов</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 mar 13<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/tasks.html">Задачи</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/beginners.html">beginners</a>&quot;, &quot;<a href="../../../../../tags/stm.html">stm</a>&quot;, &quot;<a href="../../../../../tags/transaction.html">transaction</a>&quot;, &quot;<a href="../../../../../tags/atomically.html">atomically</a>&quot;, &quot;<a href="../../../../../tags/santa.html">santa</a>&quot;, &quot;<a href="../../../../../tags/simon.html">simon</a>&quot;, &quot;<a href="../../../../../tags/peyton.html">peyton</a>&quot;, &quot;<a href="../../../../../tags/jones.html">jones</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+  
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+            <div class="href-to-original">
+                <a href="https://www.fpcomplete.com/user/simonpj/beautiful-concurrency/4-the-santa-claus-problem" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
+            </div>
+        
+    </div>
+</div>
+
+<h2 id="решение-использующее-программные-транзакции-в-памяти-stm">Решение, использующее программные транзакции в памяти (STM)</h2>
+<blockquote>
+<p>Святой Клаус постоянно спит, пока его не разбудят либо все его девять оленей, вернувшихся с выходных, либо троица эльфов (всего их десять). Если он разбужен оленями, тогда он запрягает каждого из них в свои сани, развозит с с ними игрушки, а после, распрягает и отпускает на отдых. Если же Клауса разбудили эльфы, тогда он указывает каждой группе эльфов их мастерскую, беседует с ними по вопросам производства и придумывания игрушек, и в конце концов указывает им выйти (позволяет им вернуться к работе). Если Клауса ждут как эльфы, так и олени, он должен в первую очередь выбрать оленей.</p>
+</blockquote>
+<h2 id="олени-и-эльфы">Олени и эльфы</h2>
+<p>Итак, у Клауса есть две группы, одна для оленей, другая для эльфов. Каждый эльф (или олень) стремится вступить в свою группу. Когда это случается, он видит двое «врат». Певые врата позволяют Клаусу управлять тем, когда эльфы могут входить в мастерскую и знать, когда мастерская уже заполнена. Подобным образом вторые врата управляют выходом эльфов из мастерской. Клаус в своё время ожидает до тех пор, пока одна из его групп будет готова, а потом использует её врата для назначения помошникам (эльфам или оленям) их задач. Таким образом, жизнь помошников — бесконечный круг: попробовать вступить в группу, проийти через врата под управлением Клауса, а потом снова пробовать вступить в свою группу, спустя некоторое время.</p>
+<p>Отключим предупреждения о «затемнении» имён:</p>
+<p>Нам потребуеются слудующие подключения:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Concurrent</span>        <span class="hs-layout">(</span><span class="hs-conid">ThreadId</span><span class="hs-layout">,</span> <span class="hs-varid">forkIO</span><span class="hs-layout">,</span> <span class="hs-varid">threadDelay</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Concurrent</span><span class="hs-varop">.</span><span class="hs-conid">STM</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Monad</span>             <span class="hs-layout">(</span><span class="hs-varid">forever</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Random</span>             <span class="hs-layout">(</span><span class="hs-varid">getStdRandom</span><span class="hs-layout">,</span> <span class="hs-varid">randomR</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">IO</span>                 <span class="hs-layout">(</span> <span class="hs-conid">BufferMode</span><span class="hs-layout">(</span><span class="hs-conid">LineBuffering</span><span class="hs-layout">)</span>
+                                 <span class="hs-layout">,</span> <span class="hs-varid">hSetBuffering</span><span class="hs-layout">,</span> <span class="hs-varid">stdout</span><span class="hs-layout">)</span></code></pre>
+<p>Переводя это словесное описание в Хаскель, мы получим следующий код для вхождения эльфа в группу:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">elf1</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">elf1</span> <span class="hs-varid">group</span> <span class="hs-varid">elf_id</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-layout">(</span><span class="hs-varid">in_gate</span><span class="hs-layout">,</span> <span class="hs-varid">out_gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">joinGroup</span> <span class="hs-varid">group</span>
+    <span class="hs-varid">passGate</span> <span class="hs-varid">in_gate</span>
+    <span class="hs-varid">meetInStudy</span> <span class="hs-varid">elf_id</span>
+    <span class="hs-varid">passGate</span> <span class="hs-varid">out_gate</span></code></pre>
+<p>Эльф отправляется в свою группу <code>Group</code>, а целое число <code>Int</code> — это порядковый номер эльфа. Этот номер используется только для вызова 𝘧 «встреча в мастерской» <code>meetInStudy</code>, которая просто печает сообщение о том, что происходит:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">meetInStudy</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">meetInStudy</span> <span class="hs-varid">idt</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-str">"Эльф #"</span> <span class="hs-varop">++</span> <span class="hs-varid">show</span> <span class="hs-varid">idt</span> <span class="hs-varop">++</span> <span class="hs-str">" встретился в мастерской"</span></code></pre>
+<p>Функция «войти в группу» <code>joinGroup</code> вводит эльфа в группу, а 𝘧 «пройти врата» <code>passGate</code> проводит его через все врата.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">joinGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">)</span>
+<span class="hs-definition">passGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Gate</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
+<p>Код для оленей схож, только олени развозят игрушки вместо того, чтобы идти в мастрескую.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">deliverToys</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">deliverToys</span> <span class="hs-varid">idt</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStrLn</span> <span class="hs-layout">(</span><span class="hs-str">"Олень #"</span> <span class="hs-varop">++</span> <span class="hs-varid">show</span> <span class="hs-varid">idt</span> <span class="hs-varop">++</span> <span class="hs-str">" развозит игрушки"</span><span class="hs-layout">)</span></code></pre>
+<p>Так как действия — величины первого порядка, мы можем описать обощенный код:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">helper1</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">helper1</span> <span class="hs-varid">group</span> <span class="hs-varid">do_task</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-layout">(</span><span class="hs-varid">in_gate</span><span class="hs-layout">,</span> <span class="hs-varid">out_gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">joinGroup</span> <span class="hs-varid">group</span>
+    <span class="hs-varid">passGate</span> <span class="hs-varid">in_gate</span>
+    <span class="hs-varid">do_task</span>
+    <span class="hs-varid">passGate</span> <span class="hs-varid">out_gate</span></code></pre>
+<p>Второй аргумент 𝘧 «помошник1» <code>helper1</code> — действие ввода—вывода — есть задание для помошника, которое он выполняет между прохождениями через врата. Теперь мы можем описать частные случаи для эльфа и оленя:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">elf1</span><span class="hs-layout">,</span> <span class="hs-varid">reindeer1</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">elf1</span>      <span class="hs-varid">gp</span> <span class="hs-varid">idt</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">helper1</span> <span class="hs-varid">gp</span> <span class="hs-layout">(</span><span class="hs-varid">meetInStudy</span> <span class="hs-varid">idt</span><span class="hs-layout">)</span>
+<span class="hs-definition">reindeer1</span> <span class="hs-varid">gp</span> <span class="hs-varid">idt</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">helper1</span> <span class="hs-varid">gp</span> <span class="hs-layout">(</span><span class="hs-varid">deliverToys</span> <span class="hs-varid">idt</span><span class="hs-layout">)</span></code></pre>
+<h2 id="врата-и-группы">Врата и Группы</h2>
+<p>Первая асбтракция — это «Врата», нам нужны следующие возможности:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">newGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">STM</span> <span class="hs-conid">Gate</span>
+<span class="hs-definition">passGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Gate</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">operateGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Gate</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
+<p>Вместимость врат ограничена числом <code>n</code>, которое указывается при создании врат, и переменное оставшееся свободное место. Оставшееся место убавляется, когда помошник проходит врата, если же места нет, тогда проход (вызов <code>passGate</code>) блокируется. В момент создания врат их свободное место устанавливается равным нулю, так что ни один помошник не может пройти в них. Клаус открывает ворота, используя 𝘧 «отпереть врата» <code>operateGate</code>, которая устанвливает свободное место врат равным их вместимости.</p>
+<p>Вот возможное описание <strong>Врат</strong>:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Gate</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">MkGate</span> <span class="hs-conid">Int</span> <span class="hs-layout">(</span><span class="hs-conid">TVar</span> <span class="hs-conid">Int</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">newGate</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">tv</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newTVar</span> <span class="hs-num">0</span>
+    <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-conid">MkGate</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">passGate</span> <span class="hs-layout">(</span><span class="hs-conid">MkGate</span> <span class="hs-keyword">_</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-varid">atomically</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">n_left</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+        <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">&gt;</span> <span class="hs-num">0</span><span class="hs-layout">)</span>
+        <span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-comment">-</span> <span class="hs-num">1</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">operateGate</span> <span class="hs-layout">(</span><span class="hs-conid">MkGate</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-varid">n</span><span class="hs-layout">)</span>
+    <span class="hs-varid">atomically</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">n_left</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+        <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">==</span> <span class="hs-num">0</span><span class="hs-layout">)</span></code></pre>
+<p>Первая строчка описывает новый <em>тип данных</em>, с единственным коструктором величин этого типа «Сделать Врата» <code>mkGate</code>.</p>
+<p>У конструктора два параметра: целое число, определяющее вместимость врат, и переменная <code>TVar</code>, которая указывает сколько помошников могут пройти через врата до тех пор пока они не закроються. Если в переменной записан <code>0</code>, значит врата заперты.</p>
+<p>Функция «новые врата» создаёт новые Врата <code>Gate</code> выделяя память под переменную TVar, а потом создаёт значение используя конструктор «Создать Врата» <code>MkGame</code>. Функция «пройти врата» <code>passGate</code>, напротив, избавляется от конструктора MkGate с помощью сопоставления с образцом; после чего она уменьшает значение, хранимое в переменной, заведомо проверяя, есть ли за воротами свободное место с помощью примитива «проверить» <code>check</code>. Наконец, 𝘧 «отпереть врата» сначала открывает врата, записывая в переменную полную вместимость, а потом блокируется до тех пор, пока не кончится свбодное место.</p>
+<p>Для <strong>Групп</strong> нам нужны следующие возможности:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">newGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">Group</span>
+<span class="hs-definition">joinGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">)</span>
+<span class="hs-definition">awaitGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">STM</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">)</span></code></pre>
+<p>И снова, Группа после создания изначально пуста, и обладает определённой вместимостью. Эльф может присоединиться к группе, используя 𝘧 «войти в группу», способную блокировать вход до тех пор, пока группа заполнена. Клаус использует 𝘧 «подождать группу» для ожидания наполнения группы; когда она заполняется Клаус получает в распоряжение Врата, а Группа в тот же момент преобразуется, получая свежую пару врат, что даёт возможность усердным эльфам формировать новые троицы.</p>
+<p>Вот возможное описание:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">MkGroup</span> <span class="hs-conid">Int</span> <span class="hs-layout">(</span><span class="hs-conid">TVar</span> <span class="hs-layout">(</span><span class="hs-conid">Int</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">newGroup</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">atomically</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">g1</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span><span class="hs-layout">;</span> <span class="hs-varid">g2</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span>
+    <span class="hs-varid">tv</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newTVar</span> <span class="hs-layout">(</span><span class="hs-varid">n</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span>
+    <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-conid">MkGroup</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span></code></pre>
+<p>И вновь, <strong>Группа</strong> описанна как новый тип данных, у которого есть конструктор <code>MkGroup</code> и два поля: полная вместимость группы и передаваемая переменная <code>TVar</code>, содержащая количество свободных мест и врата группы. Создание новой группы подобно созданию новых врат: создаёться новая переменная и возвращаеться структура, построенная конструктором <code>MkGroup</code>.</p>
+<p>Воплощение 𝘧𝘧 <code>joinGroup</code> и <code>awaitGroup</code> так или иначе определяются этими структурами:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">joinGroup</span> <span class="hs-layout">(</span><span class="hs-conid">MkGroup</span> <span class="hs-keyword">_</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
+    <span class="hs-varid">atomically</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+        <span class="hs-layout">(</span><span class="hs-varid">n_left</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+        <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">&gt;</span> <span class="hs-num">0</span><span class="hs-layout">)</span>
+        <span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-comment">-</span> <span class="hs-num">1</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span><span class="hs-varid">g2</span><span class="hs-layout">)</span>
+        <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">awaitGroup</span> <span class="hs-layout">(</span><span class="hs-conid">MkGroup</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+        <span class="hs-layout">(</span><span class="hs-varid">n_left</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+        <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">==</span> <span class="hs-num">0</span><span class="hs-layout">)</span>
+        <span class="hs-varid">g1'</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span><span class="hs-layout">;</span> <span class="hs-varid">g2'</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span>
+        <span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-layout">(</span><span class="hs-varid">n</span><span class="hs-layout">,</span> <span class="hs-varid">g1'</span><span class="hs-layout">,</span> <span class="hs-varid">g2'</span><span class="hs-layout">)</span>
+        <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">g1</span><span class="hs-layout">,</span><span class="hs-varid">g2</span><span class="hs-layout">)</span></code></pre>
+<p>Обратите внимание на то, что 𝘧 <code>awaitGroup</code> создаёт новые врата при перевоплощении группы <em>(в оригинале реинициализации)</em>. Это даёт возможность собираться новой группе, пока предыдущая всё ещё общается с Клаусом в мастерской, исключая опасность того, что какой—либо эльф из новой группы обгонит зазевавшегося эльфа из старой группы.</p>
+<h2 id="главная-программа">Главная программа</h2>
+<p>Сперва наперво, мы определим внешнюю структуру программы, тем более что мы до сих пор не описали самого Клауса. Вот он:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">hSetBuffering</span> <span class="hs-varid">stdout</span> <span class="hs-conid">LineBuffering</span>
+    <span class="hs-varid">elf_group</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGroup</span> <span class="hs-num">3</span>
+    <span class="hs-varid">sequence_</span> <span class="hs-keyglyph">[</span><span class="hs-varid">elf</span> <span class="hs-varid">elf_group</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-keyglyph">..</span><span class="hs-num">10</span><span class="hs-keyglyph">]</span><span class="hs-keyglyph">]</span>
+
+    <span class="hs-varid">rein_group</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGroup</span> <span class="hs-num">9</span>
+    <span class="hs-varid">sequence_</span> <span class="hs-keyglyph">[</span><span class="hs-varid">reindeer</span> <span class="hs-varid">rein_group</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-keyglyph">..</span><span class="hs-num">9</span><span class="hs-keyglyph">]</span><span class="hs-keyglyph">]</span>
+
+    <span class="hs-varid">forever</span> <span class="hs-layout">(</span><span class="hs-varid">santa</span> <span class="hs-varid">elf_group</span> <span class="hs-varid">rein_group</span><span class="hs-layout">)</span></code></pre>
+<p>В первой строке задётся тип буфферизации, об этом я расскажу чуть позже, пока можно смело опустить эту строку. На второй строке создаётся Группа для эльфов с вместимостью равной <code>3</code>. Третья строка более таинственная: здесь используется так называемое «описание списка» (list comprehention), которое создаёт список действий ввода—вывода и применяет 𝘧 «последоватьльность» <code>sequence_</code>, чтобы выполнить их последовательно. Описание списка <code>[e|x&lt;-xs]</code> читается как «список всех e, где x выбираются из списка xs». Таким образом, sequence_ получит в качестве аргумента следующий список:</p>
+<p><code>[elf elf_group 1, elf elf_group 2, ..., elf elf_group 10]</code></p>
+<p>Каждый перечисленный вызов даёт действие ввода—вывода, порождающее создаёт процессорную «нить» для эльфа. Функция <code>sequence_</code> получает список действий и возвращает одно действие, которое при исполнении запустит каждое действие из полученного списка по порядку:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">sequence_</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">IO</span> <span class="hs-varid">a</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
+<blockquote>
+<p><code>sequence_ :: Monad m =&gt; [m a] -&gt; m ()</code> Выполнить действия по очереди слева направо, и Evaluate each action in the sequence from left to right, and ignore the results.</p>
+</blockquote>
+<p>Функция «эльф» <code>elf</code> построенна из 𝘧 <code>elf1</code>, но имеет две особенности. Во—первых, мы хотим, чтобы эльф бесконечно проходил один и тот же круг; во—вторых, чтобы она (функция) выполнялась в отдельной нити:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">elf</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">ThreadId</span>
+<span class="hs-definition">elf</span> <span class="hs-varid">g</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">forkIO</span> <span class="hs-varop">$</span>
+    <span class="hs-varid">forever</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">elf1</span> <span class="hs-varid">g</span> <span class="hs-varid">n</span>
+        <span class="hs-varid">randomDelay</span></code></pre>
+<p>Функция «ответвить Ввод-Вывод» <code>forkIO</code> порождадет новую нить и исполняет свой аргумент в ней. Аргумент <code>forkIO</code> в свою очередь вызывает 𝘧 «без конца» <code>forever</code>, которая без конца повторно исполняет свой аргумент.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">forever</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-comment">-- постоянно исполнять одно и то же действие</span>
+<span class="hs-definition">forever</span> <span class="hs-varid">act</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">act</span>
+    <span class="hs-varid">forever</span> <span class="hs-varid">act</span></code></pre>
+<p>Наконец, выражение <code>elf1 g n</code> — и есть то дейтсвие ввода—вывода, которое мы хотим повторять бесконечно спустя произвольно выбранный промежуток времени:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">randomDelay</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-comment">-- Сделать произвольную задержку от 1 до 1'000'000 микросекунд</span>
+<span class="hs-definition">randomDelay</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">waitTime</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getStdRandom</span> <span class="hs-layout">(</span><span class="hs-varid">randomR</span> <span class="hs-layout">(</span><span class="hs-num">1</span><span class="hs-layout">,</span> <span class="hs-num">1000000</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+    <span class="hs-varid">threadDelay</span> <span class="hs-varid">waitTime</span></code></pre>
+<p>Оставшаяся часть главной программы вполне скажет всё сама за себя: мы создаём девять оленей подобно тому, как мы создавали десять эльфов, с той лишь разницей, что мы используем 𝘧 «олень» <code>reindeer</code> вместо <code>elf</code>. Смотрите:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">reindeer</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">ThreadId</span>
+<span class="hs-definition">reindeer</span> <span class="hs-varid">g</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">forkIO</span> <span class="hs-varop">$</span>
+    <span class="hs-varid">forever</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">reindeer1</span> <span class="hs-varid">g</span> <span class="hs-varid">n</span>
+        <span class="hs-varid">randomDelay</span></code></pre>
+<p>Главный код под конец снова использует <code>forever</code> для постоянного повторного исполнения 𝘧 «святой клаус» <code>santa</code>. Теперь осталось описать только самого Клауса.</p>
+<h2 id="описание-клауса">Описание Клауса</h2>
+<p>Клаус самый интересный участник этой маленькой пьесы, потому что именно он делает выбор. Он ждёт пока не соберёться одна из групп: эльфов или оленей. Как только он отдал своё предпочтение одной из групп, он должен провести её иснтруктаж. Вот и сам код:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">santa</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">santa</span> <span class="hs-varid">elf_gp</span> <span class="hs-varid">rein_gp</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">putStrLn</span> <span class="hs-str">"----------"</span>
+    <span class="hs-layout">(</span><span class="hs-varid">task</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">in_gate</span><span class="hs-layout">,</span> <span class="hs-varid">out_gate</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">atomically</span> <span class="hs-varop">$</span>
+        <span class="hs-varid">orElse</span> <span class="hs-layout">(</span><span class="hs-varid">chooseGroup</span> <span class="hs-varid">rein_gp</span> <span class="hs-str">"развозить игрушки"</span><span class="hs-layout">)</span>
+               <span class="hs-layout">(</span><span class="hs-varid">chooseGroup</span> <span class="hs-varid">elf_gp</span> <span class="hs-str">"идти в мастерскую"</span><span class="hs-layout">)</span>
+    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-str">"Хо! Хо! Хо! Пора "</span> <span class="hs-varop">++</span> <span class="hs-varid">task</span>
+    <span class="hs-varid">operateGate</span> <span class="hs-varid">in_gate</span>
+        <span class="hs-comment">-- сейчас помошники выполняют задания</span>
+    <span class="hs-varid">operateGate</span> <span class="hs-varid">out_gate</span>
+  <span class="hs-keyword">where</span>
+    <span class="hs-varid">chooseGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">STM</span> <span class="hs-layout">(</span><span class="hs-conid">String</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+    <span class="hs-varid">chooseGroup</span> <span class="hs-varid">g</span> <span class="hs-varid">task</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">gates</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">awaitGroup</span> <span class="hs-varid">g</span>
+        <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">task</span><span class="hs-layout">,</span> <span class="hs-varid">gates</span><span class="hs-layout">)</span></code></pre>
+<p>Выбор осуществляется с помощью 𝘧 «или если» <code>orElse</code>, которая сначала пробует выбрать группу оленей, таким образом отдавая им препочтение, а затем — группу эльфов. Функция «выбрать группу» <code>chooseGroup</code> исполняет действие «ждать группу» <code>awaitGroup</code> для указанной группы и возвращает в качестве итога пару, содержащую строку, отражающую задание (развозить игрушки или идти в мастерскую), и врата, которые нужно использовать Клаусу, чтобы назначить группе задания. Как только выбор сделан, Клаус сообщаяет об этом и оперирует вратами по—порядку.</p>
+<p>Такое решение работает хорошо, но мы всё же рассмотрим ещё одно, более общее решение, потому что 𝘧 <code>santa</code> отражает очень распространённый случай в программировании. Он сводиться к следующему: процессорная нить (Клаус в нашем случае) делает выбор между одной из атомарных транзакций (группы операций, которые формируют единое целое, подробнее см. <a href="https://ru.wikipedia.org/wiki/Транзакция_(значения)">Вики</a>), за которой следует одна или несколько транзакций, логически вытакающих друг из друга. Ещё один распространённый пример данного случая — получить сообщение из нескольких очередей с сообщениями, произвести с ним действия и повторить всё снова. В нашем случае, логические цепочки действий для эльфов и оленей были очень похожими — в обоих случаях Клаус должен напечатать сообщение и произвести действия с вратами. Однако, если Клаусу нужно будет выполнять разные действия для эльфов и оленей такой подход не сработает. Один из путей решения — возвращать логическую величину типа <code>Bool</code>, отражающую сделанный выбор, и выбирать дальнейшее направление действий в зависимости от этой величины; однако, как только появляется дополнительный выбор это решение становится неприемлимым. Вот другой подход, который подходит лучше:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">santa</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">santa</span> <span class="hs-varid">elf_gp</span> <span class="hs-varid">rein_gp</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">putStrLn</span> <span class="hs-str">"----------"</span>
+    <span class="hs-varid">choose</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-varid">awaitGroup</span> <span class="hs-varid">rein_gp</span><span class="hs-layout">,</span> <span class="hs-varid">run</span> <span class="hs-str">"развозить игрушки"</span><span class="hs-layout">)</span><span class="hs-layout">,</span>
+            <span class="hs-layout">(</span><span class="hs-varid">awaitGroup</span> <span class="hs-varid">elf_gp</span><span class="hs-layout">,</span> <span class="hs-varid">run</span> <span class="hs-str">"идти в мастерскую"</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+ <span class="hs-keyword">where</span>
+   <span class="hs-varid">run</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span><span class="hs-conid">Gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+   <span class="hs-varid">run</span> <span class="hs-varid">task</span> <span class="hs-layout">(</span><span class="hs-varid">in_gate</span><span class="hs-layout">,</span><span class="hs-varid">out_gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+       <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-str">"Хо! Хо! Хо! Пора "</span> <span class="hs-varop">++</span> <span class="hs-varid">task</span> <span class="hs-varop">++</span> <span class="hs-str">"\n"</span>
+       <span class="hs-varid">operateGate</span> <span class="hs-varid">in_gate</span>
+       <span class="hs-varid">operateGate</span> <span class="hs-varid">out_gate</span></code></pre>
+<p>Функция «выбор» <code>choose</code> подобна охраняемой команде: она принимает список пар, ждёт до тех пор, когда первый компонент пары будет «готов к запуску», а потом исполняет второй компонент. Таким образом, тип <code>choose</code> выглядит так:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">choose</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-conid">STM</span> <span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span></code></pre>
+<p>В роли охранника здесь выступает действие, выполняющее программные транзацкии в в памяти <em>(далее <code>ПТП</code>, оригинальные термин — <code>STM</code>)</em>, и возвращающее величину типа <code>a</code>; когда действие <code>ПТП</code> выполнено <em>(то есть не было вызова 𝘧 «повтор» <code>retry</code>)</em>, <code>choose</code> может передать полученную величину во второй компонент, который в свою очередь должен быть функцией, ожидающей на входе величину типа <code>a</code>. Имея это в виду, разобраться с 𝘧 <code>santa</code> гораздо проще. В ней используется <code>awaitGroup</code> для ожидания готовой группы; 𝘧 <code>choose</code> использует пару врат, полученных от <code>awaitGroup</code> и перадаёт их функции «запуск» <code>run</code>. Последняя последовательно управляет вратами — впомните, <code>operateGate</code> делает блокировку пока эльфы (или олени) проходят через врата.</p>
+<p>Код <code>choice</code> краток, но немного мудрён:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">choose</span> <span class="hs-varid">choices</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">act</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">atomically</span> <span class="hs-varop">$</span> <span class="hs-varid">foldr1</span> <span class="hs-varid">orElse</span> <span class="hs-varid">actions</span>
+    <span class="hs-varid">act</span>
+  <span class="hs-keyword">where</span>
+    <span class="hs-varid">actions</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">STM</span> <span class="hs-layout">(</span><span class="hs-conid">IO</span> <span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+    <span class="hs-varid">actions</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span> <span class="hs-keyword">do</span> <span class="hs-varid">val</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">guard</span>
+                   <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">rhs</span> <span class="hs-varid">val</span><span class="hs-layout">)</span>
+              <span class="hs-keyglyph">|</span> <span class="hs-layout">(</span><span class="hs-varid">guard</span><span class="hs-layout">,</span> <span class="hs-varid">rhs</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">choices</span> <span class="hs-keyglyph">]</span></code></pre>
+<p>Сначала она формирует <code>actions</code> — список действий ПТП, которые в последствии соединяются функций <code>orElse</code> (в итоге вызова <code>foldr1</code> ⊕ [<em>x<sub>1</sub></em>, … , <em>x<sub>n</sub></em>] получаем <em>x<sub>1</sub></em> ⊕ <em>x<sub>2</sub></em> ⊕ … ⊕ <em>x<sub>n</sub></em>). Итогом каждого такого действия ПТП так же является действие, но в контексте ввода—вывода, проще говоря, то, что нужно сделать после выбора. Вот почему каждое действие в списке имеет такой крутой тип <code>STM (IO ())</code>. Код 𝘧 <code>choice</code> сначала делает атомарную выборку из списка альтернатив, получая действие <code>act</code>, чей итог имеет тип <code>IO ()</code>; в конце концов происходит выполнение действия <code>act</code>. Список <code>actions</code> определён в выражении <code>where</code> взятием каждой пары <code>(guard,rhs)</code> из списка <code>choices</code>, запуском охранника (действие <code>ПТП</code>), и возвращением действия ввода—вывода, получаемое передачей <code>rhs</code> в действие «пропушенное» <em>(возвращенное)</em> охранником.</p>
+<h2 id="компиляция-и-запуск-программы">Компиляция и запуск программы</h2>
+<p>Я <em>(Сеймон Пейтон Джонс, автор оригинальной статьи, прим. переводчика)</em> представил здесь <em>весь</em> код решения. Вы можете просто добавить подходящие подключения в самом верху, этого должно быть достаточно:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Concurrent</span>        <span class="hs-layout">(</span><span class="hs-conid">ThreadId</span><span class="hs-layout">,</span> <span class="hs-varid">forkIO</span><span class="hs-layout">,</span> <span class="hs-varid">threadDelay</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Concurrent</span><span class="hs-varop">.</span><span class="hs-conid">STM</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Monad</span>             <span class="hs-layout">(</span><span class="hs-varid">forever</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Random</span>             <span class="hs-layout">(</span><span class="hs-varid">getStdRandom</span><span class="hs-layout">,</span> <span class="hs-varid">randomR</span><span class="hs-layout">)</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">IO</span>                 <span class="hs-layout">(</span> <span class="hs-conid">BufferMode</span><span class="hs-layout">(</span><span class="hs-conid">LineBuffering</span><span class="hs-layout">)</span>
+                                 <span class="hs-layout">,</span> <span class="hs-varid">hSetBuffering</span><span class="hs-layout">,</span> <span class="hs-varid">stdout</span><span class="hs-layout">)</span></code></pre>
+<p>Испробуйте сами <em>(ниже приведён конечный код, предложенный автором как есть)</em>:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Concurrent</span><span class="hs-varop">.</span><span class="hs-conid">STM</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Concurrent</span>
+<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Random</span>
+
+<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">elf_gp</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGroup</span> <span class="hs-num">3</span>
+    <span class="hs-varid">sequence_</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">elf</span> <span class="hs-varid">elf_gp</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-keyglyph">..</span><span class="hs-num">10</span><span class="hs-keyglyph">]</span><span class="hs-keyglyph">]</span>
+    <span class="hs-varid">rein_gp</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGroup</span> <span class="hs-num">9</span>
+    <span class="hs-varid">sequence_</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">reindeer</span> <span class="hs-varid">rein_gp</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-keyglyph">..</span><span class="hs-num">9</span><span class="hs-keyglyph">]</span><span class="hs-keyglyph">]</span>
+    <span class="hs-varid">forever</span> <span class="hs-layout">(</span><span class="hs-varid">santa</span> <span class="hs-varid">elf_gp</span> <span class="hs-varid">rein_gp</span><span class="hs-layout">)</span>
+  <span class="hs-keyword">where</span>
+    <span class="hs-varid">elf</span>      <span class="hs-varid">gp</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">forkIO</span> <span class="hs-layout">(</span><span class="hs-varid">forever</span> <span class="hs-layout">(</span><span class="hs-keyword">do</span> <span class="hs-varid">elf1</span> <span class="hs-varid">gp</span> <span class="hs-varid">id</span>
+                                         <span class="hs-varid">randomDelay</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+    <span class="hs-varid">reindeer</span> <span class="hs-varid">gp</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">forkIO</span> <span class="hs-layout">(</span><span class="hs-varid">forever</span> <span class="hs-layout">(</span><span class="hs-keyword">do</span> <span class="hs-varid">reindeer1</span> <span class="hs-varid">gp</span> <span class="hs-varid">id</span>
+                                         <span class="hs-varid">randomDelay</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">santa</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">santa</span> <span class="hs-varid">elf_group</span> <span class="hs-varid">rein_group</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">putStr</span> <span class="hs-str">"----------\n"</span>
+    <span class="hs-varid">choose</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-varid">awaitGroup</span> <span class="hs-varid">rein_group</span><span class="hs-layout">,</span> <span class="hs-varid">run</span> <span class="hs-str">"deliver toys"</span><span class="hs-layout">)</span><span class="hs-layout">,</span>
+            <span class="hs-layout">(</span><span class="hs-varid">awaitGroup</span> <span class="hs-varid">elf_group</span><span class="hs-layout">,</span>  <span class="hs-varid">run</span> <span class="hs-str">"meet in my study"</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+  <span class="hs-keyword">where</span>
+    <span class="hs-varid">run</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span><span class="hs-conid">Gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+    <span class="hs-varid">run</span> <span class="hs-varid">task</span> <span class="hs-layout">(</span><span class="hs-varid">in_gate</span><span class="hs-layout">,</span><span class="hs-varid">out_gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">putStr</span> <span class="hs-layout">(</span><span class="hs-str">"Ho! Ho! Ho! let's "</span> <span class="hs-varop">++</span> <span class="hs-varid">task</span> <span class="hs-varop">++</span> <span class="hs-str">"\n"</span><span class="hs-layout">)</span>
+        <span class="hs-varid">operateGate</span> <span class="hs-varid">in_gate</span>
+        <span class="hs-varid">operateGate</span> <span class="hs-varid">out_gate</span>
+
+<span class="hs-definition">helper1</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">helper1</span> <span class="hs-varid">group</span> <span class="hs-varid">do_task</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-layout">(</span><span class="hs-varid">in_gate</span><span class="hs-layout">,</span> <span class="hs-varid">out_gate</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">joinGroup</span> <span class="hs-varid">group</span>
+    <span class="hs-varid">passGate</span> <span class="hs-varid">in_gate</span>
+    <span class="hs-varid">do_task</span>
+    <span class="hs-varid">passGate</span> <span class="hs-varid">out_gate</span>
+
+<span class="hs-definition">elf1</span><span class="hs-layout">,</span> <span class="hs-varid">reindeer1</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">elf1</span>      <span class="hs-varid">group</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">helper1</span> <span class="hs-varid">group</span> <span class="hs-layout">(</span><span class="hs-varid">meetInStudy</span> <span class="hs-varid">id</span><span class="hs-layout">)</span>
+<span class="hs-definition">reindeer1</span> <span class="hs-varid">group</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">helper1</span> <span class="hs-varid">group</span> <span class="hs-layout">(</span><span class="hs-varid">deliverToys</span> <span class="hs-varid">id</span><span class="hs-layout">)</span>
+
+
+<span class="hs-definition">meetInStudy</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStr</span> <span class="hs-layout">(</span><span class="hs-str">"Elf "</span> <span class="hs-varop">++</span> <span class="hs-varid">show</span> <span class="hs-varid">id</span> <span class="hs-varop">++</span> <span class="hs-str">" meeting in the study\n"</span><span class="hs-layout">)</span>
+<span class="hs-definition">deliverToys</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStr</span> <span class="hs-layout">(</span><span class="hs-str">"Reindeer "</span> <span class="hs-varop">++</span> <span class="hs-varid">show</span> <span class="hs-varid">id</span> <span class="hs-varop">++</span> <span class="hs-str">" delivering toys\n"</span><span class="hs-layout">)</span>
+
+<span class="hs-comment">---------------</span>
+<span class="hs-keyword">data</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">MkGroup</span> <span class="hs-conid">Int</span> <span class="hs-layout">(</span><span class="hs-conid">TVar</span> <span class="hs-layout">(</span><span class="hs-conid">Int</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">,</span> <span class="hs-conid">Gate</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">newGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">Group</span>
+<span class="hs-definition">newGroup</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-keyword">do</span> <span class="hs-varid">g1</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span>
+                            <span class="hs-varid">g2</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span>
+                            <span class="hs-varid">tv</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newTVar</span> <span class="hs-layout">(</span><span class="hs-varid">n</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span>
+                            <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-conid">MkGroup</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">joinGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span><span class="hs-conid">Gate</span><span class="hs-layout">)</span>
+<span class="hs-definition">joinGroup</span> <span class="hs-layout">(</span><span class="hs-conid">MkGroup</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span>
+  <span class="hs-keyglyph">=</span> <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-keyword">do</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+                   <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">&gt;</span> <span class="hs-num">0</span><span class="hs-layout">)</span>
+                   <span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span><span class="hs-comment">-</span><span class="hs-num">1</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span>
+                   <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">g1</span><span class="hs-layout">,</span><span class="hs-varid">g2</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">awaitGroup</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Group</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">STM</span> <span class="hs-layout">(</span><span class="hs-conid">Gate</span><span class="hs-layout">,</span><span class="hs-conid">Gate</span><span class="hs-layout">)</span>
+<span class="hs-definition">awaitGroup</span> <span class="hs-layout">(</span><span class="hs-conid">MkGroup</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-layout">(</span><span class="hs-varid">n_left</span><span class="hs-layout">,</span> <span class="hs-varid">g1</span><span class="hs-layout">,</span> <span class="hs-varid">g2</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+    <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">==</span> <span class="hs-num">0</span><span class="hs-layout">)</span>
+    <span class="hs-varid">new_g1</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span>
+    <span class="hs-varid">new_g2</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newGate</span> <span class="hs-varid">n</span>
+    <span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-layout">(</span><span class="hs-varid">n</span><span class="hs-layout">,</span><span class="hs-varid">new_g1</span><span class="hs-layout">,</span><span class="hs-varid">new_g2</span><span class="hs-layout">)</span>
+    <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">g1</span><span class="hs-layout">,</span><span class="hs-varid">g2</span><span class="hs-layout">)</span>
+
+<span class="hs-comment">---------------</span>
+<span class="hs-keyword">data</span> <span class="hs-conid">Gate</span>  <span class="hs-keyglyph">=</span> <span class="hs-conid">MkGate</span> <span class="hs-conid">Int</span> <span class="hs-layout">(</span><span class="hs-conid">TVar</span> <span class="hs-conid">Int</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">newGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">STM</span> <span class="hs-conid">Gate</span>
+<span class="hs-definition">newGate</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">tv</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newTVar</span> <span class="hs-num">0</span>
+    <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-conid">MkGate</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">passGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Gate</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">passGate</span> <span class="hs-layout">(</span><span class="hs-conid">MkGate</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span>
+  <span class="hs-keyglyph">=</span> <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-keyword">do</span> <span class="hs-varid">n_left</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+                   <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">&gt;</span> <span class="hs-num">0</span><span class="hs-layout">)</span>
+                   <span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span><span class="hs-comment">-</span><span class="hs-num">1</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">operateGate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Gate</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">operateGate</span> <span class="hs-layout">(</span><span class="hs-conid">MkGate</span> <span class="hs-varid">n</span> <span class="hs-varid">tv</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-varid">writeTVar</span> <span class="hs-varid">tv</span> <span class="hs-varid">n</span><span class="hs-layout">)</span>
+    <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-keyword">do</span> <span class="hs-varid">n_left</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">readTVar</span> <span class="hs-varid">tv</span>
+                   <span class="hs-varid">check</span> <span class="hs-layout">(</span><span class="hs-varid">n_left</span> <span class="hs-varop">==</span> <span class="hs-num">0</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-comment">----------------</span>
+<span class="hs-definition">forever</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-comment">-- Repeatedly perform the action</span>
+<span class="hs-definition">forever</span> <span class="hs-varid">act</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">forever'</span> <span class="hs-varid">act</span> <span class="hs-num">10</span>
+  <span class="hs-keyword">where</span> <span class="hs-comment">-- cheating here to make it stop eventually</span>
+    <span class="hs-varid">forever'</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+    <span class="hs-varid">forever'</span> <span class="hs-varid">act</span> <span class="hs-num">0</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">return</span> <span class="hs-conid">()</span>
+    <span class="hs-varid">forever'</span> <span class="hs-varid">act</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+        <span class="hs-varid">act</span>
+        <span class="hs-varid">forever'</span> <span class="hs-varid">act</span> <span class="hs-layout">(</span><span class="hs-varid">n</span> <span class="hs-comment">-</span> <span class="hs-num">1</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">randomDelay</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-comment">-- Delay for a random time between 1 and 1000,000 microseconds</span>
+<span class="hs-definition">randomDelay</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">waitTime</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">getStdRandom</span> <span class="hs-layout">(</span><span class="hs-varid">randomR</span> <span class="hs-layout">(</span><span class="hs-num">1</span><span class="hs-layout">,</span> <span class="hs-num">1000000</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+    <span class="hs-varid">threadDelay</span> <span class="hs-varid">waitTime</span>
+
+<span class="hs-definition">choose</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-conid">STM</span> <span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
+<span class="hs-definition">choose</span> <span class="hs-varid">choices</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
+    <span class="hs-varid">to_do</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">atomically</span> <span class="hs-layout">(</span><span class="hs-varid">foldr1</span> <span class="hs-varid">orElse</span> <span class="hs-varid">stm_actions</span><span class="hs-layout">)</span>
+    <span class="hs-varid">to_do</span>
+  <span class="hs-keyword">where</span>
+    <span class="hs-varid">stm_actions</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">STM</span> <span class="hs-layout">(</span><span class="hs-conid">IO</span> <span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+    <span class="hs-varid">stm_actions</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span> <span class="hs-keyword">do</span> <span class="hs-varid">val</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">guard</span>
+                       <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">rhs</span> <span class="hs-varid">val</span><span class="hs-layout">)</span>
+                  <span class="hs-keyglyph">|</span> <span class="hs-layout">(</span><span class="hs-varid">guard</span><span class="hs-layout">,</span> <span class="hs-varid">rhs</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">choices</span> <span class="hs-keyglyph">]</span></code></pre>
+<pre><code>[1 of 1] Compiling Main             ( santa.lhs, interpreted )
+Ok, modules loaded: Main.
+*Main> main
+----------
+Хо! Хо! Хо! Пора развозить игрушки
+
+Олень #1 развозит игрушки
+Олень #2 развозит игрушки
+Олень #3 развозит игрушки
+Олень #4 развозит игрушки
+Олень #5 развозит игрушки
+Олень #6 развозит игрушки
+Олень #7 развозит игрушки
+Олень #8 развозит игрушки
+Олень #9 развозит игрушки
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+Эльф #1 встретился в мастерской
+Эльф #2 встретился в мастерской
+Эльф #3 встретился в мастерской
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+Эльф #4 встретился в мастерской
+Эльф #5 встретился в мастерской
+Эльф #6 встретился в мастерской
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+Эльф #7 встретился в мастерской
+Эльф #8 встретился в мастерской
+Эльф #9 встретился в мастерской</code></pre>
+<h2 id="несколько-слов-про-буфферизацию-от-переводчика">Несколько слов про буфферизацию <em>(от переводчика)</em></h2>
+<p>В оригинальной статье не было упомянуто о буфферизации, в моей системе полученная программа давала такой вывод:</p>
+<pre><code>[1 of 1] Compiling Main             ( santa.lhs, interpreted )
+Ok, modules loaded: Main.
+*Main> main
+----------
+Хо! Хо! Хо! Пора развозить игрушки
+
+Олень #1 развозитО ОООООООлилллллллегееееееенрннннннньуььььььь ш       #к#######2и3456789
+       ррррррррааааааааззззззззввввввввооооооооззззззззиииииииитттттттт        ииииииииггггггггрррррррруууууууушшшшшшшшккккккккииииииии
+
+
+
+
+
+
+
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+ЭльЭфЭл ль#ьф1ф   #в#2с3 т врвсестттрирелетстияил лсвся я м вав с мтмаеасрстстекерорсйск
+коойй
+
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+ЭльЭфЭл ль#ьф4ф   #в#5с6 т врвсестттрирелетстияил лсвся я м вав с мтмаеасрстстекерорсйск
+коойй
+
+----------</code></pre>
+<p>Эльфы и олени «живут» в отдельных процессорных нитях, не мешая друг другу. Так все олени входят в свою группу почти одновременно. Как только олень присоединяется к группе, печатается сообщение. В моей систему буфферизация по умолчанию выключена, это приводит к тому, что вывод из всех нитей перемешивается, создавая эффект «заикания». Чтобы получить нормальный вывод нужно включить построчную буфферизацию для стандартного вывода <code>stdout</code>, чтобы сообщения разных нитей печатались целыми строками, а не по—символьно.</p>
+<h2 id="вместо-заключения">Вместо заключения</h2>
+<p>Если вам интересно увидеть полный перевод всех статьей из <a href="https://www.fpcomplete.com/user/simonpj/beautiful-concurrency">цикла «Beautiful Concurrency»</a> Саймона Пейтона Джонса об использовании ПТП, дайте мне знать, я постараюсь перевести недостающие части.</p>
+<p><em>P.S. Автор перевода старается переводить все термины (даже хорошо устоявшиеся) на русский язык, так как перевод, изобилующий большим количеством иностранных терминов, жаргонных и заимствованных для меня ничем не отличается от неперведённого текста.</em></p>
+<p><em>P.P.S.</em> Ввиду этого, я буду очень признателен, если кто—нибудь предложит хорошое слово на замену <code>транзакции</code>. Ещё одно слово, которое трудно сходу заменяется — <code>альтернатива</code>.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
+
+  </body>
+</html>
+
