@@ -52,6 +52,7 @@ russianNamesOfCategories = M.fromList[ ("web",      "Веб")
                                      , ("elm",      "Elm")
                                      , ("frp",      "FRP")
                                      , ("gui",      "GUI")
+                                     , ("algorithms", "Алгоритмы")
                                      , ("typesystem", "Система типов")
                                      ]
 
