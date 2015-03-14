@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Биномиальные очереди как вложенные данные</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Биномиальные очереди как вложенные данные</h1>
+
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2592%25D0%25B5%25D1%2580%25D1%2588%25D0%25B8%25D0%25BB%25D0%25BE%25D0%25B2%2520%25D0%2590%25D0%25BB%25D0%25B5%25D0%25BA%25D1%2581%25D0%25B0%25D0%25BD%25D0%25B4%25D1%2580.html">Вершилов Александр</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 mar 14<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/algorithms.html">algorithms</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/types.html">types</a>&quot;, &quot;<a href="../../../../../tags/algorithm.html">algorithm</a>&quot;, &quot;<a href="../../../../../tags/translation.html">translation</a>&quot;, &quot;<a href="../../../../../tags/okasaki.html">okasaki</a>&quot;, &quot;<a href="../../../../../tags/structures.html">structures</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+  
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+            <div class="href-to-original">
+                <a href="http://okasaki.blogspot.ru/2009/10/binomial-queues-as-nested-type.html" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
+            </div>
+        
+    </div>
+</div>
+
+<p>Моисей Котович (Maciej Kotowicz) недавно задал вопрос в спискe рассылки <a href="https://mail.haskell.org/pipermail/haskell-cafe/">Haskell Cafe</a>, о том как реализовать биномиальные очереди (так же известные как биномиальные кучи) используя хитрые возможности системы типов так, чтобы система проверки корректности типов (type-checker) могла проверить все инварианты формы структуры данных. Этот вопрос напомнил мне о дискуссии с коллегой летом 1998 года про использование вложенных типов для гарантии соблюдения инвариантов формы. Немного порывшись в архивах, я нашёл это письмо, которое и представляю здесь.</p>
+<p>Я поиграл с биномиальными очередями как вложенным типом данных, и я думаю, что вы найдете результат интересным.</p>
+<h2 id="обзор">Обзор</h2>
+<p>Позвольте мне сначала дать кратний обзор обычной реализации биномиальнух очередей. Вспомним, что биномиальное дерево имеет следующую форму:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Tree</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Node</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-keyglyph">]</span></code></pre>
+<p>У биномиального дерева ранга <span class="math"><em>k</em></span> есть <span class="math"><em>k</em></span> детей рангов <span class="math"><em>k</em> − 1…0</span> сохраненных в списке с в порядке убывания ранга. Заметьте, что мы можем объединять два пирамидально-упорядоченных (heap-ordered) биномиальных дерева ранга <span class="math"><em>k</em></span>, получая пирамидально-упорядоченное дерево ранга <span class="math"><em>k</em> + 1</span> следующим образом:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">combine</span> <span class="hs-varid">a</span><span class="hs-keyglyph">@</span><span class="hs-layout">(</span><span class="hs-conid">Node</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span><span class="hs-layout">)</span> <span class="hs-varid">b</span><span class="hs-keyglyph">@</span><span class="hs-layout">(</span><span class="hs-conid">Node</span> <span class="hs-varid">y</span> <span class="hs-varid">ys</span><span class="hs-layout">)</span>
+   <span class="hs-keyglyph">|</span> <span class="hs-varid">x</span> <span class="hs-varop">&lt;=</span> <span class="hs-varid">y</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Node</span> <span class="hs-varid">x</span> <span class="hs-layout">(</span><span class="hs-varid">b</span> <span class="hs-conop">:</span> <span class="hs-varid">xs</span><span class="hs-layout">)</span>
+   <span class="hs-keyglyph">|</span> <span class="hs-varid">otherwise</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Node</span> <span class="hs-varid">y</span> <span class="hs-layout">(</span><span class="hs-varid">a</span> <span class="hs-conop">:</span> <span class="hs-varid">ys</span><span class="hs-layout">)</span></code></pre>
+<p>Далее, биномиальная очередь это список пирамидально-упорядоченных биномиальных деревьев в порядке возрастания рангов <em>[переводчик: тут было высоты (height)]</em> (но не обязательно последовательных рангов). Для хранения рангов деревьев, которые присуствуют в структуре, мы будем использовать их позиции в списке. Как следствие, в списке будут присутсвовать пустые ранги. Данная структура может быть реализована следующим образом:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Maybe</span> <span class="hs-layout">(</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span></code></pre>
+<p>или более эффективно</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Nil</span>
+             <span class="hs-keyglyph">|</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+             <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-layout">(</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span></code></pre>
+<p>или ещё лучше распаковав <code>Tree</code> в конструкторе <code>One</code></p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Nil</span>
+             <span class="hs-keyglyph">|</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+             <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-keyglyph">]</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span></code></pre>
+<p>Я не буду рассматривать все операции – они подробно рассмотрены в других источниках. Я просто опишу две функции. Первая, <code>add</code>, берёт дерево и список (где ранк дерева имеет тот же ранг, что и первый элемент в списке), и возвращает новый список. Эта операция является аналогом функции инкремента на бинарных числах.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">add</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span>
+<span class="hs-definition">add</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-conid">Nil</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">One</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-conid">Nil</span>
+<span class="hs-definition">add</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-layout">(</span><span class="hs-conid">Zero</span> <span class="hs-varid">h</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">One</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-varid">h</span>
+<span class="hs-definition">add</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">y</span> <span class="hs-varid">ys</span> <span class="hs-varid">h</span><span class="hs-layout">)</span>
+  <span class="hs-keyglyph">|</span> <span class="hs-varid">x</span> <span class="hs-varop">&lt;=</span> <span class="hs-varid">y</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-varid">add</span> <span class="hs-varid">x</span> <span class="hs-layout">(</span><span class="hs-conid">Node</span> <span class="hs-varid">y</span> <span class="hs-varid">ys</span> <span class="hs-conop">:</span> <span class="hs-varid">xs</span><span class="hs-layout">)</span> <span class="hs-varid">h</span><span class="hs-layout">)</span>
+  <span class="hs-keyglyph">|</span> <span class="hs-varid">otherwise</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-varid">add</span> <span class="hs-varid">y</span> <span class="hs-layout">(</span><span class="hs-conid">Node</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-conop">:</span> <span class="hs-varid">ys</span><span class="hs-layout">)</span> <span class="hs-varid">h</span><span class="hs-layout">)</span></code></pre>
+<p>Функция объедиения (<code>merge</code>) записывается похожим образом и работает так же как и функция сложения бинарных чисел.</p>
+<p>Наконец, функция <code>getMin</code> возвращает минимальный элемент в очереди и очередь без этого элемента. Вспомогательная фунция <code>getMin_</code> возвращает тройку: минимальный элемент в одном из суффиксов (?) очереди, список детей связанных с этим минимальным элеменом и суффикс без этого элемента.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getMin_</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-keyglyph">]</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin_</span> <span class="hs-layout">(</span><span class="hs-conid">Zero</span> <span class="hs-varid">h</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">case</span> <span class="hs-varid">getMin_</span> <span class="hs-varid">h</span> <span class="hs-keyword">of</span>
+                     <span class="hs-layout">(</span><span class="hs-varid">y</span><span class="hs-layout">,</span><span class="hs-varid">ys</span><span class="hs-layout">,</span><span class="hs-varid">h'</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">y</span><span class="hs-layout">,</span><span class="hs-varid">ys</span><span class="hs-layout">,</span><span class="hs-conid">Zero</span> <span class="hs-varid">h'</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin_</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-conid">Nil</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">xs</span><span class="hs-layout">,</span><span class="hs-conid">Nil</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin_</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-varid">h</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">case</span> <span class="hs-varid">getMin_</span> <span class="hs-varid">h</span> <span class="hs-keyword">of</span>
+                         <span class="hs-layout">(</span><span class="hs-varid">y</span><span class="hs-layout">,</span><span class="hs-varid">ys</span><span class="hs-layout">,</span><span class="hs-varid">h'</span><span class="hs-layout">)</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">x</span> <span class="hs-varop">&lt;=</span> <span class="hs-varid">y</span>    <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">xs</span><span class="hs-layout">,</span><span class="hs-conid">Zero</span> <span class="hs-varid">h</span><span class="hs-layout">)</span>
+                                   <span class="hs-keyglyph">|</span> <span class="hs-varid">otherwise</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">y</span><span class="hs-layout">,</span><span class="hs-varid">ys</span><span class="hs-layout">,</span><span class="hs-conid">One</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-varid">h'</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">getMin</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin</span> <span class="hs-varid">h</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">let</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">xs</span><span class="hs-layout">,</span><span class="hs-varid">h'</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">getMin_</span> <span class="hs-varid">h</span>
+           <span class="hs-keyword">in</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">merge</span> <span class="hs-layout">(</span><span class="hs-varid">list2binom</span> <span class="hs-varid">xs</span> <span class="hs-conid">Nil</span><span class="hs-layout">)</span> <span class="hs-varid">h'</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">list2binom</span> <span class="hs-conid">[]</span> <span class="hs-varid">h</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">h</span>
+<span class="hs-definition">list2binom</span> <span class="hs-layout">(</span><span class="hs-conid">Node</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-conop">:</span> <span class="hs-varid">ys</span><span class="hs-layout">)</span> <span class="hs-varid">h</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">list2binom</span> <span class="hs-varid">ys</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">x</span> <span class="hs-varid">xs</span> <span class="hs-varid">h</span><span class="hs-layout">)</span></code></pre>
+<p>Заметьте, что когда <code>getMin</code> получает список дочерних элементов, она превращает их в правильную биномиальную очередь, разворачивая список и заменяя каждую пару конструкторов <code>Node</code> и <code>(:)</code> на конструктор <code>One</code>).</p>
+<h2 id="вложенное-представлени---первая-попытка.">Вложенное представлени - первая попытка.</h2>
+<p>Следуя тем же путём, который мы использовали для проектирования других вложенных типов данных, мы получаем следующее представление биномиальных очередей.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Nil</span>
+                <span class="hs-keyglyph">|</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Trees</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+                <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Trees</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+
+<span class="hs-keyword">type</span> <span class="hs-conid">Trees</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-varid">b</span><span class="hs-layout">,</span> <span class="hs-varid">b</span><span class="hs-layout">)</span>
+
+<span class="hs-keyword">type</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-conid">()</span></code></pre>
+<p>Например список детей</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="hs-layout">(</span><span class="hs-conid">Node</span> <span class="hs-varid">x3</span> <span class="hs-varid">xs3</span> <span class="hs-conop">:</span> <span class="hs-conid">Node</span> <span class="hs-varid">x2</span> <span class="hs-varid">xs2</span> <span class="hs-conop">:</span> <span class="hs-conid">Node</span> <span class="hs-varid">x1</span> <span class="hs-varid">xs1</span> <span class="hs-conop">:</span> <span class="hs-conid">Node</span> <span class="hs-varid">x0</span> <span class="hs-varid">xs0</span> <span class="hs-conop">:</span> <span class="hs-conid">[]</span><span class="hs-layout">)</span></code></pre>
+<p>Быдет представлен вложенными тройками</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="hs-layout">(</span><span class="hs-varid">xs3</span><span class="hs-layout">,</span><span class="hs-varid">xs3'</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">x2</span><span class="hs-layout">,</span><span class="hs-varid">xs2'</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">x1</span><span class="hs-layout">,</span><span class="hs-varid">xs1'</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">x0</span><span class="hs-layout">,</span><span class="hs-varid">xs0'</span><span class="hs-layout">,</span> <span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<p>(где <span class="math"><em>x</em><em>s</em><em>N</em>′</span> соотвествующее преобразование <span class="math"><em>x</em><em>s</em><em>N</em></span>)</p>
+<p>Все все функции записываются очень просто, за исключением <code>getMin</code> и <code>getMin_</code> которые должны инкрементально строить функцию разворота, для того, чтобы превратить</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="hs-layout">(</span><span class="hs-varid">xs3</span><span class="hs-layout">,</span><span class="hs-varid">xs3'</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">x2</span><span class="hs-layout">,</span><span class="hs-varid">xs2'</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">x1</span><span class="hs-layout">,</span><span class="hs-varid">xs1'</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varid">x0</span><span class="hs-layout">,</span><span class="hs-varid">xs0'</span><span class="hs-layout">,</span> <span class="hs-conid">()</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<p>в</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="hs-conid">One</span> <span class="hs-varid">x0</span> <span class="hs-varid">xs0'</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">x1</span> <span class="hs-varid">xs1'</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">x2</span> <span class="hs-varid">xs2'</span> <span class="hs-layout">(</span><span class="hs-conid">One</span> <span class="hs-varid">x3</span> <span class="hs-varid">xs3'</span> <span class="hs-conid">Nil</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<p>В результате того, что данная функция строится инкрементально, реализация оказывается примерно на 10% медленнее, чем оригинальная.</p>
+<h2 id="перерыв-о-развороте-списков">Перерыв о развороте списков</h2>
+<p>Предположим, что мы хотим использовать следующий тип данных. Последовательности с тремя операциями:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">empty</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">ReversableSeq</span> <span class="hs-varid">a</span>
+<span class="hs-definition">cons</span>  <span class="hs-keyglyph">::</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">ReversableSeq</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">ReversableSeq</span> <span class="hs-varid">a</span>
+<span class="hs-definition">rev</span>   <span class="hs-keyglyph">::</span> <span class="hs-conid">ReversableSeq</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-varid">a</span><span class="hs-keyglyph">]</span></code></pre>
+<p>с очевидной семантикой: <code>const</code> должен иметь сложноть <code>O(1)</code>, но <code>rev</code> может может иметь сложность <code>O(n)</code>. Разумной реализацией может быть список со следующими операциями:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">ReversableSeq</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span><span class="hs-varid">a</span><span class="hs-keyglyph">]</span>
+<span class="hs-definition">empty</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">[]</span>
+<span class="hs-definition">cons</span> <span class="hs-keyglyph">=</span> <span class="hs-layout">(</span><span class="hs-conop">:</span><span class="hs-layout">)</span>
+<span class="hs-definition">rev</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">reverse</span></code></pre>
+<p>но, если вы повнимательнее посмотрите на него, то увидите, что тут получается достаточно много дополнительных накладных расходов на сопоставление с образцом (pattern matching), которые <code>reverse</code> выполняет на каждом шагу. Ещё в давнем 1985 году, John Hughes придумал представление, которое убирает эти расходы</p>
+<pre><code>type ReversableSeq a = [a] -> [a]
+empty = id
+cons x xs = xs . (x:)
+rev xs = xs []</code></pre>
+<p>Результатом <code>cons 1 (cons 2 (cons 3 empty))</code> будет функция</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">id</span> <span class="hs-varop">.</span> <span class="hs-layout">(</span><span class="hs-num">3</span><span class="hs-conop">:</span><span class="hs-layout">)</span> <span class="hs-varop">.</span> <span class="hs-layout">(</span><span class="hs-num">2</span><span class="hs-conop">:</span><span class="hs-layout">)</span> <span class="hs-varop">.</span> <span class="hs-layout">(</span><span class="hs-num">1</span><span class="hs-conop">:</span><span class="hs-layout">)</span></code></pre>
+<p>которая будучи применена к <code>[]</code> функцией <code>rev</code> возвращает <code>[3,2,1]</code>. Один из вариантов представить как работает эта структура, это представить список с “дырками” в концах, <code>cons</code> заполняет эту дырку элементом и другой дыркой, а операция <code>rev</code> заполняет дырку <code>[]</code>. (Это структура похожа на разностныме списки из логического программирования…)</p>
+<p>Применяя этот же трюк к обычному представлению биномиальных очередей мы получаем представление</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Nil</span>
+             <span class="hs-keyglyph">|</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+             <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span></code></pre>
+<p>которое оказывается примерно на 10% быстрее оригинального.</p>
+<h2 id="вложенное-представление-вторая-попытка">Вложенное представление – вторая попытка</h2>
+<p>Ok, давайте попробуем сделать вложенный тип данных. Концептуально вложение должно следить за нашей позицией в очереди так, что мы будем знать ранг текущего дерева и мы не можем смешать деревья разных рангов. Мы строим гипотезу о неком базовом типе обозначающим начало списка, и тип-преобразование <code>Succ</code>, который модифицирует тип одновременно с тем, как мы движемся вниз по очереди.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Base</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">???</span>
+<span class="hs-keyword">type</span> <span class="hs-conid">Succ</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">???</span>  <span class="hs-comment">-- this might need to be Succ a b</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-conid">Base</span>
+
+<span class="hs-keyword">data</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Nil</span>
+                <span class="hs-keyglyph">|</span> <span class="hs-conid">Zero</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Succ</span> <span class="hs-varid">b</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+                <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varop">???</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varop">???</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Succ</span> <span class="hs-varid">b</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<p>Теперь, какие типы мы должны подставить в конструктур <code>One</code>? Так.. функция <code>(Binom_ a ??? -&gt;  Binom_ a ???)</code> описывает дочерние элементы текущего узла. Если у текущего узла ранг <span class="math"><em>k</em></span> то, эти элементы имеют ранги <span class="math">0..<em>k</em> − 1</span>. Функция <code>(Binom_ a ??? -&gt; Binom_ a ???)</code> получает очередь начинающуюся на ранге <span class="math"><em>k</em></span> и добавляет детей перед ним, возвращая очередь начинающуюся с ранга <span class="math">0</span>. Т.о. <code>???</code> может быть заполнено как</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">                <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-conid">Base</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Succ</span> <span class="hs-varid">b</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<p>или просто</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">                <span class="hs-keyglyph">|</span> <span class="hs-conid">One</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Succ</span> <span class="hs-varid">b</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<p>Теперь, какие конструкторы должны быть у <code>Base</code> и <code>Succ</code>? Это не важно, поскольку мы никогда не будем строить данные этих типов, мы просто использует эти типы, чтобы описать позицию в очереди. Поэтому мы можем опредлить <code>Base</code> и <code>Succ</code> как</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Base</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Void</span>
+<span class="hs-keyword">newtype</span> <span class="hs-conid">Succ</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span> <span class="hs-conid">Void</span></code></pre>
+<p>Мне кажется, что это очень интересные типы по следующим причинам:</p>
+<p>Он включает стрелочный тип (arrow type), который мы не часто встречаем. В правой части определения типа данных (на самом деле только в конструкторе <code>One</code>) есть входжения <code>Binom_</code> не менее чем трех различных типов</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span>
+<span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-conid">Base</span>
+<span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-layout">(</span><span class="hs-conid">Succ</span> <span class="hs-varid">b</span><span class="hs-layout">)</span></code></pre>
+<p>Я видел когда встречались два вхождения, но не три. Эти типы никогда не используются, а служат для поддержания инвариантов (в этом случае того, что три различные ранга не должны быть перепутаны). [Комментарий от 2009года: сегодня такие штуки называются фантомными типами.]. В определенном смысле это делает типы менее интересными, но приводят к интересному свойству, что код отвечает свойству удаления типов (“type erasure”): если вы удалите типы из всех функций, то получите такой же код как и для оптимизированного обычного представления..</p>
+<p>Благодаря этому свойству удаления типов, вы можете ожидать, что вы получите код настолько же быстрый как и для обычного оптимизированного представления, но на самом деле он примерно на 10% медленее – или грубо говоря настолько же быстрый как и обычногое представление. Это происходит поскольку дополнительные типы скрывают возможные оптимизации, которые программист может сделать (и какие я сделал в случае обычного оптимизированного представления).</p>
+<p>Вспомним тип <code>getMin_</code> в обычном предславлении, и то, как он был использован функцией <code>getMin</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getMin_</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Tree</span> <span class="hs-varid">a</span><span class="hs-keyglyph">]</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">getMin</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin</span> <span class="hs-varid">h</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">let</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">xs</span><span class="hs-layout">,</span><span class="hs-varid">h'</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">getMin_</span> <span class="hs-varid">h</span>
+           <span class="hs-keyword">in</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">merge</span> <span class="hs-layout">(</span><span class="hs-varid">list2binom</span> <span class="hs-varid">xs</span> <span class="hs-conid">Nil</span><span class="hs-layout">)</span> <span class="hs-varid">h'</span><span class="hs-layout">)</span></code></pre>
+<p>Для оптимизиронного представления он превращается в</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getMin_</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">getMin</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin</span> <span class="hs-varid">h</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">let</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">xs</span><span class="hs-layout">,</span><span class="hs-varid">h'</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">getMin_</span> <span class="hs-varid">h</span>
+           <span class="hs-keyword">in</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">merge</span> <span class="hs-layout">(</span><span class="hs-varid">xs</span> <span class="hs-conid">Nil</span><span class="hs-layout">)</span> <span class="hs-varid">h'</span><span class="hs-layout">)</span></code></pre>
+<p>Теперь рассмотрим оптимизированные вложенные типы. Мы не можем просто записать</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getMin_</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span><span class="hs-layout">)</span></code></pre>
+<p>поскольку мы не знаем ранг дерева во второй компоненте тройки. (Заметьте, что если бы у нас были экзестенциальные типы, то мы могли бы записать</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getMin_</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">-&gt;</span> 
+                    <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-varid">exists</span> <span class="hs-varid">c</span><span class="hs-varop">.</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">c</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom_</span> <span class="hs-varid">a</span> <span class="hs-varid">b</span><span class="hs-layout">)</span>
+
+<span class="hs-definition">getMin</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Ord</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span> <span class="hs-conid">Binom</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+<span class="hs-definition">getMin</span> <span class="hs-varid">h</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">let</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">xs</span><span class="hs-layout">,</span><span class="hs-varid">h'</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">getMin_</span> <span class="hs-varid">h</span>
+           <span class="hs-keyword">in</span> <span class="hs-layout">(</span><span class="hs-varid">x</span><span class="hs-layout">,</span><span class="hs-varid">merge</span> <span class="hs-layout">(</span><span class="hs-varid">xs</span> <span class="hs-conid">Nil</span><span class="hs-layout">)</span> <span class="hs-varid">h'</span><span class="hs-layout">)</span></code></pre>
+<p>Некоторые реализации на самом деле поддерживают экзестенциальные типы, но в ограниченных возможностях и могут приводить к потере эффективности при их использовании…)</p>
+<p>Заместо возвращения дочерних элементов и затем применения их к <code>Nil</code>, мы можем сначала применить дочерние элементы к <code>Nil</code>, а затем вернуть результат, получив тип</p>
+<p><sub><sub>~</sub></sub>~haskell getMin_ :: Ord a =&gt; Binom_ a b -&gt; (a, Binom a, Binom_ a b)</p>
+<p>getMin :: Ord a =&gt; Binom a -&gt; (a, Binom a) getMin h = let (x,xs,h’) = getMin_ h in (x,merge xs h’) <sub>~</sub>~~</p>
+<p>Возможность записать функцию в таком виде опирается на ленивость, т.к. нам требуется чтобы вычислись только дочерние элементы настоящего минимума, а не всех детей временных минимумо, которые мы получаем при построении. Хотя это обозначает, что мы строим гораздо больше thunks вида <code>(xs Nil)</code> при построении результата. И построение этих thunks может вероятно достаточно дорого.</p>
+<p>В 2009 году Addendum Ralf Hinze предложил похожее представление в Разделе 6 “Numerical Representations as Higher-Order Nested Datatypes”. Сегодня вы скорее всего захотите использовать более хитрые структуры типов такие как зависимые типы или например Обобщенные алебраические типы, то все равно это разве это не удивительно насколько далеко мы можем зайти используя только вложенные типы.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
+
+  </body>
+</html>
+

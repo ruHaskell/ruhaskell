@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/algorithms/2015/03/14/binomial-queues.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/tasks/2015/03/13/stm-santa-claus-problem.html</loc>
     </url>
 

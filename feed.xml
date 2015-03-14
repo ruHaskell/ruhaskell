@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 13 Mar 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Sat, 14 Mar 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Биномиальные очереди как вложенные данные</title>
+    <link>http://ruhaskell.org/posts/algorithms/2015/03/14/binomial-queues.html</link>
+    <description><![CDATA[Перевод интересной статьи об использовании вложенных типов из далекого 2009 года.]]></description>
+    <pubDate>Sat, 14 Mar 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/algorithms/2015/03/14/binomial-queues.html</guid>
+</item>
+<item>
     <title>Задачка про Святого Клауса</title>
     <link>http://ruhaskell.org/posts/tasks/2015/03/13/stm-santa-claus-problem.html</link>
     <description><![CDATA[Выборочный перевод четвёртой статьи из цикла Саймона Пейтона Джонса «Замечательная согласованность»]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Пост описывает возможности построения реляционных отношений и базовых операций над ними.]]></description>
     <pubDate>Fri, 30 Jan 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</guid>
-</item>
-<item>
-    <title>Линзы: Real World</title>
-    <link>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</link>
-    <description><![CDATA[Продолжаем изучать линзы, а именно пакет fclabels.]]></description>
-    <pubDate>Wed, 28 Jan 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</guid>
 </item>
 
     </channel> 
