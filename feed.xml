@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Sat, 14 Mar 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 10 Apr 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Летняя встреча: вопросы, темы, пожелания</title>
+    <link>http://ruhaskell.org/posts/events/2015/04/10/meet-up-summer-2015.html</link>
+    <description><![CDATA[Назрел важный вопрос о летнем митапе. Нужно решить и подготовиться.]]></description>
+    <pubDate>Fri, 10 Apr 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/events/2015/04/10/meet-up-summer-2015.html</guid>
+</item>
+<item>
     <title>Биномиальные очереди как вложенные данные</title>
     <link>http://ruhaskell.org/posts/algorithms/2015/03/14/binomial-queues.html</link>
     <description><![CDATA[Перевод интересной статьи об использовании вложенных типов из далекого 2009 года.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Сегодня подружимся с JSON и познакомимся с пакетом aeson.]]></description>
     <pubDate>Tue, 03 Feb 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/packages/2015/02/03/aeson-hello-world.html</guid>
-</item>
-<item>
-    <title>Реализация реляционной алгебры</title>
-    <link>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</link>
-    <description><![CDATA[Пост описывает возможности построения реляционных отношений и базовых операций над ними.]]></description>
-    <pubDate>Fri, 30 Jan 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</guid>
 </item>
 
     </channel> 
