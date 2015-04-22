@@ -99,12 +99,12 @@ update action model =
 [elm-html]: http://elm-lang.org/blog/Blazing-Fast-Html.elm
 
 ```haskell
-view : Model -> Html
-view model =
+view : Signal.Address Action -> Model -> Html
+view address model =
   div []
-    [ button [ onClick (Signal.send actionChannel Decrement) ] [ text "-" ]
+    [ button [ onClick address Decrement ] [ text "-" ]
     , div [ countStyle ] [ text (toString model) ]
-    , button [ onClick (Signal.send actionChannel Increment) ] [ text "+" ]
+    , button [ onClick address Increment ] [ text "+" ]
     ]
 
 countStyle : Attribute
@@ -112,7 +112,7 @@ countStyle =
   ...
 ```
 
-Самая сложная часть функции `view` это `Signal.send actionChannel`. Мы займёмся
+Самая сложная часть функции `view` это `Signal.Address`. Мы займёмся
 этим в следующем части, а пока я хочу, чтобы вы отметили, что этот код
 является **полностью декларативным**. Мы берём `Model` и выдаём некий `Html`.
 И всё. Ни в каком месте мы не занимаемся ручным изменением DOM, что открывает
@@ -127,7 +127,7 @@ countStyle =
 
 ## Отступление: оживление вашего приложения с помощью сигналов
 
-Теперь разберём часть кода с `Signal.send actionChannel`.
+Теперь разберём часть кода с `Signal.Address`.
 
 До этого мы говорили только о чистых функциях и неизменяемых данных. Это
 здорово, но нам надо также и реагировать на события из внешнего мира. В Elm этим
@@ -140,23 +140,22 @@ countStyle =
 ```haskell
 main : Signal Html
 main =
-  Signal.map view model
+  Signal.map (view actions.address) model
 
 model : Signal Model
 model =
-  Signal.foldp update 0 (Signal.subscribe actionChannel)
+  Signal.foldp update 0 actions.address
 
-actionChannel : Signal.Channel Action
-actionChannel =
-  Signal.channel Increment
+actions : Signal.Mailbox Action
+actions =
+  Signal.mailbox Increment
 ```
 
 Хочу обратить ваше внимание на несколько деталей:
 
   1. Мы начинаем с 0 в качестве стартового значения модели.
   2. Мы используем функцию `update` для продвижения состояния модели.
-  3. Мы "подписываемся" на канал `actionsChannel` чтобы получать все поступающие
-     действия (`Action`).
+  3. Мы реагируем на поступающие в канал `actions` действия (`Action`).
   4. Мы выводим всё это на экран через функцию `view`.
 
 Вместо того, чтобы сразу пытаться понять что же тут происходит на каждой строке,
@@ -213,19 +212,8 @@ update : Action -> Model -> Model
 update = ...
 
 view : LocalChannel Action -> Model -> Html
-view channel model =
-  div []
-    [ button [ onClick (send channel Decrement) ] [ text "-" ]
-    , div [ countStyle ] [ text (toString model) ]
-    , button [ onClick (send channel Increment) ] [ text "+" ]
-    ]
+view channel model = ...
 ```
-
-Вместо того, чтобы ссылаться напрямую на основной `actionChannel`,
-как мы делали в первом примере, мы передадим канал аргументом, чтобы
-каждый счётчик отправлял сообщения через разные каналы. Это позволит
-нам дополнить базовый `Counter.Action` дополнительной информацией для
-указания какой именно счётчик должен обновиться.
 
 Создание модульного кода требует создания сильных абстракций. Нам нужны
 границы, которые обеспечат функционал и скроют реализацию.
@@ -290,21 +278,18 @@ update action model =
 на экране оба наших счётчика и кнопку сброса.
 
 ```haskell
-view : Model -> Html
-view model =
+view : Signal.Address -> Model -> Html
+view address model =
   div []
-    [ Counter.view (LC.create Top actionChannel) model.topCounter
-    , Counter.view (LC.create Bottom actionChannel) model.bottomCounter
-    , button [ onClick (Signal.send actionChannel Reset) ] [ text "RESET" ]
+    [ Counter.view (Signal.forwardTo address Top) model.topCounter
+    , Counter.view (Signal.forwardTo address Bottom) model.bottomCounter
+    , button [ onClick address Reset ] [ text "RESET" ]
     ]
 ```
 
 Здорово, что мы смогли использовать функцию `Counter.view` для обоих счётчиков.
-Для каждого счётчика мы создаём [локальный канал][]. По сути, мы говорим
-"все сообщения должны уходить в общий канал `actionChannel`, но каждое сообшение
-должно быть помечено как `Top` или `Bottom` чтобы мы могли их различать."
-
-[локальный канал]: http://package.elm-lang.org/packages/evancz/local-channel/latest
+Для каждого счётчика мы создаём адрес пересылки. Сообщения на этот адрес будут
+отмечены как `Top` или `Bottom`, чтобы мы могли их различать.
 
 Вот и всё. С помощью локальных каналов мы можем сколько
 угодно вкладывать наш паттерн модель/обновлние/отображение. Например можно
@@ -404,26 +389,26 @@ update action model =
 Всё что осталось это функция отображения.
 
 ```haskell
-view : Model -> Html
-view model =
-  let counters = List.map viewCounter model.counters
-      remove = button [ onClick (Signal.send actionChannel Remove) ] [ text "Remove" ]
-      insert = button [ onClick (Signal.send actionChannel Insert) ] [ text "Add" ]
+view : Signal.Address Action -> Model -> Html
+view address model =
+  let counters = List.map (viewCounter address) model.counters
+      remove = button [ onClick address Remove ] [ text "Remove" ]
+      insert = button [ onClick address Insert ] [ text "Add" ]
   in
       div [] ([remove, insert] ++ counters)
 
-viewCounter : (ID, Counter.Model) -> Html
-viewCounter (id, model) =
-  Counter.view (LC.create (Modify id) actionChannel) model
+viewCounter : Signal.Address Action -> (ID, Counter.Model) -> Html
+viewCounter address (id, model) =
+  Counter.view (Signal.forwardTo address (Modify id)) model
 ```
 
 Забавно, что функция `viewCounter` использует всё ту же функцию
-`Counter.view`, но в этот раз мы используем [локальный канал][], помечающий
+`Counter.view`, но в этот раз мы используем адрес пересылки, помечающий
 все сообщения выводящегося в данный момент счётчика его идентификатором.
 
 Когда мы создаём функцию `view` приложения, мы применяем функцию `viewCounter`
 на каждый элемент списка. А когда мы создаём кнопки добавления и удаления,
-которые шлют сообщения в канал приложения `actionChannel` напрямую.
+которые шлют сообщения в канал приложения `address` напрямую.
 
 Подобный трюк с ID может быть использован в любом месте, где вам нужно
 динамическое количество вложенных компонентов. Счётчики это довольно просто,
@@ -455,25 +440,25 @@ module Counter (Model, init, Action, update, view, viewWithRemoveButton, Context
 ...
 
 type alias Context =
-    { actionChan : LocalChannel Action
-    , removeChan : LocalChannel ()
+    { actions : Signal.Address Action
+    , remove : Signal.Address ()
     }
 
 viewWithRemoveButton : Context -> Model -> Html
 viewWithRemoveButton context model =
   div []
-    [ button [ onClick (send context.actionChan Decrement) ] [ text "-" ]
+    [ button [ onClick context.actions Decrement ] [ text "-" ]
     , div [ countStyle ] [ text (toString model) ]
-    , button [ onClick (send context.actionChan Increment) ] [ text "+" ]
+    , button [ onClick context.actions Increment ] [ text "+" ]
     , div [ countStyle ] []
-    , button [ onClick (send context.removeChan ()) ] [ text "X" ]
+    , button [ onClick context.remove () ] [ text "X" ]
     ]
 ```
 
 Функция `viewWithRemoveButton` добавляет одну дополнительную кнопку.
 Обратите внимание, что функции увеличения и уменьшения отправляют сообщения
-в канал actionChan, а кнопка удаления шлёт их в `removeChan`. Сообщения,
-попадающие в канал `removeChan` как бы говорят: "Эй, кто там меня создал,
+в канал actionChan, а кнопка удаления шлёт их на адрес `actions`. Сообщения,
+попадающие в канал `remove` как бы говорят: "Эй, кто там меня создал,
 удаляй меня!". Что конкретно надо сделать для удаления решает уже
 тот, кто создал этот конкретный счётчик.
 
@@ -532,25 +517,25 @@ update action model =
 И наконец, мы собираем всё это вместе в функции `view`:
 
 ```haskell
-view : Model -> Html
-view model =
-  let insert = button [ onClick (Signal.send actionChannel Insert) ] [ text "Add" ]
+view : Signal.Address Action -> Model -> Html
+view address model =
+  let insert = button [ onClick address Insert ] [ text "Add" ]
   in
-      div [] (insert :: List.map viewCounter model.counters)
+      div [] (insert :: List.map (viewCounter address) model.counters)
 
-viewCounter : (ID, Counter.Model) -> Html
-viewCounter (id, model) =
+viewCounter : Signal.Address Action -> (ID, Counter.Model) -> Html
+viewCounter address (id, model) =
   let context =
         Counter.Context
-          (LC.create (Modify id) actionChannel)
-          (LC.create (always (Remove id)) actionChannel)
+          (Signal.forwardTo address (Modify id) actionChannel)
+          (Signal.forwardTo address (always (Remove id)) actionChannel)
   in
       Counter.viewWithRemoveButton context model
 ```
 
-В функции `viewCounter` мы создаём `Counter.Context` и передаём туда все
-необходимыые локальные каналы. В обоих случаях мы помечаем `Counter.Action`
-чтобы знать кого обновлять или удалять.
+В функции `viewCounter` мы создаём `Counter.Context` и передаём туда обратный
+адрес. В обоих случаях мы помечаем `Counter.Action` чтобы знать кого обновлять
+или удалять.
 
 ## Основые уроки
 
@@ -558,7 +543,7 @@ viewCounter (id, model) =
 для её обновления и функции `view` для отображения. Дальше идут только
 вариации этого приёма.
 
-**Вложенные модули** &mdash; Локальный канал позволяет с лёгкостью углублять
+**Вложенные модули** &mdash; Адрес пересылки позволяет с лёгкостью углублять
 основной приём, полностью скрывая детали реализации. Мы можем строить
 какие угодно глубокие компоненты и каждый уровень должен знать только
 о том, что находится непосредственно внутри него.
