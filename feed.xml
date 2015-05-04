@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 10 Apr 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Mon, 04 May 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Умная проверка</title>
+    <link>http://ruhaskell.org/posts/theory/2015/05/04/smarter-validation.html</link>
+    <description><![CDATA[Сегодня мы рассмотрим различные способы обработки ошибок в Haskell. Начнём с хорошо известной монады `Either`, далее перейдём к менее распространённому аппликативному функтору `Validation`, а затем повысим эффективность и удобство последнего.]]></description>
+    <pubDate>Mon, 04 May 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/theory/2015/05/04/smarter-validation.html</guid>
+</item>
+<item>
     <title>Летняя встреча: вопросы, темы, пожелания</title>
     <link>http://ruhaskell.org/posts/events/2015/04/10/meet-up-summer-2015.html</link>
     <description><![CDATA[Назрел важный вопрос о летнем митапе. Нужно решить и подготовиться.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Yesod и Haste - стоит ли игра свеч?]]></description>
     <pubDate>Thu, 05 Feb 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2015/02/05/yesod-haste-honey-tar.html</guid>
-</item>
-<item>
-    <title>Aeson: Hello World!</title>
-    <link>http://ruhaskell.org/posts/packages/2015/02/03/aeson-hello-world.html</link>
-    <description><![CDATA[Сегодня подружимся с JSON и познакомимся с пакетом aeson.]]></description>
-    <pubDate>Tue, 03 Feb 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/packages/2015/02/03/aeson-hello-world.html</guid>
 </item>
 
     </channel> 
