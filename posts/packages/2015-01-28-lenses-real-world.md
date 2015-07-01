@@ -1,7 +1,7 @@
 ---
 author:         Денис Шевченко
 title:          Линзы: Real World
-tags:           Lenses
+tags:           lens
 description:    Продолжаем изучать линзы, а именно пакет fclabels.
 ---
 

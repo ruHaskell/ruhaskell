@@ -1,7 +1,7 @@
 ---
 author:         Юрий Сыровецкий
 title:          Haskell для питониста
-tags:           Доклад, Митап, Python
+tags:           доклад, митап, Python, языки программирования
 description:    Доклад Юрия Сыровецкого о Haskell для питониста на RuHaskell.Meetup 2015 Summer.
 ---
 
