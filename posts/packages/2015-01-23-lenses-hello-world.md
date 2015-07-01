@@ -1,7 +1,7 @@
 ---
 author:         Денис Шевченко
 title:          Линзы: Hello World!
-tags:           Lenses
+tags:           lens
 description:    Введение в линзы. Только для новичков, опытным хаскелистам не читать!
 ---
 

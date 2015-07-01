@@ -1,7 +1,7 @@
 ---
 author:         Артур Файзрахманов
 title:          Задачка про Святого Клауса
-tags:           beginners, stm, transaction, atomically, santa, simon, peyton, jones
+tags:           для начинающих, STM, транзакции, Санта Клаус, Simon Peyton Jones
 description:    Выборочный перевод четвёртой статьи из цикла Саймона Пейтона Джонса «Замечательная согласованность»
 hrefToOriginal: https://www.fpcomplete.com/user/simonpj/beautiful-concurrency/4-the-santa-claus-problem
 ---

@@ -1,7 +1,7 @@
 ---
 author:         Дмитрий Долгов
 title:          Парсинг бинарных данных, part I
-tags:           binary, npy
+tags:           бинарные данные, npy
 description:    Первый шаг на пути создания библиотеки для работы с npy файлами в Haskell
 ---
 

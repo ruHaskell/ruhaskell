@@ -1,7 +1,7 @@
 ---
 author:         Алексей Пирогов
 title:          О погоде функционально
-tags:           weather,CLI
+tags:           погода, CLI
 description:    Написание CLI-утилиты, запрашивающей прогноз погоды у Yahoo
 hrefToOriginal: https://astynax.github.io/posts/o-pogode-funktsionalno.html
 ---
