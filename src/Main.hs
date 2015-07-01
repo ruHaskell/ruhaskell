@@ -31,12 +31,13 @@ import Hakyll
 
 main :: IO ()
 main = hakyll $ do
+    justCopy            "files/**"
     justCopy            "static/images/*"
     justCompressAndCopy "static/css/*"
     justCopy            "README.md"
     justCopy            "CNAME"
     justCreateAndCopy   ".nojekyll"
-    
+
     prepareAllTemplates
     
     -- Извлекаем названия тегов, категорий, а также имена авторов из всех публикаций.
