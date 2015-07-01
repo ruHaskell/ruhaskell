@@ -16,45 +16,45 @@
 </item>
 <item>
     <title>Краткий экскурс в системы типов или как избежать дезинтеграции.</title>
-    <link>http://ruhaskell.org/posts/events/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</link>
+    <link>http://ruhaskell.org/posts/talks/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</link>
     <description><![CDATA[Доклад Дениса Редозубова о системах типов на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</guid>
+    <guid>http://ruhaskell.org/posts/talks/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</guid>
 </item>
 <item>
     <title>Ленивые вычисления: плюсы и минусы</title>
-    <link>http://ruhaskell.org/posts/events/2015/06/21/lazy-evaluation.html</link>
+    <link>http://ruhaskell.org/posts/talks/2015/06/21/lazy-evaluation.html</link>
     <description><![CDATA[Доклад Дениса Шевченко о ленивых вычислениях на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/06/21/lazy-evaluation.html</guid>
+    <guid>http://ruhaskell.org/posts/talks/2015/06/21/lazy-evaluation.html</guid>
 </item>
 <item>
     <title>Haskell для питониста</title>
-    <link>http://ruhaskell.org/posts/events/2015/06/21/haskell-for-pythonista.html</link>
+    <link>http://ruhaskell.org/posts/talks/2015/06/21/haskell-for-pythonista.html</link>
     <description><![CDATA[Доклад Юрия Сыровецкого о Haskell для питониста на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/06/21/haskell-for-pythonista.html</guid>
+    <guid>http://ruhaskell.org/posts/talks/2015/06/21/haskell-for-pythonista.html</guid>
 </item>
 <item>
     <title>Библиотека csound-expression: EDSL, музыка, FRP и многое другое</title>
-    <link>http://ruhaskell.org/posts/events/2015/06/21/csound-expression-library-edsl-music-frp.html</link>
+    <link>http://ruhaskell.org/posts/talks/2015/06/21/csound-expression-library-edsl-music-frp.html</link>
     <description><![CDATA[Доклад Антона Холомьёва о библиотеке csound-expression, EDSL, музыке, FRP и многом другом на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/06/21/csound-expression-library-edsl-music-frp.html</guid>
+    <guid>http://ruhaskell.org/posts/talks/2015/06/21/csound-expression-library-edsl-music-frp.html</guid>
 </item>
 <item>
     <title>Cloud Haskell</title>
-    <link>http://ruhaskell.org/posts/events/2015/06/21/cloud-haskell.html</link>
+    <link>http://ruhaskell.org/posts/talks/2015/06/21/cloud-haskell.html</link>
     <description><![CDATA[Доклад Александра Вершилова о состоянии Cloud Haskell на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/06/21/cloud-haskell.html</guid>
+    <guid>http://ruhaskell.org/posts/talks/2015/06/21/cloud-haskell.html</guid>
 </item>
 <item>
     <title>Анонимные записи в Haskell</title>
-    <link>http://ruhaskell.org/posts/events/2015/06/21/anonymous-records.html</link>
+    <link>http://ruhaskell.org/posts/talks/2015/06/21/anonymous-records.html</link>
     <description><![CDATA[Доклад Никиты Волкова об анонимных записях на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/06/21/anonymous-records.html</guid>
+    <guid>http://ruhaskell.org/posts/talks/2015/06/21/anonymous-records.html</guid>
 </item>
 <item>
     <title>Летняя встреча: регистрация</title>
