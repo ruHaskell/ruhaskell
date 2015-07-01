@@ -12,3 +12,5 @@ frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/fJzueensdymf0E"
 width="476" height="400"
 frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></nobr>
+
+[Скачать слайды](/files/meetup-2015-summer/2_TS-ruhaskell.ru.pdf)

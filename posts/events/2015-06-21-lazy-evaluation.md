@@ -12,3 +12,5 @@ frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/IomB2xY2tjsxg4"
 width="476" height="400"
 frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></nobr>
+
+[Скачать слайды](/files/meetup-2015-summer/4_lazy.pdf)
