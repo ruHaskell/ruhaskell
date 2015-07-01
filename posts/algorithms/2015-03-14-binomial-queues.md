@@ -1,5 +1,5 @@
 ---
-author: Вершилов Александр
+author: Александр Вершилов
 title:  Биномиальные очереди как вложенные данные
 tags:   типы, алгоритмы, перевод, Okasaki, структуры данных
 hrefToOriginal: http://okasaki.blogspot.ru/2009/10/binomial-queues-as-nested-type.html
