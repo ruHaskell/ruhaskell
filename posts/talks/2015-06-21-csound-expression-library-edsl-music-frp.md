@@ -6,7 +6,7 @@ description:    Доклад Антона Холомьёва о библиоте
 ---
 
 <nobr><iframe
-width="711" height="400"
+width="712" height="400"
 src="https://www.youtube.com/embed/kCcWv6q6Bqc"
 frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/ctKmj4HgbwlGNk"

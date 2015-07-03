@@ -6,7 +6,7 @@ description:    Доклад Александра Вершилова о сост
 ---
 
 <nobr><iframe
-width="711" height="400"
+width="712" height="400"
 src="https://www.youtube.com/embed/K4gDf1jCJEM"
 frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/Bz7SxgpeSCECNd"
