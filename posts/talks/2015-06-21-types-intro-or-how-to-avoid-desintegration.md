@@ -5,6 +5,8 @@ tags:           доклад, митап, типы
 description:    Доклад Дениса Редозубова о системах типов на RuHaskell.Meetup 2015 Summer.
 ---
 
+[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+
 <nobr><iframe
 width="711" height="400"
 src="https://www.youtube.com/embed/dCvV04XgYx0"
