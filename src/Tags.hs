@@ -20,7 +20,6 @@ module Tags (
 
 import Data.Monoid          (mconcat)
 import Data.List            (intercalate, isInfixOf)
-import Network.HTTP         (urlEncode)
 import Context              (postContext)
 import Misc                 (TagsReader,
                              TagsAndAuthors,
