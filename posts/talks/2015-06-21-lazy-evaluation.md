@@ -5,6 +5,8 @@ tags:           доклад, митап, ленивые вычисления
 description:    Доклад Дениса Шевченко о ленивых вычислениях на RuHaskell.Meetup 2015 Summer.
 ---
 
+[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+
 <nobr><iframe
 width="712" height="400"
 src="https://www.youtube.com/embed/ZwTfE6SX-Bo"

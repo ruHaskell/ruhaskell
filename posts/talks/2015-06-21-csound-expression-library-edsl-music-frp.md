@@ -5,6 +5,8 @@ tags:           доклад, митап, DSL, музыка, FRP, csound, csound
 description:    Доклад Антона Холомьёва о библиотеке csound-expression, EDSL, музыке, FRP и многом другом на RuHaskell.Meetup 2015 Summer.
 ---
 
+[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+
 <nobr><iframe
 width="712" height="400"
 src="https://www.youtube.com/embed/kCcWv6q6Bqc"

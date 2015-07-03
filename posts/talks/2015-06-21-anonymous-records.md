@@ -5,6 +5,8 @@ tags:           доклад, митап, записи, синтаксис
 description:    Доклад Никиты Волкова об анонимных записях на RuHaskell.Meetup 2015 Summer.
 ---
 
+[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+
 <nobr><iframe
 width="712" height="400"
 src="https://www.youtube.com/embed/VVEaoPM4A_Q"
