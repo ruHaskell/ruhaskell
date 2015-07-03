@@ -6,7 +6,7 @@ description:    Доклад Юрия Сыровецкого о Haskell для �
 ---
 
 <nobr><iframe
-width="711" height="400"
+width="712" height="400"
 src="https://www.youtube.com/embed/kLswm3Oun20"
 frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/rW3M08aEzmXEk"

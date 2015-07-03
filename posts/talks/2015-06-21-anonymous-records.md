@@ -6,7 +6,7 @@ description:    Доклад Никиты Волкова об анонимных
 ---
 
 <nobr><iframe
-width="711" height="400"
+width="712" height="400"
 src="https://www.youtube.com/embed/VVEaoPM4A_Q"
 frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/bKKqHLEULLkUxq"
