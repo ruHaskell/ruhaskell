@@ -43,6 +43,7 @@ getNameOfAuthor identifier = do
 -- Это не красиво, поэтому мы формируем словарь русских имён для категорий.
 russianNamesOfCategories :: M.Map String String
 russianNamesOfCategories = M.fromList[ ("algorithms", "Алгоритмы")
+                                     , ("cast",       "Подкаст")
                                      , ("dynamic",    "Динамика")
                                      , ("elm",        "Elm")
                                      , ("events",     "События")

@@ -39,10 +39,10 @@ main = hakyll $ do
     justCreateAndCopy   ".nojekyll"
 
     prepareAllTemplates
-    
+
     -- Извлекаем названия тегов, категорий, а также имена авторов из всех публикаций.
     tags        <- buildPostsTags
-    categories  <- buildPostsCategories 
+    categories  <- buildPostsCategories
     authors     <- buildPostsAuthors
 
     -- Теги и имена авторов нужны всем, поэтому для удобства запускаем читателя.
@@ -57,6 +57,6 @@ main = hakyll $ do
                 >> createXMLMap
                 >> setupRSSFeed
                 >> createIndexPage
-		>> createMailingListFrontend
+                >> createMailingListFrontend
                 >> createPageWithExternalLinks) [tags, categories, authors]
 

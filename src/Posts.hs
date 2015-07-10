@@ -24,9 +24,9 @@ import qualified Text.BlogLiterately.Highlight as Highlight
 directorizeDate :: Routes
 directorizeDate = customRoute (\i -> directorize $ toFilePath i)
     where
-        directorize path = dirs 
+        directorize path = dirs
             where
-                (dirs, _) = splitExtension $ 
+                (dirs, _) = splitExtension $
                             concat $
                             (intersperse "/" date) ++ ["/"] ++ (intersperse "-" rest)
                 minusBetweenDateAndTitle = 3
@@ -48,8 +48,9 @@ createPosts = do
         route $ directorizeDate `composeRoutes`
                 setExtension "html"
         -- Для превращения Markdown в HTML используем pandocWithHighlighter
-        compile $ pandocWithHighlighter >>= loadAndApplyTemplate "templates/post.html" (postContext tagsAndAuthors)
-                                        >>= loadAndApplyTemplate "templates/default.html" (postContext tagsAndAuthors)
-                                        >>= relativizeUrls
+        compile $ pandocWithHighlighter
+            >>= loadAndApplyTemplate "templates/post.html" (postContext tagsAndAuthors)
+            >>= loadAndApplyTemplate "templates/default.html" (postContext tagsAndAuthors)
+            >>= relativizeUrls
     return ()
 
