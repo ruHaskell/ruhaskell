@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Wed, 01 Jul 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Jul 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Выпуск 1</title>
+    <link>http://ruhaskell.org/posts/cast/2015/07/05/issue1.html</link>
+    <description><![CDATA[Первый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
+    <pubDate>Sun, 05 Jul 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/cast/2015/07/05/issue1.html</guid>
+</item>
+<item>
     <title>Первая встреча: все видео</title>
     <link>http://ruhaskell.org/posts/events/2015/07/01/meet-up-summer-2015-videos.html</link>
     <description><![CDATA[Видео с первой встречи нашего сообщества 21 июня 2015 года.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Сегодня мы рассмотрим различные способы обработки ошибок в Haskell. Начнём с хорошо известной монады `Either`, далее перейдём к менее распространённому аппликативному функтору `Validation`, а затем повысим эффективность и удобство последнего.]]></description>
     <pubDate>Mon, 04 May 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/theory/2015/05/04/smarter-validation.html</guid>
-</item>
-<item>
-    <title>Летняя встреча: вопросы, темы, пожелания</title>
-    <link>http://ruhaskell.org/posts/events/2015/04/10/meet-up-summer-2015.html</link>
-    <description><![CDATA[Назрел важный вопрос о летнем митапе. Нужно решить и подготовиться.]]></description>
-    <pubDate>Fri, 10 Apr 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/04/10/meet-up-summer-2015.html</guid>
 </item>
 
     </channel> 
