@@ -15,6 +15,7 @@
         </itunes:owner>
         <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
         <itunes:category text="Технологии"/>
+        <itunes:explicit text="clean"/>
         $for(issues)$
             <item>
                 <title>$title$</title>
