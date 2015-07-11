@@ -1,6 +1,6 @@
 {-
     Главный модуль.
-    https://github.com/denisshevchenko/ruhaskell
+    https://github.com/ruHaskell/ruhaskell
     Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
 -}
 
@@ -9,7 +9,7 @@
 module Main where
 
 import Copiers              (justCopy, justCreateAndCopy, justCompressAndCopy)
-import RSSFeed              (setupRSSFeed)
+import RSSFeed              (setupRSSFeed, setupITunesRSSFeed)
 import Posts                (createPosts)
 import Tags                 (createPageWithAllTags,
                              createPageWithAllCategories,
@@ -56,6 +56,7 @@ main = hakyll $ do
                 >> convertAuthorsToLinks
                 >> createXMLMap
                 >> setupRSSFeed
+                >> setupITunesRSSFeed
                 >> createIndexPage
                 >> createMailingListFrontend
                 >> createPageWithExternalLinks) [tags, categories, authors]

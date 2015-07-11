@@ -109,6 +109,17 @@ span#rss-link a {
     border-bottom: 0;
 }
 
+span#itunes-rss-link {
+    color: #1998d8;
+    padding-right: 6px;
+}
+
+span#itunes-rss-link a {
+    text-decoration: none !important;
+    color: #1998d8 !important;
+    border-bottom: 0;
+}
+
 .monospace-follow {
     font-size: 19px;
     font-family: 'Ubuntu Mono', monospace;

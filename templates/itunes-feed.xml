@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+    <channel>
+        <title>Бананы и Линзы</title>
+        <link>http://ruhaskell.org/categories/cast.html</link>
+        <language>ru-ru</language>
+        <copyright>2014 - 2015 Русскоязычное сообщество Haskell-разработчиков ruHaskell</copyright>
+        <itunes:subtitle>Русскоязычный подкаст о Haskell</itunes:subtitle>
+        <itunes:author>ruHaskell</itunes:author>
+        <itunes:summary>Русскоязычный подкаст о языке программирования Haskell и обо всём вокруг него.</itunes:summary>
+        <description>Русскоязычный подкаст о языке программирования Haskell и обо всём вокруг него. Беседуем о технических аспектах языка, об инструментах, библиотеках, а также о текущем положении Haskell в бизнесе и образовании. Подкаст создаётся силами сообщества ruHaskell.</description>
+        <itunes:owner>
+            <itunes:name>Денис Шевченко</itunes:name>
+            <itunes:email>me@dshevchenko.biz</itunes:email>
+        </itunes:owner>
+        <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+        <itunes:category text="Технологии"/>
+        $for(issues)$
+            <item>
+                <title>$title$</title>
+                <itunes:author>$issueVoices$</itunes:author>
+                <itunes:subtitle>$description$</itunes:subtitle>
+                <itunes:summary><![CDATA[$issueSummary$]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/$issueMp3$.mp3" length="$issueLength$" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/$issueMp3$.mp3</guid>
+                <pubDate>$issuePubDateInRFC2822$</pubDate>
+                <itunes:duration>$issueDuration$</itunes:duration>
+            </item>
+        $endfor$
+    </channel>
+</rss>

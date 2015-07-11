@@ -1,6 +1,6 @@
 {-
     Модуль, отвечающий за формирование главной страницы.
-    https://github.com/denisshevchenko/ruhaskell
+    https://github.com/ruHaskell/ruhaskell
     Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
 -}
 
@@ -24,11 +24,11 @@ createIndexPage = do
         compile $ do
             -- На главной странице будет отражено 7 последних публикаций.
             last7Posts <- fmap (take 7) . recentFirst =<< loadAll "posts/**"
-            let indexContext = mconcat [ listField "posts" (postContext tagsAndAuthors) (return last7Posts) 
+            let indexContext = mconcat [ listField "posts" (postContext tagsAndAuthors) (return last7Posts)
                                        , constField "title" "Русскоязычное сообщество Haskell-разработчиков"
                                        , defaultContext
                                        ]
-            
+
             makeItem "" >>= loadAndApplyTemplate "templates/index.html" indexContext
                         >>= loadAndApplyTemplate "templates/default.html" indexContext
                         >>= relativizeUrls
