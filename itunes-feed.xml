@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+    <channel>
+        <title>Бананы и Линзы</title>
+        <link>http://ruhaskell.org/categories/cast.html</link>
+        <language>ru-ru</language>
+        <copyright>2014 - 2015 Русскоязычное сообщество Haskell-разработчиков ruHaskell</copyright>
+        <itunes:subtitle>Русскоязычный подкаст о Haskell</itunes:subtitle>
+        <itunes:author>ruHaskell</itunes:author>
+        <itunes:summary>Русскоязычный подкаст о языке программирования Haskell и обо всём вокруг него.</itunes:summary>
+        <description>Русскоязычный подкаст о языке программирования Haskell и обо всём вокруг него. Беседуем о технических аспектах языка, об инструментах, библиотеках, а также о текущем положении Haskell в бизнесе и образовании. Подкаст создаётся силами сообщества ruHaskell.</description>
+        <itunes:owner>
+            <itunes:name>Денис Шевченко</itunes:name>
+            <itunes:email>me@dshevchenko.biz</itunes:email>
+        </itunes:owner>
+        <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+        <itunes:category text="Технологии"/>
+        
+            <item>
+                <title>Выпуск 1</title>
+                <itunes:author>Шевченко, Денис, Рома</itunes:author>
+                <itunes:subtitle>Первый выпуск нашего русскоязычного подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[Говорим о GHC 7.10 и связанных с ним proposals.]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue1-2015-07-05.mp3" length="58324763" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue1-2015-07-05.mp3</guid>
+                <pubDate>Sun,  5 Jul 2015 00:00:00 UTC</pubDate>
+                <itunes:duration>1:21:00</itunes:duration>
+            </item>
+        
+    </channel>
+</rss>
