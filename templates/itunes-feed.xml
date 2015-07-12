@@ -14,8 +14,8 @@
             <itunes:email>me@dshevchenko.biz</itunes:email>
         </itunes:owner>
         <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
-        <itunes:category text="Технологии"/>
-        <itunes:explicit text="clean"/>
+        <itunes:category text="Technology"/>
+        <itunes:explicit>clean</itunes:explicit>
         $for(issues)$
             <item>
                 <title>$title$</title>
