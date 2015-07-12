@@ -89,12 +89,10 @@ postContext :: TagsAndAuthors -> Context String
 postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , dateFieldWith ruTimeLocale "date" "%d %B %Y"
                                      , dateFieldWith ruTimeLocale "haskellDate" "%Y %b %d"
-                                     , dateField "issuePubDateInRFC2822" rfc822DateFormat
+                                     , dateField "issuePubDateInRFC2822" "%a, %_d %b %Y %H:%M:%S +0300"
                                      , quottedTagField "postTags" $ head tagsAndAuthors
                                      , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
                                      , defaultContext
                                      ]
-
--- Wed, 15 Jun 2014 19:00:00 +0300
 
