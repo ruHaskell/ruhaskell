@@ -26,7 +26,7 @@
                 <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
                 <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue1-2015-07-05.mp3" length="58324763" type="audio/mpeg" />
                 <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue1-2015-07-05.mp3</guid>
-                <pubDate>Sun,  5 Jul 2015 00:00:00 UTC</pubDate>
+                <pubDate>Sun,  5 Jul 2015 00:00:00 +0300</pubDate>
                 <itunes:duration>1:21:00</itunes:duration>
             </item>
         
