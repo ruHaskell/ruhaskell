@@ -6,8 +6,15 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Sun, 05 Jul 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jul 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Прощай, cabal. Здравствуй, stack!</title>
+    <link>http://ruhaskell.org/posts/utils/2015/07/13/from-cabal-to-stack.html</link>
+    <description><![CDATA[Про stack: что это такое и с чем его едят.]]></description>
+    <pubDate>Mon, 13 Jul 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/utils/2015/07/13/from-cabal-to-stack.html</guid>
+</item>
+<item>
     <title>Выпуск 1</title>
     <link>http://ruhaskell.org/posts/cast/2015/07/05/issue1.html</link>
     <description><![CDATA[Первый выпуск нашего русскоязычного подкаста, посвящённого Haskell и всему вокруг него.]]></description>
@@ -69,13 +76,6 @@
     <description><![CDATA[Свершилось! Митапу - быть!]]></description>
     <pubDate>Fri, 29 May 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/events/2015/05/29/meet-up-summer-2015-open.html</guid>
-</item>
-<item>
-    <title>Умная проверка</title>
-    <link>http://ruhaskell.org/posts/theory/2015/05/04/smarter-validation.html</link>
-    <description><![CDATA[Сегодня мы рассмотрим различные способы обработки ошибок в Haskell. Начнём с хорошо известной монады `Either`, далее перейдём к менее распространённому аппликативному функтору `Validation`, а затем повысим эффективность и удобство последнего.]]></description>
-    <pubDate>Mon, 04 May 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/theory/2015/05/04/smarter-validation.html</guid>
 </item>
 
     </channel> 
