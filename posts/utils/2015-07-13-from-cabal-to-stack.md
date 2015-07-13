@@ -367,13 +367,21 @@ runghc-7.8.4
 runhaskell          -> runghc
 ```
 
-Ну и чего нам ещё нужно-то? Здесь нет только `happy` и `alex`, всё остальное имеется. Так что, с появлением `stack`, ценность Haskell Platform резко снизилась.
+Ну а чего нам ещё нужно-то? Здесь нет только `happy` и `alex`, всё остальное имеется. Так что, с появлением `stack`, ценность Haskell Platform резко снизилась.
 
 ## Вывод
 
 Вывод только один - классную штуку сделали друзья из FP Complete. Лично я перевожу на `stack` все мои проекты. Прощай, `cabal`!
 
-**Полезные ссылки**
+Кстати, если вы работаете на Linux - для вас хорошая новость: для Ubuntu, Debian, CentOS/Red Hat и Fedora уже готовы соответствующие пакеты. Так что
+
+```bash
+$ sudo apt-get install stack
+```
+
+и вперёд! Ну а нам, маководам, осталось дождаться добавления `stack` в `brew`... ;-)
+
+## Полезные ссылки
 
 - [FP Complete про stack](https://www.fpcomplete.com/blog/2015/06/why-is-stack-not-cabal).
 - [Архитектура stack](https://github.com/commercialhaskell/stack/wiki/Architecture).
