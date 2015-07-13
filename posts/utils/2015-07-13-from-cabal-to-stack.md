@@ -332,43 +332,6 @@ Copying from /Users/dshevchenko/probe/.stack-work/install/x86_64-osx/lts-2.15/7.
 
 И если путь `~/.local/bin/` добавлен в PATH, то приложение будет немедленно доступно напрямую. Весьма удобно.
 
-## Haskell Platform? А зачем?
-
-Отношение к [Haskell Platform](https://www.haskell.org/platform/) в сообществе неоднозначное. Одни обожают эту штуку, другие считают её абсолютно излишней. Не станем сейчас давать оценку этим полярным взглядам, зададимся лучше другим вопросом: зачем она теперь нужна? Если `stack` умеет не только работать с проектами, но и устанавливать нужный компилятор - какой смысл теперь в Haskell Platform?
-
-Вспомним её состав:
-
-- GHC,
-- GHCi,
-- Cabal,
-- Haddock,
-- GHCi debugger,
-- happy,
-- alex,
-- hsc2hs,
-- документация.
-
-А теперь заглянем в `~/.stack/programs/x86_64-osx/ghc-7.8.4/bin/`:
-
-```bash
-ghc                 -> ghc-7.8.4
-ghc-7.8.4
-ghc-pkg             -> ghc-pkg-7.8.4
-ghc-pkg-7.8.4
-ghci                -> ghci-7.8.4
-ghci-7.8.4
-haddock             -> haddock-ghc-7.8.4
-haddock-ghc-7.8.4
-hp2ps
-hpc
-hsc2hs
-runghc              -> runghc-7.8.4
-runghc-7.8.4
-runhaskell          -> runghc
-```
-
-Ну а чего нам ещё нужно-то? Здесь нет только `happy` и `alex`, всё остальное имеется. Так что, с появлением `stack`, ценность Haskell Platform резко снизилась.
-
 ## Вывод
 
 Вывод только один - классную штуку сделали друзья из FP Complete. Лично я перевожу на `stack` все мои проекты. Прощай, `cabal`!
