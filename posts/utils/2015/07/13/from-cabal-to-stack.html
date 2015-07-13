@@ -375,36 +375,6 @@ $ <span class="kw">stack</span> init</code></pre>
 <pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> install
 <span class="kw">Copying</span> from /Users/dshevchenko/probe/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/bin/new-template-exe to /Users/dshevchenko/.local/bin/new-template-exe</code></pre>
 <p>И если путь <code>~/.local/bin/</code> добавлен в PATH, то приложение будет немедленно доступно напрямую. Весьма удобно.</p>
-<h2 id="haskell-platform-а-зачем">Haskell Platform? А зачем?</h2>
-<p>Отношение к <a href="https://www.haskell.org/platform/">Haskell Platform</a> в сообществе неоднозначное. Одни обожают эту штуку, другие считают её абсолютно излишней. Не станем сейчас давать оценку этим полярным взглядам, зададимся лучше другим вопросом: зачем она теперь нужна? Если <code>stack</code> умеет не только работать с проектами, но и устанавливать нужный компилятор - какой смысл теперь в Haskell Platform?</p>
-<p>Вспомним её состав:</p>
-<ul>
-<li>GHC,</li>
-<li>GHCi,</li>
-<li>Cabal,</li>
-<li>Haddock,</li>
-<li>GHCi debugger,</li>
-<li>happy,</li>
-<li>alex,</li>
-<li>hsc2hs,</li>
-<li>документация.</li>
-</ul>
-<p>А теперь заглянем в <code>~/.stack/programs/x86_64-osx/ghc-7.8.4/bin/</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghc</span>                 -<span class="kw">&gt;</span> ghc-7.8.4
-<span class="kw">ghc-7.8.4</span>
-<span class="kw">ghc-pkg</span>             -<span class="kw">&gt;</span> ghc-pkg-7.8.4
-<span class="kw">ghc-pkg-7.8.4</span>
-<span class="kw">ghci</span>                -<span class="kw">&gt;</span> ghci-7.8.4
-<span class="kw">ghci-7.8.4</span>
-<span class="kw">haddock</span>             -<span class="kw">&gt;</span> haddock-ghc-7.8.4
-<span class="kw">haddock-ghc-7.8.4</span>
-<span class="kw">hp2ps</span>
-<span class="kw">hpc</span>
-<span class="kw">hsc2hs</span>
-<span class="kw">runghc</span>              -<span class="kw">&gt;</span> runghc-7.8.4
-<span class="kw">runghc-7.8.4</span>
-<span class="kw">runhaskell</span>          -<span class="kw">&gt;</span> runghc</code></pre>
-<p>Ну а чего нам ещё нужно-то? Здесь нет только <code>happy</code> и <code>alex</code>, всё остальное имеется. Так что, с появлением <code>stack</code>, ценность Haskell Platform резко снизилась.</p>
 <h2 id="вывод">Вывод</h2>
 <p>Вывод только один - классную штуку сделали друзья из FP Complete. Лично я перевожу на <code>stack</code> все мои проекты. Прощай, <code>cabal</code>!</p>
 <p>Кстати, если вы работаете на Linux - для вас хорошая новость: для Ubuntu, Debian, CentOS/Red Hat и Fedora уже готовы <a href="https://github.com/commercialhaskell/stack/wiki/Downloads#ubuntu">соответствующие пакеты</a>. Ну а нам, маководам, осталось дождаться добавления <code>stack</code> в <code>brew</code>… ;-)</p>
