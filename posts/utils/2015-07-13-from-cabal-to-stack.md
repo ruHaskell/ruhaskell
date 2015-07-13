@@ -373,13 +373,7 @@ runhaskell          -> runghc
 
 Вывод только один - классную штуку сделали друзья из FP Complete. Лично я перевожу на `stack` все мои проекты. Прощай, `cabal`!
 
-Кстати, если вы работаете на Linux - для вас хорошая новость: для Ubuntu, Debian, CentOS/Red Hat и Fedora уже готовы соответствующие пакеты. Так что
-
-```bash
-$ sudo apt-get install stack
-```
-
-и вперёд! Ну а нам, маководам, осталось дождаться добавления `stack` в `brew`... ;-)
+Кстати, если вы работаете на Linux - для вас хорошая новость: для Ubuntu, Debian, CentOS/Red Hat и Fedora уже готовы [соответствующие пакеты](https://github.com/commercialhaskell/stack/wiki/Downloads#ubuntu). Ну а нам, маководам, осталось дождаться добавления `stack` в `brew`... ;-)
 
 ## Полезные ссылки
 
