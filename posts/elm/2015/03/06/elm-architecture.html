@@ -200,68 +200,68 @@
 <p><strong>Замечание</strong>: Чтобы опробовать приведённый здесь код вам потребуется <a href="http://elm-lang.org/Install.elm">установить Elm</a> и форкнуть <a href="https://github.com/evancz/elm-architecture-tutorial">репозиторий</a>. Каждый пример имеет инструкцию как запустить код.</p>
 <h2 id="основной-приём">Основной приём</h2>
 <p>Логика каждой программы в Elm разбивается на три чётко разделённые части: модель, обновление и отображение. Вы можете каждый раз начинать с этого скелета проекта, а затем постепенно заполнять его подробностями под вашу конкретную задачу.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Модель</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Модель</span>
 
-<span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">=</span> <span class="hs-layout">{</span> <span class="hs-varop">...</span> <span class="hs-layout">}</span>
+<span class="kw">type</span> alias <span class="dt">Model</span> <span class="fu">=</span> { <span class="fu">...</span> }
 
-<span class="hs-comment">-- Обновление</span>
+<span class="co">-- Обновление</span>
 
-<span class="hs-keyword">type</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Reset</span> <span class="hs-keyglyph">|</span> <span class="hs-varop">...</span>
+<span class="kw">type</span> <span class="dt">Action</span> <span class="fu">=</span> <span class="dt">Reset</span> <span class="fu">|</span> <span class="fu">...</span>
 
-<span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">update</span> <span class="hs-varid">action</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-varid">action</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Reset</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varop">...</span>
-    <span class="hs-varop">...</span>
+update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+update action model <span class="fu">=</span>
+  <span class="kw">case</span> action <span class="kw">of</span>
+    <span class="dt">Reset</span> <span class="ot">-&gt;</span> <span class="fu">...</span>
+    <span class="fu">...</span>
 
-<span class="hs-comment">-- Отображение</span>
+<span class="co">-- Отображение</span>
 
-<span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varop">...</span></code></pre>
+view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view <span class="fu">=</span>
+  <span class="fu">...</span></code></pre>
 <p>Весь туториал мы будем использовать этот паттерн с небольшими изменениями и дополнениями.</p>
 <h2 id="пример-1-счётчик">Пример №1: Счётчик</h2>
 <p>Наш первый пример это простой счётчик, который можно увеличивать или уменьшать. Чтобы посмотреть его в действии, зайдите в каталог <code>1/</code>, запустите там <code>elm-reactor</code> и откройте в браузере <a href="http://localhost:8000/Counter.elm?debug" class="uri">http://localhost:8000/Counter.elm?debug</a>.</p>
 <p>Код начинается с очень простой модели. Нам просто надо отслеживать одно число:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Int</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> alias <span class="dt">Model</span> <span class="fu">=</span> <span class="dt">Int</span></code></pre>
 <p>При обновлении модели тоже всё очень просто. Мы определяем набор действий, которые могут выполняться и добавляем их обработку в функцию <code>update</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Increment</span> <span class="hs-keyglyph">|</span> <span class="hs-conid">Decrement</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span> <span class="fu">=</span> <span class="dt">Increment</span> <span class="fu">|</span> <span class="dt">Decrement</span>
 
-<span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">update</span> <span class="hs-varid">action</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-varid">action</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Increment</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">model</span> <span class="hs-varop">+</span> <span class="hs-num">1</span>
-    <span class="hs-conid">Decrement</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">model</span> <span class="hs-comment">-</span> <span class="hs-num">1</span></code></pre>
+update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+update action model <span class="fu">=</span>
+  <span class="kw">case</span> action <span class="kw">of</span>
+    <span class="dt">Increment</span> <span class="ot">-&gt;</span> model <span class="fu">+</span> <span class="dv">1</span>
+    <span class="dt">Decrement</span> <span class="ot">-&gt;</span> model <span class="fu">-</span> <span class="dv">1</span></code></pre>
 <p>Обратите внимание, что наш <a href="http://elm-lang.org/learn/Union-Types.elm">тип-объединение</a> <code>Action</code> ничего не <em>делает</em>. Он просто описывает какие действия возможны. Если кому-то потребуется сделать чтобы счётчик удваивался, когда нажимается кнопка, то надо просто добавить новый конструктор в <code>Action</code>. Это означает, что наш код будет очень чётко указывать на то, как может изменяться наша модель. Любой, кто будет читать код моментально узнает что допустимо, а что нет. Кроме того, сразу становится понятно куда добавлять новые возможности.</p>
 <p>Теперь осталось только сделать отображение (view) для нашей модели. Мы будем использовать <a href="http://elm-lang.org/blog/Blazing-Fast-Html.elm">elm-html</a> для создания HTML, который отобразится в браузере. Мы создаём <code>div</code>, содержащий в себе: кнопку уменьшения, <code>div</code> с текущим значением счётчика и кнопку увеличения.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-varid">address</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">div</span> <span class="hs-conid">[]</span>
-    <span class="hs-keyglyph">[</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">address</span> <span class="hs-conid">Decrement</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"-"</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">div</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">countStyle</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-layout">(</span><span class="hs-varid">toString</span> <span class="hs-varid">model</span><span class="hs-layout">)</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">address</span> <span class="hs-conid">Increment</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"+"</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-keyglyph">]</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">view <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view address model <span class="fu">=</span>
+  div []
+    [ button [ onClick address <span class="dt">Decrement</span> ] [ text <span class="st">&quot;-&quot;</span> ]
+    , div [ countStyle ] [ text (toString model) ]
+    , button [ onClick address <span class="dt">Increment</span> ] [ text <span class="st">&quot;+&quot;</span> ]
+    ]
 
-<span class="hs-definition">countStyle</span> <span class="hs-conop">:</span> <span class="hs-conid">Attribute</span>
-<span class="hs-definition">countStyle</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varop">...</span></code></pre>
+countStyle <span class="fu">:</span> <span class="dt">Attribute</span>
+countStyle <span class="fu">=</span>
+  <span class="fu">...</span></code></pre>
 <p>Самая сложная часть функции <code>view</code> это <code>Signal.Address</code>. Мы займёмся этим в следующем части, а пока я хочу, чтобы вы отметили, что этот код является <strong>полностью декларативным</strong>. Мы берём <code>Model</code> и выдаём некий <code>Html</code>. И всё. Ни в каком месте мы не занимаемся ручным изменением DOM, что открывает библиотеке <a href="http://elm-lang.org/blog/Blazing-Fast-Html.elm">большой простор для оптимизации</a> и даже значительно всё ускоряет. Это просто здорово. Более того, функция <code>view</code> это самая обычная функция и при её создании мы можем пользоваться всей мощью системы модулей Elm, фреймворками для тестирования и библиотеками.</p>
 <p>Это и есть суть компоновки любых приложений в Elm. Все примеры которые мы далее увидим будут лишь небольшими вариациями этого базвого паттерна: модель (<code>Model</code>), обновление (<code>update</code>), отображение (<code>view</code>).</p>
 <h2 id="отступление-оживление-вашего-приложения-с-помощью-сигналов">Отступление: оживление вашего приложения с помощью сигналов</h2>
 <p>Теперь разберём часть кода с <code>Signal.Address</code>.</p>
 <p>До этого мы говорили только о чистых функциях и неизменяемых данных. Это здорово, но нам надо также и реагировать на события из внешнего мира. В Elm этим занимаются <a href="http://elm-lang.org/learn/Using-Signals.elm">сигналы</a>. Сигнал это значение, которое изменяется со временем, что позволяет нам говорить о том, как будет изменяться наша модель.</p>
 <p>В принципе все программы будут иметь этот небольшой кусочек кода, который обслуживает всё приложение. В примере №1 он выглядит вот так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-varid">view</span> <span class="hs-varid">actions</span><span class="hs-varop">.</span><span class="hs-varid">address</span><span class="hs-layout">)</span> <span class="hs-varid">model</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">:</span> <span class="dt">Signal</span> <span class="dt">Html</span>
+main <span class="fu">=</span>
+  Signal.map (view actions<span class="fu">.</span>address) model
 
-<span class="hs-definition">model</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">foldp</span> <span class="hs-varid">update</span> <span class="hs-num">0</span> <span class="hs-varid">actions</span><span class="hs-varop">.</span><span class="hs-varid">address</span>
+model <span class="fu">:</span> <span class="dt">Signal</span> <span class="dt">Model</span>
+model <span class="fu">=</span>
+  Signal.foldp update <span class="dv">0</span> actions<span class="fu">.</span>address
 
-<span class="hs-definition">actions</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Mailbox</span> <span class="hs-conid">Action</span>
-<span class="hs-definition">actions</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">mailbox</span> <span class="hs-conid">Increment</span></code></pre>
+actions <span class="fu">:</span> <span class="dt">Signal.Mailbox</span> <span class="dt">Action</span>
+actions <span class="fu">=</span>
+  Signal.mailbox <span class="dt">Increment</span></code></pre>
 <p>Хочу обратить ваше внимание на несколько деталей:</p>
 <ol style="list-style-type: decimal">
 <li>Мы начинаем с 0 в качестве стартового значения модели.</li>
@@ -281,105 +281,105 @@
 <p>В первом примере мы создали простой счётчик, но как это будет масштабироваться, когда нам понадобится <em>два</em> счётчика? Сможем ли мы сохранить модульность?</p>
 <p>Чтобы посмотреть пример №2 в действии, зайдите в каталог <code>2/</code> и запустите там <code>elm-reactor</code>, после чего откройте <a href="http://localhost:8000/CounterPair.elm?debug" class="uri">http://localhost:8000/CounterPair.elm?debug</a>.</p>
 <p>Основной нашей задачей сейчас является повторное использование <em>всего</em> кода предыдущего примера. Чтобы этого добиться, мы создадим самостоятельный модуль <code>Counter</code>, в который положим все детали реализации счётчика. Единственное изменение будет в функции <code>view</code>, поэтому я не буду раскрывать все старые определения.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Counter</span> <span class="hs-layout">(</span><span class="hs-conid">Model</span><span class="hs-layout">,</span> <span class="hs-varid">init</span><span class="hs-layout">,</span> <span class="hs-conid">Action</span><span class="hs-layout">,</span> <span class="hs-varid">update</span><span class="hs-layout">,</span> <span class="hs-varid">view</span><span class="hs-layout">)</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Counter</span> (<span class="dt">Model</span>, init, <span class="dt">Action</span>, update, view) <span class="kw">where</span>
 
-<span class="hs-keyword">type</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">...</span>
+<span class="kw">type</span> <span class="dt">Model</span> <span class="fu">=</span> <span class="fu">...</span>
 
-<span class="hs-definition">init</span> <span class="hs-conop">:</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">init</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">...</span>
+init <span class="fu">:</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+init <span class="fu">=</span> <span class="fu">...</span>
 
-<span class="hs-keyword">type</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">...</span>
+<span class="kw">type</span> <span class="dt">Action</span> <span class="fu">=</span> <span class="fu">...</span>
 
-<span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">update</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">...</span>
+update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+update <span class="fu">=</span> <span class="fu">...</span>
 
-<span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">LocalChannel</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-varid">channel</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span> <span class="hs-varop">...</span></code></pre>
+view <span class="fu">:</span> <span class="dt">LocalChannel</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view channel model <span class="fu">=</span> <span class="fu">...</span></code></pre>
 <p>Создание модульного кода требует создания сильных абстракций. Нам нужны границы, которые обеспечат функционал и скроют реализацию. Снаружи модуля <code>Counter</code> мы видим просто набор значений: <code>Model</code>, <code>init</code>, <code>Action</code>, <code>update</code> и <code>view</code>. Нам не важно как это всё реализовано. В действительности, <em>невозможно</em> узнать как они реализованы, что не даст никому завязываться на детали, которые не были опубликованы.</p>
 <p>Теперь, когда у нас есть наш базовый модуль <code>Counter</code>, займёмся созданием приложения <code>CounterPair</code>. Как всегда, начинаем с модели:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">topCounter</span>    <span class="hs-conop">:</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Model</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">bottomCounter</span> <span class="hs-conop">:</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Model</span>
-    <span class="hs-layout">}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> alias <span class="dt">Model</span> <span class="fu">=</span>
+    { topCounter    <span class="fu">:</span> <span class="dt">Counter.Model</span>
+    , bottomCounter <span class="fu">:</span> <span class="dt">Counter.Model</span>
+    }
 
-<span class="hs-definition">init</span> <span class="hs-conop">:</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">init</span> <span class="hs-varid">top</span> <span class="hs-varid">bottom</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">topCounter</span>    <span class="hs-keyglyph">=</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">init</span> <span class="hs-varid">top</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">bottomCounter</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">init</span> <span class="hs-varid">bottom</span>
-    <span class="hs-layout">}</span></code></pre>
+init <span class="fu">:</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+init top bottom <span class="fu">=</span>
+    { topCounter    <span class="fu">=</span> Counter.init top
+    , bottomCounter <span class="fu">=</span> Counter.init bottom
+    }</code></pre>
 <p>Наша модель является записью с двумя полями, по одному для каждого счётчика, который мы хотим показать на экране. Это полностью отражает состояние приложения. Ещё у нас есть функция <code>init</code>, создающая новую модель когда нам это потребуется.</p>
 <p>Далее мы определяем набор действий, которые мы хотим поддерживать. В этот раз у нас будет: сброс всех счётчиков, обновление верхнего счётчика или обновление нижнего счётчика.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Action</span>
-    <span class="hs-keyglyph">=</span> <span class="hs-conid">Reset</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-conid">Top</span>    <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Action</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-conid">Bottom</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Action</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span>
+    <span class="fu">=</span> <span class="dt">Reset</span>
+    <span class="fu">|</span> <span class="dt">Top</span>    <span class="dt">Counter.Action</span>
+    <span class="fu">|</span> <span class="dt">Bottom</span> <span class="dt">Counter.Action</span></code></pre>
 <p>Обратите внимание, что наш <a href="http://elm-lang.org/learn/Union-Types.elm">тип-объединение</a> указывает на тип <code>Counter.Action</code>, но мы не знанием подброностей этих действий. Когда мы создаём функцию <code>update</code> мы просто отправляем эти действия в правильное место:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">update</span> <span class="hs-varid">action</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-varid">action</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Reset</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">init</span> <span class="hs-num">0</span> <span class="hs-num">0</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+update action model <span class="fu">=</span>
+  <span class="kw">case</span> action <span class="kw">of</span>
+    <span class="dt">Reset</span> <span class="ot">-&gt;</span> init <span class="dv">0</span> <span class="dv">0</span>
 
-    <span class="hs-conid">Top</span> <span class="hs-varid">act</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span>
-          <span class="hs-varid">topCounter</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">update</span> <span class="hs-varid">act</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">topCounter</span>
-      <span class="hs-layout">}</span>
+    <span class="dt">Top</span> act <span class="ot">-&gt;</span>
+      { model <span class="fu">|</span>
+          topCounter <span class="ot">&lt;-</span> Counter.update act model<span class="fu">.</span>topCounter
+      }
 
-    <span class="hs-conid">Bottom</span> <span class="hs-varid">act</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span>
-          <span class="hs-varid">bottomCounter</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">update</span> <span class="hs-varid">act</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">bottomCounter</span>
-      <span class="hs-layout">}</span></code></pre>
+    <span class="dt">Bottom</span> act <span class="ot">-&gt;</span>
+      { model <span class="fu">|</span>
+          bottomCounter <span class="ot">&lt;-</span> Counter.update act model<span class="fu">.</span>bottomCounter
+      }</code></pre>
 <p>И напоследок остаётся только сделать функцию отображения, которая покажет на экране оба наших счётчика и кнопку сброса.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-varid">address</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">div</span> <span class="hs-conid">[]</span>
-    <span class="hs-keyglyph">[</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">view</span> <span class="hs-layout">(</span><span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">forwardTo</span> <span class="hs-varid">address</span> <span class="hs-conid">Top</span><span class="hs-layout">)</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">topCounter</span>
-    <span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">view</span> <span class="hs-layout">(</span><span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">forwardTo</span> <span class="hs-varid">address</span> <span class="hs-conid">Bottom</span><span class="hs-layout">)</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">bottomCounter</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">address</span> <span class="hs-conid">Reset</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"RESET"</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-keyglyph">]</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">view <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view address model <span class="fu">=</span>
+  div []
+    [ Counter.view (Signal.forwardTo address <span class="dt">Top</span>) model<span class="fu">.</span>topCounter
+    , Counter.view (Signal.forwardTo address <span class="dt">Bottom</span>) model<span class="fu">.</span>bottomCounter
+    , button [ onClick address <span class="dt">Reset</span> ] [ text <span class="st">&quot;RESET&quot;</span> ]
+    ]</code></pre>
 <p>Здорово, что мы смогли использовать функцию <code>Counter.view</code> для обоих счётчиков. Для каждого счётчика мы создаём адрес пересылки. Сообщения на этот адрес будут отмечены как <code>Top</code> или <code>Bottom</code>, чтобы мы могли их различать.</p>
 <p>Вот и всё. С помощью локальных каналов мы можем сколько угодно вкладывать наш паттерн модель/обновлние/отображение. Например можно взять модуль <code>CounterPair</code>, опубликовать ключевые значения и функции, а затем создать пару пар счётчиков или что нам будет ещё угодно.</p>
 <h2 id="пример-3-динамический-список-счётчиков">Пример №3: Динамический список счётчиков</h2>
 <p>Пара счётчиков это круто, но как насчёт списка счётчиков, в который можно добавлять новые и удалять по требованию? Будет ли наш приём работать и тут?</p>
 <p>Чтобы посмотреть пример №2 в действии, зайдите в каталог <code>3/</code> и запустите там <code>elm-reactor</code>, после чего откройте <a href="http://localhost:8000/CounterList.elm?debug" class="uri">http://localhost:8000/CounterList.elm?debug</a>.</p>
 <p>В этом примере мы будем использовать тот же самый модуль <code>Counter</code>, что и в примере №2.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Counter</span> <span class="hs-layout">(</span><span class="hs-conid">Model</span><span class="hs-layout">,</span> <span class="hs-varid">init</span><span class="hs-layout">,</span> <span class="hs-conid">Action</span><span class="hs-layout">,</span> <span class="hs-varid">update</span><span class="hs-layout">,</span> <span class="hs-varid">view</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Counter</span> (<span class="dt">Model</span>, init, <span class="dt">Action</span>, update, view)</code></pre>
 <p>Это значит, что мы приступим сразу к модулю <code>CounterList</code>. Как обычно, начинаем с модели:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">counters</span> <span class="hs-conop">:</span> <span class="hs-conid">List</span> <span class="hs-layout">(</span> <span class="hs-conid">ID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Model</span> <span class="hs-layout">)</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">nextID</span> <span class="hs-conop">:</span> <span class="hs-conid">ID</span>
-    <span class="hs-layout">}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> alias <span class="dt">Model</span> <span class="fu">=</span>
+    { counters <span class="fu">:</span> <span class="dt">List</span> ( <span class="dt">ID</span>, <span class="dt">Counter.Model</span> )
+    , nextID <span class="fu">:</span> <span class="dt">ID</span>
+    }
 
-<span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">ID</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Int</span></code></pre>
+<span class="kw">type</span> alias <span class="dt">ID</span> <span class="fu">=</span> <span class="dt">Int</span></code></pre>
 <p>Теперь наша модель это список счётчиков, каждый со своим уникальным ID. Эти идентификакторы позволяют нам различать счётчики и когда мы захотим обновить четвёртый, у нас будет простой способ это сделать. (Кроме того эти ID дают удобный способ определять уникальный <a href="http://package.elm-lang.org/packages/evancz/elm-html/latest/Html-Attributes#key"><code>ключ</code></a> когда мы задумаемся об оптимизации отрисовки компонентов, но это мы не будем сейчас особо останавливаться на этой теме.) Кроме того, у модели есть поле <code>nextId</code>, помогающее нам назначать уникальные идентификаторы при добавлении новых счётчиков.</p>
 <p>Опишем набор действий, которые мы можем применять к нашей модели. Мы хотим иметь возможность добавлять счётчики, удалять их, а так же изменять значения отдельных счётчиков.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Action</span>
-    <span class="hs-keyglyph">=</span> <span class="hs-conid">Insert</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-conid">Remove</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-conid">Modify</span> <span class="hs-conid">ID</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Action</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span>
+    <span class="fu">=</span> <span class="dt">Insert</span>
+    <span class="fu">|</span> <span class="dt">Remove</span>
+    <span class="fu">|</span> <span class="dt">Modify</span> <span class="dt">ID</span> <span class="dt">Counter.Action</span></code></pre>
 <p>Наш <a href="http://elm-lang.org/learn/Union-Types.elm">тип-объединение</a> <code>Action</code> весьма похож на описанное выше поведение.</p>
 <p>Давайте опишем функцию <code>update</code>.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">update</span> <span class="hs-varid">action</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-varid">action</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Insert</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-keyword">let</span> <span class="hs-varid">newCounter</span> <span class="hs-keyglyph">=</span> <span class="hs-layout">(</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">nextID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">init</span> <span class="hs-num">0</span> <span class="hs-layout">)</span>
-          <span class="hs-varid">newCounters</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span> <span class="hs-varop">++</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">newCounter</span> <span class="hs-keyglyph">]</span>
-      <span class="hs-keyword">in</span>
-          <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span>
-              <span class="hs-varid">counters</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">newCounters</span><span class="hs-layout">,</span>
-              <span class="hs-varid">nextID</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">nextID</span> <span class="hs-varop">+</span> <span class="hs-num">1</span>
-          <span class="hs-layout">}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+update action model <span class="fu">=</span>
+  <span class="kw">case</span> action <span class="kw">of</span>
+    <span class="dt">Insert</span> <span class="ot">-&gt;</span>
+      <span class="kw">let</span> newCounter <span class="fu">=</span> ( model<span class="fu">.</span>nextID, Counter.init <span class="dv">0</span> )
+          newCounters <span class="fu">=</span> model<span class="fu">.</span>counters <span class="fu">++</span> [ newCounter ]
+      <span class="kw">in</span>
+          { model <span class="fu">|</span>
+              counters <span class="ot">&lt;-</span> newCounters,
+              nextID <span class="ot">&lt;-</span> model<span class="fu">.</span>nextID <span class="fu">+</span> <span class="dv">1</span>
+          }
 
-    <span class="hs-conid">Remove</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">counters</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">List</span><span class="hs-varop">.</span><span class="hs-varid">drop</span> <span class="hs-num">1</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span> <span class="hs-layout">}</span>
+    <span class="dt">Remove</span> <span class="ot">-&gt;</span>
+      { model <span class="fu">|</span> counters <span class="ot">&lt;-</span> List.drop <span class="dv">1</span> model<span class="fu">.</span>counters }
 
-    <span class="hs-conid">Modify</span> <span class="hs-varid">id</span> <span class="hs-varid">counterAction</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-keyword">let</span> <span class="hs-varid">updateCounter</span> <span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-varid">counterModel</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
-            <span class="hs-keyword">if</span> <span class="hs-varid">counterID</span> <span class="hs-varop">==</span> <span class="hs-varid">id</span>
-                <span class="hs-keyword">then</span> <span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">update</span> <span class="hs-varid">counterAction</span> <span class="hs-varid">counterModel</span><span class="hs-layout">)</span>
-                <span class="hs-keyword">else</span> <span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-varid">counterModel</span><span class="hs-layout">)</span>
-      <span class="hs-keyword">in</span>
-          <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">counters</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">List</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-varid">updateCounter</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span> <span class="hs-layout">}</span></code></pre>
+    <span class="dt">Modify</span> id counterAction <span class="ot">-&gt;</span>
+      <span class="kw">let</span> updateCounter (counterID, counterModel) <span class="fu">=</span>
+            <span class="kw">if</span> counterID <span class="fu">==</span> id
+                <span class="kw">then</span> (counterID, Counter.update counterAction counterModel)
+                <span class="kw">else</span> (counterID, counterModel)
+      <span class="kw">in</span>
+          { model <span class="fu">|</span> counters <span class="ot">&lt;-</span> List.map updateCounter model<span class="fu">.</span>counters }</code></pre>
 <p>Вот общее описение каждого случая:</p>
 <ul>
 <li><p><code>Insert</code> — Сначала мы создаём новый счётчик и кладём его в конец списка. Затем мы увеличиваем <code>nextID</code> чтобы в следующий раз у нас уже был готовый ID.</p></li>
@@ -387,17 +387,17 @@
 <li><p><code>Modify</code> — Проходимся по списку счётчиков и, если попался нужный ID, вызываем <code>Action</code> для этого счётчика.</p></li>
 </ul>
 <p>Всё что осталось это функция отображения.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-varid">address</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">let</span> <span class="hs-varid">counters</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">List</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-varid">viewCounter</span> <span class="hs-varid">address</span><span class="hs-layout">)</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span>
-      <span class="hs-varid">remove</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">address</span> <span class="hs-conid">Remove</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"Remove"</span> <span class="hs-keyglyph">]</span>
-      <span class="hs-varid">insert</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">address</span> <span class="hs-conid">Insert</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"Add"</span> <span class="hs-keyglyph">]</span>
-  <span class="hs-keyword">in</span>
-      <span class="hs-varid">div</span> <span class="hs-conid">[]</span> <span class="hs-layout">(</span><span class="hs-keyglyph">[</span><span class="hs-varid">remove</span><span class="hs-layout">,</span> <span class="hs-varid">insert</span><span class="hs-keyglyph">]</span> <span class="hs-varop">++</span> <span class="hs-varid">counters</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">view <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view address model <span class="fu">=</span>
+  <span class="kw">let</span> counters <span class="fu">=</span> List.map (viewCounter address) model<span class="fu">.</span>counters
+      remove <span class="fu">=</span> button [ onClick address <span class="dt">Remove</span> ] [ text <span class="st">&quot;Remove&quot;</span> ]
+      insert <span class="fu">=</span> button [ onClick address <span class="dt">Insert</span> ] [ text <span class="st">&quot;Add&quot;</span> ]
+  <span class="kw">in</span>
+      div [] ([remove, insert] <span class="fu">++</span> counters)
 
-<span class="hs-definition">viewCounter</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">ID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Model</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">viewCounter</span> <span class="hs-varid">address</span> <span class="hs-layout">(</span><span class="hs-varid">id</span><span class="hs-layout">,</span> <span class="hs-varid">model</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">view</span> <span class="hs-layout">(</span><span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">forwardTo</span> <span class="hs-varid">address</span> <span class="hs-layout">(</span><span class="hs-conid">Modify</span> <span class="hs-varid">id</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-varid">model</span></code></pre>
+viewCounter <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> (<span class="dt">ID</span>, <span class="dt">Counter.Model</span>) <span class="ot">-&gt;</span> <span class="dt">Html</span>
+viewCounter address (id, model) <span class="fu">=</span>
+  Counter.view (Signal.forwardTo address (<span class="dt">Modify</span> id)) model</code></pre>
 <p>Забавно, что функция <code>viewCounter</code> использует всё ту же функцию <code>Counter.view</code>, но в этот раз мы используем адрес пересылки, помечающий все сообщения выводящегося в данный момент счётчика его идентификатором.</p>
 <p>Когда мы создаём функцию <code>view</code> приложения, мы применяем функцию <code>viewCounter</code> на каждый элемент списка. А когда мы создаём кнопки добавления и удаления, которые шлют сообщения в канал приложения <code>address</code> напрямую.</p>
 <p>Подобный трюк с ID может быть использован в любом месте, где вам нужно динамическое количество вложенных компонентов. Счётчики это довольно просто, но такой паттерн будет работать в точности одинаково если у вас будет список профилей пользователей, твитов, элементов ленты новостей или продуктов.</p>
@@ -406,92 +406,92 @@
 <p>Не, всё работает.</p>
 <p>Чтобы посмотреть пример №4 в действии, зайдите в каталог <code>4/</code> и запустите там <code>elm-reactor</code>, после чего откройте <a href="http://localhost:8000/CounterList.elm?debug" class="uri">http://localhost:8000/CounterList.elm?debug</a>.</p>
 <p>В данном случае нам потребуется новый способ создавать счётчики вместе с их кнопками. Мы можем оставить старую функцию <code>view</code> и просто добавить новую <code>viewWithRemoveButton</code>, которая будет немного по-другому рисовать модель. Нам не потребуется дублировать код или делать сумашедшие трюки с наследованием или перегрузкой. Мы просто добавим в публичный интерфейс модуля новую функцию, реализующую новую функциональность!</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Counter</span> <span class="hs-layout">(</span><span class="hs-conid">Model</span><span class="hs-layout">,</span> <span class="hs-varid">init</span><span class="hs-layout">,</span> <span class="hs-conid">Action</span><span class="hs-layout">,</span> <span class="hs-varid">update</span><span class="hs-layout">,</span> <span class="hs-varid">view</span><span class="hs-layout">,</span> <span class="hs-varid">viewWithRemoveButton</span><span class="hs-layout">,</span> <span class="hs-conid">Context</span><span class="hs-layout">)</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Counter</span> (<span class="dt">Model</span>, init, <span class="dt">Action</span>, update, view, viewWithRemoveButton, <span class="dt">Context</span>) <span class="kw">where</span>
 
-<span class="hs-varop">...</span>
+<span class="fu">...</span>
 
-<span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">Context</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">actions</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">Action</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">remove</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">()</span>
-    <span class="hs-layout">}</span>
+<span class="kw">type</span> alias <span class="dt">Context</span> <span class="fu">=</span>
+    { actions <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="dt">Action</span>
+    , remove <span class="fu">:</span> <span class="dt">Signal.Address</span> ()
+    }
 
-<span class="hs-definition">viewWithRemoveButton</span> <span class="hs-conop">:</span> <span class="hs-conid">Context</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">viewWithRemoveButton</span> <span class="hs-varid">context</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">div</span> <span class="hs-conid">[]</span>
-    <span class="hs-keyglyph">[</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">context</span><span class="hs-varop">.</span><span class="hs-varid">actions</span> <span class="hs-conid">Decrement</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"-"</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">div</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">countStyle</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-layout">(</span><span class="hs-varid">toString</span> <span class="hs-varid">model</span><span class="hs-layout">)</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">context</span><span class="hs-varop">.</span><span class="hs-varid">actions</span> <span class="hs-conid">Increment</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"+"</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">div</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">countStyle</span> <span class="hs-keyglyph">]</span> <span class="hs-conid">[]</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">context</span><span class="hs-varop">.</span><span class="hs-varid">remove</span> <span class="hs-conid">()</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"X"</span> <span class="hs-keyglyph">]</span>
-    <span class="hs-keyglyph">]</span></code></pre>
+viewWithRemoveButton <span class="fu">:</span> <span class="dt">Context</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+viewWithRemoveButton context model <span class="fu">=</span>
+  div []
+    [ button [ onClick context<span class="fu">.</span>actions <span class="dt">Decrement</span> ] [ text <span class="st">&quot;-&quot;</span> ]
+    , div [ countStyle ] [ text (toString model) ]
+    , button [ onClick context<span class="fu">.</span>actions <span class="dt">Increment</span> ] [ text <span class="st">&quot;+&quot;</span> ]
+    , div [ countStyle ] []
+    , button [ onClick context<span class="fu">.</span>remove () ] [ text <span class="st">&quot;X&quot;</span> ]
+    ]</code></pre>
 <p>Функция <code>viewWithRemoveButton</code> добавляет одну дополнительную кнопку. Обратите внимание, что функции увеличения и уменьшения отправляют сообщения в канал actionChan, а кнопка удаления шлёт их на адрес <code>actions</code>. Сообщения, попадающие в канал <code>remove</code> как бы говорят: “Эй, кто там меня создал, удаляй меня!”. Что конкретно надо сделать для удаления решает уже тот, кто создал этот конкретный счётчик.</p>
 <p>Теперь, когда у нас есть <code>viewWithRemoveButton</code>, мы можем создать модуль <code>CounterList</code>, в котором соберём все счётчики вместе. Тип <code>Model</code> будет использоваться такой же, как в примере №3: список счётчиков и уникальный номер.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">counters</span> <span class="hs-conop">:</span> <span class="hs-conid">List</span> <span class="hs-layout">(</span> <span class="hs-conid">ID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Model</span> <span class="hs-layout">)</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">nextID</span> <span class="hs-conop">:</span> <span class="hs-conid">ID</span>
-    <span class="hs-layout">}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> alias <span class="dt">Model</span> <span class="fu">=</span>
+    { counters <span class="fu">:</span> <span class="dt">List</span> ( <span class="dt">ID</span>, <span class="dt">Counter.Model</span> )
+    , nextID <span class="fu">:</span> <span class="dt">ID</span>
+    }
 
-<span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">ID</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Int</span></code></pre>
+<span class="kw">type</span> alias <span class="dt">ID</span> <span class="fu">=</span> <span class="dt">Int</span></code></pre>
 <p>Возможные действия будут немного отличаться. Вместо удаления всех старых счётчтиков мы хотим удалить только тот, чей ID совпадает с указанным.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Action</span>
-    <span class="hs-keyglyph">=</span> <span class="hs-conid">Insert</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-conid">Remove</span> <span class="hs-conid">ID</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-conid">Modify</span> <span class="hs-conid">ID</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Action</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span>
+    <span class="fu">=</span> <span class="dt">Insert</span>
+    <span class="fu">|</span> <span class="dt">Remove</span> <span class="dt">ID</span>
+    <span class="fu">|</span> <span class="dt">Modify</span> <span class="dt">ID</span> <span class="dt">Counter.Action</span></code></pre>
 <p>Функция обновления тоже не сильно отличается от предыдущего примера.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
-<span class="hs-definition">update</span> <span class="hs-varid">action</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-varid">action</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Insert</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span>
-          <span class="hs-varid">counters</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-layout">(</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">nextID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">init</span> <span class="hs-num">0</span> <span class="hs-layout">)</span> <span class="hs-keyglyph">::</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span><span class="hs-layout">,</span>
-          <span class="hs-varid">nextID</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">nextID</span> <span class="hs-varop">+</span> <span class="hs-num">1</span>
-      <span class="hs-layout">}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
+update action model <span class="fu">=</span>
+  <span class="kw">case</span> action <span class="kw">of</span>
+    <span class="dt">Insert</span> <span class="ot">-&gt;</span>
+      { model <span class="fu">|</span>
+          counters <span class="ot">&lt;-</span> ( model<span class="fu">.</span>nextID, Counter.init <span class="dv">0</span> )<span class="ot"> ::</span> model<span class="fu">.</span>counters,
+          nextID <span class="ot">&lt;-</span> model<span class="fu">.</span>nextID <span class="fu">+</span> <span class="dv">1</span>
+      }
 
-    <span class="hs-conid">Remove</span> <span class="hs-varid">id</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span>
-          <span class="hs-varid">counters</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">List</span><span class="hs-varop">.</span><span class="hs-varid">filter</span> <span class="hs-layout">(</span><span class="hs-keyglyph">\</span><span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">counterID</span> <span class="hs-varop">/=</span> <span class="hs-varid">id</span><span class="hs-layout">)</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span>
-      <span class="hs-layout">}</span>
+    <span class="dt">Remove</span> id <span class="ot">-&gt;</span>
+      { model <span class="fu">|</span>
+          counters <span class="ot">&lt;-</span> List.filter (\(counterID, _) <span class="ot">-&gt;</span> counterID <span class="fu">/=</span> id) model<span class="fu">.</span>counters
+      }
 
-    <span class="hs-conid">Modify</span> <span class="hs-varid">id</span> <span class="hs-varid">counterAction</span> <span class="hs-keyglyph">-&gt;</span>
-      <span class="hs-keyword">let</span> <span class="hs-varid">updateCounter</span> <span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-varid">counterModel</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
-            <span class="hs-keyword">if</span> <span class="hs-varid">counterID</span> <span class="hs-varop">==</span> <span class="hs-varid">id</span>
-                <span class="hs-keyword">then</span> <span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">update</span> <span class="hs-varid">counterAction</span> <span class="hs-varid">counterModel</span><span class="hs-layout">)</span>
-                <span class="hs-keyword">else</span> <span class="hs-layout">(</span><span class="hs-varid">counterID</span><span class="hs-layout">,</span> <span class="hs-varid">counterModel</span><span class="hs-layout">)</span>
-      <span class="hs-keyword">in</span>
-          <span class="hs-layout">{</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">counters</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">List</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-varid">updateCounter</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span> <span class="hs-layout">}</span></code></pre>
+    <span class="dt">Modify</span> id counterAction <span class="ot">-&gt;</span>
+      <span class="kw">let</span> updateCounter (counterID, counterModel) <span class="fu">=</span>
+            <span class="kw">if</span> counterID <span class="fu">==</span> id
+                <span class="kw">then</span> (counterID, Counter.update counterAction counterModel)
+                <span class="kw">else</span> (counterID, counterModel)
+      <span class="kw">in</span>
+          { model <span class="fu">|</span> counters <span class="ot">&lt;-</span> List.map updateCounter model<span class="fu">.</span>counters }</code></pre>
 <p>Когда приходит <code>Remove</code> мы убираем счётчик имеющий ID того, который мы должны убрать. В остальном, всё примерно тоже самое.</p>
 <p>И наконец, мы собираем всё это вместе в функции <code>view</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-varid">address</span> <span class="hs-varid">model</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">let</span> <span class="hs-varid">insert</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">button</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">onClick</span> <span class="hs-varid">address</span> <span class="hs-conid">Insert</span> <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-str">"Add"</span> <span class="hs-keyglyph">]</span>
-  <span class="hs-keyword">in</span>
-      <span class="hs-varid">div</span> <span class="hs-conid">[]</span> <span class="hs-layout">(</span><span class="hs-varid">insert</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">List</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-varid">viewCounter</span> <span class="hs-varid">address</span><span class="hs-layout">)</span> <span class="hs-varid">model</span><span class="hs-varop">.</span><span class="hs-varid">counters</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">view <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view address model <span class="fu">=</span>
+  <span class="kw">let</span> insert <span class="fu">=</span> button [ onClick address <span class="dt">Insert</span> ] [ text <span class="st">&quot;Add&quot;</span> ]
+  <span class="kw">in</span>
+      div [] (<span class="ot">insert ::</span> List.map (viewCounter address) model<span class="fu">.</span>counters)
 
-<span class="hs-definition">viewCounter</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Address</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">ID</span><span class="hs-layout">,</span> <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Model</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">viewCounter</span> <span class="hs-varid">address</span> <span class="hs-layout">(</span><span class="hs-varid">id</span><span class="hs-layout">,</span> <span class="hs-varid">model</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">let</span> <span class="hs-varid">context</span> <span class="hs-keyglyph">=</span>
-        <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-conid">Context</span>
-          <span class="hs-layout">(</span><span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">forwardTo</span> <span class="hs-varid">address</span> <span class="hs-layout">(</span><span class="hs-conid">Modify</span> <span class="hs-varid">id</span><span class="hs-layout">)</span> <span class="hs-varid">actionChannel</span><span class="hs-layout">)</span>
-          <span class="hs-layout">(</span><span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">forwardTo</span> <span class="hs-varid">address</span> <span class="hs-layout">(</span><span class="hs-varid">always</span> <span class="hs-layout">(</span><span class="hs-conid">Remove</span> <span class="hs-varid">id</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-varid">actionChannel</span><span class="hs-layout">)</span>
-  <span class="hs-keyword">in</span>
-      <span class="hs-conid">Counter</span><span class="hs-varop">.</span><span class="hs-varid">viewWithRemoveButton</span> <span class="hs-varid">context</span> <span class="hs-varid">model</span></code></pre>
+viewCounter <span class="fu">:</span> <span class="dt">Signal.Address</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> (<span class="dt">ID</span>, <span class="dt">Counter.Model</span>) <span class="ot">-&gt;</span> <span class="dt">Html</span>
+viewCounter address (id, model) <span class="fu">=</span>
+  <span class="kw">let</span> context <span class="fu">=</span>
+        <span class="dt">Counter.Context</span>
+          (Signal.forwardTo address (<span class="dt">Modify</span> id) actionChannel)
+          (Signal.forwardTo address (always (<span class="dt">Remove</span> id)) actionChannel)
+  <span class="kw">in</span>
+      Counter.viewWithRemoveButton context model</code></pre>
 <p>В функции <code>viewCounter</code> мы создаём <code>Counter.Context</code> и передаём туда обратный адрес. В обоих случаях мы помечаем <code>Counter.Action</code> чтобы знать кого обновлять или удалять.</p>
 <h2 id="основые-уроки">Основые уроки</h2>
 <p><strong>Базовый приём</strong> — Всё строится вокруг типа <code>Model</code>, функции <code>update</code> для её обновления и функции <code>view</code> для отображения. Дальше идут только вариации этого приёма.</p>
 <p><strong>Вложенные модули</strong> — Адрес пересылки позволяет с лёгкостью углублять основной приём, полностью скрывая детали реализации. Мы можем строить какие угодно глубокие компоненты и каждый уровень должен знать только о том, что находится непосредственно внутри него.</p>
 <p><strong>Добавление контекста</strong> — Иногда требуется дополнительная информация для обновления или отображения модели. Мы всегда можем добавить в эти функции контекст, не загружая основной тип <code>Model</code>.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Context</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">update <span class="fu">:</span> <span class="dt">Context</span> <span class="ot">-&gt;</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span>
 
-<span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">Context'</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span></code></pre>
+view <span class="fu">:</span> <span class="dt">Context'</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span></code></pre>
 <p>На каждом уровне вложенности мы можем определить тот <code>Context</code> который нужен для внутренних компонентов.</p>
 <p><strong>Простота тестирования</strong> — Все функции являются <a href="http://en.wikipedia.org/wiki/Pure_function">чистыми</a>. Это позволяет их очень просто тестировать - не требуется никакой особой инициалиазции или искуственного окружения, просто передайте им аргументы которые вы хотите опробовать.</p>
 <h2 id="ещё-один-шаблон">Ещё один шаблон</h2>
 <p>Существует ещё один важный способ расширить основной приём. К примеру, вам может потребоваться обновить компонент и, в зависимости от результата, надо поменять что-то ещё в другой части программы. Вы можете расширить функцию <code>update</code> чтобы она возвращала больше информации.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Request</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">RefreshPage</span> <span class="hs-keyglyph">|</span> <span class="hs-conid">Print</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Request</span> <span class="fu">=</span> <span class="dt">RefreshPage</span> <span class="fu">|</span> <span class="dt">Print</span>
 
-<span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">Model</span><span class="hs-layout">,</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Request</span><span class="hs-layout">)</span></code></pre>
+update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> (<span class="dt">Model</span>, <span class="dt">Maybe</span> <span class="dt">Request</span>)</code></pre>
 <p>В зависимости от логики обработки <code>update</code> мы можем сказать кому-то выше обновить содержимое или вывести что-нибудь. Похожим образом компонент может удалить себя:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Model</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Model</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Model</span></code></pre>
 <p>Если не очень понятно как это работает, я может быть напишу пример 5, использующий этот приём. А пока вы можете посмотреть похожие примеры в <a href="https://github.com/evancz/elm-todomvc/blob/trim/Todo.elm">забавной версии приложения TodoMVC на Elm</a>.</p>
 
 <div id="socialButtons">

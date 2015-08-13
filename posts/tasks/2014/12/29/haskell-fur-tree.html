@@ -208,42 +208,42 @@
 <p>Данная задача просто решается на императивных ЯП, таких как Python. Здесь же будет приведено “функциональное” решение.</p>
 <h3 id="скелет-программы">Скелет программы</h3>
 <p>Скелет программы будет следующим:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStrLn</span> <span class="hs-layout">(</span><span class="hs-varid">pineTree</span> <span class="hs-num">10</span><span class="hs-layout">)</span>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> putStrLn (pineTree <span class="dv">10</span>)
 
-<span class="hs-definition">pineTree</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
-<span class="hs-definition">pineTree</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">undefined</span></code></pre>
+<span class="ot">pineTree ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+pineTree <span class="fu">=</span> undefined</code></pre>
 <h3 id="простое-решение">Простое решение</h3>
 <p>Функция формирования “изображения” дерева представлена следующим кодом:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">pineTree</span> <span class="hs-varid">x</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">unlines</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-varid">row</span> <span class="hs-varid">ranges</span>
-  <span class="hs-keyword">where</span>
-    <span class="hs-varid">row</span> <span class="hs-layout">(</span><span class="hs-varid">n</span><span class="hs-layout">,</span> <span class="hs-varid">m</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">take</span> <span class="hs-varid">n</span> <span class="hs-varid">spaces</span> <span class="hs-varop">++</span> <span class="hs-varid">take</span> <span class="hs-varid">m</span> <span class="hs-varid">stars</span>
-    <span class="hs-varid">stars</span>  <span class="hs-keyglyph">=</span> <span class="hs-varid">repeat</span> <span class="hs-chr">'*'</span>
-    <span class="hs-varid">spaces</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">repeat</span> <span class="hs-chr">' '</span>
-    <span class="hs-varid">ranges</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">zip</span> <span class="hs-keyglyph">[</span><span class="hs-varid">x</span> <span class="hs-comment">-</span> <span class="hs-num">1</span><span class="hs-layout">,</span> <span class="hs-varid">x</span> <span class="hs-comment">-</span> <span class="hs-num">2</span> <span class="hs-keyglyph">..</span> <span class="hs-num">0</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-layout">,</span> <span class="hs-num">3</span><span class="hs-keyglyph">..</span><span class="hs-keyglyph">]</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">pineTree x <span class="fu">=</span> unlines <span class="fu">$</span> map row ranges
+  <span class="kw">where</span>
+    row (n, m) <span class="fu">=</span> take n spaces <span class="fu">++</span> take m stars
+    stars  <span class="fu">=</span> repeat <span class="ch">'*'</span>
+    spaces <span class="fu">=</span> repeat <span class="ch">' '</span>
+    ranges <span class="fu">=</span> zip [x <span class="fu">-</span> <span class="dv">1</span>, x <span class="fu">-</span> <span class="dv">2</span> <span class="fu">..</span> <span class="dv">0</span>] [<span class="dv">1</span>, <span class="dv">3</span><span class="fu">..</span>]
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStrLn</span> <span class="hs-layout">(</span><span class="hs-varid">pineTree</span> <span class="hs-num">10</span><span class="hs-layout">)</span></code></pre>
+main <span class="fu">=</span> putStrLn (pineTree <span class="dv">10</span>)</code></pre>
 <h3 id="бесточечный-вариант">Бесточечный вариант</h3>
 <p>В качестве разминки для ума можно переписать функцию “рисования” ёлки в <em>бесточечном стиле</em>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">pineTree</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">unlines</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">zipWith</span> <span class="hs-layout">(</span><span class="hs-varid">flip</span> <span class="hs-layout">(</span><span class="hs-varop">++</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-varid">zipWith</span> <span class="hs-varid">take</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-layout">,</span><span class="hs-num">3</span><span class="hs-keyglyph">..</span><span class="hs-keyglyph">]</span> <span class="hs-layout">(</span><span class="hs-varid">repeat</span> <span class="hs-layout">(</span><span class="hs-varid">repeat</span> <span class="hs-chr">'*'</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">zipWith</span> <span class="hs-layout">(</span><span class="hs-varid">flip</span> <span class="hs-varid">take</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-varid">repeat</span> <span class="hs-layout">(</span><span class="hs-varid">repeat</span> <span class="hs-chr">' '</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">reverse</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">flip</span> <span class="hs-layout">(</span><span class="hs-varop">$</span><span class="hs-layout">)</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-layout">,</span><span class="hs-num">2</span><span class="hs-keyglyph">..</span><span class="hs-keyglyph">]</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">take</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">pineTree <span class="fu">=</span> unlines
+         <span class="fu">.</span> zipWith (flip (<span class="fu">++</span>)) (zipWith take [<span class="dv">1</span>,<span class="dv">3</span><span class="fu">..</span>] (repeat (repeat <span class="ch">'*'</span>)))
+         <span class="fu">.</span> zipWith (flip take) (repeat (repeat <span class="ch">' '</span>))
+         <span class="fu">.</span> reverse
+         <span class="fu">.</span> flip (<span class="fu">$</span>) [<span class="dv">1</span>,<span class="dv">2</span><span class="fu">..</span>]
+         <span class="fu">.</span> take
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStrLn</span> <span class="hs-layout">(</span><span class="hs-varid">pineTree</span> <span class="hs-num">10</span><span class="hs-layout">)</span></code></pre>
+main <span class="fu">=</span> putStrLn (pineTree <span class="dv">10</span>)</code></pre>
 <h3 id="бесточечный-вариант-2">Бесточечный вариант №2</h3>
 <p>Функция записана бесточечно, но сложновата на вид, хоть и повторяет изначальное решение. Однако можно реализовать эту функцию и короче:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">pineTree</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">unlines</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">takeWhile</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">==</span> <span class="hs-chr">' '</span><span class="hs-layout">)</span> <span class="hs-varop">.</span> <span class="hs-varid">head</span><span class="hs-layout">)</span>
-         <span class="hs-varop">.</span> <span class="hs-varid">iterate</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">++</span> <span class="hs-str">"**"</span><span class="hs-layout">)</span> <span class="hs-varop">.</span> <span class="hs-varid">tail</span><span class="hs-layout">)</span>
-         <span class="hs-varop">.</span> <span class="hs-layout">(</span><span class="hs-varop">++</span> <span class="hs-str">"*"</span><span class="hs-layout">)</span>
-         <span class="hs-varop">.</span> <span class="hs-layout">(</span><span class="hs-varid">flip</span> <span class="hs-varid">take</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-varid">repeat</span> <span class="hs-chr">' '</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">pineTree <span class="fu">=</span> unlines
+         <span class="fu">.</span> takeWhile ((<span class="fu">==</span> <span class="ch">' '</span>) <span class="fu">.</span> head)
+         <span class="fu">.</span> iterate ((<span class="fu">++</span> <span class="st">&quot;**&quot;</span>) <span class="fu">.</span> tail)
+         <span class="fu">.</span> (<span class="fu">++</span> <span class="st">&quot;*&quot;</span>)
+         <span class="fu">.</span> (flip take) (repeat <span class="ch">' '</span>)
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">putStrLn</span> <span class="hs-layout">(</span><span class="hs-varid">pineTree</span> <span class="hs-num">10</span><span class="hs-layout">)</span></code></pre>
+main <span class="fu">=</span> putStrLn (pineTree <span class="dv">10</span>)</code></pre>
 
 <div id="socialButtons">
     <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

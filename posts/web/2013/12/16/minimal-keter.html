@@ -211,50 +211,50 @@ $ <span class="kw">cabal</span> sandbox init
 <span class="kw">Your</span> choice? 1
 <span class="kw">...</span></code></pre>
 <p>Создадим само приложение:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Application</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Application</span> <span class="kw">where</span>
 
-<span class="hs-keyword">import</span> <span class="hs-conid">Yesod</span><span class="hs-varop">.</span><span class="hs-conid">Core</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Text</span> <span class="hs-layout">(</span><span class="hs-conid">Text</span><span class="hs-layout">)</span>
+<span class="kw">import </span><span class="dt">Yesod.Core</span>
+<span class="kw">import </span><span class="dt">Data.Text</span> (<span class="dt">Text</span>)
 
-<span class="hs-keyword">data</span> <span class="hs-conid">App</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">App</span>
+<span class="kw">data</span> <span class="dt">App</span> <span class="fu">=</span> <span class="dt">App</span>
 
-<span class="hs-definition">mkYesod</span> <span class="hs-str">"App"</span> <span class="hs-keyglyph">[</span><span class="hs-varid">parseRoutes</span><span class="hs-keyglyph">|</span>
-<span class="hs-varop">/</span> <span class="hs-conid">HomeR</span> <span class="hs-conid">GET</span>
-<span class="hs-keyglyph">|</span><span class="hs-keyglyph">]</span>
+mkYesod <span class="st">&quot;App&quot;</span> [parseRoutes<span class="fu">|</span>
+<span class="fu">/</span> <span class="dt">HomeR</span> <span class="dt">GET</span>
+<span class="fu">|</span>]
 
-<span class="hs-keyword">instance</span> <span class="hs-conid">Yesod</span> <span class="hs-conid">App</span>
+<span class="kw">instance</span> <span class="dt">Yesod</span> <span class="dt">App</span>
 
-<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Handler</span> <span class="hs-conid">Text</span>
-<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">return</span> <span class="hs-str">"Lolsies"</span></code></pre>
+<span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Text</span>
+getHomeR <span class="fu">=</span> return <span class="st">&quot;Lolsies&quot;</span></code></pre>
 <p>Вот и всё, никаких супер-ужасов и развесистых модулей с сотнями автогенерённого кода. Теперь надо добавить экспорт приложения и зависимости в пакет. Нас интересует дефолтный блок library в конце файла:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-varop">...</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
 
-<span class="hs-definition">executable</span> <span class="hs-varid">mini</span>
-  <span class="hs-comment">-- exposed-modules:</span>
-  <span class="hs-comment">-- other-modules:</span>
-  <span class="hs-comment">-- other-extensions:</span>
-  <span class="hs-varid">build</span><span class="hs-comment">-</span><span class="hs-varid">depends</span><span class="hs-conop">:</span>       <span class="hs-varid">base</span> <span class="hs-varop">&gt;=</span><span class="hs-num">4.6</span> <span class="hs-varop">&amp;&amp;</span> <span class="hs-varop">&lt;</span><span class="hs-num">5</span>
-  <span class="hs-comment">-- hs-source-dirs:</span>
-  <span class="hs-keyword">default</span><span class="hs-comment">-</span><span class="hs-varid">language</span><span class="hs-conop">:</span>    <span class="hs-conid">Haskell2010</span></code></pre>
+executable mini
+  <span class="co">-- exposed-modules:</span>
+  <span class="co">-- other-modules:</span>
+  <span class="co">-- other-extensions:</span>
+  build<span class="fu">-</span>depends<span class="fu">:</span>       base <span class="fu">&gt;=</span><span class="fl">4.6</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="dv">5</span>
+  <span class="co">-- hs-source-dirs:</span>
+  default<span class="fu">-</span>language<span class="fu">:</span>    <span class="dt">Haskell2010</span></code></pre>
 <p>Добавляем наше приложение в exposed-modules, фичи языка в default-extensions и ставим yesod-core и text в зависимости:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-varop">...</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
 
-<span class="hs-definition">library</span>
-  <span class="hs-comment">-- hs-source-dirs:</span>
-  <span class="hs-keyword">default</span><span class="hs-comment">-</span><span class="hs-varid">language</span><span class="hs-conop">:</span> <span class="hs-conid">Haskell2010</span>
-  <span class="hs-keyword">default</span><span class="hs-comment">-</span><span class="hs-varid">extensions</span><span class="hs-conop">:</span>
-    <span class="hs-conid">OverloadedStrings</span>
-    <span class="hs-conid">TemplateHaskell</span>
-    <span class="hs-conid">QuasiQuotes</span>
-    <span class="hs-conid">TypeFamilies</span>
+library
+  <span class="co">-- hs-source-dirs:</span>
+  default<span class="fu">-</span>language<span class="fu">:</span> <span class="dt">Haskell2010</span>
+  default<span class="fu">-</span>extensions<span class="fu">:</span>
+    <span class="dt">OverloadedStrings</span>
+    <span class="dt">TemplateHaskell</span>
+    <span class="dt">QuasiQuotes</span>
+    <span class="dt">TypeFamilies</span>
 
-  <span class="hs-varid">exposed</span><span class="hs-comment">-</span><span class="hs-varid">modules</span><span class="hs-conop">:</span>
-    <span class="hs-conid">Application</span>
+  exposed<span class="fu">-</span>modules<span class="fu">:</span>
+    <span class="dt">Application</span>
 
-  <span class="hs-varid">build</span><span class="hs-comment">-</span><span class="hs-varid">depends</span><span class="hs-conop">:</span>
-      <span class="hs-varid">base</span> <span class="hs-varop">&gt;=</span><span class="hs-num">4.6</span> <span class="hs-varop">&amp;&amp;</span> <span class="hs-varop">&lt;</span><span class="hs-num">4.7</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">yesod</span><span class="hs-comment">-</span><span class="hs-varid">core</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">text</span></code></pre>
+  build<span class="fu">-</span>depends<span class="fu">:</span>
+      base <span class="fu">&gt;=</span><span class="fl">4.6</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">4.7</span>
+    , yesod<span class="fu">-</span>core
+    , text</code></pre>
 <p>Запускаем загрузку барахла в наш sandbox (и идём пить чай):</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> install -j --only-dependencies
 <span class="kw">...</span>
@@ -274,25 +274,25 @@ $ <span class="kw">nano</span> config/keter.yaml
 
 <span class="co"># copy-to: keter@keter.example.org:/opt/keter/incoming</span></code></pre>
 <p>Последняя строчка для автодеплоя: после успешной сборки оно само загрузит результат через scp, где его подхватит сервер. Теперь на всё это хозяйство вешаем загрузчик:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
-<span class="hs-keyword">import</span> <span class="hs-conid">Yesod</span><span class="hs-varop">.</span><span class="hs-conid">Core</span><span class="hs-varop">.</span><span class="hs-conid">Dispatch</span> <span class="hs-layout">(</span><span class="hs-varid">warpEnv</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-str">"mini"</span> <span class="hs-conid">Application</span> <span class="hs-layout">(</span><span class="hs-conid">App</span><span class="hs-layout">(</span><span class="hs-keyglyph">..</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+<span class="kw">import </span><span class="dt">Yesod.Core.Dispatch</span> (warpEnv)
+<span class="kw">import </span>&quot;mini&quot; <span class="dt">Application</span> (<span class="dt">App</span>(..))
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">warpEnv</span> <span class="hs-conid">App</span></code></pre>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> warpEnv <span class="dt">App</span></code></pre>
 <p><code>PackageImports</code> используются чтобы оно брало всё из библиотеки приложения и нам не пришлось дублировать все завимости ещё и для бинаря.</p>
 <p>Прописываем загрузчик в cabal:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">executable</span> <span class="hs-varid">mini</span>
-  <span class="hs-varid">main</span><span class="hs-comment">-</span><span class="hs-varid">is</span><span class="hs-conop">:</span> <span class="hs-conid">Main</span><span class="hs-varop">.</span><span class="hs-varid">hs</span>
-  <span class="hs-varid">ghc</span><span class="hs-comment">-</span><span class="hs-varid">options</span><span class="hs-conop">:</span> <span class="hs-comment">-</span><span class="hs-conid">O2</span> <span class="hs-comment">-</span><span class="hs-varid">threaded</span>
-  <span class="hs-keyword">default</span><span class="hs-comment">-</span><span class="hs-varid">language</span><span class="hs-conop">:</span> <span class="hs-conid">Haskell2010</span>
-  <span class="hs-keyword">default</span><span class="hs-comment">-</span><span class="hs-varid">extensions</span><span class="hs-conop">:</span>
-    <span class="hs-conid">PackageImports</span>
-  <span class="hs-varid">build</span><span class="hs-comment">-</span><span class="hs-varid">depends</span><span class="hs-conop">:</span>
-      <span class="hs-varid">base</span> <span class="hs-varop">&gt;=</span><span class="hs-num">4.6</span> <span class="hs-varop">&amp;&amp;</span> <span class="hs-varop">&lt;</span><span class="hs-num">4.7</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">mini</span>
-    <span class="hs-layout">,</span> <span class="hs-varid">yesod</span><span class="hs-comment">-</span><span class="hs-varid">core</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">executable mini
+  main<span class="fu">-</span>is<span class="fu">:</span> Main.hs
+  ghc<span class="fu">-</span>options<span class="fu">:</span> <span class="fu">-</span><span class="dt">O2</span> <span class="fu">-</span>threaded
+  default<span class="fu">-</span>language<span class="fu">:</span> <span class="dt">Haskell2010</span>
+  default<span class="fu">-</span>extensions<span class="fu">:</span>
+    <span class="dt">PackageImports</span>
+  build<span class="fu">-</span>depends<span class="fu">:</span>
+      base <span class="fu">&gt;=</span><span class="fl">4.6</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">4.7</span>
+    , mini
+    , yesod<span class="fu">-</span>core</code></pre>
 <p>Вот теперь всё готово, заряжаем:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> keter
 <span class="kw">cleaning...</span>

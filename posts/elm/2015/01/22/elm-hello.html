@@ -196,58 +196,58 @@
 <p><a href="http://elm-lang.org/Install.elm">Установка</a> расписана на сайте и сводится, как обычно, к скачиванию бинарей или установке с Hackage. Особые эстеты монут собрать свой собственный Elm с гита.</p>
 <h2 id="покажи-нам-код">Покажи нам код</h2>
 <p>В силу определённых причин, при старте нового проекта нужно сделать довольно много телодвижений. Этот пост является своего рода чеклистом и обзором основных сущностей в типичном приложении с использованием HTML интерфейса. Вырезки кода можно собрать в одном файле и он будет рабочим. Чтобы разговор был предметным, сначала будет идти блок кода, а потом описание.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Dict</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Debug</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Graphics</span><span class="hs-varop">.</span><span class="hs-conid">Element</span> <span class="hs-layout">(</span><span class="hs-conid">Element</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Graphics</span><span class="hs-varop">.</span><span class="hs-conid">Input</span> <span class="hs-keyword">as</span> <span class="hs-conid">Input</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Html</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Html</span> <span class="hs-layout">(</span><span class="hs-keyglyph">..</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Html</span><span class="hs-varop">.</span><span class="hs-conid">Attributes</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Html</span><span class="hs-varop">.</span><span class="hs-conid">Attributes</span> <span class="hs-layout">(</span><span class="hs-keyglyph">..</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Html</span><span class="hs-varop">.</span><span class="hs-conid">Events</span> <span class="hs-layout">(</span><span class="hs-keyglyph">..</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Http</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Maybe</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">List</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">List</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-keyglyph">::</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-varid">map</span><span class="hs-layout">,</span> <span class="hs-varid">concat</span><span class="hs-layout">,</span> <span class="hs-varid">filter</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Result</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">String</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Signal</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Signal</span> <span class="hs-layout">(</span><span class="hs-conid">Signal</span><span class="hs-layout">,</span> <span class="hs-varid">foldp</span><span class="hs-layout">,</span> <span class="hs-varid">mergeMany</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varop">&lt;~</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-keyglyph">~</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Window</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Dict</span>
+<span class="kw">import </span><span class="dt">Debug</span>
+<span class="kw">import </span><span class="dt">Graphics.Element</span> (<span class="dt">Element</span>)
+<span class="kw">import </span><span class="dt">Graphics.Input</span> <span class="kw">as</span> <span class="dt">Input</span>
+<span class="kw">import </span><span class="dt">Html</span>
+<span class="kw">import </span><span class="dt">Html</span> (..)
+<span class="kw">import </span><span class="dt">Html.Attributes</span>
+<span class="kw">import </span><span class="dt">Html.Attributes</span> (..)
+<span class="kw">import </span><span class="dt">Html.Events</span> (..)
+<span class="kw">import </span><span class="dt">Http</span>
+<span class="kw">import </span><span class="dt">Maybe</span>
+<span class="kw">import </span><span class="dt">List</span>
+<span class="kw">import </span><span class="dt">List</span> ((::), map, concat, filter)
+<span class="kw">import </span><span class="dt">Result</span>
+<span class="kw">import </span><span class="dt">String</span>
+<span class="kw">import </span><span class="dt">Signal</span>
+<span class="kw">import </span><span class="dt">Signal</span> (<span class="dt">Signal</span>, foldp, mergeMany, (&lt;~), (~))
+<span class="kw">import </span><span class="dt">Window</span></code></pre>
 <p>Первым делом идёт внушительных размеров бойлерплейт. Некоторые импорты не нужны для старта, но понадобятся практически сразу в ходе работы.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span> <span class="hs-conid">Element</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">scene</span> <span class="hs-varop">&lt;~</span> <span class="hs-varid">state</span> <span class="hs-keyglyph">~</span> <span class="hs-conid">Window</span><span class="hs-varop">.</span><span class="hs-varid">dimensions</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">:</span> <span class="dt">Signal</span> <span class="dt">Element</span>
+main <span class="fu">=</span> scene <span class="fu">&lt;~</span> state <span class="fu">~</span> Window.dimensions</code></pre>
 <p>Театр начинается с вешалки, а приложение с <code>main</code>. И сразу бросается в глаза тип: <code>Signal Element</code>. “Но где же IO?”, спросит невнимательный читатель, пропустивший вступление, и будет прав. Elm ещё более ортодоксальный чем Haskell в плане побочных эффектов и вся обработка идёт чистыми функциями.</p>
 <p>Забавные стрелочки такую обработку как раз задают. Читается это как “С помощью функции <code>scene</code> сведём значения сигналов <code>state</code> и <code>Window.dimensions</code> результатом такой обработки будет элемент приложения (в этой статье нам не интересный). Всё это наводит на мысли об апликативных функторах и не зря. Но Elm выше всего этого теорката.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">scene</span> <span class="hs-conop">:</span> <span class="hs-conid">State</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-layout">(</span><span class="hs-conid">Int</span><span class="hs-layout">,</span> <span class="hs-conid">Int</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Element</span>
-<span class="hs-definition">scene</span> <span class="hs-varid">state</span> <span class="hs-layout">(</span><span class="hs-varid">w</span><span class="hs-layout">,</span><span class="hs-varid">h</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Html</span><span class="hs-varop">.</span><span class="hs-varid">toElement</span> <span class="hs-varid">w</span> <span class="hs-varid">h</span> <span class="hs-layout">(</span><span class="hs-varid">view</span> <span class="hs-varid">state</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">scene <span class="fu">:</span> <span class="dt">State</span> <span class="ot">-&gt;</span> (<span class="dt">Int</span>, <span class="dt">Int</span>) <span class="ot">-&gt;</span> <span class="dt">Element</span>
+scene state (w,h) <span class="fu">=</span> Html.toElement w h (view state)</code></pre>
 <p>Эта функция является всего лишь тонкой прокладкой, которую обещают убрать в следующих версиях. Само же текущее состояние системы передаётся функции <code>view</code>, которая рисует по нему виртуальное DOM-дерево. Обратите внимание, что <code>Signal</code> пропал из типа и никаких, поэтому в аргументе <code>state</code> будет уже само значение на текущий момент, а не поток, из которого это значение можно получить.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">state</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span> <span class="hs-conid">State</span>
-<span class="hs-definition">state</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-varid">foldp</span> <span class="hs-varid">update</span> <span class="hs-varid">startingState</span>
-    <span class="hs-varop">&lt;|</span> <span class="hs-varid">mergeMany</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">subscribe</span> <span class="hs-varid">actions</span> <span class="hs-keyglyph">]</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">state <span class="fu">:</span> <span class="dt">Signal</span> <span class="dt">State</span>
+state <span class="fu">=</span>
+    foldp update startingState
+    <span class="fu">&lt;|</span> mergeMany [ Signal.subscribe actions ]</code></pre>
 <p>А тут мы имеем дело уже с этим самым потоком. У него нет входов и выходов и это, наверно, самый мутный участок во всём коде. Этот сигнал агрегируется из нескольких (пока что только одного), затем передаётся в функцию “свёртки из прошлого” <code>foldp</code>. Как и в обычном фолде, нам потребуется начальное значение и функция, которая будет обновлять аккумулятор в ответ на входящие данные.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">view</span> <span class="hs-conop">:</span> <span class="hs-conid">State</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">view</span> <span class="hs-varid">state</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-varid">p</span> <span class="hs-conid">[]</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">text</span> <span class="hs-varid">state</span><span class="hs-varop">.</span><span class="hs-varid">message</span> <span class="hs-keyglyph">]</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">view <span class="fu">:</span> <span class="dt">State</span> <span class="ot">-&gt;</span> <span class="dt">Html</span>
+view state <span class="fu">=</span>
+    p [] [ text state<span class="fu">.</span>message ]</code></pre>
 <p>Теперь пришла пора описать вторую часть сцены. Я не стал городить хитрые и сложные интерфейсы на бустрапе, а просто вывел один элемент <code>&lt;p&gt;</code> без атрибутов и с содержимым поля <code>message</code> нашего стейта в качестве текстового тела HTML-элемента. Никаких императивных манипуляций, только чистые комбинаторы из модуля <code>Html</code> и списки, списки, списки…</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-varid">alias</span> <span class="hs-conid">State</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">message</span> <span class="hs-conop">:</span> <span class="hs-conid">String</span>
-    <span class="hs-layout">}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> alias <span class="dt">State</span> <span class="fu">=</span>
+    { message <span class="fu">:</span> <span class="dt">String</span>
+    }
 
-<span class="hs-definition">startingState</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-layout">{</span> <span class="hs-varid">message</span> <span class="hs-keyglyph">=</span> <span class="hs-str">"Hellow, orld!"</span>
-    <span class="hs-layout">}</span></code></pre>
+startingState <span class="fu">=</span>
+    { message <span class="fu">=</span> <span class="st">&quot;Hellow, orld!&quot;</span>
+    }</code></pre>
 <p>Всё состояние приложения кладётся в один большой “корневой” контейнер. В Elm для этого удобнее использовать не ADT, а рекорды а-ля объекты JS. Это делать совершенно не страшно т.к. это всё же настоящий тип, а не просто словарь-свалка для значений в произвольном формате, так что обратиться к несуществующему полю или полю ненадлежащего типа компилятор вам не даст.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">NoOp</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span> <span class="fu">=</span> <span class="dt">NoOp</span>
 
-<span class="hs-definition">actions</span> <span class="hs-conop">:</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-conid">Channel</span> <span class="hs-conid">Action</span>
-<span class="hs-definition">actions</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Signal</span><span class="hs-varop">.</span><span class="hs-varid">channel</span> <span class="hs-conid">NoOp</span></code></pre>
+actions <span class="fu">:</span> <span class="dt">Signal.Channel</span> <span class="dt">Action</span>
+actions <span class="fu">=</span> Signal.channel <span class="dt">NoOp</span></code></pre>
 <p>Приложение сейчас тривиальное, поэтому никаких действий совершать нельзя. Но канал должен всегда иметь начальное значение.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">update</span> <span class="hs-conop">:</span> <span class="hs-conid">Action</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">State</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">State</span>
-<span class="hs-definition">update</span> <span class="hs-varid">action</span> <span class="hs-varid">state</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-keyword">case</span> <span class="hs-varid">action</span> <span class="hs-keyword">of</span>
-        <span class="hs-conid">NoOp</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">state</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">update <span class="fu">:</span> <span class="dt">Action</span> <span class="ot">-&gt;</span> <span class="dt">State</span> <span class="ot">-&gt;</span> <span class="dt">State</span>
+update action state <span class="fu">=</span>
+    <span class="kw">case</span> action <span class="kw">of</span>
+        <span class="dt">NoOp</span> <span class="ot">-&gt;</span> state</code></pre>
 <p>В ответ на просьбу сделать ничего функция вернёт оригинальное состояние без изменений.</p>
 <h2 id="запуск">Запуск</h2>
 <p>Если запустить <code>elm-reactor</code> в каталоге с файлом приложения и открыть в браузере его страницу… произойдёт ошибка - надо сначала доставить зависимостей:</p>

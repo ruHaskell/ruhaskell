@@ -212,36 +212,36 @@
 <h2 id="типа-типы">“Типа, типы”</h2>
 <p>Haskell учит: <strong>Сначала типы, постом всё остальное!</strong></p>
 <p>Посему:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Text</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Text</span>
 
-<span class="hs-comment">-- Единицы измерения температуры</span>
-<span class="hs-keyword">data</span> <span class="hs-conid">TempUnits</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Celsiuses</span>
-               <span class="hs-keyglyph">|</span> <span class="hs-conid">Farenheits</span>
+<span class="co">-- Единицы измерения температуры</span>
+<span class="kw">data</span> <span class="dt">TempUnits</span> <span class="fu">=</span> <span class="dt">Celsiuses</span>
+               <span class="fu">|</span> <span class="dt">Farenheits</span>
 
-<span class="hs-keyword">data</span> <span class="hs-conid">Weather</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Weather</span>
-             <span class="hs-layout">{</span> <span class="hs-varid">getCity</span>    <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span>
-             <span class="hs-layout">,</span> <span class="hs-varid">getCountry</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span>
-             <span class="hs-layout">,</span> <span class="hs-varid">getTemp</span>    <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span>
-             <span class="hs-layout">,</span> <span class="hs-varid">getUnits</span>   <span class="hs-keyglyph">::</span> <span class="hs-conid">TempUnits</span>
-             <span class="hs-layout">,</span> <span class="hs-varid">getDate</span>    <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span>
-             <span class="hs-layout">,</span> <span class="hs-varid">getText</span>    <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span> <span class="hs-layout">}</span>
+<span class="kw">data</span> <span class="dt">Weather</span> <span class="fu">=</span> <span class="dt">Weather</span>
+             {<span class="ot"> getCity    ::</span> <span class="dt">Text</span>
+             ,<span class="ot"> getCountry ::</span> <span class="dt">Text</span>
+             ,<span class="ot"> getTemp    ::</span> <span class="dt">Text</span>
+             ,<span class="ot"> getUnits   ::</span> <span class="dt">TempUnits</span>
+             ,<span class="ot"> getDate    ::</span> <span class="dt">Text</span>
+             ,<span class="ot"> getText    ::</span> <span class="dt">Text</span> }
 
-<span class="hs-comment">-- пара алиасов для красоты</span>
-<span class="hs-keyword">type</span> <span class="hs-conid">CityID</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">String</span>
-<span class="hs-keyword">type</span> <span class="hs-conid">Url</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">String</span></code></pre>
+<span class="co">-- пара алиасов для красоты</span>
+<span class="kw">type</span> <span class="dt">CityID</span> <span class="fu">=</span> <span class="dt">String</span>
+<span class="kw">type</span> <span class="dt">Url</span> <span class="fu">=</span> <span class="dt">String</span></code></pre>
 <p>Данные о погоде хранятся преимущественно в полях типа <code>Text</code>, т.к. могут содержат символы Unicode, да и получаться будут из XML, текст в котором хранится именно в <code>Text</code>.</p>
 <p>Т.к. погоду предстояло выводить в текстовом виде, реализовал приведение <code>Weather</code> к строке. Вот как это выглядит:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">renderWeather</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Weather</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
-<span class="hs-definition">renderWeather</span> <span class="hs-varid">w</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">concat</span> <span class="hs-keyglyph">[</span> <span class="hs-varid">unpack</span> <span class="hs-layout">(</span><span class="hs-varid">getDate</span> <span class="hs-varid">w</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-str">": "</span>
-         <span class="hs-layout">,</span> <span class="hs-varid">unpack</span> <span class="hs-layout">(</span><span class="hs-varid">getCity</span> <span class="hs-varid">w</span><span class="hs-layout">)</span>
-         <span class="hs-layout">,</span> <span class="hs-str">"("</span><span class="hs-layout">,</span> <span class="hs-varid">unpack</span> <span class="hs-layout">(</span><span class="hs-varid">getCountry</span> <span class="hs-varid">w</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-str">"), "</span>
-         <span class="hs-layout">,</span> <span class="hs-varid">unpack</span> <span class="hs-layout">(</span><span class="hs-varid">getTemp</span> <span class="hs-varid">w</span><span class="hs-layout">)</span>
-         <span class="hs-layout">,</span> <span class="hs-keyword">case</span> <span class="hs-varid">getUnits</span> <span class="hs-varid">w</span> <span class="hs-keyword">of</span>
-              <span class="hs-conid">Celsiuses</span>  <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"°C"</span>
-              <span class="hs-conid">Farenheits</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"°F"</span>
-         <span class="hs-layout">,</span> <span class="hs-str">", "</span>
-         <span class="hs-layout">,</span> <span class="hs-varid">unpack</span> <span class="hs-layout">(</span><span class="hs-varid">getText</span> <span class="hs-varid">w</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">renderWeather ::</span> <span class="dt">Weather</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+renderWeather w <span class="fu">=</span>
+  concat [ unpack (getDate w), <span class="st">&quot;: &quot;</span>
+         , unpack (getCity w)
+         , <span class="st">&quot;(&quot;</span>, unpack (getCountry w), <span class="st">&quot;), &quot;</span>
+         , unpack (getTemp w)
+         , <span class="kw">case</span> getUnits w <span class="kw">of</span>
+              <span class="dt">Celsiuses</span>  <span class="ot">-&gt;</span> <span class="st">&quot;°C&quot;</span>
+              <span class="dt">Farenheits</span> <span class="ot">-&gt;</span> <span class="st">&quot;°F&quot;</span>
+         , <span class="st">&quot;, &quot;</span>
+         , unpack (getText w)]</code></pre>
 <p>Вывод же получается следующим</p>
 <p><code>Fri, 21 Nov 2014 9:59 pm MSK: Kazan'(Russia), -5°C, Fog</code></p>
 <blockquote>
@@ -250,136 +250,136 @@
 <p>Ну вот, данные есть, теперь можно вернуться к первоначальному плану. Итак</p>
 <h2 id="ну-и-запросы-у-вас">“Ну и запросы у вас!”</h2>
 <p>Работа с протоколом HTTP в Haskell обычно делается силами пакета… HTTP! Кхм, даже скучно как-то. Первый вариант функции отправки запроса с возвратом тела ответа выглядел так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Импорты</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Network</span><span class="hs-varop">.</span><span class="hs-conid">HTTP</span> <span class="hs-layout">(</span> <span class="hs-varid">catchIO</span>
-                    <span class="hs-layout">,</span> <span class="hs-varid">getRequest</span><span class="hs-layout">,</span> <span class="hs-varid">getResponseBody</span>
-                    <span class="hs-layout">,</span> <span class="hs-varid">simpleHTTP</span> <span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Импорты</span>
+<span class="kw">import </span><span class="dt">Network.HTTP</span> ( catchIO
+                    , getRequest, getResponseBody
+                    , simpleHTTP )
 
-<span class="hs-varop">...</span>
+<span class="fu">...</span>
 
-<span class="hs-comment">-- собственно, функция отправки запросов</span>
-<span class="hs-definition">request</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Url</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Maybe</span> <span class="hs-conid">String</span><span class="hs-layout">)</span>
-<span class="hs-definition">request</span> <span class="hs-varid">url</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">catchIO</span> <span class="hs-layout">(</span><span class="hs-varid">liftM</span> <span class="hs-conid">Just</span> <span class="hs-layout">(</span><span class="hs-varid">simpleHTTP</span> <span class="hs-layout">(</span><span class="hs-varid">getRequest</span> <span class="hs-varid">url</span><span class="hs-layout">)</span>
-                   <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">getResponseBody</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-          <span class="hs-layout">(</span><span class="hs-varid">const</span> <span class="hs-layout">(</span><span class="hs-varid">return</span> <span class="hs-conid">Nothing</span><span class="hs-layout">)</span><span class="hs-layout">)</span></code></pre>
+<span class="co">-- собственно, функция отправки запросов</span>
+<span class="ot">request ::</span> <span class="dt">Url</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Maybe</span> <span class="dt">String</span>)
+request url <span class="fu">=</span>
+  catchIO (liftM <span class="dt">Just</span> (simpleHTTP (getRequest url)
+                   <span class="fu">&gt;&gt;=</span> getResponseBody))
+          (const (return <span class="dt">Nothing</span>))</code></pre>
 <p>Здесь всё довольно просто: результатом неудавшегося запросы будет просто <code>Nothing</code>, а в случае удачи вернётся <code>Just &quot;...&quot;</code> с телом ответа.</p>
 <p>Url же формировать было поручено этой функции:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">mkAPIUrl</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">CityID</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">TempUnits</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Url</span>
-<span class="hs-definition">mkAPIUrl</span> <span class="hs-varid">city</span> <span class="hs-varid">units</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">let</span> <span class="hs-varid">unitStr</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">case</span> <span class="hs-varid">units</span> <span class="hs-keyword">of</span>
-                  <span class="hs-conid">Celsiuses</span>  <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"c"</span>
-                  <span class="hs-conid">Farenheits</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"f"</span>
-  <span class="hs-keyword">in</span> <span class="hs-str">"http://weather.yahooapis.com/forecastrss?w="</span>
-  <span class="hs-varop">++</span> <span class="hs-varid">city</span> <span class="hs-varop">++</span> <span class="hs-str">"&amp;u="</span> <span class="hs-varop">++</span> <span class="hs-varid">unitStr</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkAPIUrl ::</span> <span class="dt">CityID</span> <span class="ot">-&gt;</span> <span class="dt">TempUnits</span> <span class="ot">-&gt;</span> <span class="dt">Url</span>
+mkAPIUrl city units <span class="fu">=</span>
+  <span class="kw">let</span> unitStr <span class="fu">=</span> <span class="kw">case</span> units <span class="kw">of</span>
+                  <span class="dt">Celsiuses</span>  <span class="ot">-&gt;</span> <span class="st">&quot;c&quot;</span>
+                  <span class="dt">Farenheits</span> <span class="ot">-&gt;</span> <span class="st">&quot;f&quot;</span>
+  <span class="kw">in</span> <span class="st">&quot;http://weather.yahooapis.com/forecastrss?w=&quot;</span>
+  <span class="fu">++</span> city <span class="fu">++</span> <span class="st">&quot;&amp;u=&quot;</span> <span class="fu">++</span> unitStr</code></pre>
 <p>Здесь тоже всё прозрачно, я считаю.</p>
 <p>Этот вариант HTTP-клиента работал у меня отлично дома, однако через офисный <strong>proxy-сервер</strong> пробиться сходу он, увы, не смог. Ну да ладно, на то он и <code>simpleHTTP</code> - ему простительно. Гугление подсказало, что через прокси может ходить <code>Network.HTTP.Browser</code>. Решено было его и использовать. Теперь код запроса погоды выглядит так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Новые импорты</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Network</span><span class="hs-varop">.</span><span class="hs-conid">Browser</span>    <span class="hs-layout">(</span><span class="hs-varid">browse</span><span class="hs-layout">,</span> <span class="hs-varid">request</span><span class="hs-layout">,</span>
-                           <span class="hs-varid">setOutHandler</span><span class="hs-layout">,</span> <span class="hs-varid">setProxy</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Network</span><span class="hs-varop">.</span><span class="hs-conid">HTTP</span>       <span class="hs-layout">(</span><span class="hs-conid">Response</span> <span class="hs-layout">(</span><span class="hs-varid">rspBody</span><span class="hs-layout">)</span><span class="hs-layout">,</span>
-                           <span class="hs-varid">catchIO</span><span class="hs-layout">,</span> <span class="hs-varid">getRequest</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Network</span><span class="hs-varop">.</span><span class="hs-conid">HTTP</span><span class="hs-varop">.</span><span class="hs-conid">Proxy</span> <span class="hs-layout">(</span><span class="hs-conid">Proxy</span><span class="hs-layout">,</span> <span class="hs-varid">fetchProxy</span><span class="hs-layout">,</span> <span class="hs-varid">parseProxy</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Новые импорты</span>
+<span class="kw">import </span><span class="dt">Network.Browser</span>    (browse, request,
+                           setOutHandler, setProxy)
+<span class="kw">import </span><span class="dt">Network.HTTP</span>       (<span class="dt">Response</span> (rspBody),
+                           catchIO, getRequest)
+<span class="kw">import </span><span class="dt">Network.HTTP.Proxy</span> (<span class="dt">Proxy</span>, fetchProxy, parseProxy)
 
-<span class="hs-varop">...</span>
+<span class="fu">...</span>
 
-<span class="hs-definition">simpleRequest</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Proxy</span>
-              <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Url</span>
-              <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-layout">(</span><span class="hs-conid">Maybe</span> <span class="hs-conid">String</span><span class="hs-layout">)</span>
-<span class="hs-definition">simpleRequest</span> <span class="hs-varid">mbProxy</span> <span class="hs-varid">url</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">catchIO</span> <span class="hs-layout">(</span><span class="hs-varid">liftM</span> <span class="hs-conid">Just</span> <span class="hs-varid">get</span><span class="hs-layout">)</span>
-          <span class="hs-layout">(</span><span class="hs-varid">const</span> <span class="hs-layout">(</span><span class="hs-varid">return</span> <span class="hs-conid">Nothing</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-  <span class="hs-keyword">where</span>
-    <span class="hs-varid">get</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">String</span>
-    <span class="hs-varid">get</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-      <span class="hs-comment">-- если proxy не указан явно, программа будет</span>
-      <span class="hs-comment">-- пытаться получить его настройки от ОС</span>
-      <span class="hs-varid">p</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">maybe</span> <span class="hs-layout">(</span><span class="hs-varid">fetchProxy</span> <span class="hs-conid">False</span><span class="hs-layout">)</span> <span class="hs-varid">return</span> <span class="hs-varid">mbProxy</span>
-      <span class="hs-layout">(</span><span class="hs-keyword">_</span><span class="hs-layout">,</span> <span class="hs-varid">res</span><span class="hs-layout">)</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">browse</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
-        <span class="hs-varid">setProxy</span> <span class="hs-varid">p</span>
-        <span class="hs-comment">-- весь вывод в консоль от браузера подавляется</span>
-        <span class="hs-varid">setOutHandler</span> <span class="hs-varop">$</span> <span class="hs-varid">const</span> <span class="hs-varop">$</span> <span class="hs-varid">return</span> <span class="hs-conid">()</span>
-        <span class="hs-varid">request</span> <span class="hs-layout">(</span><span class="hs-varid">getRequest</span> <span class="hs-varid">url</span><span class="hs-layout">)</span>
-      <span class="hs-varid">return</span> <span class="hs-layout">(</span><span class="hs-varid">rspBody</span> <span class="hs-varid">res</span><span class="hs-layout">)</span></code></pre>
+<span class="ot">simpleRequest ::</span> <span class="dt">Maybe</span> <span class="dt">Proxy</span>
+              <span class="ot">-&gt;</span> <span class="dt">Url</span>
+              <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Maybe</span> <span class="dt">String</span>)
+simpleRequest mbProxy url <span class="fu">=</span>
+  catchIO (liftM <span class="dt">Just</span> get)
+          (const (return <span class="dt">Nothing</span>))
+  <span class="kw">where</span>
+<span class="ot">    get ::</span> <span class="dt">IO</span> <span class="dt">String</span>
+    get <span class="fu">=</span> <span class="kw">do</span>
+      <span class="co">-- если proxy не указан явно, программа будет</span>
+      <span class="co">-- пытаться получить его настройки от ОС</span>
+      p <span class="ot">&lt;-</span> maybe (fetchProxy <span class="dt">False</span>) return mbProxy
+      (_, res) <span class="ot">&lt;-</span> browse <span class="fu">$</span> <span class="kw">do</span>
+        setProxy p
+        <span class="co">-- весь вывод в консоль от браузера подавляется</span>
+        setOutHandler <span class="fu">$</span> const <span class="fu">$</span> return ()
+        request (getRequest url)
+      return (rspBody res)</code></pre>
 <h2 id="что-то-неразборчив-ваш-xml-без-линз-никак">“Что-то неразборчив ваш XML, без линз никак!”</h2>
 <p>XML-документы в Haskell хранятся в типе <code>Document</code> из модуля <code>Text.XML</code>. Получить же документ из строки с содержимым можно так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Text</span>    <span class="hs-keyword">as</span> <span class="hs-conid">T</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Default</span> <span class="hs-layout">(</span><span class="hs-varid">def</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">XML</span>     <span class="hs-keyword">as</span> <span class="hs-conid">X</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">XML</span>     <span class="hs-layout">(</span><span class="hs-conid">Document</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.Text</span>    <span class="kw">as</span> <span class="dt">T</span>
+<span class="kw">import           </span><span class="dt">Data.Default</span> (def)
+<span class="kw">import qualified</span> <span class="dt">Text.XML</span>     <span class="kw">as</span> <span class="dt">X</span>
+<span class="kw">import           </span><span class="dt">Text.XML</span>     (<span class="dt">Document</span>)
 
-<span class="hs-varop">...</span>
+<span class="fu">...</span>
 
-<span class="hs-definition">parseDocument</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Document</span>
-<span class="hs-definition">parseDocument</span> <span class="hs-varid">s</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-conid">X</span><span class="hs-varop">.</span><span class="hs-varid">parseText</span> <span class="hs-varid">def</span> <span class="hs-layout">(</span><span class="hs-conid">T</span><span class="hs-varop">.</span><span class="hs-varid">pack</span> <span class="hs-varid">s</span><span class="hs-layout">)</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Right</span> <span class="hs-varid">d</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Just</span> <span class="hs-varid">d</span>
-    <span class="hs-keyword">_</span>       <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Nothing</span></code></pre>
+<span class="ot">parseDocument ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Document</span>
+parseDocument s <span class="fu">=</span>
+  <span class="kw">case</span> X.parseText def (T.pack s) <span class="kw">of</span>
+    <span class="dt">Right</span> d <span class="ot">-&gt;</span> <span class="dt">Just</span> d
+    _       <span class="ot">-&gt;</span> <span class="dt">Nothing</span></code></pre>
 <p><code>parseText</code> возвращает <code>Either</code>, содержащий описание ошибок парсинга. Однако, данная задача не требует таких подробностей, поэтому функция, приведенная выше, возвращает просто <code>Maybe Document</code>.</p>
 <p>Документ получать уже можно, но ведь нужно ещё и работать с ним. Будучи знаком с линзами, я прямо таки чувствовал, что XML можно обрабатывать и с их помощью. Так и вышло: нашелся пакет <code>xml-lens</code>! Разбор документа далее будет производиться с его помощью:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">&lt;$&gt;</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varop">&lt;*&gt;</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">XML</span><span class="hs-varop">.</span><span class="hs-conid">Lens</span>       <span class="hs-layout">(</span><span class="hs-varid">attr</span><span class="hs-layout">,</span> <span class="hs-varid">el</span><span class="hs-layout">,</span> <span class="hs-varid">named</span><span class="hs-layout">,</span> <span class="hs-varid">root</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varop">./</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varop">^?</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;), (&lt;*&gt;))
+<span class="kw">import </span><span class="dt">Text.XML.Lens</span>       (attr, el, named, root, (./), (^?))
 
-<span class="hs-definition">getWeather</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Document</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Weather</span>
-<span class="hs-definition">getWeather</span> <span class="hs-varid">doc</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">do</span> <span class="hs-varid">feed</span>      <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">doc</span> <span class="hs-varop">^?</span> <span class="hs-varid">root</span> <span class="hs-varop">.</span> <span class="hs-varid">el</span> <span class="hs-str">"rss"</span> <span class="hs-varop">./</span> <span class="hs-varid">el</span> <span class="hs-str">"channel"</span>
-     <span class="hs-varid">units</span>     <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">feed</span> <span class="hs-varop">^?</span> <span class="hs-varid">el</span> <span class="hs-str">"channel"</span> <span class="hs-varop">./</span> <span class="hs-varid">named</span> <span class="hs-str">"units"</span> <span class="hs-varop">.</span> <span class="hs-varid">attr</span> <span class="hs-str">"temperature"</span>
-     <span class="hs-varid">city</span>      <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">feed</span> <span class="hs-varop">^?</span> <span class="hs-varid">el</span> <span class="hs-str">"channel"</span> <span class="hs-varop">./</span> <span class="hs-varid">named</span> <span class="hs-str">"location"</span> <span class="hs-varop">.</span> <span class="hs-varid">attr</span> <span class="hs-str">"city"</span>
-     <span class="hs-varid">country</span>   <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">feed</span> <span class="hs-varop">^?</span> <span class="hs-varid">el</span> <span class="hs-str">"channel"</span> <span class="hs-varop">./</span> <span class="hs-varid">named</span> <span class="hs-str">"location"</span> <span class="hs-varop">.</span> <span class="hs-varid">attr</span> <span class="hs-str">"country"</span>
-     <span class="hs-varid">condition</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">feed</span> <span class="hs-varop">^?</span> <span class="hs-varid">el</span> <span class="hs-str">"channel"</span> <span class="hs-varop">./</span> <span class="hs-varid">el</span> <span class="hs-str">"item"</span> <span class="hs-varop">./</span> <span class="hs-varid">named</span> <span class="hs-str">"condition"</span>
-     <span class="hs-conid">Weather</span> <span class="hs-varid">city</span> <span class="hs-varid">country</span>
-         <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">condition</span> <span class="hs-varop">^?</span> <span class="hs-varid">attr</span> <span class="hs-str">"temp"</span>
-         <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">toTempUnit</span> <span class="hs-varid">units</span>
-         <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">condition</span> <span class="hs-varop">^?</span> <span class="hs-varid">attr</span> <span class="hs-str">"date"</span>
-         <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">condition</span> <span class="hs-varop">^?</span> <span class="hs-varid">attr</span> <span class="hs-str">"text"</span>
-  <span class="hs-keyword">where</span>
-    <span class="hs-varid">toTempUnit</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Text</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">TempUnits</span>
-    <span class="hs-varid">toTempUnit</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">flip</span> <span class="hs-varid">lookup</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-str">"C"</span><span class="hs-layout">,</span> <span class="hs-conid">Celsiuses</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-str">"F"</span><span class="hs-layout">,</span> <span class="hs-conid">Farenheits</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span></code></pre>
+<span class="ot">getWeather ::</span> <span class="dt">Document</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Weather</span>
+getWeather doc <span class="fu">=</span>
+  <span class="kw">do</span> feed      <span class="ot">&lt;-</span> doc <span class="fu">^?</span> root <span class="fu">.</span> el <span class="st">&quot;rss&quot;</span> <span class="fu">./</span> el <span class="st">&quot;channel&quot;</span>
+     units     <span class="ot">&lt;-</span> feed <span class="fu">^?</span> el <span class="st">&quot;channel&quot;</span> <span class="fu">./</span> named <span class="st">&quot;units&quot;</span> <span class="fu">.</span> attr <span class="st">&quot;temperature&quot;</span>
+     city      <span class="ot">&lt;-</span> feed <span class="fu">^?</span> el <span class="st">&quot;channel&quot;</span> <span class="fu">./</span> named <span class="st">&quot;location&quot;</span> <span class="fu">.</span> attr <span class="st">&quot;city&quot;</span>
+     country   <span class="ot">&lt;-</span> feed <span class="fu">^?</span> el <span class="st">&quot;channel&quot;</span> <span class="fu">./</span> named <span class="st">&quot;location&quot;</span> <span class="fu">.</span> attr <span class="st">&quot;country&quot;</span>
+     condition <span class="ot">&lt;-</span> feed <span class="fu">^?</span> el <span class="st">&quot;channel&quot;</span> <span class="fu">./</span> el <span class="st">&quot;item&quot;</span> <span class="fu">./</span> named <span class="st">&quot;condition&quot;</span>
+     <span class="dt">Weather</span> city country
+         <span class="fu">&lt;$&gt;</span> condition <span class="fu">^?</span> attr <span class="st">&quot;temp&quot;</span>
+         <span class="fu">&lt;*&gt;</span> toTempUnit units
+         <span class="fu">&lt;*&gt;</span> condition <span class="fu">^?</span> attr <span class="st">&quot;date&quot;</span>
+         <span class="fu">&lt;*&gt;</span> condition <span class="fu">^?</span> attr <span class="st">&quot;text&quot;</span>
+  <span class="kw">where</span>
+<span class="ot">    toTempUnit ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">TempUnits</span>
+    toTempUnit <span class="fu">=</span> flip lookup [(<span class="st">&quot;C&quot;</span>, <span class="dt">Celsiuses</span>), (<span class="st">&quot;F&quot;</span>, <span class="dt">Farenheits</span>)]</code></pre>
 <p>XML-линзы выглядят необычно, но для тем, кто знаком с линзами в целом, разобраться труда не составит. Сам код же вполне читаем получился, что особо порадовало.</p>
 <h2 id="также-доступны-следующие-опции">“Также доступны следующие опции…”</h2>
 <p>Опции программы нужно где-то хранить, для этой цели был добавлен тип:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Config</span>
-            <span class="hs-layout">{</span> <span class="hs-varid">cityID</span>    <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">CityID</span>
-            <span class="hs-layout">,</span> <span class="hs-varid">tempUnits</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">TempUnits</span>
-            <span class="hs-layout">,</span> <span class="hs-varid">proxy</span>     <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Proxy</span> <span class="hs-layout">}</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Config</span> <span class="fu">=</span> <span class="dt">Config</span>
+            {<span class="ot"> cityID    ::</span> <span class="dt">Maybe</span> <span class="dt">CityID</span>
+            ,<span class="ot"> tempUnits ::</span> <span class="dt">TempUnits</span>
+            ,<span class="ot"> proxy     ::</span> <span class="dt">Maybe</span> <span class="dt">Proxy</span> }</code></pre>
 <p>Командную строку я решил разбирать с помощью библиотеки <code>optparse-applicative</code>. Встретил её я какое то время назад, но использовать пакет ещё не доводилось. Здесь же библиотека очень пригодилась. Парсер опций с выглядит так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Options</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span>       <span class="hs-layout">(</span><span class="hs-conid">Parser</span><span class="hs-layout">,</span> <span class="hs-varid">execParser</span><span class="hs-layout">,</span> <span class="hs-varid">flag</span><span class="hs-layout">,</span> <span class="hs-varid">fullDesc</span><span class="hs-layout">,</span>
-                                  <span class="hs-varid">header</span><span class="hs-layout">,</span> <span class="hs-varid">help</span><span class="hs-layout">,</span> <span class="hs-varid">helper</span><span class="hs-layout">,</span> <span class="hs-varid">info</span><span class="hs-layout">,</span> <span class="hs-varid">long</span><span class="hs-layout">,</span>
-                                  <span class="hs-varid">metavar</span><span class="hs-layout">,</span> <span class="hs-varid">option</span><span class="hs-layout">,</span> <span class="hs-varid">progDesc</span><span class="hs-layout">,</span> <span class="hs-varid">short</span><span class="hs-layout">,</span>
-                                  <span class="hs-varid">strOption</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-varop">&lt;&gt;</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Options</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span><span class="hs-varop">.</span><span class="hs-conid">Types</span> <span class="hs-layout">(</span><span class="hs-conid">ParseError</span> <span class="hs-layout">(</span><span class="hs-conid">ErrorMsg</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-conid">ReadM</span> <span class="hs-layout">(</span><span class="hs-keyglyph">..</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Options.Applicative</span>       (<span class="dt">Parser</span>, execParser, flag, fullDesc,
+                                  header, help, helper, info, long,
+                                  metavar, option, progDesc, short,
+                                  strOption, (<span class="fu">&lt;&gt;</span>))
+<span class="kw">import </span><span class="dt">Options.Applicative.Types</span> (<span class="dt">ParseError</span> (<span class="dt">ErrorMsg</span>), <span class="dt">ReadM</span> (..))
 
-<span class="hs-varop">...</span>
+<span class="fu">...</span>
 
-<span class="hs-definition">opts</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Parser</span> <span class="hs-conid">Config</span>
-<span class="hs-definition">opts</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Config</span>
-  <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">optional</span> <span class="hs-layout">(</span><span class="hs-varid">strOption</span>
-      <span class="hs-layout">(</span><span class="hs-varid">long</span> <span class="hs-str">"city"</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">short</span> <span class="hs-chr">'c'</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">metavar</span> <span class="hs-str">"CITY"</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">help</span> <span class="hs-str">"Yahoo weather API's city ID"</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+<span class="ot">opts ::</span> <span class="dt">Parser</span> <span class="dt">Config</span>
+opts <span class="fu">=</span> <span class="dt">Config</span>
+  <span class="fu">&lt;$&gt;</span> optional (strOption
+      (long <span class="st">&quot;city&quot;</span>
+    <span class="fu">&lt;&gt;</span> short <span class="ch">'c'</span>
+    <span class="fu">&lt;&gt;</span> metavar <span class="st">&quot;CITY&quot;</span>
+    <span class="fu">&lt;&gt;</span> help <span class="st">&quot;Yahoo weather API's city ID&quot;</span>))
 
-  <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">flag</span> <span class="hs-conid">Celsiuses</span> <span class="hs-conid">Farenheits</span>
-      <span class="hs-layout">(</span><span class="hs-varid">long</span> <span class="hs-str">"farenheits"</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">short</span> <span class="hs-chr">'F'</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">help</span> <span class="hs-str">"Show temperature in Farenheits (default: Celsiuses)"</span><span class="hs-layout">)</span>
+  <span class="fu">&lt;*&gt;</span> flag <span class="dt">Celsiuses</span> <span class="dt">Farenheits</span>
+      (long <span class="st">&quot;farenheits&quot;</span>
+    <span class="fu">&lt;&gt;</span> short <span class="ch">'F'</span>
+    <span class="fu">&lt;&gt;</span> help <span class="st">&quot;Show temperature in Farenheits (default: Celsiuses)&quot;</span>)
 
-  <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">optional</span> <span class="hs-layout">(</span><span class="hs-varid">option</span> <span class="hs-varid">extractProxy</span>
-      <span class="hs-layout">(</span><span class="hs-varid">long</span> <span class="hs-str">"proxy"</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">short</span> <span class="hs-chr">'p'</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">help</span> <span class="hs-str">"Proxy server in format [user:pass@]host[:port]"</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
+  <span class="fu">&lt;*&gt;</span> optional (option extractProxy
+      (long <span class="st">&quot;proxy&quot;</span>
+    <span class="fu">&lt;&gt;</span> short <span class="ch">'p'</span>
+    <span class="fu">&lt;&gt;</span> help <span class="st">&quot;Proxy server in format [user:pass@]host[:port]&quot;</span>))
 
-  <span class="hs-keyword">where</span>
-    <span class="hs-varid">extractProxy</span> <span class="hs-keyglyph">=</span>
-      <span class="hs-conid">ReadM</span> <span class="hs-varop">.</span> <span class="hs-varid">maybe</span> <span class="hs-layout">(</span><span class="hs-conid">Left</span> <span class="hs-layout">(</span><span class="hs-conid">ErrorMsg</span> <span class="hs-str">"Wrong proxy string! (see --help)"</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-conid">Right</span>
-            <span class="hs-varop">.</span> <span class="hs-varid">parseProxy</span></code></pre>
+  <span class="kw">where</span>
+    extractProxy <span class="fu">=</span>
+      <span class="dt">ReadM</span> <span class="fu">.</span> maybe (<span class="dt">Left</span> (<span class="dt">ErrorMsg</span> <span class="st">&quot;Wrong proxy string! (see --help)&quot;</span>)) <span class="dt">Right</span>
+            <span class="fu">.</span> parseProxy</code></pre>
 <p>Сам же интерфейс командной строки описывается так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">cli</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">Config</span>
-<span class="hs-definition">cli</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">execParser</span>
-    <span class="hs-varop">$</span> <span class="hs-varid">info</span> <span class="hs-layout">(</span><span class="hs-varid">helper</span> <span class="hs-varop">&lt;*&gt;</span> <span class="hs-varid">opts</span><span class="hs-layout">)</span>
-      <span class="hs-layout">(</span><span class="hs-varid">fullDesc</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">progDesc</span> <span class="hs-str">"Print current weather for CITY"</span>
-    <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">header</span> <span class="hs-str">"weather - Yahoo Weather displaying tool"</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">cli ::</span> <span class="dt">IO</span> <span class="dt">Config</span>
+cli <span class="fu">=</span> execParser
+    <span class="fu">$</span> info (helper <span class="fu">&lt;*&gt;</span> opts)
+      (fullDesc
+    <span class="fu">&lt;&gt;</span> progDesc <span class="st">&quot;Print current weather for CITY&quot;</span>
+    <span class="fu">&lt;&gt;</span> header <span class="st">&quot;weather - Yahoo Weather displaying tool&quot;</span>)</code></pre>
 <p>Библиотека, кроме собственно реализации опций, даёт ещё и возможность генерировать автоматически справку по ключам и опциям. Выглядит справка так:</p>
 <pre><code>$ weather --help
 weather - Yahoo Weather displaying tool
@@ -394,24 +394,24 @@ Available options:
   -p,--proxy ARG           Proxy server in format [user:pass@]host[:port]</code></pre>
 <h2 id="всех-их-вместе-соберем">“Всех их вместе соберем!”</h2>
 <p>Ну вот, в общем то, и всё, что нужно для сборки готовой программы. Осталась самая малость - main-функция:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Exit</span> <span class="hs-layout">(</span><span class="hs-conid">ExitCode</span><span class="hs-layout">(</span><span class="hs-keyglyph">..</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-varid">exitWith</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">System.Exit</span> (<span class="dt">ExitCode</span>(..), exitWith)
 
-<span class="hs-varop">...</span>
+<span class="fu">...</span>
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">cli</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">doSomeWork</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">exitWith</span>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> cli <span class="fu">&gt;&gt;=</span> doSomeWork <span class="fu">&gt;&gt;=</span> exitWith
 
-<span class="hs-definition">doSomeWork</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Config</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">ExitCode</span>
-<span class="hs-definition">doSomeWork</span> <span class="hs-varid">cfg</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-  <span class="hs-varid">resp</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">simpleRequest</span>
-    <span class="hs-layout">(</span><span class="hs-varid">proxy</span> <span class="hs-varid">cfg</span><span class="hs-layout">)</span>
-    <span class="hs-layout">(</span><span class="hs-varid">mkAPIUrl</span> <span class="hs-layout">(</span><span class="hs-varid">fromMaybe</span> <span class="hs-str">"2121267"</span> <span class="hs-comment">-- default city is Kazan'</span>
-                         <span class="hs-layout">(</span><span class="hs-varid">cityID</span> <span class="hs-varid">cfg</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-              <span class="hs-layout">(</span><span class="hs-varid">tempUnits</span> <span class="hs-varid">cfg</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-  <span class="hs-keyword">let</span> <span class="hs-varid">weather</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">resp</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">parseDocument</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-varid">getWeather</span>
-  <span class="hs-varid">maybe</span> <span class="hs-layout">(</span><span class="hs-varid">return</span> <span class="hs-varop">$</span> <span class="hs-conid">ExitFailure</span> <span class="hs-num">1</span><span class="hs-layout">)</span>
-        <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">&gt;&gt;</span> <span class="hs-varid">return</span> <span class="hs-conid">ExitSuccess</span><span class="hs-layout">)</span> <span class="hs-varop">.</span> <span class="hs-varid">putStrLn</span> <span class="hs-varop">.</span> <span class="hs-varid">renderWeather</span><span class="hs-layout">)</span>
-        <span class="hs-varid">weather</span></code></pre>
+<span class="ot">doSomeWork ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">ExitCode</span>
+doSomeWork cfg <span class="fu">=</span> <span class="kw">do</span>
+  resp <span class="ot">&lt;-</span> simpleRequest
+    (proxy cfg)
+    (mkAPIUrl (fromMaybe <span class="st">&quot;2121267&quot;</span> <span class="co">-- default city is Kazan'</span>
+                         (cityID cfg))
+              (tempUnits cfg))
+  <span class="kw">let</span> weather <span class="fu">=</span> resp <span class="fu">&gt;&gt;=</span> parseDocument <span class="fu">&gt;&gt;=</span> getWeather
+  maybe (return <span class="fu">$</span> <span class="dt">ExitFailure</span> <span class="dv">1</span>)
+        ((<span class="fu">&gt;&gt;</span> return <span class="dt">ExitSuccess</span>) <span class="fu">.</span> putStrLn <span class="fu">.</span> renderWeather)
+        weather</code></pre>
 <p><strong>Всё!</strong></p>
 <p>Вот и готово полезное приложение, и, что ещё важнее, опробованы удобные и мощные инструменты! Целиком же код можно посмотреть <a href="https://bitbucket.org/astynax/weather/overview">тут</a>.</p>
 

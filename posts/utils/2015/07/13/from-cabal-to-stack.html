@@ -292,17 +292,17 @@ $ <span class="kw">stack</span> new</code></pre>
 <h2 id="проверяем-версии-пакетов">Проверяем версии пакетов</h2>
 <p>Итак, собрали. А теперь убедимся в правоте наших ожиданий в отношении версий используемых пакетов.</p>
 <p>Раньше версии пакетов (или диапазоны версий) указывались в <code>.cabal</code>-файле, в секции <code>build-depends</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="hs-varid">build</span><span class="hs-comment">-</span><span class="hs-varid">depends</span><span class="hs-conop">:</span>   <span class="hs-varid">split</span>    <span class="hs-varop">&gt;=</span><span class="hs-num">0.2</span>    <span class="hs-varop">&amp;&amp;</span> <span class="hs-varop">&lt;</span><span class="hs-num">0.3</span><span class="hs-layout">,</span>
-                     <span class="hs-varid">filepath</span> <span class="hs-varop">&gt;=</span><span class="hs-num">1.3</span>    <span class="hs-varop">&amp;&amp;</span> <span class="hs-varop">&lt;</span><span class="hs-num">1.4</span><span class="hs-layout">,</span>
-    <span class="hs-varop">...</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">    build<span class="fu">-</span>depends<span class="fu">:</span>   split    <span class="fu">&gt;=</span><span class="fl">0.2</span>    <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">0.3</span>,
+                     filepath <span class="fu">&gt;=</span><span class="fl">1.3</span>    <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">1.4</span>,
+    <span class="fu">...</span></code></pre>
 <p>Теперь же, как мы помним, версии пакетов определяются используемым нами <code>lts</code>-снимком. Проверим это.</p>
 <p>Я воспользуюсь одним из своих блогов, создаваемых, как многие знают, с помощью <code>hakyll</code>. Проект зависит от маленькой библиотеки <code>split</code>, помогающей разделывать строчки на кусочки. <code>lts</code>-снимок версии 2.15 содержит указание версии:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">...</span>
 <span class="kw">split-0.2.2</span>         Combinator library for splitting lists
 <span class="kw">...</span></code></pre>
 <p>Итак, используется 0.2.2. А теперь я сделаю вид, что напутал с версиями и указал в <code>.cabal</code>-файле следующее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="hs-varid">build</span><span class="hs-comment">-</span><span class="hs-varid">depends</span><span class="hs-conop">:</span>   <span class="hs-varid">split</span>  <span class="hs-varop">==</span><span class="hs-num">0.3</span><span class="hs-varop">.*</span><span class="hs-layout">,</span>
-    <span class="hs-varop">...</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">    build<span class="fu">-</span>depends<span class="fu">:</span>   split  <span class="fu">==</span><span class="fl">0.3</span><span class="fu">.*</span>,
+    <span class="fu">...</span></code></pre>
 <p>На самом деле, версия 0.2.2 является последней, но суть не в этом. Суть в том, что проект не соберётся, потому что <code>stack</code> строг и аккуратен по отношению к версиям.</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> hand
 $ <span class="kw">stack</span> init

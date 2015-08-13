@@ -201,9 +201,9 @@
 <span class="kw">homepage.lucius</span></code></pre>
 <p>Выглядит необычно, не правда ли ли? Какие-то странные расширения <code>.hamlet</code>, <code>.julius</code> и <code>.lucius</code>… Не беспокойтесь, сейчас всё объясню.</p>
 <p>Начнём с трёх файлов <code>homepage.*</code>. Как вы уже знаете, <code>GET</code>- и <code>POST</code>-запросы, направленные по корневому пути нашего приложения, обрабатываются соответствующими функциями, определёнными в файле <code>Handler/Home.hs</code>. В частности:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Handler</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-comment">-- Обрабатываем GET-запросы...</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
+getHomeR <span class="fu">=</span> <span class="kw">do</span>
+    <span class="co">-- Обрабатываем GET-запросы...</span></code></pre>
 <p>Когда мы набираем <code>http://localhost:3001</code>, мы ожидаем увидеть некую страницу. То есть функция <code>getHomeR</code> должна вернуть некий HTML-код, который (в конечном итоге) и будет возвращён нашему браузеру. Но откуда же функция <code>getHomeR</code> возьмёт этот HTML-код, спросите вы? Отвечаю: она возьмёт его из шаблонов.</p>
 <p>Файлы, расположенные в каталоге <code>templates</code> - это шаблоны наших будущих страниц. И как вы уже могли догадаться, три файла <code>homepage.*</code> соответствуют нашей корневой странице: именно в этих трёх файлах содержится то, что будет использовано для построения HTML-кода, возвращаемого по запросу <code>http://localhost:3001</code>.</p>
 <h2 id="шаблонная-троица">Шаблонная троица</h2>

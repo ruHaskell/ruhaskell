@@ -206,15 +206,15 @@
 <p>Теперь к делу.</p>
 <h3 id="заголовки">Заголовки</h3>
 <p>Откроем файл <code>Handler/Home.hs</code> и найдём нашу функцию <code>getHomeR</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Handler</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">defaultLayout</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>    
-    <span class="hs-varid">setTitle</span> <span class="hs-str">"Welcome To Yesod!"</span>
-    <span class="hs-varop">$</span><span class="hs-layout">(</span><span class="hs-varid">widgetFile</span> <span class="hs-str">"homepage"</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
+getHomeR <span class="fu">=</span> defaultLayout <span class="fu">$</span> <span class="kw">do</span>    
+    setTitle <span class="st">&quot;Welcome To Yesod!&quot;</span>
+    <span class="fu">$</span>(widgetFile <span class="st">&quot;homepage&quot;</span>)</code></pre>
 <p>Уже известная нам функция <code>setTitle</code> устанавливает заголовок страницы. Но здесь заголовок прописан явно, на английском языке. Давайте же исправим это:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Handler</span> <span class="hs-conid">Html</span>
-<span class="hs-definition">getHomeR</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">defaultLayout</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">setTitleI</span> <span class="hs-conid">MsgWelcome</span>
-    <span class="hs-varop">$</span><span class="hs-layout">(</span><span class="hs-varid">widgetFile</span> <span class="hs-str">"homepage"</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
+getHomeR <span class="fu">=</span> defaultLayout <span class="fu">$</span> <span class="kw">do</span>
+    setTitleI <span class="dt">MsgWelcome</span>
+    <span class="fu">$</span>(widgetFile <span class="st">&quot;homepage&quot;</span>)</code></pre>
 <p>Предельно просто. Функция <code>setTitleI</code> - это i18n-аналог функции <code>setTitle</code> (отсюда и суффикс <code>I</code>). Мы передаём ей уже не явный текст, а имеющийся ключ. Таким образом, когда текущим языком страницы будет английский, заголовок будет отображён как “Welcome to Yesod!”, а если русский - тогда как “Добро пожаловать в Yesod!”.</p>
 <h3 id="hamlet">Hamlet</h3>
 <p>Перейдём к HTML-скелету. Откроем файл <code>templates/homepage.hamlet</code>:</p>

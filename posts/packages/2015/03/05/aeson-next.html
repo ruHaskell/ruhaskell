@@ -201,18 +201,18 @@
     <span class="st">&quot;michael@gmail.com&quot;</span>
 <span class="ot">]</span></code></pre>
 <p>В этом случае мы легко обойдёмся списком строк:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span> <span class="hs-keyword">as</span> <span class="hs-conid">B</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString</span> <span class="kw">as</span> <span class="dt">B</span>
+<span class="kw">import           </span><span class="dt">Data.Aeson</span>
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">B</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"/Users/dshevchenko/our.json"</span>
-    <span class="hs-keyword">let</span> <span class="hs-varid">result</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">decodeStrict</span> <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-keyglyph">[</span><span class="hs-conid">String</span><span class="hs-keyglyph">]</span>  <span class="hs-comment">-- Явно указываем тип...</span>
-    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-keyword">case</span> <span class="hs-varid">result</span> <span class="hs-keyword">of</span>
-        <span class="hs-conid">Nothing</span>         <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"Invalid JSON!"</span>
-        <span class="hs-conid">Just</span> <span class="hs-varid">emailsList</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">show</span> <span class="hs-varid">emailsList</span></code></pre>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    rawJSON <span class="ot">&lt;-</span> B.readFile <span class="st">&quot;/Users/dshevchenko/our.json&quot;</span>
+    <span class="kw">let</span> result <span class="fu">=</span> decodeStrict<span class="ot"> rawJSON ::</span> <span class="dt">Maybe</span> [<span class="dt">String</span>]  <span class="co">-- Явно указываем тип...</span>
+    putStrLn <span class="fu">$</span> <span class="kw">case</span> result <span class="kw">of</span>
+        <span class="dt">Nothing</span>         <span class="ot">-&gt;</span> <span class="st">&quot;Invalid JSON!&quot;</span>
+        <span class="dt">Just</span> emailsList <span class="ot">-&gt;</span> show emailsList</code></pre>
 <p>Вполне ожидаемый результат:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;john@gmail.com&quot;</span>,<span class="st">&quot;ann@gmail.com&quot;</span>,<span class="st">&quot;michael@gmail.com&quot;</span>]</code></pre>
 <p>Или пусть у нас есть три простые координаты:</p>
@@ -222,39 +222,39 @@
     <span class="dt">&quot;Z&quot;</span><span class="fu">:</span> <span class="fl">-45.0055</span>
 <span class="fu">}</span></code></pre>
 <p>Читаем их в обыкновенный словарь:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span> <span class="hs-keyword">as</span> <span class="hs-conid">B</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span>        <span class="hs-keyword">as</span> <span class="hs-conid">M</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Maybe</span> <span class="hs-layout">(</span><span class="hs-varid">fromJust</span><span class="hs-layout">)</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString</span> <span class="kw">as</span> <span class="dt">B</span>
+<span class="kw">import           </span><span class="dt">Data.Aeson</span>
+<span class="kw">import qualified</span> <span class="dt">Data.Map</span>        <span class="kw">as</span> <span class="dt">M</span>
+<span class="kw">import           </span><span class="dt">Data.Maybe</span> (fromJust)
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">B</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"/Users/dshevchenko/our.json"</span>
-    <span class="hs-keyword">let</span> <span class="hs-varid">result</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">decodeStrict</span> <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-layout">(</span><span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-conid">String</span> <span class="hs-conid">Double</span><span class="hs-layout">)</span>
-    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-keyword">case</span> <span class="hs-varid">result</span> <span class="hs-keyword">of</span>
-        <span class="hs-conid">Nothing</span>     <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"Invalid JSON!"</span>
-        <span class="hs-conid">Just</span> <span class="hs-varid">coords</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">show</span> <span class="hs-varop">.</span> <span class="hs-varid">fromJust</span> <span class="hs-varop">$</span> <span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-varid">lookup</span> <span class="hs-str">"Y"</span> <span class="hs-varid">coords</span></code></pre>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    rawJSON <span class="ot">&lt;-</span> B.readFile <span class="st">&quot;/Users/dshevchenko/our.json&quot;</span>
+    <span class="kw">let</span> result <span class="fu">=</span> decodeStrict<span class="ot"> rawJSON ::</span> <span class="dt">Maybe</span> (<span class="dt">M.Map</span> <span class="dt">String</span> <span class="dt">Double</span>)
+    putStrLn <span class="fu">$</span> <span class="kw">case</span> result <span class="kw">of</span>
+        <span class="dt">Nothing</span>     <span class="ot">-&gt;</span> <span class="st">&quot;Invalid JSON!&quot;</span>
+        <span class="dt">Just</span> coords <span class="ot">-&gt;</span> show <span class="fu">.</span> fromJust <span class="fu">$</span> M.lookup <span class="st">&quot;Y&quot;</span> coords</code></pre>
 <p>Вывод:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">455.609</span></code></pre>
 <p>Таким образом, мы убедились, что для простых случаев вводить собственные типы вообще не нужно. Ну а что касается обратного превращения в JSON, тут уж совсем всё просто:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Main</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span>            <span class="hs-keyword">as</span> <span class="hs-conid">B</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span><span class="hs-varop">.</span><span class="hs-conid">Lazy</span><span class="hs-varop">.</span><span class="hs-conid">Char8</span> <span class="hs-keyword">as</span> <span class="hs-conid">LC</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span><span class="hs-varop">.</span><span class="hs-conid">Encode</span><span class="hs-varop">.</span><span class="hs-conid">Pretty</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span>                   <span class="hs-keyword">as</span> <span class="hs-conid">M</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Maybe</span> <span class="hs-layout">(</span><span class="hs-varid">fromJust</span><span class="hs-layout">)</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString</span>            <span class="kw">as</span> <span class="dt">B</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy.Char8</span> <span class="kw">as</span> <span class="dt">LC</span>
+<span class="kw">import           </span><span class="dt">Data.Aeson</span>
+<span class="kw">import           </span><span class="dt">Data.Aeson.Encode.Pretty</span>
+<span class="kw">import qualified</span> <span class="dt">Data.Map</span>                   <span class="kw">as</span> <span class="dt">M</span>
+<span class="kw">import           </span><span class="dt">Data.Maybe</span> (fromJust)
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-keyword">let</span> <span class="hs-varid">coords</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-varid">fromList</span> <span class="hs-keyglyph">[</span> <span class="hs-layout">(</span><span class="hs-str">"X"</span><span class="hs-layout">,</span> <span class="hs-num">12.344</span><span class="hs-layout">)</span>
-                            <span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-str">"Y"</span><span class="hs-layout">,</span> <span class="hs-num">344.5508</span><span class="hs-layout">)</span>
-                            <span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-str">"Z"</span><span class="hs-layout">,</span> <span class="hs-comment">-</span><span class="hs-num">5.00789</span><span class="hs-layout">)</span>
-                            <span class="hs-keyglyph">]</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-conid">String</span> <span class="hs-conid">Double</span>
-    <span class="hs-keyword">in</span> <span class="hs-conid">LC</span><span class="hs-varop">.</span><span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-varid">encodePretty</span> <span class="hs-varid">coords</span></code></pre>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span>
+    <span class="kw">let</span> coords <span class="fu">=</span> M.fromList [ (<span class="st">&quot;X&quot;</span>, <span class="fl">12.344</span>)
+                            , (<span class="st">&quot;Y&quot;</span>, <span class="fl">344.5508</span>)
+                            , (<span class="st">&quot;Z&quot;</span>, <span class="fu">-</span><span class="fl">5.00789</span>)
+                            ]<span class="ot"> ::</span> <span class="dt">M.Map</span> <span class="dt">String</span> <span class="dt">Double</span>
+    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty coords</code></pre>
 <p>Только не забываем явно указывать тип значения <code>coords</code>, а то компилятору трудно будет разобраться. В итоге:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
     <span class="st">&quot;Z&quot;</span>: <span class="kw">-5.00789</span>,
@@ -278,25 +278,25 @@
     <span class="fu">}</span>
 <span class="fu">}</span></code></pre>
 <p>И вот понадобилось мне извлечь значение конкретного поля. Одного-единственного поля, мне не нужно всё остальное. Скажем, URL репозитория моего блога. Таким образом, нам необходимо заглянуть вглубь: <code>/ -&gt; social -&gt; GitHub -&gt; blog</code>. Вот как это выглядит:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">B</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"/Users/dshevchenko/our.json"</span>
-    <span class="hs-keyword">let</span> <span class="hs-varid">result</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">decodeStrict</span> <span class="hs-varid">rawJSON</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">Object</span>
-    <span class="hs-varid">putStrLn</span> <span class="hs-varop">$</span> <span class="hs-keyword">case</span> <span class="hs-varid">result</span> <span class="hs-keyword">of</span>
-        <span class="hs-conid">Nothing</span>   <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">"Invalid JSON!"</span>
-        <span class="hs-conid">Just</span> <span class="hs-varid">info</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">getBlogRepoURL</span> <span class="hs-varid">info</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    rawJSON <span class="ot">&lt;-</span> B.readFile <span class="st">&quot;/Users/dshevchenko/our.json&quot;</span>
+    <span class="kw">let</span> result <span class="fu">=</span> decodeStrict<span class="ot"> rawJSON ::</span> <span class="dt">Maybe</span> <span class="dt">Object</span>
+    putStrLn <span class="fu">$</span> <span class="kw">case</span> result <span class="kw">of</span>
+        <span class="dt">Nothing</span>   <span class="ot">-&gt;</span> <span class="st">&quot;Invalid JSON!&quot;</span>
+        <span class="dt">Just</span> info <span class="ot">-&gt;</span> getBlogRepoURL info</code></pre>
 <p>Обратите внимание, что тип значения <code>result</code> соответствует <code>Maybe Object</code>. Затем, после извлечения конкретного значения из <code>Maybe</code>, мы передаём его функции <code>getBlogRepoURL</code>. Вот её определение:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getBlogRepoURL</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Object</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
-<span class="hs-definition">getBlogRepoURL</span> <span class="hs-varid">info</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-keyword">case</span> <span class="hs-varid">parseMaybe</span> <span class="hs-varid">extractBlogRepoURL</span> <span class="hs-varid">info</span> <span class="hs-keyword">of</span>
-        <span class="hs-conid">Nothing</span>  <span class="hs-keyglyph">-&gt;</span> <span class="hs-str">""</span>
-        <span class="hs-conid">Just</span> <span class="hs-varid">url</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">url</span>
-    <span class="hs-keyword">where</span>
-        <span class="hs-varid">extractBlogRepoURL</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">info</span>       <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">info</span> <span class="hs-varop">.:</span> <span class="hs-str">"social"</span>
-                             <span class="hs-varop">&gt;&gt;=</span>
-                             <span class="hs-keyglyph">\</span><span class="hs-varid">socialInfo</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">socialInfo</span> <span class="hs-varop">.:</span> <span class="hs-str">"GitHub"</span>
-                             <span class="hs-varop">&gt;&gt;=</span>
-                             <span class="hs-keyglyph">\</span><span class="hs-varid">gitHubInfo</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">gitHubInfo</span> <span class="hs-varop">.:</span> <span class="hs-str">"blog"</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getBlogRepoURL ::</span> <span class="dt">Object</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+getBlogRepoURL info <span class="fu">=</span>
+    <span class="kw">case</span> parseMaybe extractBlogRepoURL info <span class="kw">of</span>
+        <span class="dt">Nothing</span>  <span class="ot">-&gt;</span> <span class="st">&quot;&quot;</span>
+        <span class="dt">Just</span> url <span class="ot">-&gt;</span> url
+    <span class="kw">where</span>
+        extractBlogRepoURL <span class="fu">=</span> \info       <span class="ot">-&gt;</span> info <span class="fu">.:</span> <span class="st">&quot;social&quot;</span>
+                             <span class="fu">&gt;&gt;=</span>
+                             \socialInfo <span class="ot">-&gt;</span> socialInfo <span class="fu">.:</span> <span class="st">&quot;GitHub&quot;</span>
+                             <span class="fu">&gt;&gt;=</span>
+                             \gitHubInfo <span class="ot">-&gt;</span> gitHubInfo <span class="fu">.:</span> <span class="st">&quot;blog&quot;</span></code></pre>
 <p>Самое интересное происходит в функции <code>extractBlogRepoURL</code>, ведь именно здесь мы погружаемся в наш JSON. Для этого используется три лямбда-функции, в каждой из которых мы видим уже знакомый нам оператор извлечения значения <code>.:</code>. А для того, чтобы сделать их более понятными, я привожу их в полной форме (в сокращённой будет чуть ниже). Но как же происходит погружение в JSON-структуру? Чтобы всё встало на свои места, привожу JSON в “разобранном” виде:</p>
 <pre class="sourceCode json"><code class="sourceCode json"><span class="er">корень</span> <span class="er">-&gt;</span>    <span class="er">Object</span> <span class="er">(fromList</span> <span class="ot">[</span>
                  <span class="er">(</span><span class="st">&quot;lastName&quot;</span><span class="ot">,</span><span class="er">String</span> <span class="st">&quot;Shevchenko&quot;</span><span class="er">)</span><span class="ot">,</span>
@@ -318,14 +318,14 @@
                  <span class="er">)</span>
              <span class="ot">]</span><span class="er">)</span></code></pre>
 <p>Вот теперь назначение лямбда-функций предельно понятно. Первая функция:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyglyph">\</span><span class="hs-varid">info</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">info</span> <span class="hs-varop">.:</span> <span class="hs-str">"social"</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">\info <span class="ot">-&gt;</span> info <span class="fu">.:</span> <span class="st">&quot;social&quot;</span></code></pre>
 <p>погружает нас в 1-й подобъект, вторая функция:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyglyph">\</span><span class="hs-varid">socialInfo</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">socialInfo</span> <span class="hs-varop">.:</span> <span class="hs-str">"GitHub"</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">\socialInfo <span class="ot">-&gt;</span> socialInfo <span class="fu">.:</span> <span class="st">&quot;GitHub&quot;</span></code></pre>
 <p>ведёт нас в 2-й подобъект, ну а третья:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"> <span class="hs-keyglyph">\</span><span class="hs-varid">gitHubInfo</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">gitHubInfo</span> <span class="hs-varop">.:</span> <span class="hs-str">"blog"</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"> \gitHubInfo <span class="ot">-&gt;</span> gitHubInfo <span class="fu">.:</span> <span class="st">&quot;blog&quot;</span></code></pre>
 <p>уже извлекает значение URL репозитория блога.</p>
 <p>Кстати, как и было обещано, привожу упрощённую форму функции <code>extractBlogRepoURL</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">extractBlogRepoURL</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">\</span><span class="hs-varid">info</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">info</span> <span class="hs-varop">.:</span> <span class="hs-str">"social"</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-layout">(</span><span class="hs-varop">.:</span> <span class="hs-str">"GitHub"</span><span class="hs-layout">)</span> <span class="hs-varop">&gt;&gt;=</span> <span class="hs-layout">(</span><span class="hs-varop">.:</span> <span class="hs-str">"blog"</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">extractBlogRepoURL <span class="fu">=</span> \info <span class="ot">-&gt;</span> info <span class="fu">.:</span> <span class="st">&quot;social&quot;</span> <span class="fu">&gt;&gt;=</span> (<span class="fu">.:</span> <span class="st">&quot;GitHub&quot;</span>) <span class="fu">&gt;&gt;=</span> (<span class="fu">.:</span> <span class="st">&quot;blog&quot;</span>)</code></pre>
 <p>Мы убрали лямбда-уточнения и сильно сократили код. Кому-то подобное сокращение не понравится, но пусть каждый сам выбирает удобную для него форму.</p>
 <p>Ну вот, на сегодня хватит.</p>
 

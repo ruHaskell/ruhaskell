@@ -219,15 +219,15 @@ $ <span class="kw">haste-boot</span></code></pre>
 <p>Файл назван с большой буквы по привычке, чтобы было единство с остальными <code>.hs</code>-файлами. Затем я выполняю вот такую команду:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> templates/home/register/form/Form.hs -o static/js/Form.js</code></pre>
 <p>В результате в каталоге <code>static/js/</code> появится файл <code>Form.js</code>. После этого мне останется лишь подключить его к проекту:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Foundation.hs</span>
-<span class="hs-varop">...</span>
-    <span class="hs-varid">pageContent</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">widgetToPageContent</span> <span class="hs-varop">$</span> <span class="hs-keyword">do</span>
-        <span class="hs-varop">...</span>
-        <span class="hs-comment">-- Локальные стили и скрипты.</span>
-        <span class="hs-varid">addScript</span> <span class="hs-varop">$</span>     <span class="hs-conid">StaticR</span> <span class="hs-varid">js_default_js</span>
-        <span class="hs-varid">addStylesheet</span> <span class="hs-varop">$</span> <span class="hs-conid">StaticR</span> <span class="hs-varid">css_default_css</span>
-        <span class="hs-varid">addScript</span> <span class="hs-varop">$</span>     <span class="hs-conid">StaticR</span> <span class="hs-varid">js_Form_js</span>
-<span class="hs-varop">...</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Foundation.hs</span>
+<span class="fu">...</span>
+    pageContent <span class="ot">&lt;-</span> widgetToPageContent <span class="fu">$</span> <span class="kw">do</span>
+        <span class="fu">...</span>
+        <span class="co">-- Локальные стили и скрипты.</span>
+        addScript <span class="fu">$</span>     <span class="dt">StaticR</span> js_default_js
+        addStylesheet <span class="fu">$</span> <span class="dt">StaticR</span> css_default_css
+        addScript <span class="fu">$</span>     <span class="dt">StaticR</span> js_Form_js
+<span class="fu">...</span></code></pre>
 <p>Кстати, после добавления нового статического скрипта не забываем выполнить команду <code>touch Settings/StaticFiles.hs</code>, иначе проект не соберётся.</p>
 <p>Помимо прочего, компилятор <code>hastec</code> позволяет оптимизировать генерируемый JS-код. Выполняем:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> --help</code></pre>
@@ -239,12 +239,12 @@ $ <span class="kw">haste-boot</span></code></pre>
 <p>Вот, собственно, и всё. Теперь заглянем внутрь.</p>
 <h2 id="мёд">Мёд</h2>
 <p>Вот содержимое файла <code>Form.hs</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Haste</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Maybe</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Haste</span>
+<span class="kw">import </span><span class="dt">Data.Maybe</span>
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">createProfileButton</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">elemById</span> <span class="hs-str">"createProfileButton"</span>
-    <span class="hs-varid">setClass</span> <span class="hs-layout">(</span><span class="hs-varid">fromJust</span> <span class="hs-varid">createProfileButton</span><span class="hs-layout">)</span> <span class="hs-str">"disabled"</span> <span class="hs-conid">True</span></code></pre>
+main <span class="fu">=</span> <span class="kw">do</span>
+    createProfileButton <span class="ot">&lt;-</span> elemById <span class="st">&quot;createProfileButton&quot;</span>
+    setClass (fromJust createProfileButton) <span class="st">&quot;disabled&quot;</span> <span class="dt">True</span></code></pre>
 <p>Красиво и понятно: мы получаем доступ к кнопке <code>#createProfileButton</code> и делаем её неактивной с помощью Bootstrap-класса <code>.disabled</code>.</p>
 <p>Как видите, это настоящий Haskell-код, и это не может не радовать. В модуле <code>Haste.DOM</code> присутствует множество стандартных обвязок для нативных JS-функций, лично я сориентировался весьма быстро.</p>
 <p>Какое же главное преимущество мы получаем, используя Haste? Мы получаем compile-time проверку! Больше никаких проблем с опечатками в именах JS-функций, никаких ошибок с несимметричными круглыми/фигурными скобками, никакой путаницы с количеством аргументов у функций. Теперь подобные ошибки будут отлавливаться на стадии компиляции, а про нагромождение JS-скобок вообще можно забыть.</p>
@@ -256,8 +256,8 @@ $ <span class="kw">haste-boot</span></code></pre>
 <p>И в-третьих, избавиться от ручного написания JS-кода нам вряд ли удастся, и это хуже всего.</p>
 <p>В реальном проекте мы едва ли будем писать весь JS-код с нуля. Скорее всего, мы захотим использовать какие-то готовые библиотеки, типа JQuery и тому подобных. К сожалению, перевести такой библиотечный код в Haste-код невозможно, ведь разработчики Haste думали только о чистом JavaScript. Разумеется, мы можем интегрировать чистый JS-код в Haste-код с использованием FFI-механизма. Но это сводит к нулю главный плюс Haste - избавление от необходимости писать JS-код вручную.</p>
 <p>Более того, даже если мы напишем FFI-JS обёртку, наподобие такой:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">getText</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">JQuery</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">String</span>
-<span class="hs-definition">getText</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">ffi</span> <span class="hs-str">"(function (DOMElement) { return DOMElement.text(); })"</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getText ::</span> <span class="dt">JQuery</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">String</span>
+getText <span class="fu">=</span> ffi <span class="st">&quot;(function (DOMElement) { return DOMElement.text(); })&quot;</span></code></pre>
 <p>мы потеряем и второй плюс Haste, а именно проверку JS-кода на стадии компиляции. Как видите, JS-функция записана в виде обычной строки, и это не имеет никаких преимуществ перед тем, как если бы мы вернулись к сырым <code>.js</code>-файлам. В частности, взгляните на <a href="https://github.com/valderman/haste-compiler/tree/master/examples/ffi">этот FFI-пример</a>. Мало того, что мы пишем-таки JS-код, так ещё и создаём дополнительный <code>.js</code>-файл.</p>
 <h2 id="выводы">Выводы</h2>
 <p>Да, я считаю прекрасной саму идею замены JavaScript на Haskell. И если вы не собираетесь использовать в вашем Yesod-проекте много библиотечного JS-кода, то Haste весьма уместен. В самом деле, весь нативный JS-код можно заменить на Haste-код, а немногочисленные библиотечные функции обернуть в FFI. Конечно, у вас в любом случае не будет type-safe URL, но делать нечего.</p>

@@ -19,6 +19,18 @@
         <atom:link href="http://ruhaskell.org/itunes-feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Выпуск 2</title>
+                <itunes:author>Шевченко, Денис, Рома</itunes:author>
+                <itunes:subtitle>Второй выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[Говорим о нашем сообществе, ghcjs и кое о чём ещё.]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue2-2015-08-13.mp3" length="52175747" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue2-2015-08-13.mp3</guid>
+                <pubDate>Thu, 13 Aug 2015 00:00:00 +0300</pubDate>
+                <itunes:duration>01:12:28</itunes:duration>
+            </item>
+        
+            <item>
                 <title>Выпуск 1</title>
                 <itunes:author>Шевченко, Денис, Рома</itunes:author>
                 <itunes:subtitle>Первый выпуск нашего русскоязычного подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>

@@ -221,209 +221,209 @@
 <p>Итак, приступим. Библиотека будет содержать два модуля: <code>Text.Html5.Entity.Data</code> – автоматически генерируемый модуль содержащий только данные, и <code>Text.Html5.Entity</code> – файл содержащий удобные функции для работы с этими данными.</p>
 <h1 id="пишем-код-который-напишет-код">Пишем код который напишет код</h1>
 <p>Начнем с автогенерируемого модуля. Вначале некоторые прагмы и несколько импортов.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- file: generation/Generate.hs</span>
-<span class="hs-comment">{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- file: generation/Generate.hs</span>
+<span class="ot">{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}</span>
 
-<span class="hs-keyword">import</span>           <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">&lt;$&gt;</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span><span class="hs-varop">.</span><span class="hs-conid">Lazy</span> <span class="hs-keyword">as</span> <span class="hs-conid">BS</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">HashMap</span><span class="hs-varop">.</span><span class="hs-conid">Lazy</span> <span class="hs-keyword">as</span> <span class="hs-conid">HM</span></code></pre>
+<span class="kw">import           </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;))
+<span class="kw">import           </span><span class="dt">Data.Aeson</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy</span> <span class="kw">as</span> <span class="dt">BS</span>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Lazy</span> <span class="kw">as</span> <span class="dt">HM</span></code></pre>
 <p>Для начала распарсим JSON файл в список тупл <code>[(String, [Int])]</code>, где <code>String</code> описывает мнемонику, а [Int] соответствующий список Unicode-кодов.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">newtype</span> <span class="hs-conid">EntityVal</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">EntityVal</span> <span class="hs-layout">{</span> <span class="hs-varid">codepoints</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Integer</span><span class="hs-keyglyph">]</span> <span class="hs-layout">}</span> <span class="hs-keyword">deriving</span> <span class="hs-layout">(</span><span class="hs-conid">Show</span><span class="hs-layout">,</span> <span class="hs-conid">Eq</span><span class="hs-layout">)</span>
-<span class="hs-keyword">instance</span> <span class="hs-conid">FromJSON</span> <span class="hs-conid">EntityVal</span> <span class="hs-keyword">where</span>
-    <span class="hs-varid">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">o</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">EntityVal</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">o</span> <span class="hs-varop">.:</span> <span class="hs-str">"codepoints"</span>
-    <span class="hs-varid">parseJSON</span> <span class="hs-keyword">_</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">error</span> <span class="hs-str">"Not an object"</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">EntityVal</span> <span class="fu">=</span> <span class="dt">EntityVal</span> {<span class="ot"> codepoints ::</span> [<span class="dt">Integer</span>] } <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Eq</span>)
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">EntityVal</span> <span class="kw">where</span>
+    parseJSON (<span class="dt">Object</span> o) <span class="fu">=</span> <span class="dt">EntityVal</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;codepoints&quot;</span>
+    parseJSON _ <span class="fu">=</span> error <span class="st">&quot;Not an object&quot;</span>
 
-<span class="hs-keyword">type</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-conid">String</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+<span class="kw">type</span> <span class="dt">Entities</span> <span class="fu">=</span> [(<span class="dt">String</span>, [<span class="dt">Int</span>])]
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">entFile</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">BS</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"entities.json"</span>
-    <span class="hs-keyword">let</span> <span class="hs-conid">Just</span> <span class="hs-layout">(</span><span class="hs-varid">entMap</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HM</span><span class="hs-varop">.</span><span class="hs-varid">toList</span> <span class="hs-varop">.</span> <span class="hs-conid">HM</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-varid">codepoints</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">decode</span> <span class="hs-varid">entFile</span></code></pre>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;entities.json&quot;</span>
+    <span class="kw">let</span> <span class="dt">Just</span> (<span class="ot">entMap ::</span> <span class="dt">Entities</span>) <span class="fu">=</span> HM.toList <span class="fu">.</span> HM.map codepoints <span class="fu">&lt;$&gt;</span> decode entFile</code></pre>
 <p>Если вы знакомы с пакетом <a href="https://hackage.haskell.org/package/aeson">Aeson</a>, то все должно быть понятно. В противном случае не обращайте внимание это не самая важная часть статьи, важно то что мы прочитали файл “entities.json” и распарсили его в нужные нам данные в нужном нам виде.</p>
 <p>Стоит отметить, что я намеренно не извлекал из JSON файла поля “characters”, так как имея Unicode-код соответствующий ему знак можно получить с помощью функции <code>Data.Char.chr</code>.</p>
 <p>Итак. Данные у нас есть, теперь нужно сгенерировать код который будет их содержать.</p>
 <p>Для этого есть немного устаревшая, но прекрасно подходящая библиотека <a href="https://hackage.haskell.org/package/haskell-src/"><code>haskell-src</code></a> которая позволяет парсить и печать код стандарта Haskell98 в и из AST(Abstract Syntax Tree) соответственно.</p>
 <p>Из этой библиотеке нам понадобиться несколько модулей, так что:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Language</span><span class="hs-varop">.</span><span class="hs-conid">Haskell</span><span class="hs-varop">.</span><span class="hs-conid">Syntax</span> <span class="hs-comment">-- описание AST</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Language</span><span class="hs-varop">.</span><span class="hs-conid">Haskell</span><span class="hs-varop">.</span><span class="hs-conid">Pretty</span> <span class="hs-comment">-- модуль для печати сгенерированного кода</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Language</span><span class="hs-varop">.</span><span class="hs-conid">Haskell</span><span class="hs-varop">.</span><span class="hs-conid">Parser</span> <span class="hs-comment">-- модуль для разбора существующего кода</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Language.Haskell.Syntax</span> <span class="co">-- описание AST</span>
+<span class="kw">import </span><span class="dt">Language.Haskell.Pretty</span> <span class="co">-- модуль для печати сгенерированного кода</span>
+<span class="kw">import </span><span class="dt">Language.Haskell.Parser</span> <span class="co">-- модуль для разбора существующего кода</span></code></pre>
 <h2 id="а-зачем-нам-parser-мы-же-вроде-генерировать-собирались">А зачем нам Parser, мы же вроде генерировать собирались?</h2>
 <p>Дело в том, что запись кода в форме AST достаточна многословна. Оцените сами, в форме AST вот эти простые объявления импортов,</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-layout">(</span><span class="hs-conid">Map</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-keyword">as</span> <span class="hs-conid">M</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-layout">(</span><span class="hs-conid">Set</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-keyword">as</span> <span class="hs-conid">S</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
+<span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
+<span class="kw">import </span><span class="dt">Data.Set</span> (<span class="dt">Set</span>)
+<span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></code></pre>
 <p>будут выглядеть вот так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyglyph">[</span> <span class="hs-conid">HsImportDecl</span> <span class="hs-varid">noloc</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"Data.Map"</span><span class="hs-layout">)</span> <span class="hs-conid">True</span> <span class="hs-layout">(</span><span class="hs-conid">Just</span> <span class="hs-varop">$</span> <span class="hs-conid">Module</span> <span class="hs-str">"M"</span><span class="hs-layout">)</span>
-               <span class="hs-layout">(</span><span class="hs-conid">Just</span> <span class="hs-layout">(</span><span class="hs-conid">False</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">HsIVar</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span>
-                             <span class="hs-layout">,</span> <span class="hs-conid">HsIAbs</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"Map"</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-layout">,</span> <span class="hs-conid">HsImportDecl</span> <span class="hs-varid">noloc</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"Data.Set"</span><span class="hs-layout">)</span> <span class="hs-conid">True</span> <span class="hs-layout">(</span><span class="hs-conid">Just</span> <span class="hs-varop">$</span> <span class="hs-conid">Module</span> <span class="hs-str">"S"</span><span class="hs-layout">)</span>
-               <span class="hs-layout">(</span><span class="hs-conid">Just</span> <span class="hs-layout">(</span><span class="hs-conid">False</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">HsIVar</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span>
-                             <span class="hs-layout">,</span> <span class="hs-conid">HsIAbs</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"Set"</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">[ <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Map&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="fu">$</span> <span class="dt">Module</span> <span class="st">&quot;M&quot;</span>)
+               (<span class="dt">Just</span> (<span class="dt">False</span>, [ <span class="dt">HsIVar</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>
+                             , <span class="dt">HsIAbs</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Map&quot;</span>]))
+, <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Set&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="fu">$</span> <span class="dt">Module</span> <span class="st">&quot;S&quot;</span>)
+               (<span class="dt">Just</span> (<span class="dt">False</span>, [ <span class="dt">HsIVar</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>
+                             , <span class="dt">HsIAbs</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Set&quot;</span>]))]</code></pre>
 <p>Я ленив и поэтому решил сделать шаблон <code>Template.hs</code> с содержимым в автоматической генерации которого я не нуждаюсь, а потом распарсить этот шаблон и дополнить его сгенерированным содержимым.</p>
 <p>Вот сам шаблон, содержащий все необходимые импорты и объявления типов:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- file: Template.hs</span>
-<span class="hs-keyword">module</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">Html5</span><span class="hs-varop">.</span><span class="hs-conid">Entity</span><span class="hs-varop">.</span><span class="hs-conid">Data</span> <span class="hs-keyword">where</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- file: Template.hs</span>
+<span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span>
 
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-layout">(</span><span class="hs-conid">Map</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-keyword">as</span> <span class="hs-conid">M</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-layout">(</span><span class="hs-conid">Set</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-keyword">as</span> <span class="hs-conid">S</span>
+<span class="kw">import           </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
+<span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
+<span class="kw">import           </span><span class="dt">Data.Set</span> (<span class="dt">Set</span>)
+<span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span>
 
-<span class="hs-definition">entityMap</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Map</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">entitySet</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Set</span> <span class="hs-conid">String</span></code></pre>
+<span class="ot">entityMap ::</span> <span class="dt">Map</span> <span class="dt">String</span> [<span class="dt">Int</span>]
+<span class="ot">entitySet ::</span> <span class="dt">Set</span> <span class="dt">String</span></code></pre>
 <p>Как видите я объявил две функции <code>entityMap</code> и <code>entitySet</code>. <code>entityMap</code> это просто <code>Map</code> со строками-мнемониками в качестве ключей и списками знаков в качестве значений. <code>entitySet</code> это <code>Set</code> содержащий только строки-мнемоники для того чтобы можно было быстро проверять корректность мнемоник.</p>
 <p>Чуть позже я покажу как распарсить этот шаблон и дополнить его сгенерированными данными. Но вначале нужно сгенерировать эти данные.</p>
 <p>AST хаскелла достаточно объемный, но разобраться с ним не составит труда если следовать <a href="https://hackage.haskell.org/package/haskell-src-1.0.2.0/docs/Language-Haskell-Syntax.html">документации</a> на haddock.</p>
 <p>Начнём с определения AST функции <code>entitySet</code>. Для начала напишем прототип на нашем привычном языке:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">entitySet</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span><span class="hs-varop">.</span><span class="hs-varid">fromList</span> <span class="hs-conid">[]</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">entitySet <span class="fu">=</span> S.fromList []</code></pre>
 <p>В списке который я оставил пустым должны быть все наши 2000+ мнемоник.</p>
 <p>Главная часть объявления нашей функции это выражение <code>S.fromList []</code>, вот как оно будет выглядеть в форме AST:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-conid">HsApp</span> <span class="hs-layout">(</span><span class="hs-conid">HsVar</span> <span class="hs-varop">$</span> <span class="hs-conid">Qual</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"S"</span><span class="hs-layout">)</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">HsList</span> <span class="hs-conid">[]</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>) (<span class="dt">HsList</span> [])</code></pre>
 <p>Если разбить это выражение на части, то оно состоит из применения функции <code>S.fromList</code> к пустому списку. Думаю у вас не составит проблемы соотнести эти части с AST приведённым выше.</p>
 <p>Но нам не нужно выражение возвращающее пустой <code>Set</code>, нам нужен <code>Set</code> с нашими мнемониками. Объявим функцию <code>mkEntitySet :: Entities -&gt; HsExp</code> которая принимает список мнемоник, и возвращает выражение с <code>Set</code>-ом этих мнемоник:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">mkEntitySet</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsExp</span>
-<span class="hs-definition">mkEntitySet</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HsApp</span> <span class="hs-layout">(</span><span class="hs-conid">HsVar</span> <span class="hs-varop">$</span> <span class="hs-conid">Qual</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"S"</span><span class="hs-layout">)</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span><span class="hs-layout">)</span>
-                         <span class="hs-layout">(</span><span class="hs-conid">HsList</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-conid">HsLit</span> <span class="hs-varop">.</span> <span class="hs-conid">HsString</span> <span class="hs-varop">.</span> <span class="hs-varid">fst</span><span class="hs-layout">)</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkEntitySet ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+mkEntitySet ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)
+                         (<span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsString</span> <span class="fu">.</span> fst) ents)</code></pre>
 <p>Ничего очень нового, разве что вместо пустого списка мы имеем <code>map (HsLit . HsString . fst) ents</code>. Которое превращает список мнемоник <code>ents</code> в список строковых литералов.</p>
 <p>Функция mkEntityMap которая делает аналогичное для <code>entityMap</code> не намного сложнее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">mkEntityMap</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsExp</span>
-<span class="hs-definition">mkEntityMap</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HsApp</span> <span class="hs-layout">(</span><span class="hs-conid">HsVar</span> <span class="hs-varop">$</span> <span class="hs-conid">Qual</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"M"</span><span class="hs-layout">)</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span><span class="hs-layout">)</span>
-                         <span class="hs-layout">(</span><span class="hs-conid">HsList</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-varid">mkMapElemTup</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkEntityMap ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+mkEntityMap ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;M&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)
+                         (<span class="dt">HsList</span> <span class="fu">$</span> map mkMapElemTup ents)
 
-<span class="hs-definition">mkMapElemTup</span> <span class="hs-keyglyph">::</span> <span class="hs-layout">(</span><span class="hs-conid">String</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Integer</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsExp</span>
-<span class="hs-definition">mkMapElemTup</span> <span class="hs-layout">(</span><span class="hs-varid">name</span><span class="hs-layout">,</span> <span class="hs-varid">codes</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-conid">HsTuple</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">HsLit</span> <span class="hs-varop">$</span> <span class="hs-conid">HsString</span> <span class="hs-varid">name</span>
-            <span class="hs-layout">,</span> <span class="hs-conid">HsList</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-conid">HsLit</span> <span class="hs-varop">.</span> <span class="hs-conid">HsInt</span><span class="hs-layout">)</span> <span class="hs-varid">codes</span>
-            <span class="hs-keyglyph">]</span> </code></pre>
+<span class="ot">mkMapElemTup ::</span> (<span class="dt">String</span>, [<span class="dt">Integer</span>]) <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+mkMapElemTup (name, codes) <span class="fu">=</span>
+    <span class="dt">HsTuple</span> [ <span class="dt">HsLit</span> <span class="fu">$</span> <span class="dt">HsString</span> name
+            , <span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsInt</span>) codes
+            ] </code></pre>
 <p>Но постойте, ведь <code>mkEntitySet</code> и <code>mkEntityMap</code> это всего-лишь объявления выражений мы так и не привязали их к именам функций. Привяжем же:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">decls</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-conid">HsDecl</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">decls</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-keyglyph">[</span> <span class="hs-conid">HsFunBind</span> <span class="hs-keyglyph">[</span><span class="hs-conid">HsMatch</span> <span class="hs-varid">noloc</span> <span class="hs-layout">(</span><span class="hs-conid">HsIdent</span> <span class="hs-str">"entityMap"</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span>
-                               <span class="hs-layout">(</span><span class="hs-conid">HsUnGuardedRhs</span> <span class="hs-layout">(</span><span class="hs-varid">mkEntityMap</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span><span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-conid">HsFunBind</span> <span class="hs-keyglyph">[</span><span class="hs-conid">HsMatch</span> <span class="hs-varid">noloc</span> <span class="hs-layout">(</span><span class="hs-conid">HsIdent</span> <span class="hs-str">"entitySet"</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span>
-                               <span class="hs-layout">(</span><span class="hs-conid">HsUnGuardedRhs</span> <span class="hs-layout">(</span><span class="hs-varid">mkEntitySet</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span><span class="hs-keyglyph">]</span>
-    <span class="hs-keyglyph">]</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">decls ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> [<span class="dt">HsDecl</span>]
+decls ents <span class="fu">=</span>
+    [ <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entityMap&quot;</span>) []
+                               (<span class="dt">HsUnGuardedRhs</span> (mkEntityMap ents)) []]
+    , <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entitySet&quot;</span>) []
+                               (<span class="dt">HsUnGuardedRhs</span> (mkEntitySet ents)) []]
+    ]
 
-<span class="hs-definition">noloc</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">SrcLoc</span> <span class="hs-str">""</span> <span class="hs-num">0</span> <span class="hs-num">0</span></code></pre>
+noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></code></pre>
 <p>За исключением небольшой (оправданной) многословности, все просто. <code>SrcLoc</code> указывает на местоположение объявления в файле, но при генерации кода оно не имеет значения.</p>
 <p>Похоже что мы закончили с генерацией данных. Все что осталось это распарсить шаблон, дополнить его нашими определениями и записать это все в файл. Здесь все ещё проще. Дополним нашу <code>main</code> функцию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">entFile</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">BS</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"generation/entities.json"</span>
-    <span class="hs-keyword">let</span> <span class="hs-conid">Just</span> <span class="hs-varid">entMap</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HM</span><span class="hs-varop">.</span><span class="hs-varid">toList</span> <span class="hs-varop">.</span> <span class="hs-conid">HM</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-varid">codepoints</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">decode</span> <span class="hs-varid">entFile</span>
-    <span class="hs-conid">ParseOk</span> <span class="hs-varid">template</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">parseModule</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">readFile</span> <span class="hs-str">"generation/Template.hs"</span>
-    <span class="hs-varid">writeFile</span> <span class="hs-str">"src/Text/Html5/Entity/Data.hs"</span> <span class="hs-varop">$</span> <span class="hs-varid">prettyPrint</span> 
-                                              <span class="hs-varop">$</span> <span class="hs-varid">appendTemplate</span> <span class="hs-varid">template</span> <span class="hs-varid">entMap</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
+    entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;generation/entities.json&quot;</span>
+    <span class="kw">let</span> <span class="dt">Just</span> entMap <span class="fu">=</span> HM.toList <span class="fu">.</span> HM.map codepoints <span class="fu">&lt;$&gt;</span> decode entFile
+    <span class="dt">ParseOk</span> template <span class="ot">&lt;-</span> parseModule <span class="fu">&lt;$&gt;</span> readFile <span class="st">&quot;generation/Template.hs&quot;</span>
+    writeFile <span class="st">&quot;src/Text/Html5/Entity/Data.hs&quot;</span> <span class="fu">$</span> prettyPrint 
+                                              <span class="fu">$</span> appendTemplate template entMap
 
-<span class="hs-definition">appendTemplate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">HsModule</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsModule</span>
-<span class="hs-definition">appendTemplate</span> <span class="hs-layout">(</span><span class="hs-conid">HsModule</span> <span class="hs-varid">srcLoc</span> <span class="hs-varid">modName</span> <span class="hs-varid">exports</span> <span class="hs-varid">imports</span> <span class="hs-varid">decls'</span><span class="hs-layout">)</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-conid">HsModule</span> <span class="hs-varid">srcLoc</span> <span class="hs-varid">modName</span> <span class="hs-varid">exports</span> <span class="hs-varid">imports</span> <span class="hs-layout">(</span><span class="hs-varid">decls'</span> <span class="hs-varop">++</span> <span class="hs-varid">decls</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span></code></pre>
+<span class="ot">appendTemplate ::</span> <span class="dt">HsModule</span> <span class="ot">-&gt;</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsModule</span>
+appendTemplate (<span class="dt">HsModule</span> srcLoc modName exports imports decls') ents <span class="fu">=</span>
+    <span class="dt">HsModule</span> srcLoc modName exports imports (decls' <span class="fu">++</span> decls ents)</code></pre>
 <p>На этом наш код для генерации модуля с данными готов. Вот его полный исходник:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">{-# LANGUAGE OverloadedStrings #-}</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span>
 
-<span class="hs-keyword">import</span>           <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">&lt;$&gt;</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Aeson</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">ByteString</span><span class="hs-varop">.</span><span class="hs-conid">Lazy</span> <span class="hs-keyword">as</span> <span class="hs-conid">BS</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">HashMap</span><span class="hs-varop">.</span><span class="hs-conid">Lazy</span> <span class="hs-keyword">as</span> <span class="hs-conid">HM</span>
+<span class="kw">import           </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;))
+<span class="kw">import           </span><span class="dt">Data.Aeson</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy</span> <span class="kw">as</span> <span class="dt">BS</span>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Lazy</span> <span class="kw">as</span> <span class="dt">HM</span>
 
-<span class="hs-keyword">import</span> <span class="hs-conid">Language</span><span class="hs-varop">.</span><span class="hs-conid">Haskell</span><span class="hs-varop">.</span><span class="hs-conid">Syntax</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Language</span><span class="hs-varop">.</span><span class="hs-conid">Haskell</span><span class="hs-varop">.</span><span class="hs-conid">Pretty</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Language</span><span class="hs-varop">.</span><span class="hs-conid">Haskell</span><span class="hs-varop">.</span><span class="hs-conid">Parser</span>
+<span class="kw">import </span><span class="dt">Language.Haskell.Syntax</span>
+<span class="kw">import </span><span class="dt">Language.Haskell.Pretty</span>
+<span class="kw">import </span><span class="dt">Language.Haskell.Parser</span>
 
-<span class="hs-keyword">newtype</span> <span class="hs-conid">EntityVal</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">EntityVal</span> <span class="hs-layout">{</span> <span class="hs-varid">codepoints</span> <span class="hs-keyglyph">::</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Integer</span><span class="hs-keyglyph">]</span> <span class="hs-layout">}</span> <span class="hs-keyword">deriving</span> <span class="hs-layout">(</span><span class="hs-conid">Show</span><span class="hs-layout">,</span> <span class="hs-conid">Eq</span><span class="hs-layout">)</span>
-<span class="hs-keyword">instance</span> <span class="hs-conid">FromJSON</span> <span class="hs-conid">EntityVal</span> <span class="hs-keyword">where</span>
-    <span class="hs-varid">parseJSON</span> <span class="hs-layout">(</span><span class="hs-conid">Object</span> <span class="hs-varid">o</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">EntityVal</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">o</span> <span class="hs-varop">.:</span> <span class="hs-str">"codepoints"</span>
-    <span class="hs-varid">parseJSON</span> <span class="hs-keyword">_</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">error</span> <span class="hs-str">"Not an object"</span>
+<span class="kw">newtype</span> <span class="dt">EntityVal</span> <span class="fu">=</span> <span class="dt">EntityVal</span> {<span class="ot"> codepoints ::</span> [<span class="dt">Integer</span>] } <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Eq</span>)
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">EntityVal</span> <span class="kw">where</span>
+    parseJSON (<span class="dt">Object</span> o) <span class="fu">=</span> <span class="dt">EntityVal</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;codepoints&quot;</span>
+    parseJSON _ <span class="fu">=</span> error <span class="st">&quot;Not an object&quot;</span>
 
-<span class="hs-keyword">type</span> <span class="hs-conid">Entity</span> <span class="hs-keyglyph">=</span> <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-conid">String</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-keyglyph">]</span>
+<span class="kw">type</span> <span class="dt">Entity</span> <span class="fu">=</span> [(<span class="dt">String</span>, [<span class="dt">Int</span>])]
 
-<span class="hs-definition">main</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">main</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-    <span class="hs-varid">entFile</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-conid">BS</span><span class="hs-varop">.</span><span class="hs-varid">readFile</span> <span class="hs-str">"generation/entities.json"</span>
-    <span class="hs-keyword">let</span> <span class="hs-conid">Just</span> <span class="hs-varid">entMap</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HM</span><span class="hs-varop">.</span><span class="hs-varid">toList</span> <span class="hs-varop">.</span> <span class="hs-conid">HM</span><span class="hs-varop">.</span><span class="hs-varid">map</span> <span class="hs-varid">codepoints</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">decode</span> <span class="hs-varid">entFile</span>
-    <span class="hs-conid">ParseOk</span> <span class="hs-varid">template</span> <span class="hs-keyglyph">&lt;-</span> <span class="hs-varid">parseModule</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-varid">readFile</span> <span class="hs-str">"generation/Template.hs"</span>
-    <span class="hs-varid">writeFile</span> <span class="hs-str">"src/Text/Html5/Entity/Data.hs"</span> <span class="hs-varop">$</span> <span class="hs-varid">prettyPrint</span> 
-                                              <span class="hs-varop">$</span> <span class="hs-varid">appendTemplate</span> <span class="hs-varid">template</span> <span class="hs-varid">entMap</span>
+<span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+    entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;generation/entities.json&quot;</span>
+    <span class="kw">let</span> <span class="dt">Just</span> entMap <span class="fu">=</span> HM.toList <span class="fu">.</span> HM.map codepoints <span class="fu">&lt;$&gt;</span> decode entFile
+    <span class="dt">ParseOk</span> template <span class="ot">&lt;-</span> parseModule <span class="fu">&lt;$&gt;</span> readFile <span class="st">&quot;generation/Template.hs&quot;</span>
+    writeFile <span class="st">&quot;src/Text/Html5/Entity/Data.hs&quot;</span> <span class="fu">$</span> prettyPrint 
+                                              <span class="fu">$</span> appendTemplate template entMap
 
-<span class="hs-comment">-- | AST generation</span>
-<span class="hs-definition">appendTemplate</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">HsModule</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsModule</span>
-<span class="hs-definition">appendTemplate</span> <span class="hs-layout">(</span><span class="hs-conid">HsModule</span> <span class="hs-varid">srcLoc</span> <span class="hs-varid">modName</span> <span class="hs-varid">exports</span> <span class="hs-varid">imports</span> <span class="hs-varid">decls'</span><span class="hs-layout">)</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-conid">HsModule</span> <span class="hs-varid">srcLoc</span> <span class="hs-varid">modName</span> <span class="hs-varid">exports</span> <span class="hs-varid">imports</span> <span class="hs-layout">(</span><span class="hs-varid">decls'</span> <span class="hs-varop">++</span> <span class="hs-varid">decls</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span>
+<span class="co">-- | AST generation</span>
+<span class="ot">appendTemplate ::</span> <span class="dt">HsModule</span> <span class="ot">-&gt;</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsModule</span>
+appendTemplate (<span class="dt">HsModule</span> srcLoc modName exports imports decls') ents <span class="fu">=</span>
+    <span class="dt">HsModule</span> srcLoc modName exports imports (decls' <span class="fu">++</span> decls ents)
 
 
-<span class="hs-definition">decls</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-conid">HsDecl</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">decls</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-keyglyph">[</span> <span class="hs-conid">HsFunBind</span> <span class="hs-keyglyph">[</span><span class="hs-conid">HsMatch</span> <span class="hs-varid">noloc</span> <span class="hs-layout">(</span><span class="hs-conid">HsIdent</span> <span class="hs-str">"entityMap"</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span>
-                               <span class="hs-layout">(</span><span class="hs-conid">HsUnGuardedRhs</span> <span class="hs-layout">(</span><span class="hs-varid">mkEntityMap</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span><span class="hs-keyglyph">]</span>
-    <span class="hs-layout">,</span> <span class="hs-conid">HsFunBind</span> <span class="hs-keyglyph">[</span><span class="hs-conid">HsMatch</span> <span class="hs-varid">noloc</span> <span class="hs-layout">(</span><span class="hs-conid">HsIdent</span> <span class="hs-str">"entitySet"</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span>
-                               <span class="hs-layout">(</span><span class="hs-conid">HsUnGuardedRhs</span> <span class="hs-layout">(</span><span class="hs-varid">mkEntitySet</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-conid">[]</span><span class="hs-keyglyph">]</span>
-    <span class="hs-keyglyph">]</span>
+<span class="ot">decls ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> [<span class="dt">HsDecl</span>]
+decls ents <span class="fu">=</span>
+    [ <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entityMap&quot;</span>) []
+                               (<span class="dt">HsUnGuardedRhs</span> (mkEntityMap ents)) []]
+    , <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entitySet&quot;</span>) []
+                               (<span class="dt">HsUnGuardedRhs</span> (mkEntitySet ents)) []]
+    ]
 
-<span class="hs-definition">mkEntityMap</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsExp</span>
-<span class="hs-definition">mkEntityMap</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HsApp</span> <span class="hs-layout">(</span><span class="hs-conid">HsVar</span> <span class="hs-varop">$</span> <span class="hs-conid">Qual</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"M"</span><span class="hs-layout">)</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span><span class="hs-layout">)</span>
-                         <span class="hs-layout">(</span><span class="hs-conid">HsList</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-varid">mkMapElemTup</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span>
+<span class="ot">mkEntityMap ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+mkEntityMap ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;M&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)
+                         (<span class="dt">HsList</span> <span class="fu">$</span> map mkMapElemTup ents)
 
-<span class="hs-definition">mkMapElemTup</span> <span class="hs-keyglyph">::</span> <span class="hs-layout">(</span><span class="hs-conid">String</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Integer</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsExp</span>
-<span class="hs-definition">mkMapElemTup</span> <span class="hs-layout">(</span><span class="hs-varid">name</span><span class="hs-layout">,</span> <span class="hs-varid">codes</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span>
-    <span class="hs-conid">HsTuple</span> <span class="hs-keyglyph">[</span> <span class="hs-conid">HsLit</span> <span class="hs-varop">$</span> <span class="hs-conid">HsString</span> <span class="hs-varid">name</span>
-            <span class="hs-layout">,</span> <span class="hs-conid">HsList</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-conid">HsLit</span> <span class="hs-varop">.</span> <span class="hs-conid">HsInt</span><span class="hs-layout">)</span> <span class="hs-varid">codes</span>
-            <span class="hs-keyglyph">]</span> 
+<span class="ot">mkMapElemTup ::</span> (<span class="dt">String</span>, [<span class="dt">Integer</span>]) <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+mkMapElemTup (name, codes) <span class="fu">=</span>
+    <span class="dt">HsTuple</span> [ <span class="dt">HsLit</span> <span class="fu">$</span> <span class="dt">HsString</span> name
+            , <span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsInt</span>) codes
+            ] 
 
-<span class="hs-definition">mkEntitySet</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Entities</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">HsExp</span>
-<span class="hs-definition">mkEntitySet</span> <span class="hs-varid">ents</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">HsApp</span> <span class="hs-layout">(</span><span class="hs-conid">HsVar</span> <span class="hs-varop">$</span> <span class="hs-conid">Qual</span> <span class="hs-layout">(</span><span class="hs-conid">Module</span> <span class="hs-str">"S"</span><span class="hs-layout">)</span> <span class="hs-varop">$</span> <span class="hs-conid">HsIdent</span> <span class="hs-str">"fromList"</span><span class="hs-layout">)</span>
-                         <span class="hs-layout">(</span><span class="hs-conid">HsList</span> <span class="hs-varop">$</span> <span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-conid">HsLit</span> <span class="hs-varop">.</span> <span class="hs-conid">HsString</span> <span class="hs-varop">.</span> <span class="hs-varid">fst</span><span class="hs-layout">)</span> <span class="hs-varid">ents</span><span class="hs-layout">)</span>
+<span class="ot">mkEntitySet ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+mkEntitySet ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)
+                         (<span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsString</span> <span class="fu">.</span> fst) ents)
 
-<span class="hs-definition">noloc</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">SrcLoc</span>
-<span class="hs-definition">noloc</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">SrcLoc</span> <span class="hs-str">""</span> <span class="hs-num">0</span> <span class="hs-num">0</span></code></pre>
+<span class="ot">noloc ::</span> <span class="dt">SrcLoc</span>
+noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></code></pre>
 <p>Попробуем запустить и получим вот такой результат:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">Html5</span><span class="hs-varop">.</span><span class="hs-conid">Entity</span><span class="hs-varop">.</span><span class="hs-conid">Data</span> <span class="hs-keyword">where</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-layout">(</span><span class="hs-conid">Map</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-keyword">as</span> <span class="hs-conid">M</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-layout">(</span><span class="hs-conid">Set</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-keyword">as</span> <span class="hs-conid">S</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span>
+<span class="kw">import </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
+<span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
+<span class="kw">import </span><span class="dt">Data.Set</span> (<span class="dt">Set</span>)
+<span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span>
  
-<span class="hs-definition">entityMap</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Map</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span>
+<span class="ot">entityMap ::</span> <span class="dt">Map</span> <span class="dt">String</span> [<span class="dt">Int</span>]
  
-<span class="hs-definition">entitySet</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Set</span> <span class="hs-conid">String</span>
-<span class="hs-definition">entityMap</span>
-  <span class="hs-keyglyph">=</span> <span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-varid">fromList</span>
-      <span class="hs-keyglyph">[</span><span class="hs-layout">(</span><span class="hs-str">"&amp;intlarhk;"</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-num">10775</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-str">"&amp;male;"</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-num">9794</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-layout">,</span> <span class="hs-layout">(</span><span class="hs-str">"&amp;not;"</span><span class="hs-layout">,</span> <span class="hs-keyglyph">[</span><span class="hs-num">172</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-varop">.....</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">entitySet</span>
-  <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span><span class="hs-varop">.</span><span class="hs-varid">fromList</span>
-      <span class="hs-keyglyph">[</span><span class="hs-str">"&amp;intlarhk;"</span><span class="hs-layout">,</span> <span class="hs-str">"&amp;male;"</span><span class="hs-layout">,</span> <span class="hs-str">"&amp;not;"</span><span class="hs-layout">,</span> <span class="hs-str">"&amp;clubs;"</span><span class="hs-layout">,</span> <span class="hs-str">"&amp;cudarrl;"</span><span class="hs-varop">.....</span><span class="hs-keyglyph">]</span></code></pre>
+<span class="ot">entitySet ::</span> <span class="dt">Set</span> <span class="dt">String</span>
+entityMap
+  <span class="fu">=</span> M.fromList
+      [(<span class="st">&quot;&amp;intlarhk;&quot;</span>, [<span class="dv">10775</span>]), (<span class="st">&quot;&amp;male;&quot;</span>, [<span class="dv">9794</span>]), (<span class="st">&quot;&amp;not;&quot;</span>, [<span class="dv">172</span>])<span class="fu">.....</span>]
+entitySet
+  <span class="fu">=</span> S.fromList
+      [<span class="st">&quot;&amp;intlarhk;&quot;</span>, <span class="st">&quot;&amp;male;&quot;</span>, <span class="st">&quot;&amp;not;&quot;</span>, <span class="st">&quot;&amp;clubs;&quot;</span>, <span class="st">&quot;&amp;cudarrl;&quot;</span><span class="fu">.....</span>]</code></pre>
 <h1 id="доступ-к-данным">Доступ к данным</h1>
 <p>Данные у нас есть, дело осталось за малым, написать удобные функции для доступа к этим данным:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">module</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">Html5</span><span class="hs-varop">.</span><span class="hs-conid">Entity</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Text.Html5.Entity</span>
 
-<span class="hs-keyword">import</span>           <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-layout">(</span><span class="hs-varop">&lt;$&gt;</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span>           <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Char</span> <span class="hs-layout">(</span><span class="hs-varid">chr</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Map</span> <span class="hs-keyword">as</span> <span class="hs-conid">M</span>
-<span class="hs-keyword">import</span> <span class="hs-keyword">qualified</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Set</span> <span class="hs-keyword">as</span> <span class="hs-conid">S</span>
+<span class="kw">import           </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;))
+<span class="kw">import           </span><span class="dt">Data.Char</span> (chr)
+<span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
+<span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span>
 
-<span class="hs-keyword">import</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">Html5</span><span class="hs-varop">.</span><span class="hs-conid">Entity</span><span class="hs-varop">.</span><span class="hs-conid">Data</span>
+<span class="kw">import </span><span class="dt">Text.Html5.Entity.Data</span>
 
-<span class="hs-definition">entityCodePoints</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">entityCodePoints</span> <span class="hs-varid">ent</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-varid">lookup</span> <span class="hs-varid">ent</span> <span class="hs-varid">entityMap</span>
+<span class="ot">entityCodePoints ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [<span class="dt">Int</span>]
+entityCodePoints ent <span class="fu">=</span> M.lookup ent entityMap
 
-<span class="hs-definition">entityChars</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">String</span>
-<span class="hs-definition">entityChars</span> <span class="hs-varid">ent</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">map</span> <span class="hs-varid">chr</span> <span class="hs-varop">&lt;$&gt;</span> <span class="hs-conid">M</span><span class="hs-varop">.</span><span class="hs-varid">lookup</span> <span class="hs-varid">ent</span> <span class="hs-varid">entityMap</span>
+<span class="ot">entityChars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">String</span>
+entityChars ent <span class="fu">=</span> map chr <span class="fu">&lt;$&gt;</span> M.lookup ent entityMap
 
-<span class="hs-definition">isValidEntity</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Bool</span>
-<span class="hs-definition">isValidEntity</span> <span class="hs-varid">ent</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span><span class="hs-varop">.</span><span class="hs-varid">member</span> <span class="hs-varid">ent</span> <span class="hs-varid">entitySet</span>
+<span class="ot">isValidEntity ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+isValidEntity ent <span class="fu">=</span> S.member ent entitySet
 
 
-<span class="hs-definition">nameToEntity</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span>
-<span class="hs-definition">nameToEntity</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-chr">'&amp;'</span> <span class="hs-conop">:</span> <span class="hs-varid">name</span> <span class="hs-varop">++</span> <span class="hs-str">";"</span>
+<span class="ot">nameToEntity ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+nameToEntity name <span class="fu">=</span> <span class="ch">'&amp;'</span> <span class="fu">:</span> name <span class="fu">++</span> <span class="st">&quot;;&quot;</span>
 
-<span class="hs-definition">entityNameCodePoints</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-keyglyph">[</span><span class="hs-conid">Int</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">entityNameCodePoints</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">entityCodePoints</span> <span class="hs-varop">.</span> <span class="hs-varid">nameToEntity</span>
+<span class="ot">entityNameCodePoints ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [<span class="dt">Int</span>]
+entityNameCodePoints <span class="fu">=</span> entityCodePoints <span class="fu">.</span> nameToEntity
 
-<span class="hs-definition">entityNameChars</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Maybe</span> <span class="hs-conid">String</span>
-<span class="hs-definition">entityNameChars</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">entityChars</span> <span class="hs-varop">.</span> <span class="hs-varid">nameToEntity</span>
+<span class="ot">entityNameChars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">String</span>
+entityNameChars <span class="fu">=</span> entityChars <span class="fu">.</span> nameToEntity
 
-<span class="hs-definition">isValidEntityName</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Bool</span>
-<span class="hs-definition">isValidEntityName</span> <span class="hs-varid">name</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">S</span><span class="hs-varop">.</span><span class="hs-varid">member</span> <span class="hs-layout">(</span><span class="hs-varid">nameToEntity</span> <span class="hs-varid">name</span><span class="hs-layout">)</span> <span class="hs-varid">entitySet</span></code></pre>
+<span class="ot">isValidEntityName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+isValidEntityName name <span class="fu">=</span> S.member (nameToEntity name) entitySet</code></pre>
 <h1 id="заключение">Заключение</h1>
 <p>Поставленная проблема решена. Конечно для полной законченности нужно поработать над оптимизацией. В целом идея генерации таких модулей не нова, к примеру существует инструмент <a href="https://www.gnu.org/software/gperf/">gperf</a> который генерирует C(++) код для поиска по хеш-таблицам построенных на основе списков строк. Тем не менее, я не смог найти примеров использования этой техники в Хаскелле, хотя наверняка они есть. Было бы интересно написать библиотеку которая упрощала бы генерацию вот таких модулей, с другой стороны куда уж проще, непосредственно генерирующий код умещается в 20-30 строк.</p>
 <p>Получившуюся библиотеку я разместил на hackage под именем <a href="https://hackage.haskell.org/package/html5-entity">html5-entity</a>.</p>

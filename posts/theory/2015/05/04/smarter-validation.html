@@ -199,52 +199,52 @@
 <p>В данной статье вы найдёте ряд упражнений, выполнение которых, надеюсь, поможет вам лучше понять поднятые здесь вопросы.</p>
 <h2 id="пример">Пример</h2>
 <p>Итак, начнём:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">{-# LANGUAGE GeneralizedNewtypeDeriving, KindSignatures, DataKinds,
-             ScopedTypeVariables, RankNTypes, DeriveFunctor #-}</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">Printf</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Text</span><span class="hs-varop">.</span><span class="hs-conid">Read</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Monad</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Applicative</span><span class="hs-varop">.</span><span class="hs-conid">Lift</span> <span class="hs-layout">(</span><span class="hs-conid">Lift</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Control</span><span class="hs-varop">.</span><span class="hs-conid">Arrow</span> <span class="hs-layout">(</span><span class="hs-varid">left</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Functor</span><span class="hs-varop">.</span><span class="hs-conid">Constant</span> <span class="hs-layout">(</span><span class="hs-conid">Constant</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Monoid</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Traversable</span> <span class="hs-layout">(</span><span class="hs-varid">sequenceA</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">List</span> <span class="hs-layout">(</span><span class="hs-varid">intercalate</span><span class="hs-layout">,</span> <span class="hs-varid">genericTake</span><span class="hs-layout">,</span> <span class="hs-varid">genericLength</span><span class="hs-layout">)</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">Data</span><span class="hs-varop">.</span><span class="hs-conid">Proxy</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">Exit</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">System</span><span class="hs-varop">.</span><span class="hs-conid">IO</span>
-<span class="hs-keyword">import</span> <span class="hs-conid">GHC</span><span class="hs-varop">.</span><span class="hs-conid">TypeLits</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">{-# LANGUAGE GeneralizedNewtypeDeriving, KindSignatures, DataKinds,</span>
+<span class="co">             ScopedTypeVariables, RankNTypes, DeriveFunctor #-}</span>
+<span class="kw">import </span><span class="dt">Text.Printf</span>
+<span class="kw">import </span><span class="dt">Text.Read</span>
+<span class="kw">import </span><span class="dt">Control.Monad</span>
+<span class="kw">import </span><span class="dt">Control.Applicative</span>
+<span class="kw">import </span><span class="dt">Control.Applicative.Lift</span> (<span class="dt">Lift</span>)
+<span class="kw">import </span><span class="dt">Control.Arrow</span> (left)
+<span class="kw">import </span><span class="dt">Data.Functor.Constant</span> (<span class="dt">Constant</span>)
+<span class="kw">import </span><span class="dt">Data.Monoid</span>
+<span class="kw">import </span><span class="dt">Data.Traversable</span> (sequenceA)
+<span class="kw">import </span><span class="dt">Data.List</span> (intercalate, genericTake, genericLength)
+<span class="kw">import </span><span class="dt">Data.Proxy</span>
+<span class="kw">import </span><span class="dt">System.Exit</span>
+<span class="kw">import </span><span class="dt">System.IO</span>
+<span class="kw">import </span><span class="dt">GHC.TypeLits</span></code></pre>
 <p>В нашем примере мы будем читать список целых чисел из файла, по одному числу на строку, а затем выведем сумму этих чисел. Вот простейший способ сделать это:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">printSum1</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">FilePath</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">printSum1</span> <span class="hs-varid">path</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">print</span> <span class="hs-varop">.</span> <span class="hs-varid">sum</span> <span class="hs-varop">.</span> <span class="hs-varid">map</span> <span class="hs-varid">read</span> <span class="hs-varop">.</span> <span class="hs-varid">lines</span> <span class="hs-varop">=&lt;&lt;</span> <span class="hs-varid">readFile</span> <span class="hs-varid">path</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printSum1 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+printSum1 path <span class="fu">=</span> print <span class="fu">.</span> sum <span class="fu">.</span> map read <span class="fu">.</span> lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre>
 <p>Этот код работает именно так, как мы ожидаем, однако есть одна проблема: если строка будет содержать не число, а что-нибудь другое, мы получим невнятную ошибку вида:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Prelude.read</span>: no parse</code></pre>
 <h2 id="монада-either">Монада Either</h2>
 <p>Перепишем нашу функцию, чтобы возможные ошибки не прошли мимо нас:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">parseNum</span>
-  <span class="hs-keyglyph">::</span> <span class="hs-conid">Int</span> <span class="hs-comment">-- Номер строки (для отчёта об ошибке)</span>
-  <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">String</span> <span class="hs-comment">-- Содержимое строки</span>
-  <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Either</span> <span class="hs-conid">String</span> <span class="hs-conid">Integer</span>
-     <span class="hs-comment">-- Здесь будет либо число, извлечённое из строки, либо сообщение об ошибке</span>
-<span class="hs-definition">parseNum</span> <span class="hs-varid">ln</span> <span class="hs-varid">str</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-keyword">case</span> <span class="hs-varid">readMaybe</span> <span class="hs-varid">str</span> <span class="hs-keyword">of</span>
-    <span class="hs-conid">Just</span> <span class="hs-varid">num</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Right</span> <span class="hs-varid">num</span>
-    <span class="hs-conid">Nothing</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Left</span> <span class="hs-varop">$</span>
-      <span class="hs-varid">printf</span> <span class="hs-str">"Bad number on line %d: %s"</span> <span class="hs-varid">ln</span> <span class="hs-varid">str</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">parseNum
+<span class="ot">  ::</span> <span class="dt">Int</span> <span class="co">-- Номер строки (для отчёта об ошибке)</span>
+  <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="co">-- Содержимое строки</span>
+  <span class="ot">-&gt;</span> <span class="dt">Either</span> <span class="dt">String</span> <span class="dt">Integer</span>
+     <span class="co">-- Здесь будет либо число, извлечённое из строки, либо сообщение об ошибке</span>
+parseNum ln str <span class="fu">=</span>
+  <span class="kw">case</span> readMaybe str <span class="kw">of</span>
+    <span class="dt">Just</span> num <span class="ot">-&gt;</span> <span class="dt">Right</span> num
+    <span class="dt">Nothing</span> <span class="ot">-&gt;</span> <span class="dt">Left</span> <span class="fu">$</span>
+      printf <span class="st">&quot;Bad number on line %d: %s&quot;</span> ln str
 
-<span class="hs-comment">-- Печатаем сообщение и выходим</span>
-<span class="hs-definition">die</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">String</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">die</span> <span class="hs-varid">msg</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">do</span>
-  <span class="hs-varid">hPutStrLn</span> <span class="hs-varid">stderr</span> <span class="hs-varid">msg</span>
-  <span class="hs-varid">exitFailure</span>
+<span class="co">-- Печатаем сообщение и выходим</span>
+<span class="ot">die ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+die msg <span class="fu">=</span> <span class="kw">do</span>
+  hPutStrLn stderr msg
+  exitFailure
 
-<span class="hs-definition">printSum2</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">FilePath</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">printSum2</span> <span class="hs-varid">path</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">either</span> <span class="hs-varid">die</span> <span class="hs-varid">print</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">liftM</span> <span class="hs-varid">sum</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">sequence</span> <span class="hs-varop">.</span> <span class="hs-varid">zipWith</span> <span class="hs-varid">parseNum</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-keyglyph">..</span><span class="hs-keyglyph">]</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">lines</span> <span class="hs-varop">=&lt;&lt;</span> <span class="hs-varid">readFile</span> <span class="hs-varid">path</span></code></pre>
+<span class="ot">printSum2 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+printSum2 path <span class="fu">=</span>
+  either die print <span class="fu">.</span>
+  liftM sum <span class="fu">.</span>
+  sequence <span class="fu">.</span> zipWith parseNum [<span class="dv">1</span><span class="fu">..</span>] <span class="fu">.</span>
+  lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre>
 <p>Теперь, если на одной из строк нашего файла окажется какой-нибудь хлам, мы увидим нечто подобное:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 2: foo</code></pre>
 <p>Это стандартный способ использования монады <code>Either</code>, так что в детали вдаваться я не хочу. Уточню лишь, что данный код имеет два отличия от кода предыдущего:</p>
@@ -261,33 +261,33 @@
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 380: 11i3</code></pre>
 <p>Так, ещё одна: вместо единицы стоит буква <code>i</code>. Исправили, сохранили… Стоп. Если бы программа сообщила нам об этих двух ошибках сразу, мы бы исправили их быстрее! В самом деле, почему бы не сделать так, чтобы наша программа проверила каждую строку в файле и сообщила нам обо всех найденных ошибках сразу? Сказано - сделано. Однако в этом случае мы уже не сможем воспользоваться ни экземпляром <code>Monad Either</code>, ни <code>Applicative Either</code>. Нам нужен тип <code>Validation</code>.</p>
 <p>Аппликативный функтор <code>Validation</code> совмещает два <code>Either</code>-значения таким образом, что если они оба инициированы <code>Left</code>, эти <code>Left</code>-значения объединяются через моноидную операцию (на самом деле, достаточно и <code>Semigroup</code>). Это позволяет нам собирать ошибки с разных строк нашего файла. Вот как это выглядит:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">newtype</span> <span class="hs-conid">Validation</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Validation</span> <span class="hs-layout">{</span> <span class="hs-varid">getValidation</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Either</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span> <span class="hs-layout">}</span>
-  <span class="hs-keyword">deriving</span> <span class="hs-conid">Functor</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Validation</span> e a <span class="fu">=</span> <span class="dt">Validation</span> {<span class="ot"> getValidation ::</span> <span class="dt">Either</span> e a }
+  <span class="kw">deriving</span> <span class="dt">Functor</span>
 
-<span class="hs-keyword">instance</span> <span class="hs-conid">Monoid</span> <span class="hs-varid">e</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-conid">Validation</span> <span class="hs-varid">e</span><span class="hs-layout">)</span> <span class="hs-keyword">where</span>
-  <span class="hs-varid">pure</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Validation</span> <span class="hs-varop">.</span> <span class="hs-conid">Right</span>
-  <span class="hs-conid">Validation</span> <span class="hs-varid">a</span> <span class="hs-varop">&lt;*&gt;</span> <span class="hs-conid">Validation</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Validation</span> <span class="hs-varop">$</span>
-    <span class="hs-keyword">case</span> <span class="hs-varid">a</span> <span class="hs-keyword">of</span>
-      <span class="hs-conid">Right</span> <span class="hs-varid">va</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">fmap</span> <span class="hs-varid">va</span> <span class="hs-varid">b</span>
-      <span class="hs-conid">Left</span> <span class="hs-varid">ea</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">either</span> <span class="hs-layout">(</span><span class="hs-conid">Left</span> <span class="hs-varop">.</span> <span class="hs-varid">mappend</span> <span class="hs-varid">ea</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-varid">const</span> <span class="hs-varop">$</span> <span class="hs-conid">Left</span> <span class="hs-varid">ea</span><span class="hs-layout">)</span> <span class="hs-varid">b</span></code></pre>
+<span class="kw">instance</span> <span class="dt">Monoid</span> e <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Validation</span> e) <span class="kw">where</span>
+  pure <span class="fu">=</span> <span class="dt">Validation</span> <span class="fu">.</span> <span class="dt">Right</span>
+  <span class="dt">Validation</span> a <span class="fu">&lt;*&gt;</span> <span class="dt">Validation</span> b <span class="fu">=</span> <span class="dt">Validation</span> <span class="fu">$</span>
+    <span class="kw">case</span> a <span class="kw">of</span>
+      <span class="dt">Right</span> va <span class="ot">-&gt;</span> fmap va b
+      <span class="dt">Left</span> ea <span class="ot">-&gt;</span> either (<span class="dt">Left</span> <span class="fu">.</span> mappend ea) (const <span class="fu">$</span> <span class="dt">Left</span> ea) b</code></pre>
 <p>Следующий пример демонстрирует отличие между стандартным экземпляром <code>Applicative</code> и <code>Validation</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-varop">&gt;</span> <span class="hs-keyword">let</span> <span class="hs-varid">e1</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Left</span> <span class="hs-str">"error1"</span><span class="hs-layout">;</span> <span class="hs-varid">e2</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Left</span> <span class="hs-str">" error2"</span>
-<span class="hs-varop">&gt;</span> <span class="hs-definition">e1</span> <span class="hs-varop">*&gt;</span> <span class="hs-varid">e2</span>
-<span class="hs-conid">Left</span> <span class="hs-str">"error1"</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> e1 <span class="fu">=</span> <span class="dt">Left</span> <span class="st">&quot;error1&quot;</span>; e2 <span class="fu">=</span> <span class="dt">Left</span> <span class="st">&quot; error2&quot;</span>
+<span class="fu">&gt;</span> e1 <span class="fu">*&gt;</span> e2
+<span class="dt">Left</span> <span class="st">&quot;error1&quot;</span>
 
-<span class="hs-varop">&gt;</span> <span class="hs-definition">getValidation</span> <span class="hs-varop">$</span> <span class="hs-conid">Validation</span> <span class="hs-varid">e1</span> <span class="hs-varop">*&gt;</span> <span class="hs-conid">Validation</span> <span class="hs-varid">e2</span>
-<span class="hs-conid">Left</span> <span class="hs-str">"error1 error2"</span></code></pre>
+<span class="fu">&gt;</span> getValidation <span class="fu">$</span> <span class="dt">Validation</span> e1 <span class="fu">*&gt;</span> <span class="dt">Validation</span> e2
+<span class="dt">Left</span> <span class="st">&quot;error1 error2&quot;</span></code></pre>
 <p>Хорошая реализация подобного аппликативного функтора имеется в пакете <code>transformers</code>. Ross Paterson заметил, что этот функтор может формироваться так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">type</span> <span class="hs-conid">Errors</span> <span class="hs-varid">e</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">Lift</span> <span class="hs-layout">(</span><span class="hs-conid">Constant</span> <span class="hs-varid">e</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Errors</span> e <span class="fu">=</span> <span class="dt">Lift</span> (<span class="dt">Constant</span> e)</code></pre>
 <p>Подробности здесь - <a href="http://hackage.haskell.org/package/transformers-0.4.3.0/docs/Control-Applicative-Lift.html">Control.Applicative.Lift</a>. В любом случае, давайте воспользуемся этим для улучшения нашей суммирующей программы:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">printSum3</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">FilePath</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">IO</span> <span class="hs-conid">()</span>
-<span class="hs-definition">printSum3</span> <span class="hs-varid">path</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-varid">either</span> <span class="hs-layout">(</span><span class="hs-varid">die</span> <span class="hs-varop">.</span> <span class="hs-varid">intercalate</span> <span class="hs-str">"\n"</span><span class="hs-layout">)</span> <span class="hs-varid">print</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">liftM</span> <span class="hs-varid">sum</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">getValidation</span> <span class="hs-varop">.</span> <span class="hs-varid">sequenceA</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">map</span> <span class="hs-layout">(</span><span class="hs-conid">Validation</span> <span class="hs-varop">.</span> <span class="hs-varid">left</span> <span class="hs-layout">(</span><span class="hs-keyglyph">\</span><span class="hs-varid">e</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-varid">e</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">zipWith</span> <span class="hs-varid">parseNum</span> <span class="hs-keyglyph">[</span><span class="hs-num">1</span><span class="hs-keyglyph">..</span><span class="hs-keyglyph">]</span> <span class="hs-varop">.</span>
-  <span class="hs-varid">lines</span> <span class="hs-varop">=&lt;&lt;</span> <span class="hs-varid">readFile</span> <span class="hs-varid">path</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printSum3 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+printSum3 path <span class="fu">=</span>
+  either (die <span class="fu">.</span> intercalate <span class="st">&quot;\n&quot;</span>) print <span class="fu">.</span>
+  liftM sum <span class="fu">.</span>
+  getValidation <span class="fu">.</span> sequenceA <span class="fu">.</span>
+  map (<span class="dt">Validation</span> <span class="fu">.</span> left (\e <span class="ot">-&gt;</span> [e])) <span class="fu">.</span>
+  zipWith parseNum [<span class="dv">1</span><span class="fu">..</span>] <span class="fu">.</span>
+  lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre>
 <p>Теперь нам достаточно единожды запустить программу, чтобы разом увидеть все обнаруженные ею ошибки:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 378: 12o0
 <span class="kw">Bad</span> number on line 380: 11i3</code></pre>
@@ -311,76 +311,76 @@
 <p>Несмотря на то, что для нужной нам валидации мы моглы бы явно задать ограничение в 10 сообщений, будет неплохо создать обобщённый тип с гибким ограничением. Поэтому мы сделаем это самое ограничение частью нашего типа.</p>
 <p><strong>Упражнение</strong> Подумайте над альтернативными решениями, когда ограничение не является частью типа. Каковы плюсы и минусы подобных решений?</p>
 <p>На уровне значений, мы основываем новый тип на difference list, далее DL (Прим. переводчика - речь идёт о <a href="https://hackage.haskell.org/package/dlist-0.5/docs/Data-DList.html">Data.DList</a>), во избежании квадратичной сложности, упомянутой ранее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">data</span> <span class="hs-conid">BoundedList</span> <span class="hs-layout">(</span><span class="hs-varid">n</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Nat</span><span class="hs-layout">)</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span>
-  <span class="hs-conid">BoundedList</span>
-    <span class="hs-varop">!</span><span class="hs-conid">Integer</span> <span class="hs-comment">-- Текущая длина списка</span>
-    <span class="hs-layout">(</span><span class="hs-conid">Endo</span> <span class="hs-keyglyph">[</span><span class="hs-varid">a</span><span class="hs-keyglyph">]</span><span class="hs-layout">)</span></code></pre>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BoundedList</span> (<span class="ot">n ::</span> <span class="dt">Nat</span>) a <span class="fu">=</span>
+  <span class="dt">BoundedList</span>
+    <span class="fu">!</span><span class="dt">Integer</span> <span class="co">-- Текущая длина списка</span>
+    (<span class="dt">Endo</span> [a])</code></pre>
 <p><strong>Упражнение</strong>. Почему важно хранить текущую длину, вместо того чтобы вычислять её, исходя из DL?</p>
 <p>Итак, поняв основные идеи нашего решения (включение ограничения непосредственно в тип, использование DL, хранение текущей длины), взглянем на реализацию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-definition">singleton</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">KnownNat</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">a</span>
-<span class="hs-definition">singleton</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">fromList</span> <span class="hs-keyglyph">[</span><span class="hs-varid">a</span><span class="hs-keyglyph">]</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">singleton ::</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">BoundedList</span> n a
+singleton a <span class="fu">=</span> fromList [a]
 
-<span class="hs-definition">toList</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-varid">a</span><span class="hs-keyglyph">]</span>
-<span class="hs-definition">toList</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-keyword">_</span> <span class="hs-layout">(</span><span class="hs-conid">Endo</span> <span class="hs-varid">f</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">f</span> <span class="hs-conid">[]</span>
+<span class="ot">toList ::</span> <span class="dt">BoundedList</span> n a <span class="ot">-&gt;</span> [a]
+toList (<span class="dt">BoundedList</span> _ (<span class="dt">Endo</span> f)) <span class="fu">=</span> f []
 
-<span class="hs-definition">fromList</span> <span class="hs-keyglyph">::</span> <span class="hs-keyword">forall</span> <span class="hs-varid">a</span> <span class="hs-varid">n</span> <span class="hs-varop">.</span> <span class="hs-conid">KnownNat</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-keyglyph">[</span><span class="hs-varid">a</span><span class="hs-keyglyph">]</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">a</span>
-<span class="hs-definition">fromList</span> <span class="hs-varid">lst</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">BoundedList</span> <span class="hs-layout">(</span><span class="hs-varid">min</span> <span class="hs-varid">len</span> <span class="hs-varid">limit</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">Endo</span> <span class="hs-layout">(</span><span class="hs-varid">genericTake</span> <span class="hs-varid">limit</span> <span class="hs-varid">lst</span> <span class="hs-varop">++</span><span class="hs-layout">)</span><span class="hs-layout">)</span>
-  <span class="hs-keyword">where</span>
-    <span class="hs-varid">limit</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">natVal</span> <span class="hs-layout">(</span><span class="hs-conid">Proxy</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Proxy</span> <span class="hs-varid">n</span><span class="hs-layout">)</span>
-    <span class="hs-varid">len</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">genericLength</span> <span class="hs-varid">lst</span>
+<span class="ot">fromList ::</span> forall a n <span class="fu">.</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> [a] <span class="ot">-&gt;</span> <span class="dt">BoundedList</span> n a
+fromList lst <span class="fu">=</span> <span class="dt">BoundedList</span> (min len limit) (<span class="dt">Endo</span> (genericTake limit lst <span class="fu">++</span>))
+  <span class="kw">where</span>
+    limit <span class="fu">=</span> natVal (<span class="dt">Proxy</span><span class="ot"> ::</span> <span class="dt">Proxy</span> n)
+    len <span class="fu">=</span> genericLength lst
 
-<span class="hs-keyword">instance</span> <span class="hs-conid">KnownNat</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Monoid</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">a</span><span class="hs-layout">)</span> <span class="hs-keyword">where</span>
-  <span class="hs-varid">mempty</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">BoundedList</span> <span class="hs-num">0</span> <span class="hs-varid">mempty</span>
-  <span class="hs-varid">mappend</span> <span class="hs-varid">b1</span><span class="hs-keyglyph">@</span><span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">l1</span> <span class="hs-varid">f1</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">l2</span> <span class="hs-varid">f2</span><span class="hs-layout">)</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-varid">l1</span> <span class="hs-varop">&gt;=</span> <span class="hs-varid">limit</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">b1</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-varid">l1</span> <span class="hs-varop">+</span> <span class="hs-varid">l2</span> <span class="hs-varop">&lt;=</span> <span class="hs-varid">limit</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">BoundedList</span> <span class="hs-layout">(</span><span class="hs-varid">l1</span> <span class="hs-varop">+</span> <span class="hs-varid">l2</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-varid">f1</span> <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">f2</span><span class="hs-layout">)</span>
-    <span class="hs-keyglyph">|</span> <span class="hs-varid">otherwise</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">BoundedList</span> <span class="hs-varid">limit</span> <span class="hs-layout">(</span><span class="hs-varid">f1</span> <span class="hs-varop">&lt;&gt;</span> <span class="hs-conid">Endo</span> <span class="hs-layout">(</span><span class="hs-varid">genericTake</span> <span class="hs-layout">(</span><span class="hs-varid">limit</span> <span class="hs-comment">-</span> <span class="hs-varid">l1</span><span class="hs-layout">)</span><span class="hs-layout">)</span> <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">f2</span><span class="hs-layout">)</span>
-    <span class="hs-keyword">where</span>
-      <span class="hs-varid">limit</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">natVal</span> <span class="hs-layout">(</span><span class="hs-conid">Proxy</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Proxy</span> <span class="hs-varid">n</span><span class="hs-layout">)</span>
+<span class="kw">instance</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> <span class="dt">Monoid</span> (<span class="dt">BoundedList</span> n a) <span class="kw">where</span>
+  mempty <span class="fu">=</span> <span class="dt">BoundedList</span> <span class="dv">0</span> mempty
+  mappend b1<span class="fu">@</span>(<span class="dt">BoundedList</span> l1 f1) (<span class="dt">BoundedList</span> l2 f2)
+    <span class="fu">|</span> l1 <span class="fu">&gt;=</span> limit <span class="fu">=</span> b1
+    <span class="fu">|</span> l1 <span class="fu">+</span> l2 <span class="fu">&lt;=</span> limit <span class="fu">=</span> <span class="dt">BoundedList</span> (l1 <span class="fu">+</span> l2) (f1 <span class="fu">&lt;&gt;</span> f2)
+    <span class="fu">|</span> otherwise <span class="fu">=</span> <span class="dt">BoundedList</span> limit (f1 <span class="fu">&lt;&gt;</span> <span class="dt">Endo</span> (genericTake (limit <span class="fu">-</span> l1)) <span class="fu">&lt;&gt;</span> f2)
+    <span class="kw">where</span>
+      limit <span class="fu">=</span> natVal (<span class="dt">Proxy</span><span class="ot"> ::</span> <span class="dt">Proxy</span> n)
 
-<span class="hs-definition">full</span> <span class="hs-keyglyph">::</span> <span class="hs-keyword">forall</span> <span class="hs-varid">a</span> <span class="hs-varid">n</span> <span class="hs-varop">.</span> <span class="hs-conid">KnownNat</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Bool</span>
-<span class="hs-definition">full</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">l</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">l</span> <span class="hs-varop">&gt;=</span> <span class="hs-varid">natVal</span> <span class="hs-layout">(</span><span class="hs-conid">Proxy</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Proxy</span> <span class="hs-varid">n</span><span class="hs-layout">)</span>
+<span class="ot">full ::</span> forall a n <span class="fu">.</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> <span class="dt">BoundedList</span> n a <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+full (<span class="dt">BoundedList</span> l _) <span class="fu">=</span> l <span class="fu">&gt;=</span> natVal (<span class="dt">Proxy</span><span class="ot"> ::</span> <span class="dt">Proxy</span> n)
 
-<span class="hs-definition">null</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Bool</span>
-<span class="hs-definition">null</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">l</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">l</span> <span class="hs-varop">&lt;=</span> <span class="hs-num">0</span></code></pre>
+null<span class="ot"> ::</span> <span class="dt">BoundedList</span> n a <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+null (<span class="dt">BoundedList</span> l _) <span class="fu">=</span> l <span class="fu">&lt;=</span> <span class="dv">0</span></code></pre>
 <h2 id="smartvalidation">SmartValidation</h2>
 <p>Теперь мы создадим аппликативный функтор <code>SmartValidation</code>, который будет прекращать свою работу, как только продолжать собирать ошибки станет бессмысленным. Это нечто среднее между функтором <code>Either</code>, способным хранить <em>одну-единственную</em> ошибку, и функтором <code>Validation</code>, хранящим <em>все</em> ошибки.</p>
 <p>Реализация такого функтора не столь тривиальна, какой может показаться на первый взгляд. На самом деле, прежде чем вы прочтёте код ниже, я рекомендую вам выполнить следующее упражнение:</p>
 <p><strong>Упражение</strong>. Попробуйте реализовать тип и его аппликативный экземпляр, соответствующие вышеозвученному требованию.</p>
 <p>Попробовали? У вас получилось? Это не риторический вопрос, мне действительно интересно (поэтому дайте мне знать о ваших результатах). Похожа ли ваша реализация на мою, или, может, она легче? А может, наоборот, сложнее?</p>
 <p>Итак, вот моя реалиация:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-keyword">newtype</span> <span class="hs-conid">SmartValidation</span> <span class="hs-layout">(</span><span class="hs-varid">n</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">Nat</span><span class="hs-layout">)</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">SmartValidation</span>
-  <span class="hs-layout">{</span> <span class="hs-varid">getSmartValidation</span> <span class="hs-keyglyph">::</span> <span class="hs-keyword">forall</span> <span class="hs-varid">r</span> <span class="hs-varop">.</span>
-      <span class="hs-conid">Either</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">e</span><span class="hs-layout">)</span> <span class="hs-layout">(</span><span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">r</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Either</span> <span class="hs-layout">(</span><span class="hs-conid">BoundedList</span> <span class="hs-varid">n</span> <span class="hs-varid">e</span><span class="hs-layout">)</span> <span class="hs-varid">r</span> <span class="hs-layout">}</span>
-  <span class="hs-keyword">deriving</span> <span class="hs-conid">Functor</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">SmartValidation</span> (<span class="ot">n ::</span> <span class="dt">Nat</span>) e a <span class="fu">=</span> <span class="dt">SmartValidation</span>
+  {<span class="ot"> getSmartValidation ::</span> forall r <span class="fu">.</span>
+      <span class="dt">Either</span> (<span class="dt">BoundedList</span> n e) (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> <span class="dt">Either</span> (<span class="dt">BoundedList</span> n e) r }
+  <span class="kw">deriving</span> <span class="dt">Functor</span>
 
-<span class="hs-keyword">instance</span> <span class="hs-conid">KnownNat</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Applicative</span> <span class="hs-layout">(</span><span class="hs-conid">SmartValidation</span> <span class="hs-varid">n</span> <span class="hs-varid">e</span><span class="hs-layout">)</span> <span class="hs-keyword">where</span>
-  <span class="hs-varid">pure</span> <span class="hs-varid">x</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">SmartValidation</span> <span class="hs-varop">$</span> <span class="hs-keyglyph">\</span><span class="hs-varid">k</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">k</span> <span class="hs-varop">&lt;*&gt;</span> <span class="hs-conid">Right</span> <span class="hs-varid">x</span>
-  <span class="hs-conid">SmartValidation</span> <span class="hs-varid">a</span> <span class="hs-varop">&lt;*&gt;</span> <span class="hs-conid">SmartValidation</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">SmartValidation</span> <span class="hs-varop">$</span> <span class="hs-keyglyph">\</span><span class="hs-varid">k</span> <span class="hs-keyglyph">-&gt;</span>
-    <span class="hs-keyword">let</span> <span class="hs-varid">k'</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">fmap</span> <span class="hs-layout">(</span><span class="hs-varop">.</span><span class="hs-layout">)</span> <span class="hs-varid">k</span> <span class="hs-keyword">in</span>
-    <span class="hs-keyword">case</span> <span class="hs-varid">a</span> <span class="hs-varid">k'</span> <span class="hs-keyword">of</span>
-      <span class="hs-conid">Left</span> <span class="hs-varid">errs</span> <span class="hs-keyglyph">|</span> <span class="hs-varid">full</span> <span class="hs-varid">errs</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Left</span> <span class="hs-varid">errs</span>
-      <span class="hs-varid">r</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">b</span> <span class="hs-varid">r</span></code></pre>
+<span class="kw">instance</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">SmartValidation</span> n e) <span class="kw">where</span>
+  pure x <span class="fu">=</span> <span class="dt">SmartValidation</span> <span class="fu">$</span> \k <span class="ot">-&gt;</span> k <span class="fu">&lt;*&gt;</span> <span class="dt">Right</span> x
+  <span class="dt">SmartValidation</span> a <span class="fu">&lt;*&gt;</span> <span class="dt">SmartValidation</span> b <span class="fu">=</span> <span class="dt">SmartValidation</span> <span class="fu">$</span> \k <span class="ot">-&gt;</span>
+    <span class="kw">let</span> k' <span class="fu">=</span> fmap (<span class="fu">.</span>) k <span class="kw">in</span>
+    <span class="kw">case</span> a k' <span class="kw">of</span>
+      <span class="dt">Left</span> errs <span class="fu">|</span> full errs <span class="ot">-&gt;</span> <span class="dt">Left</span> errs
+      r <span class="ot">-&gt;</span> b r</code></pre>
 <p>А вот функции для создания и анализа значений типа <code>SmartValidation</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="hs-comment">-- Конвертируем SmartValidation в Either</span>
-<span class="hs-definition">fatal</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">SmartValidation</span> <span class="hs-varid">n</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Either</span> <span class="hs-keyglyph">[</span><span class="hs-varid">e</span><span class="hs-keyglyph">]</span> <span class="hs-varid">a</span>
-<span class="hs-definition">fatal</span> <span class="hs-keyglyph">=</span> <span class="hs-varid">left</span> <span class="hs-varid">toList</span> <span class="hs-varop">.</span> <span class="hs-layout">(</span><span class="hs-varop">$</span> <span class="hs-conid">Right</span> <span class="hs-varid">id</span><span class="hs-layout">)</span> <span class="hs-varop">.</span> <span class="hs-varid">getSmartValidation</span>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Конвертируем SmartValidation в Either</span>
+<span class="ot">fatal ::</span> <span class="dt">SmartValidation</span> n e a <span class="ot">-&gt;</span> <span class="dt">Either</span> [e] a
+fatal <span class="fu">=</span> left toList <span class="fu">.</span> (<span class="fu">$</span> <span class="dt">Right</span> id) <span class="fu">.</span> getSmartValidation
 
-<span class="hs-comment">-- Конвертируем Either в SmartValidation</span>
-<span class="hs-definition">nonFatal</span> <span class="hs-keyglyph">::</span> <span class="hs-conid">KnownNat</span> <span class="hs-varid">n</span> <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Either</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">SmartValidation</span> <span class="hs-varid">n</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span>
-<span class="hs-definition">nonFatal</span> <span class="hs-varid">a</span> <span class="hs-keyglyph">=</span> <span class="hs-conid">SmartValidation</span> <span class="hs-varop">$</span> <span class="hs-layout">(</span><span class="hs-keyglyph">\</span><span class="hs-varid">k</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">k</span> <span class="hs-varop">&lt;+&gt;</span> <span class="hs-varid">left</span> <span class="hs-varid">singleton</span> <span class="hs-varid">a</span><span class="hs-layout">)</span>
+<span class="co">-- Конвертируем Either в SmartValidation</span>
+<span class="ot">nonFatal ::</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> <span class="dt">Either</span> e a <span class="ot">-&gt;</span> <span class="dt">SmartValidation</span> n e a
+nonFatal a <span class="fu">=</span> <span class="dt">SmartValidation</span> <span class="fu">$</span> (\k <span class="ot">-&gt;</span> k <span class="fu">&lt;+&gt;</span> left singleton a)
 
-<span class="hs-comment">-- Похожа на &lt;*&gt;, но склеивает ошибки</span>
-<span class="hs-layout">(</span><span class="hs-varop">&lt;+&gt;</span><span class="hs-layout">)</span>
-  <span class="hs-keyglyph">::</span> <span class="hs-conid">Monoid</span> <span class="hs-varid">e</span>
-  <span class="hs-keyglyph">=&gt;</span> <span class="hs-conid">Either</span> <span class="hs-varid">e</span> <span class="hs-layout">(</span><span class="hs-varid">a</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-varid">b</span><span class="hs-layout">)</span>
-  <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Either</span> <span class="hs-varid">e</span> <span class="hs-varid">a</span>
-  <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Either</span> <span class="hs-varid">e</span> <span class="hs-varid">b</span>
-<span class="hs-definition">a</span> <span class="hs-varop">&lt;+&gt;</span> <span class="hs-varid">b</span> <span class="hs-keyglyph">=</span> <span class="hs-keyword">case</span> <span class="hs-layout">(</span><span class="hs-varid">a</span><span class="hs-layout">,</span><span class="hs-varid">b</span><span class="hs-layout">)</span> <span class="hs-keyword">of</span>
-  <span class="hs-layout">(</span><span class="hs-conid">Right</span> <span class="hs-varid">va</span><span class="hs-layout">,</span> <span class="hs-conid">Right</span> <span class="hs-varid">vb</span><span class="hs-layout">)</span> <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Right</span> <span class="hs-varop">$</span> <span class="hs-varid">va</span> <span class="hs-varid">vb</span>
-  <span class="hs-layout">(</span><span class="hs-conid">Left</span> <span class="hs-varid">e</span><span class="hs-layout">,</span>   <span class="hs-conid">Right</span> <span class="hs-keyword">_</span><span class="hs-layout">)</span>  <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Left</span> <span class="hs-varid">e</span>
-  <span class="hs-layout">(</span><span class="hs-conid">Right</span> <span class="hs-keyword">_</span><span class="hs-layout">,</span>  <span class="hs-conid">Left</span> <span class="hs-varid">e</span><span class="hs-layout">)</span>   <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Left</span> <span class="hs-varid">e</span>
-  <span class="hs-layout">(</span><span class="hs-conid">Left</span> <span class="hs-varid">e1</span><span class="hs-layout">,</span>  <span class="hs-conid">Left</span> <span class="hs-varid">e2</span><span class="hs-layout">)</span>  <span class="hs-keyglyph">-&gt;</span> <span class="hs-conid">Left</span> <span class="hs-varop">$</span> <span class="hs-varid">e1</span> <span class="hs-varop">&lt;&gt;</span> <span class="hs-varid">e2</span></code></pre>
+<span class="co">-- Похожа на &lt;*&gt;, но склеивает ошибки</span>
+(<span class="fu">&lt;+&gt;</span>)
+<span class="ot">  ::</span> <span class="dt">Monoid</span> e
+  <span class="ot">=&gt;</span> <span class="dt">Either</span> e (a <span class="ot">-&gt;</span> b)
+  <span class="ot">-&gt;</span> <span class="dt">Either</span> e a
+  <span class="ot">-&gt;</span> <span class="dt">Either</span> e b
+a <span class="fu">&lt;+&gt;</span> b <span class="fu">=</span> <span class="kw">case</span> (a,b) <span class="kw">of</span>
+  (<span class="dt">Right</span> va, <span class="dt">Right</span> vb) <span class="ot">-&gt;</span> <span class="dt">Right</span> <span class="fu">$</span> va vb
+  (<span class="dt">Left</span> e,   <span class="dt">Right</span> _)  <span class="ot">-&gt;</span> <span class="dt">Left</span> e
+  (<span class="dt">Right</span> _,  <span class="dt">Left</span> e)   <span class="ot">-&gt;</span> <span class="dt">Left</span> e
+  (<span class="dt">Left</span> e1,  <span class="dt">Left</span> e2)  <span class="ot">-&gt;</span> <span class="dt">Left</span> <span class="fu">$</span> e1 <span class="fu">&lt;&gt;</span> e2</code></pre>
 <p><strong>Упражнение</strong>. Подумайте над тем, что делает <code>fmap (.) k</code> в определении <code>&lt;*&gt;</code>.</p>
 <p><strong>Упражнение</strong>. В определении <code>&lt;*&gt;</code>, должны ли мы проверять, является ли <code>k</code> полным перед вычислением <code>a k'</code>?</p>
 <p><strong>Упражнение</strong>. Мы разработали два механизма - <code>BoundedList</code> и <code>SmartValidation</code>, которые делают практически одно и то же, но на разных уровнях. Достаточен ли какой-то из этих двух механизмов для достижения обеих целей (удобство пользователя и эффективность) в том случае, если количество отображаемых ошибок будет велико?</p>
