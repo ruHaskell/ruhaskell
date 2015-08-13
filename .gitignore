@@ -10,6 +10,7 @@ cabal-dev
 .vagrant
 .hsenv
 .cabal-sandbox/
+.stack-work/
 cabal.sandbox.config
 cabal.config
 _cache

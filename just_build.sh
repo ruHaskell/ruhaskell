@@ -2,10 +2,8 @@
 
 # Просто собираем сайт, локально.
 
-set -e
+stack install
 
-cabal clean && cabal configure && cabal build
-
-./dist/build/ruHaskell/ruHaskell rebuild
+ruHaskell rebuild
 
 # После этого в корне репозитория смотрим в каталог _site.

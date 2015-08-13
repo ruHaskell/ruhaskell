@@ -33,12 +33,11 @@ executable ruHaskell
 
   other-extensions:    OverloadedStrings
 
-  build-depends:       base     >=4.7       && <4.8,
-                       split    >=0.2       && <0.3, 
-                       filepath >=1.3       && <1.4, 
-                       HTTP     >=4000.2    && <4000.3, 
-                       hakyll   >=4.6       && <4.7,
-                       BlogLiterately >=0.7,
+  build-depends:       base,
+                       split,
+                       filepath,
+                       HTTP,
+                       hakyll,
                        mtl,
                        containers,
                        blaze-html,

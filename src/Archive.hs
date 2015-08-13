@@ -32,4 +32,3 @@ createPageWithAllPosts = do
                         >>= loadAndApplyTemplate "templates/default.html" archiveContext
                         >>= relativizeUrls
     return ()
-

@@ -1,0 +1,6 @@
+flags: {}
+packages:
+- '.'
+extra-deps:
+- hfsevents-0.1.5
+resolver: lts-2.18

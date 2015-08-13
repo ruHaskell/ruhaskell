@@ -17,7 +17,7 @@ import Context              (postContext)
 import Misc                 (TagsReader)
 import Control.Monad.Reader
 import Hakyll
-import qualified Text.BlogLiterately.Highlight as Highlight
+-- import qualified Text.BlogLiterately.Highlight as Highlight
 
 
 -- Дата публикации будет отражена в URL в виде подкаталогов.
@@ -34,11 +34,11 @@ directorizeDate = customRoute (\i -> directorize $ toFilePath i)
 
 
 -- like pandocCompiler, but uses hscolour for highlighting haskell code
-pandocWithHighlighter :: Compiler (Item String)
-pandocWithHighlighter =
-    pandocCompilerWithTransform defaultHakyllReaderOptions
-                                defaultHakyllWriterOptions
-                                (Highlight.colourisePandoc Highlight.HsColourCSS True)
+-- pandocWithHighlighter :: Compiler (Item String)
+-- pandocWithHighlighter =
+--     pandocCompilerWithTransform defaultHakyllReaderOptions
+--                                 defaultHakyllWriterOptions
+--                                 (Highlight.colourisePandoc Highlight.HsColourCSS True)
 
 createPosts :: TagsReader
 createPosts = do
@@ -47,10 +47,10 @@ createPosts = do
     lift $ match "posts/**" $ do
         route $ directorizeDate `composeRoutes`
                 setExtension "html"
-        -- Для превращения Markdown в HTML используем pandocWithHighlighter
-        compile $ pandocWithHighlighter
-            >>= loadAndApplyTemplate "templates/post.html" (postContext tagsAndAuthors)
-            >>= loadAndApplyTemplate "templates/default.html" (postContext tagsAndAuthors)
-            >>= relativizeUrls
+        -- Для превращения Markdown в HTML используем pandocCompiler
+        compile $ pandocCompiler
+              >>= loadAndApplyTemplate "templates/post.html" (postContext tagsAndAuthors)
+              >>= loadAndApplyTemplate "templates/default.html" (postContext tagsAndAuthors)
+              >>= relativizeUrls
     return ()
 
