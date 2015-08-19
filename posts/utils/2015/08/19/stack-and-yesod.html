@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>stack и Yesod: дружба навек</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+        
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+            
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../itunes-feed.xml">
+                            <span id="itunes-rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>iTunes
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>stack и Yesod: дружба навек</h1>
+
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%25D0%2594%25D0%25B5%25D0%25BD%25D0%25B8%25D1%2581%2520%25D0%25A8%25D0%25B5%25D0%25B2%25D1%2587%25D0%25B5%25D0%25BD%25D0%25BA%25D0%25BE.html">Денис Шевченко</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 aug 19<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/utils.html">Утилиты</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/stack.html">stack</a>&quot;, &quot;<a href="../../../../../tags/Yesod.html">Yesod</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    </div>
+</div>
+
+<p>Приветствую, друзья!</p>
+<p>Бодро <a href="https://twitter.com/dshevchenko_biz/status/631431767338143748">сообщив всему миру</a> о том, что отныне (и вовек?) я использую Stack, приступил я к переводу моих проектов на этот самый Stack.</p>
+<p>Начиналось всё прекрасно: я снёс Haskell Platform во избежание путаницы между “системным” ghc и установленным(и) с помощью <code>stack setup</code>. Но затем я столкнулся с одной небольшой проблемкой, решением которой хочу поделиться с вами. Думаю, кому-то пригодится.</p>
+<h2 id="yesod-старый">Yesod старый</h2>
+<p>Один из моих Haskell-проектов базируется на Yesod. И очень уж я привык к команде вида:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3010</code></pre>
+<p>которая запускает проект на локальном сервере, да ещё и автоматически пересобирает его при изменениях в коде. Вот тут-то и ждала меня трудность.</p>
+<p>Дело в том, что команда <code>yesod devel</code> вызывает утилиту <code>yesod</code>, устанавливаемую с пакетом <a href="http://hackage.haskell.org/package/yesod-bin"><code>yesod-bin</code></a>. И вот запускаю я её в моём проекте - и получаю ерунду:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3010
+<span class="kw">...</span>
+<span class="kw">Resolving</span> dependencies...
+<span class="kw">cabal</span>: At least the following dependencies are missing:
+<span class="kw">aeson</span> -any,
+<span class="kw">blaze-html</span> -any,
+<span class="kw">conduit</span> -any,
+<span class="kw">data-default</span> -any,
+<span class="kw">...</span></code></pre>
+<p>Стоп, а почему <code>cabal</code>? А потому: работать эта утилита умеет исключительно с <code>cabal</code> и знать ничего не знает про <code>stack</code>.</p>
+<h2 id="yesod-новый">Yesod новый</h2>
+<p>Как вы понимаете, о вышеупомянутой проблеме прекрасно знал великий наш Снойман, а посему 29 июня он опубликовал статью <a href="http://www.yesodweb.com/blog/2015/06/stack-support-yesod-devel">stack support for yesod devel</a>. В ней предложено решение: установить пакет <code>yesod-bin</code> версии <code>1.4.11</code> (от того же 29 июня), поддерживающий <code>stack</code>, после чего запускать сие через <code>stack exec</code>.</p>
+<p>Сказано - сделано. Утилита <code>yesod-bin</code> у меня уже имелась, причём той самой версии <code>1.4.11</code> (из <code>stack</code>-снимка <code>2.18</code>). Запускаю в проекте:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> exec yesod devel</code></pre>
+<p>и получаю ошибку:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ERROR</span>: Yesod has been compiled with a different GHC version, please reinstall yesod-bin
+<span class="kw">yesod</span>: ExitFailure 1</code></pre>
+<p>Так, с наскока не вышло. Я ведь проект-то перевёл уже на <code>ghc 7.10.2</code>, а <code>yesod-bin</code> был собран ещё старой версией <code>7.8.4</code>. Переустанавливаю:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> build yesod-bin-1.4.13.3</code></pre>
+<p>Как вы поняли, версия <code>1.4.13.3</code> взята из <code>lts</code>-снимка <code>3.1</code>, который я начал использовать после перехода на <code>ghc 7.10.2</code>. Установка прошла без проблем.</p>
+<h2 id="новая-трудность">Новая трудность</h2>
+<p>Итак, продолжим:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> exec -- yesod devel -p 3010</code></pre>
+<p>Да-да, запускать необходимо именно так, через два минуса. В статье Снойман об этом не упомянул, но я нашёл это <a href="https://github.com/yesodweb/yesod/commit/a7cccf2a7c5df8b26da9ea4fdcb6bac5ab3a3b75">в этом коммите</a>.</p>
+<p>Ура, наконец-то начинается пересборка проекта - и вдруг:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Rebuilding</span> application... (using cabal)
+<span class="kw">ghc</span>: ghc no longer supports single-file style package databases (dist/package.conf.inplace) <span class="kw">use</span> <span class="st">'ghc-pkg init'</span> to create the database with the correct format.
+<span class="kw">Build</span> failure, pausing...</code></pre>
+<p>Не совсем понятно, о чём речь, но гугление подсказало, что дело в версии <code>cabal</code>. Вот что сказал об этом один из хаскелистов:</p>
+<pre><code>That error only happens with versions prior to Cabal/cabal-install-1.22 (and GHC 7.10 requires version 1.22 or later),</code></pre>
+<p>Что ж, всё понятно, обновляем <code>cabal</code>. Для этого в файле <code>~/.stack/global/stack.yaml</code> меняем <code>resolver</code> с <code>2.18</code> на <code>3.1</code>, после чего:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> install cabal-install-1.22.6.0</code></pre>
+<p>После установки проверяем:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> --version
+<span class="kw">cabal-install</span> version 1.22.6.0
+<span class="kw">using</span> version 1.22.4.0 of the Cabal library</code></pre>
+<p>То что надо. Вернувшись в каталог проекта, выполняем:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> exec -- yesod devel -p 3010
+<span class="kw">Yesod</span> devel server. Type <span class="st">'quit'</span> to quit
+<span class="kw">...</span>
+<span class="kw">Starting</span> development server...
+<span class="kw">Starting</span> devel application
+<span class="kw">Devel</span> application launched: http://localhost:3010</code></pre>
+<p>Победа! Кстати, обратите внимание на маленькое изменение: раньше для остановки сервера нужно было просто нажать <code>Enter</code>, теперь же необходимо напечатать <code>quit</code>.</p>
+<p>Итак, как видите, <code>stack</code> и <code>yesod</code> вполне уживаются друг с другом.</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div> 
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>            
+                
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
+
+  </body>
+</html>
+
