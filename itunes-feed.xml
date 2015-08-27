@@ -19,6 +19,18 @@
         <atom:link href="http://ruhaskell.org/itunes-feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Выпуск 3</title>
+                <itunes:author>Шевченко, Денис, Рома</itunes:author>
+                <itunes:subtitle>Третий выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[Говорим о ICFP, Smart View on Datatypes и о stack.]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue3-2015-08-27.mp3" length="24092318" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue3-2015-08-27.mp3</guid>
+                <pubDate>Thu, 27 Aug 2015 00:00:00 +0300</pubDate>
+                <itunes:duration>00:51:00</itunes:duration>
+            </item>
+        
+            <item>
                 <title>Выпуск 2</title>
                 <itunes:author>Шевченко, Денис, Рома</itunes:author>
                 <itunes:subtitle>Второй выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>

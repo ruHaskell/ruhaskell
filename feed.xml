@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Wed, 19 Aug 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Thu, 27 Aug 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Выпуск 3</title>
+    <link>http://ruhaskell.org/posts/cast/2015/08/27/issue3.html</link>
+    <description><![CDATA[Третий выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
+    <pubDate>Thu, 27 Aug 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/cast/2015/08/27/issue3.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>stack и Yesod: дружба навек</title>
     <link>http://ruhaskell.org/posts/utils/2015/08/19/stack-and-yesod.html</link>
     <description><![CDATA[Stack и Yesod: как их подружить.]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Доклад Антона Холомьёва о библиотеке csound-expression, EDSL, музыке, FRP и многом другом на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/talks/2015/06/21/csound-expression-library-edsl-music-frp.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Cloud Haskell</title>
-    <link>http://ruhaskell.org/posts/talks/2015/06/21/cloud-haskell.html</link>
-    <description><![CDATA[Доклад Александра Вершилова о состоянии Cloud Haskell на RuHaskell.Meetup 2015 Summer.]]></description>
-    <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/talks/2015/06/21/cloud-haskell.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
