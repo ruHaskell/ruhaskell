@@ -10,7 +10,6 @@ module MailingList (
     createMailingListFrontend
 ) where
 
-import Data.Monoid          (mconcat)
 import Misc                 (TagsReader)
 import Control.Monad.Reader
 import Hakyll
@@ -28,4 +27,3 @@ createMailingListFrontend = lift $
           makeItem "" >>= loadAndApplyTemplate "templates/mailing.html" listContext
                       >>= loadAndApplyTemplate "templates/default.html" listContext
                       >>= relativizeUrls
-

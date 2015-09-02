@@ -10,9 +10,8 @@ module Context (
     postContext
 ) where
 
-import Data.Monoid      (mconcat)
 import Data.List        (intersperse)
-import System.Locale
+import Data.Time        (TimeLocale(..))
 import Misc             (aHost,
                          TagsAndAuthors,
                          getNameOfAuthor,
@@ -76,7 +75,7 @@ ruTimeLocale =  TimeLocale { wDays  = []
                                        ("июля",     "jul"),  ("августа", "aug"),
                                        ("сентября", "sep"),  ("октября", "oct"),
                                        ("ноября",   "nov"),  ("декабря", "dec")]
-                           , intervals = []
+                           , knownTimeZones = []
                            , amPm = ("", "")
                            , dateTimeFmt = ""
                            , dateFmt = ""
@@ -95,4 +94,3 @@ postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
                                      , defaultContext
                                      ]
-

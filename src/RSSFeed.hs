@@ -11,10 +11,8 @@ module RSSFeed (
     setupITunesRSSFeed
 ) where
 
-import Data.Monoid          (mconcat)
-import Misc                 (aHost)
+import Misc                 (aHost, TagsReader)
 import Context              (postContext)
-import Misc                 (TagsReader)
 import Control.Monad.Reader
 import Hakyll
 
@@ -57,4 +55,3 @@ setupITunesRSSFeed = do
             -- Формируем страницу itunes-feed.xml, применяя к ней шаблон и контекст.
             makeItem "" >>= loadAndApplyTemplate "templates/itunes-feed.xml" iTunesRSSContext
     return ()
-

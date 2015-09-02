@@ -10,7 +10,6 @@ module IndexPage (
     createIndexPage
 ) where
 
-import Data.Monoid          (mconcat)
 import Context              (postContext)
 import Misc                 (TagsReader)
 import Control.Monad.Reader
@@ -33,4 +32,3 @@ createIndexPage = do
                         >>= loadAndApplyTemplate "templates/default.html" indexContext
                         >>= relativizeUrls
     return ()
-

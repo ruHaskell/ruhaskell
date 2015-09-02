@@ -10,7 +10,6 @@ module Links (
     createPageWithExternalLinks
 ) where
 
-import Data.Monoid          (mconcat)
 import Misc                 (TagsReader)
 import Control.Monad.Reader
 import Hakyll
@@ -30,4 +29,3 @@ createPageWithExternalLinks = do
                         >>= loadAndApplyTemplate "templates/default.html" linksContext
                         >>= relativizeUrls
     return ()
-

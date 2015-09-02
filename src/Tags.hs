@@ -18,7 +18,6 @@ module Tags (
     convertAuthorsToLinks
 ) where
 
-import Data.Monoid          (mconcat)
 import Data.List            (intercalate, isInfixOf)
 import Network.HTTP         (urlEncode)
 import Context              (postContext)
@@ -241,4 +240,3 @@ convertAuthorsToLinks = do
                                       (tagsAndAuthors !! 2)
                                       "Все статьи автора"
     return ()
-
