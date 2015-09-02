@@ -198,7 +198,7 @@
 </div>
 <p>Для начала немного упростим задачу и будем просто выводить результат разбора одномерного массива данных, сохраненного в npy формате (например, <code>[0.1, 0.2, 0.3, 0.4]</code>).</p>
 <p>Для начала определимся с используемыми типами данных:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Header</span> <span class="fu">=</span> <span class="dt">Header</span> {
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Header</span> <span class="fu">=</span> <span class="dt">Header</span> {
 <span class="ot">    magic           ::</span> <span class="dt">BC.ByteString</span>,
 <span class="ot">    minVersion      ::</span> <span class="dt">Word8</span>,
 <span class="ot">    maxVersion      ::</span> <span class="dt">Word8</span>,
@@ -211,7 +211,7 @@
 <span class="ot">    descr           ::</span> <span class="dt">String</span>,
 <span class="ot">    fortran_order   ::</span> <span class="dt">Bool</span>,
 <span class="ot">    shape           ::</span> [<span class="dt">Int</span>]
-    } <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre>
+    } <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre></div>
 <p><em>Header</em> будет содержать данные о файле в целом:</p>
 <ul>
 <li>magic (6 byte) -&gt; всегда <code>&quot;x93NUMPY&quot;</code></li>
@@ -222,7 +222,7 @@
 </ul>
 <p><em>DictHeader</em> представляет данные, которые хранятся в <code>Header.header</code>.</p>
 <p>Для извлечения данных из файла будем использовать пакет <a href="http://hackage.haskell.org/package/cereal-0.4.1.1">cereal</a>, т.к. обычно используемая для этих целей библиотека <a href="https://hackage.haskell.org/package/binary">binary</a>, на удивление, не умеет работать с числами с плавающей точкой.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">file <span class="ot">&lt;-</span> openBinaryFile filePath <span class="dt">ReadMode</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">file <span class="ot">&lt;-</span> openBinaryFile filePath <span class="dt">ReadMode</span>
 input <span class="ot">&lt;-</span> BL.hGetContents file
 <span class="kw">let</span> npyParsedData <span class="fu">=</span> runGetLazy npyHeader input
 <span class="kw">case</span> npyParsedData <span class="kw">of</span>
@@ -232,10 +232,10 @@ input <span class="ot">&lt;-</span> BL.hGetContents file
         <span class="kw">let</span> dictHeader <span class="fu">=</span> unwrap <span class="fu">.</span> header <span class="fu">$</span> npyParsedData
         print <span class="fu">$</span> header npyParsedData
         print <span class="fu">$</span> dictHeader
-        print <span class="fu">$</span> npyData npyParsedData</code></pre>
+        print <span class="fu">$</span> npyData npyParsedData</code></pre></div>
 <p>В коде есть один интересный (<code>runGetLazy</code>) и один неинтересный момент (<code>unwrap</code>). Последняя предназначена для обработки заголовка, и она не использует готовые библиотеки для парсинга JSON. Дело в том, что это не совсем JSON, а python dictionary, поэтому <code>Aeson</code> и <code>Text.JSON</code> не хотят с ним работать. Но т.к. формат его достаточно прост и вряд ли будет меняться, я просто выдрал нужные данные из строки без посредников.</p>
 <p><code>runGetLazy</code> возвращает либо итоговые данные, либо сообщение об ошибке (<code>Either String a</code>), и использует следующую функцию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">npyHeader ::</span> <span class="dt">Get</span> <span class="dt">Header</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">npyHeader ::</span> <span class="dt">Get</span> <span class="dt">Header</span>
 
 getNpyData <span class="fu">=</span> <span class="kw">do</span>
     empty <span class="ot">&lt;-</span> isEmpty
@@ -260,7 +260,7 @@ npyHeader <span class="fu">=</span> <span class="kw">do</span>
         headeLen<span class="fu">=</span>fromIntegral headeLen,
         header<span class="fu">=</span>header,
         npyData<span class="fu">=</span>npyData
-    }</code></pre>
+    }</code></pre></div>
 <p>Собственно, для каждого поля мы получаем необходимые данные. Для чтения самого массива чисел, который идет после заголовка, мы используем отдельную функцию, которая (пока!) вытягивает все до последнего без каких-либо проверок, но для простого случая этого достаточно.</p>
 <p>Что удивительно, на этом все =) Полный код можно подсмотреть <a href="https://github.com/erthalion/hnpy">здесь</a>. Теперь, если мы создадим тестовый файл (можно взять из репозитория, или создать самостоятельно <code>np.save('test', np.array([0.1, 0.2, 0.3, 0.4]))</code>), и натравим на него нашу утилитку, мы получим заложенные в нем данные (здесь были белки-истерички, но в финальной версии статьи я их удалил =):</p>
 <pre><code>$ hnpy test.npy

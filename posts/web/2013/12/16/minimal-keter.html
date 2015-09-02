@@ -196,22 +196,22 @@
 <p>По работе мне все эти шекспировски страсти из штатной поставки не нужны, а вот автодеплой пригодится. В принципе, итоговый результат по минимальности может потягаться даже со scotty, что определённо хороший знак.</p>
 <hr />
 <p>Первым делом надо сделать каталог проекта:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> mini
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> mini
 $ <span class="kw">cd</span> mini
 $ <span class="kw">cabal</span> sandbox init
 <span class="kw">Writing</span> a default package environment file to
 <span class="kw">/home/wiz/src/mini/cabal.sandbox.config</span>
-<span class="kw">Creating</span> a new sandbox at /home/wiz/src/mini/.cabal-sandbox</code></pre>
+<span class="kw">Creating</span> a new sandbox at /home/wiz/src/mini/.cabal-sandbox</code></pre></div>
 <p>Для использования cabal надо создать файл пакета, это тоже обычная процедура.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> init
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> init
 <span class="kw">...</span>
 <span class="kw">What</span> does the package build:
    <span class="kw">1</span>) <span class="kw">Library</span>
    <span class="kw">2</span>) <span class="kw">Executable</span>
 <span class="kw">Your</span> choice? 1
-<span class="kw">...</span></code></pre>
+<span class="kw">...</span></code></pre></div>
 <p>Создадим само приложение:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Application</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Application</span> <span class="kw">where</span>
 
 <span class="kw">import </span><span class="dt">Yesod.Core</span>
 <span class="kw">import </span><span class="dt">Data.Text</span> (<span class="dt">Text</span>)
@@ -225,9 +225,9 @@ mkYesod <span class="st">&quot;App&quot;</span> [parseRoutes<span class="fu">|</
 <span class="kw">instance</span> <span class="dt">Yesod</span> <span class="dt">App</span>
 
 <span class="ot">getHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Text</span>
-getHomeR <span class="fu">=</span> return <span class="st">&quot;Lolsies&quot;</span></code></pre>
+getHomeR <span class="fu">=</span> return <span class="st">&quot;Lolsies&quot;</span></code></pre></div>
 <p>Вот и всё, никаких супер-ужасов и развесистых модулей с сотнями автогенерённого кода. Теперь надо добавить экспорт приложения и зависимости в пакет. Нас интересует дефолтный блок library в конце файла:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
 
 executable mini
   <span class="co">-- exposed-modules:</span>
@@ -235,9 +235,9 @@ executable mini
   <span class="co">-- other-extensions:</span>
   build<span class="fu">-</span>depends<span class="fu">:</span>       base <span class="fu">&gt;=</span><span class="fl">4.6</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="dv">5</span>
   <span class="co">-- hs-source-dirs:</span>
-  default<span class="fu">-</span>language<span class="fu">:</span>    <span class="dt">Haskell2010</span></code></pre>
+  default<span class="fu">-</span>language<span class="fu">:</span>    <span class="dt">Haskell2010</span></code></pre></div>
 <p>Добавляем наше приложение в exposed-modules, фичи языка в default-extensions и ставим yesod-core и text в зависимости:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
 
 library
   <span class="co">-- hs-source-dirs:</span>
@@ -254,17 +254,17 @@ library
   build<span class="fu">-</span>depends<span class="fu">:</span>
       base <span class="fu">&gt;=</span><span class="fl">4.6</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">4.7</span>
     , yesod<span class="fu">-</span>core
-    , text</code></pre>
+    , text</code></pre></div>
 <p>Запускаем загрузку барахла в наш sandbox (и идём пить чай):</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> install -j --only-dependencies
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> install -j --only-dependencies
 <span class="kw">...</span>
-<span class="kw">Installed</span> yesod-core-1.2.6.2</code></pre>
+<span class="kw">Installed</span> yesod-core-1.2.6.2</code></pre></div>
 <p>Пробуем собрать пакет:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> keter
-<span class="kw">yesod</span>: InvalidYaml (Just (YamlException <span class="st">&quot;Yaml file not found: config/keter.yaml&quot;</span>))</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> keter
+<span class="kw">yesod</span>: InvalidYaml (Just (YamlException <span class="st">&quot;Yaml file not found: config/keter.yaml&quot;</span>))</code></pre></div>
 <p>Упс, не получилось. Но зато сразу понятно что надо делать (читать мануал по keter).</p>
 <p>Создаём необходимые каталоги и их содержимое:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> config static
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> config static
 $ <span class="kw">nano</span> config/keter.yaml
 Прописываем туда настройки <span class="kw">keter</span> - что, где деплоить:
 <span class="kw">exec</span>: ../dist/build/mini/mini
@@ -272,18 +272,18 @@ $ <span class="kw">nano</span> config/keter.yaml
     <span class="kw">-</span> production
 <span class="kw">host</span>: mini.example.org
 
-<span class="co"># copy-to: keter@keter.example.org:/opt/keter/incoming</span></code></pre>
+<span class="co"># copy-to: keter@keter.example.org:/opt/keter/incoming</span></code></pre></div>
 <p>Последняя строчка для автодеплоя: после успешной сборки оно само загрузит результат через scp, где его подхватит сервер. Теперь на всё это хозяйство вешаем загрузчик:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
 <span class="kw">import </span><span class="dt">Yesod.Core.Dispatch</span> (warpEnv)
 <span class="kw">import </span>&quot;mini&quot; <span class="dt">Application</span> (<span class="dt">App</span>(..))
 
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> warpEnv <span class="dt">App</span></code></pre>
+main <span class="fu">=</span> warpEnv <span class="dt">App</span></code></pre></div>
 <p><code>PackageImports</code> используются чтобы оно брало всё из библиотеки приложения и нам не пришлось дублировать все завимости ещё и для бинаря.</p>
 <p>Прописываем загрузчик в cabal:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">executable mini
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">executable mini
   main<span class="fu">-</span>is<span class="fu">:</span> Main.hs
   ghc<span class="fu">-</span>options<span class="fu">:</span> <span class="fu">-</span><span class="dt">O2</span> <span class="fu">-</span>threaded
   default<span class="fu">-</span>language<span class="fu">:</span> <span class="dt">Haskell2010</span>
@@ -292,9 +292,9 @@ main <span class="fu">=</span> warpEnv <span class="dt">App</span></code></pre>
   build<span class="fu">-</span>depends<span class="fu">:</span>
       base <span class="fu">&gt;=</span><span class="fl">4.6</span> <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">4.7</span>
     , mini
-    , yesod<span class="fu">-</span>core</code></pre>
+    , yesod<span class="fu">-</span>core</code></pre></div>
 <p>Вот теперь всё готово, заряжаем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> keter
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> keter
 <span class="kw">cleaning...</span>
 <span class="kw">Resolving</span> dependencies...
 <span class="kw">Configuring</span> mini-0.1.0.0...
@@ -309,7 +309,7 @@ main <span class="fu">=</span> warpEnv <span class="dt">App</span></code></pre>
 <span class="kw">Preprocessing</span> executable <span class="st">'mini'</span> for mini-0.1.0.0...
 [<span class="kw">1</span> of 1] Compiling Main             ( Main.hs, dist/build/mini/mini-tmp/Main.o )
 <span class="kw">Linking</span> dist/build/mini/mini ...
-<span class="kw">mini.keter</span>                                         100% 4295KB   1.4MB/s   00:03   </code></pre>
+<span class="kw">mini.keter</span>                                         100% 4295KB   1.4MB/s   00:03   </code></pre></div>
 <hr />
 <p>Вот и всё. Теперь добавляем всю фигню в приложение, компилим, делаем yesod keter. У себя на локальном сервере можно даже в inotifywait-скрипт завернуть и будет не хуже yesod devel (который, кстати, не работает - но это уже тема для отдельного поста).</p>
 <p>Завернув это в репозиторий, получим скелет для быстрого старта.</p>

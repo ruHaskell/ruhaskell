@@ -201,15 +201,15 @@
 <h3 id="краткий-обзор">Краткий обзор</h3>
 <p><code>data MVar a</code> можно рассматривать как ящик защищенный мьютексом, в котором может или находиться или не находиться значение.</p>
 <p>У <code>MVar</code> переменных есть достаточно простой базовый API:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">MVar</span> a  <span class="co">-- abstract</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">MVar</span> a  <span class="co">-- abstract</span>
 
 <span class="ot">newEmptyMVar ::</span> <span class="dt">IO</span> (<span class="dt">MVar</span> a)
 <span class="ot">newMVar      ::</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">MVar</span> a)
 <span class="ot">takeMVar     ::</span> <span class="dt">MVar</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span> a
-<span class="ot">putMVar      ::</span> <span class="dt">MVar</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<span class="ot">putMVar      ::</span> <span class="dt">MVar</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre></div>
 <p>Операции <code>newEmptyMVar</code> и <code>newMVar</code> создают новую переменную, пустую или со значением соотвественно. Операция <code>takeMVar</code> получает текущее значение, оставляя <code>MVar</code> пустым или блокируется в случае если <code>MVar</code> пуст. Операция <code>putMVar</code> наоборот кладёт значение в <code>MVar</code> если он пуст или блокируется, если в <code>MVar</code> уже есть значение.</p>
 <p>Небольшой пример того, как может использоваться <code>MVar</code></p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Concurrent</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Concurrent</span>
 
 main <span class="fu">=</span> <span class="kw">do</span>
   result <span class="ot">&lt;-</span> newEmptyMVar                    <span class="co">-- (1)</span>
@@ -220,12 +220,12 @@ main <span class="fu">=</span> <span class="kw">do</span>
   doSmthElse
 
   r <span class="ot">&lt;-</span> takeMVar result                      <span class="co">-- (5)</span>
-  print r</code></pre>
+  print r</code></pre></div>
 <p>В этом коде мы создали ячейку для результата <code>(1)</code>, запустили фоновое действие <code>(2)</code>, получили результат со страницы <code>(3)</code>, положили результат в ячейку <code>(4)</code>, в главном потоке после завершения действия получили данные из ячейки <code>(5)</code>.</p>
 <p>В случае если все процессы заблокированы на <code>MVar</code>, система исполнения может автоматически отслеживать такие ситуации, и выбрасывать исключение в таком случае:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
   m <span class="ot">&lt;-</span> newEmptyMVar
-    takeMVar m</code></pre>
+    takeMVar m</code></pre></div>
 <pre><code> $ ./mvar3
  mvar3: thread blocked indefinitely in an MVar operation</code></pre>
 <p>Вкратце такое происходит, если система исполнения “видит”, что ни у одного незаблокированного потока нет в области видимости <code>MVar</code>-переменной, запись или чтение из которой могут разблокировать систему. Однако, часто такое описание может вызвать затруднение, подробно разные случае рассмотрены в посте Edward Z. Yang <a href="http://blog.ezyang.com/2011/07/blockedindefinitelyonmvar/">BlockedIndefinitelyOnMVar</a>.</p>
@@ -241,23 +241,23 @@ main <span class="fu">=</span> <span class="kw">do</span>
 <li><ol style="list-style-type: decimal">
 <li>Возвращение результата из подпотока. (Пример с рабочим процессом выше)</li>
 <li><p>Синхронизация между потоками, например ожидание завершения потоков</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
   finished <span class="ot">&lt;-</span> newEmptyMVar
   forkFinally (const <span class="fu">$</span> putMVar finished ())
               run 
-  takeMVar tid</code></pre></li>
+  takeMVar tid</code></pre></div></li>
 </ol></li>
 <li><ol style="list-style-type: decimal">
 <li><p>Многопоточный доступ к состоянию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">st <span class="ot">&lt;-</span> newMVar <span class="dt">State</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">st <span class="ot">&lt;-</span> newMVar <span class="dt">State</span>
 replicateM <span class="dv">3</span> <span class="fu">$</span> forkIO <span class="fu">$</span> forever <span class="fu">$</span> <span class="kw">do</span>
     r <span class="ot">&lt;-</span> request
-    modifyMVar st (processRequest r)</code></pre></li>
+    modifyMVar st (processRequest r)</code></pre></div></li>
 <li><p>Блокирока ресурса при многопоточном доступе:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">lock <span class="ot">&lt;-</span> newMVar ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">lock <span class="ot">&lt;-</span> newMVar ()
 replicateM <span class="dv">3</span> <span class="fu">$</span> forkIO <span class="fu">$</span> <span class="kw">do</span>
     <span class="fu">...</span>
-    withMVar_ lock doScarryThings</code></pre></li>
+    withMVar_ lock doScarryThings</code></pre></div></li>
 </ol></li>
 <li>каналы <a href>Control.Concurrent.Chan</a></li>
 </ol>
@@ -305,41 +305,41 @@ replicateM <span class="dv">3</span> <span class="fu">$</span> forkIO <span clas
 <blockquote>
 <p>Ни один поток не может заблокироваться на <code>MVar</code> навечно, за исключением случая, если другой поток вечно “держит” <code>MVar</code>.</p>
 </blockquote>
-<p>Другими словами, если поток <span class="math"><em>τ</em></span> вызывает <code>takeMVar</code> и выполняются регулярные операции <code>putMVar</code> на той же переменной, то <code>takeMVar</code> когда-нибудь завершится. В GHC данная гарантия реализована при помощи хранения всех потоков заблокированных на <code>MVar</code> в очереди (FIFO), и при осводождении <code>MVar</code> выполнение пробуждения потока и выполнения операции над <code>MVar</code> за один атомарный шаг.</p>
+<p>Другими словами, если поток <span class="math inline"><em>τ</em></span> вызывает <code>takeMVar</code> и выполняются регулярные операции <code>putMVar</code> на той же переменной, то <code>takeMVar</code> когда-нибудь завершится. В GHC данная гарантия реализована при помощи хранения всех потоков заблокированных на <code>MVar</code> в очереди (FIFO), и при осводождении <code>MVar</code> выполнение пробуждения потока и выполнения операции над <code>MVar</code> за один атомарный шаг.</p>
 <p>Важным следствием гарантии справедливости является то, что достаточно будить только один поток, что уменьшает нагрузку. (Это несправедливо для случая <code>STM</code>, где в при обновлении <code>TVar</code> должны быть пробужены все заблокированные потоки).</p>
 <h3 id="исключения-и-mvar">Исключения и <code>MVar</code></h3>
 <p>Особенно аккуратным при работе с <code>MVar</code> нужно быть в случае возможных асинхронных исключений. Поскольку необходимо следить за тем, чтобы даже в при наличии исключений актуальность <code>MVar</code> не терялась.</p>
 <p>Функции для работы с <code>MVar</code> как с контейнером “знают” об исключениях, и, в случае, если исключение появляется, возвращают состояние <code>MVar</code>. Делается это достаточно просто, но является интересным и простым примером работы с асинхронными исключениями:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">modifyMVar m f <span class="fu">=</span> mask <span class="fu">$</span> \restore <span class="ot">-&gt;</span> <span class="kw">do</span>                  <span class="co">-- (1)</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">modifyMVar m f <span class="fu">=</span> mask <span class="fu">$</span> \restore <span class="ot">-&gt;</span> <span class="kw">do</span>                  <span class="co">-- (1)</span>
     x <span class="ot">&lt;-</span> takeMVar                                       <span class="co">-- (2)</span>
     (y, n) <span class="ot">&lt;-</span> restore f <span class="ot">`onException`</span> putMVar x         <span class="co">-- (3)</span>
     putMVar y                                           <span class="co">-- (4)</span>
-    return n                                            <span class="co">-- (5)</span></code></pre>
+    return n                                            <span class="co">-- (5)</span></code></pre></div>
 <p>Здесь мы <code>(1)</code> - заблокировали исключения, и получили функцию для из разблокировки <code>restore</code>; <code>(2)</code> получили текущее значение <code>MVar</code>; <code>(3)</code> - разблокировав исключения запустили пользовательскую функцию, если вовремя выполнения пользовательской функции пришло исключение, то мы возвращаем значение <code>MVar</code> и выбрасываем исключение выше; <code>(4)</code> - если мы дожили до этого участка кода без исключений, то они больше не случатся, мы кладём новое значение и возвращаем результат <code>(5)</code>. Достаточно просто, но это и простейший примитив :).</p>
 <p>Но все ли тут хорошо? Внимательный читатель спросит, а как же можно остановить поток, который заблокирован на <code>takeMVar</code>, если исключения замаскированы. Тут есть две части ответа: во-первых <code>IndefinitelyBlockedOnMVar</code> исключение магическое (работает как синхронное) и потому игнорирует маскировку, а во-вторых подобные операции, выполняющие блокирующие операции, снимают маскировку. Т.о. при чтении <code>MVar</code>, в случае если <code>MVar</code> пуст (и тред блокируется), асинхронное исключение может быть доставлено, даже если исключения заблокированы. Аналогично с записью и не-пустым <code>MVar</code>. Данное правило является не самым простым, но его понимание важно при написании кода лишенного гонок. Для случаев, когда такое поведение нежелательно существует операция <code>uninterruptibleMask</code>, не позволяющая разблокировать исключения, эта оперция не несёт дополнительной сложности, но в этом случае разблокировать ветку будет невозможно (кроме <code>IndefinitelyBlockedOnMVar</code>). Подробно про работу и исключениями можно прочитать в документации модуля <a href="http://hackage.haskell.org/package/base-4.7.0.2/docs/Control-Exception.html">Control.Exception</a>.</p>
 <p>Но все ли теперь хорошо? На самом деле нет, существует ещё одна возможная проблема! В случае, если состояние <code>MVar</code> должно отражать состояние внешнего мира, а операция внутри <code>MVar</code> его изменяет, возможна рассинхронизация. Представьте следующий пример:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">newConnection addr <span class="fu">=</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">newConnection addr <span class="fu">=</span>
   modifyMVar state <span class="fu">$</span> \state <span class="ot">-&gt;</span>                      <span class="co">--  (1)</span>
     mc <span class="ot">&lt;-</span> connect addr                              <span class="co">--  (2)</span>
                                                     <span class="co">--  (BOOM!)</span>
     <span class="kw">case</span> ec <span class="kw">of</span>
       <span class="dt">Left</span> e <span class="ot">-&gt;</span> return (state, <span class="dt">ConnectionError</span> e)   <span class="co">--  (3)</span>
-      <span class="dt">Rigth</span> r <span class="ot">-&gt;</span> return (r<span class="fu">:</span>state, <span class="dt">OK</span>)               <span class="co">--  (4)</span></code></pre>
+      <span class="dt">Rigth</span> r <span class="ot">-&gt;</span> return (r<span class="fu">:</span>state, <span class="dt">OK</span>)               <span class="co">--  (4)</span></code></pre></div>
 <p>В этом коде мы захватываем состояние <code>(1)</code>; открываем новое соединение <code>(2)</code>; в случае неуспеха возвращаем ошибку, не изменяя состояние <code>(3)</code>; в случае успеха сохраняем новое состояние и возращаем соотвествующий результат <code>(4)</code>. Теперь представим, что мы получаем асинхронное исключение в момент <code>(BOOM!)</code>, здесь соедиение уже открыто, но ещё не сохранено в состояние, после получения исключение в <code>state</code> возвращается старое значение - ошибка.</p>
 <p>Одно из решений использовать маскировку самому:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">newConnection addr <span class="fu">=</span> mask <span class="fu">$</span> \release <span class="ot">-&gt;</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">newConnection addr <span class="fu">=</span> mask <span class="fu">$</span> \release <span class="ot">-&gt;</span>
   modifyMVar state <span class="fu">$</span> \state <span class="ot">-&gt;</span>                      <span class="co">--  (1)</span>
     mc <span class="ot">&lt;-</span> release (connect addr)                    <span class="co">--  (2), (BOOM!)</span>
     <span class="kw">case</span> ec <span class="kw">of</span>
       <span class="dt">Left</span> e <span class="ot">-&gt;</span> return (state, <span class="dt">ConnectionError</span> e)   <span class="co">--  (3)</span>
-      <span class="dt">Rigth</span> r <span class="ot">-&gt;</span> return (r<span class="fu">:</span>state, <span class="dt">OK</span>)               <span class="co">--  (4)</span></code></pre>
+      <span class="dt">Rigth</span> r <span class="ot">-&gt;</span> return (r<span class="fu">:</span>state, <span class="dt">OK</span>)               <span class="co">--  (4)</span></code></pre></div>
 <p>или если <code>connect</code> размаскирует исключения:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">newConnection addr <span class="fu">=</span> mask_ <span class="fu">$</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">newConnection addr <span class="fu">=</span> mask_ <span class="fu">$</span>
   modifyMVar state <span class="fu">$</span> \state <span class="ot">-&gt;</span>                      <span class="co">--  (1)</span>
     mc <span class="ot">&lt;-</span> connect addr                              <span class="co">--  (2), (BOOM!)</span>
     <span class="kw">case</span> ec <span class="kw">of</span>
       <span class="dt">Left</span> e <span class="ot">-&gt;</span> return (state, <span class="dt">ConnectionError</span> e)   <span class="co">--  (3)</span>
-      <span class="dt">Rigth</span> r <span class="ot">-&gt;</span> return (r<span class="fu">:</span>state, <span class="dt">OK</span>)               <span class="co">--  (4)</span></code></pre>
+      <span class="dt">Rigth</span> r <span class="ot">-&gt;</span> return (r<span class="fu">:</span>state, <span class="dt">OK</span>)               <span class="co">--  (4)</span></code></pre></div>
 <p>Данный код будет работать корректно. Также можно использовать методы <code>modifyMVarMasked</code>, который работает аналогично последнему блоку кода.</p>
 <p>Следует заметить, что <code>STM</code> не имеет большей части из этих проблем и существенно проще в использовании, но там имеются свои сложности с включением <code>IO</code> операций в транзакции (или написания серии блоков <code>STM -&gt; IO -&gt; STM</code>) и с отсутствием гарантии справедливости.</p>
 

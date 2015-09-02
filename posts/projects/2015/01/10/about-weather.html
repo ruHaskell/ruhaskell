@@ -188,7 +188,7 @@
     <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
         
             <div class="href-to-original">
-                <a href="https://astynax.github.io/posts/o-pogode-funktsionalno.html" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
+                <a href="https://astynax.github.io/posts/2014-11-22-o-pogode-funktsionalno.html" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
             </div>
         
     </div>
@@ -212,7 +212,7 @@
 <h2 id="типа-типы">“Типа, типы”</h2>
 <p>Haskell учит: <strong>Сначала типы, постом всё остальное!</strong></p>
 <p>Посему:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Text</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Text</span>
 
 <span class="co">-- Единицы измерения температуры</span>
 <span class="kw">data</span> <span class="dt">TempUnits</span> <span class="fu">=</span> <span class="dt">Celsiuses</span>
@@ -228,10 +228,10 @@
 
 <span class="co">-- пара алиасов для красоты</span>
 <span class="kw">type</span> <span class="dt">CityID</span> <span class="fu">=</span> <span class="dt">String</span>
-<span class="kw">type</span> <span class="dt">Url</span> <span class="fu">=</span> <span class="dt">String</span></code></pre>
+<span class="kw">type</span> <span class="dt">Url</span> <span class="fu">=</span> <span class="dt">String</span></code></pre></div>
 <p>Данные о погоде хранятся преимущественно в полях типа <code>Text</code>, т.к. могут содержат символы Unicode, да и получаться будут из XML, текст в котором хранится именно в <code>Text</code>.</p>
 <p>Т.к. погоду предстояло выводить в текстовом виде, реализовал приведение <code>Weather</code> к строке. Вот как это выглядит:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">renderWeather ::</span> <span class="dt">Weather</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">renderWeather ::</span> <span class="dt">Weather</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
 renderWeather w <span class="fu">=</span>
   concat [ unpack (getDate w), <span class="st">&quot;: &quot;</span>
          , unpack (getCity w)
@@ -241,7 +241,7 @@ renderWeather w <span class="fu">=</span>
               <span class="dt">Celsiuses</span>  <span class="ot">-&gt;</span> <span class="st">&quot;°C&quot;</span>
               <span class="dt">Farenheits</span> <span class="ot">-&gt;</span> <span class="st">&quot;°F&quot;</span>
          , <span class="st">&quot;, &quot;</span>
-         , unpack (getText w)]</code></pre>
+         , unpack (getText w)]</code></pre></div>
 <p>Вывод же получается следующим</p>
 <p><code>Fri, 21 Nov 2014 9:59 pm MSK: Kazan'(Russia), -5°C, Fog</code></p>
 <blockquote>
@@ -250,7 +250,7 @@ renderWeather w <span class="fu">=</span>
 <p>Ну вот, данные есть, теперь можно вернуться к первоначальному плану. Итак</p>
 <h2 id="ну-и-запросы-у-вас">“Ну и запросы у вас!”</h2>
 <p>Работа с протоколом HTTP в Haskell обычно делается силами пакета… HTTP! Кхм, даже скучно как-то. Первый вариант функции отправки запроса с возвратом тела ответа выглядел так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Импорты</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Импорты</span>
 <span class="kw">import </span><span class="dt">Network.HTTP</span> ( catchIO
                     , getRequest, getResponseBody
                     , simpleHTTP )
@@ -262,19 +262,19 @@ renderWeather w <span class="fu">=</span>
 request url <span class="fu">=</span>
   catchIO (liftM <span class="dt">Just</span> (simpleHTTP (getRequest url)
                    <span class="fu">&gt;&gt;=</span> getResponseBody))
-          (const (return <span class="dt">Nothing</span>))</code></pre>
+          (const (return <span class="dt">Nothing</span>))</code></pre></div>
 <p>Здесь всё довольно просто: результатом неудавшегося запросы будет просто <code>Nothing</code>, а в случае удачи вернётся <code>Just &quot;...&quot;</code> с телом ответа.</p>
 <p>Url же формировать было поручено этой функции:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkAPIUrl ::</span> <span class="dt">CityID</span> <span class="ot">-&gt;</span> <span class="dt">TempUnits</span> <span class="ot">-&gt;</span> <span class="dt">Url</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkAPIUrl ::</span> <span class="dt">CityID</span> <span class="ot">-&gt;</span> <span class="dt">TempUnits</span> <span class="ot">-&gt;</span> <span class="dt">Url</span>
 mkAPIUrl city units <span class="fu">=</span>
   <span class="kw">let</span> unitStr <span class="fu">=</span> <span class="kw">case</span> units <span class="kw">of</span>
                   <span class="dt">Celsiuses</span>  <span class="ot">-&gt;</span> <span class="st">&quot;c&quot;</span>
                   <span class="dt">Farenheits</span> <span class="ot">-&gt;</span> <span class="st">&quot;f&quot;</span>
   <span class="kw">in</span> <span class="st">&quot;http://weather.yahooapis.com/forecastrss?w=&quot;</span>
-  <span class="fu">++</span> city <span class="fu">++</span> <span class="st">&quot;&amp;u=&quot;</span> <span class="fu">++</span> unitStr</code></pre>
+  <span class="fu">++</span> city <span class="fu">++</span> <span class="st">&quot;&amp;u=&quot;</span> <span class="fu">++</span> unitStr</code></pre></div>
 <p>Здесь тоже всё прозрачно, я считаю.</p>
 <p>Этот вариант HTTP-клиента работал у меня отлично дома, однако через офисный <strong>proxy-сервер</strong> пробиться сходу он, увы, не смог. Ну да ладно, на то он и <code>simpleHTTP</code> - ему простительно. Гугление подсказало, что через прокси может ходить <code>Network.HTTP.Browser</code>. Решено было его и использовать. Теперь код запроса погоды выглядит так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Новые импорты</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Новые импорты</span>
 <span class="kw">import </span><span class="dt">Network.Browser</span>    (browse, request,
                            setOutHandler, setProxy)
 <span class="kw">import </span><span class="dt">Network.HTTP</span>       (<span class="dt">Response</span> (rspBody),
@@ -300,10 +300,10 @@ simpleRequest mbProxy url <span class="fu">=</span>
         <span class="co">-- весь вывод в консоль от браузера подавляется</span>
         setOutHandler <span class="fu">$</span> const <span class="fu">$</span> return ()
         request (getRequest url)
-      return (rspBody res)</code></pre>
+      return (rspBody res)</code></pre></div>
 <h2 id="что-то-неразборчив-ваш-xml-без-линз-никак">“Что-то неразборчив ваш XML, без линз никак!”</h2>
 <p>XML-документы в Haskell хранятся в типе <code>Document</code> из модуля <code>Text.XML</code>. Получить же документ из строки с содержимым можно так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.Text</span>    <span class="kw">as</span> <span class="dt">T</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.Text</span>    <span class="kw">as</span> <span class="dt">T</span>
 <span class="kw">import           </span><span class="dt">Data.Default</span> (def)
 <span class="kw">import qualified</span> <span class="dt">Text.XML</span>     <span class="kw">as</span> <span class="dt">X</span>
 <span class="kw">import           </span><span class="dt">Text.XML</span>     (<span class="dt">Document</span>)
@@ -314,10 +314,10 @@ simpleRequest mbProxy url <span class="fu">=</span>
 parseDocument s <span class="fu">=</span>
   <span class="kw">case</span> X.parseText def (T.pack s) <span class="kw">of</span>
     <span class="dt">Right</span> d <span class="ot">-&gt;</span> <span class="dt">Just</span> d
-    _       <span class="ot">-&gt;</span> <span class="dt">Nothing</span></code></pre>
+    _       <span class="ot">-&gt;</span> <span class="dt">Nothing</span></code></pre></div>
 <p><code>parseText</code> возвращает <code>Either</code>, содержащий описание ошибок парсинга. Однако, данная задача не требует таких подробностей, поэтому функция, приведенная выше, возвращает просто <code>Maybe Document</code>.</p>
 <p>Документ получать уже можно, но ведь нужно ещё и работать с ним. Будучи знаком с линзами, я прямо таки чувствовал, что XML можно обрабатывать и с их помощью. Так и вышло: нашелся пакет <code>xml-lens</code>! Разбор документа далее будет производиться с его помощью:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;), (&lt;*&gt;))
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;), (&lt;*&gt;))
 <span class="kw">import </span><span class="dt">Text.XML.Lens</span>       (attr, el, named, root, (./), (^?))
 
 <span class="ot">getWeather ::</span> <span class="dt">Document</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Weather</span>
@@ -334,16 +334,16 @@ getWeather doc <span class="fu">=</span>
          <span class="fu">&lt;*&gt;</span> condition <span class="fu">^?</span> attr <span class="st">&quot;text&quot;</span>
   <span class="kw">where</span>
 <span class="ot">    toTempUnit ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">TempUnits</span>
-    toTempUnit <span class="fu">=</span> flip lookup [(<span class="st">&quot;C&quot;</span>, <span class="dt">Celsiuses</span>), (<span class="st">&quot;F&quot;</span>, <span class="dt">Farenheits</span>)]</code></pre>
+    toTempUnit <span class="fu">=</span> flip lookup [(<span class="st">&quot;C&quot;</span>, <span class="dt">Celsiuses</span>), (<span class="st">&quot;F&quot;</span>, <span class="dt">Farenheits</span>)]</code></pre></div>
 <p>XML-линзы выглядят необычно, но для тем, кто знаком с линзами в целом, разобраться труда не составит. Сам код же вполне читаем получился, что особо порадовало.</p>
 <h2 id="также-доступны-следующие-опции">“Также доступны следующие опции…”</h2>
 <p>Опции программы нужно где-то хранить, для этой цели был добавлен тип:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Config</span> <span class="fu">=</span> <span class="dt">Config</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Config</span> <span class="fu">=</span> <span class="dt">Config</span>
             {<span class="ot"> cityID    ::</span> <span class="dt">Maybe</span> <span class="dt">CityID</span>
             ,<span class="ot"> tempUnits ::</span> <span class="dt">TempUnits</span>
-            ,<span class="ot"> proxy     ::</span> <span class="dt">Maybe</span> <span class="dt">Proxy</span> }</code></pre>
+            ,<span class="ot"> proxy     ::</span> <span class="dt">Maybe</span> <span class="dt">Proxy</span> }</code></pre></div>
 <p>Командную строку я решил разбирать с помощью библиотеки <code>optparse-applicative</code>. Встретил её я какое то время назад, но использовать пакет ещё не доводилось. Здесь же библиотека очень пригодилась. Парсер опций с выглядит так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Options.Applicative</span>       (<span class="dt">Parser</span>, execParser, flag, fullDesc,
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Options.Applicative</span>       (<span class="dt">Parser</span>, execParser, flag, fullDesc,
                                   header, help, helper, info, long,
                                   metavar, option, progDesc, short,
                                   strOption, (<span class="fu">&lt;&gt;</span>))
@@ -372,14 +372,14 @@ opts <span class="fu">=</span> <span class="dt">Config</span>
   <span class="kw">where</span>
     extractProxy <span class="fu">=</span>
       <span class="dt">ReadM</span> <span class="fu">.</span> maybe (<span class="dt">Left</span> (<span class="dt">ErrorMsg</span> <span class="st">&quot;Wrong proxy string! (see --help)&quot;</span>)) <span class="dt">Right</span>
-            <span class="fu">.</span> parseProxy</code></pre>
+            <span class="fu">.</span> parseProxy</code></pre></div>
 <p>Сам же интерфейс командной строки описывается так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">cli ::</span> <span class="dt">IO</span> <span class="dt">Config</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">cli ::</span> <span class="dt">IO</span> <span class="dt">Config</span>
 cli <span class="fu">=</span> execParser
     <span class="fu">$</span> info (helper <span class="fu">&lt;*&gt;</span> opts)
       (fullDesc
     <span class="fu">&lt;&gt;</span> progDesc <span class="st">&quot;Print current weather for CITY&quot;</span>
-    <span class="fu">&lt;&gt;</span> header <span class="st">&quot;weather - Yahoo Weather displaying tool&quot;</span>)</code></pre>
+    <span class="fu">&lt;&gt;</span> header <span class="st">&quot;weather - Yahoo Weather displaying tool&quot;</span>)</code></pre></div>
 <p>Библиотека, кроме собственно реализации опций, даёт ещё и возможность генерировать автоматически справку по ключам и опциям. Выглядит справка так:</p>
 <pre><code>$ weather --help
 weather - Yahoo Weather displaying tool
@@ -394,7 +394,7 @@ Available options:
   -p,--proxy ARG           Proxy server in format [user:pass@]host[:port]</code></pre>
 <h2 id="всех-их-вместе-соберем">“Всех их вместе соберем!”</h2>
 <p>Ну вот, в общем то, и всё, что нужно для сборки готовой программы. Осталась самая малость - main-функция:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">System.Exit</span> (<span class="dt">ExitCode</span>(..), exitWith)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">System.Exit</span> (<span class="dt">ExitCode</span>(..), exitWith)
 
 <span class="fu">...</span>
 
@@ -411,7 +411,7 @@ doSomeWork cfg <span class="fu">=</span> <span class="kw">do</span>
   <span class="kw">let</span> weather <span class="fu">=</span> resp <span class="fu">&gt;&gt;=</span> parseDocument <span class="fu">&gt;&gt;=</span> getWeather
   maybe (return <span class="fu">$</span> <span class="dt">ExitFailure</span> <span class="dv">1</span>)
         ((<span class="fu">&gt;&gt;</span> return <span class="dt">ExitSuccess</span>) <span class="fu">.</span> putStrLn <span class="fu">.</span> renderWeather)
-        weather</code></pre>
+        weather</code></pre></div>
 <p><strong>Всё!</strong></p>
 <p>Вот и готово полезное приложение, и, что ещё важнее, опробованы удобные и мощные инструменты! Целиком же код можно посмотреть <a href="https://bitbucket.org/astynax/weather/overview">тут</a>.</p>
 

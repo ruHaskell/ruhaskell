@@ -221,15 +221,15 @@
 <p>Итак, приступим. Библиотека будет содержать два модуля: <code>Text.Html5.Entity.Data</code> – автоматически генерируемый модуль содержащий только данные, и <code>Text.Html5.Entity</code> – файл содержащий удобные функции для работы с этими данными.</p>
 <h1 id="пишем-код-который-напишет-код">Пишем код который напишет код</h1>
 <p>Начнем с автогенерируемого модуля. Вначале некоторые прагмы и несколько импортов.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- file: generation/Generate.hs</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- file: generation/Generate.hs</span>
 <span class="ot">{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}</span>
 
 <span class="kw">import           </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;))
 <span class="kw">import           </span><span class="dt">Data.Aeson</span>
 <span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy</span> <span class="kw">as</span> <span class="dt">BS</span>
-<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Lazy</span> <span class="kw">as</span> <span class="dt">HM</span></code></pre>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Lazy</span> <span class="kw">as</span> <span class="dt">HM</span></code></pre></div>
 <p>Для начала распарсим JSON файл в список тупл <code>[(String, [Int])]</code>, где <code>String</code> описывает мнемонику, а [Int] соответствующий список Unicode-кодов.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">EntityVal</span> <span class="fu">=</span> <span class="dt">EntityVal</span> {<span class="ot"> codepoints ::</span> [<span class="dt">Integer</span>] } <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Eq</span>)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">EntityVal</span> <span class="fu">=</span> <span class="dt">EntityVal</span> {<span class="ot"> codepoints ::</span> [<span class="dt">Integer</span>] } <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Eq</span>)
 <span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">EntityVal</span> <span class="kw">where</span>
     parseJSON (<span class="dt">Object</span> o) <span class="fu">=</span> <span class="dt">EntityVal</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;codepoints&quot;</span>
     parseJSON _ <span class="fu">=</span> error <span class="st">&quot;Not an object&quot;</span>
@@ -239,31 +239,31 @@
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span> <span class="kw">do</span>
     entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;entities.json&quot;</span>
-    <span class="kw">let</span> <span class="dt">Just</span> (<span class="ot">entMap ::</span> <span class="dt">Entities</span>) <span class="fu">=</span> HM.toList <span class="fu">.</span> HM.map codepoints <span class="fu">&lt;$&gt;</span> decode entFile</code></pre>
+    <span class="kw">let</span> <span class="dt">Just</span> (<span class="ot">entMap ::</span> <span class="dt">Entities</span>) <span class="fu">=</span> HM.toList <span class="fu">.</span> HM.map codepoints <span class="fu">&lt;$&gt;</span> decode entFile</code></pre></div>
 <p>Если вы знакомы с пакетом <a href="https://hackage.haskell.org/package/aeson">Aeson</a>, то все должно быть понятно. В противном случае не обращайте внимание это не самая важная часть статьи, важно то что мы прочитали файл “entities.json” и распарсили его в нужные нам данные в нужном нам виде.</p>
 <p>Стоит отметить, что я намеренно не извлекал из JSON файла поля “characters”, так как имея Unicode-код соответствующий ему знак можно получить с помощью функции <code>Data.Char.chr</code>.</p>
 <p>Итак. Данные у нас есть, теперь нужно сгенерировать код который будет их содержать.</p>
 <p>Для этого есть немного устаревшая, но прекрасно подходящая библиотека <a href="https://hackage.haskell.org/package/haskell-src/"><code>haskell-src</code></a> которая позволяет парсить и печать код стандарта Haskell98 в и из AST(Abstract Syntax Tree) соответственно.</p>
 <p>Из этой библиотеке нам понадобиться несколько модулей, так что:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Language.Haskell.Syntax</span> <span class="co">-- описание AST</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Language.Haskell.Syntax</span> <span class="co">-- описание AST</span>
 <span class="kw">import </span><span class="dt">Language.Haskell.Pretty</span> <span class="co">-- модуль для печати сгенерированного кода</span>
-<span class="kw">import </span><span class="dt">Language.Haskell.Parser</span> <span class="co">-- модуль для разбора существующего кода</span></code></pre>
+<span class="kw">import </span><span class="dt">Language.Haskell.Parser</span> <span class="co">-- модуль для разбора существующего кода</span></code></pre></div>
 <h2 id="а-зачем-нам-parser-мы-же-вроде-генерировать-собирались">А зачем нам Parser, мы же вроде генерировать собирались?</h2>
 <p>Дело в том, что запись кода в форме AST достаточна многословна. Оцените сами, в форме AST вот эти простые объявления импортов,</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
 <span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
 <span class="kw">import </span><span class="dt">Data.Set</span> (<span class="dt">Set</span>)
-<span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></code></pre>
+<span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></code></pre></div>
 <p>будут выглядеть вот так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">[ <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Map&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="fu">$</span> <span class="dt">Module</span> <span class="st">&quot;M&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[ <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Map&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="fu">$</span> <span class="dt">Module</span> <span class="st">&quot;M&quot;</span>)
                (<span class="dt">Just</span> (<span class="dt">False</span>, [ <span class="dt">HsIVar</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>
                              , <span class="dt">HsIAbs</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Map&quot;</span>]))
 , <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Set&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="fu">$</span> <span class="dt">Module</span> <span class="st">&quot;S&quot;</span>)
                (<span class="dt">Just</span> (<span class="dt">False</span>, [ <span class="dt">HsIVar</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>
-                             , <span class="dt">HsIAbs</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Set&quot;</span>]))]</code></pre>
+                             , <span class="dt">HsIAbs</span> <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Set&quot;</span>]))]</code></pre></div>
 <p>Я ленив и поэтому решил сделать шаблон <code>Template.hs</code> с содержимым в автоматической генерации которого я не нуждаюсь, а потом распарсить этот шаблон и дополнить его сгенерированным содержимым.</p>
 <p>Вот сам шаблон, содержащий все необходимые импорты и объявления типов:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- file: Template.hs</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- file: Template.hs</span>
 <span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span>
 
 <span class="kw">import           </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
@@ -272,23 +272,23 @@ main <span class="fu">=</span> <span class="kw">do</span>
 <span class="kw">import qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span>
 
 <span class="ot">entityMap ::</span> <span class="dt">Map</span> <span class="dt">String</span> [<span class="dt">Int</span>]
-<span class="ot">entitySet ::</span> <span class="dt">Set</span> <span class="dt">String</span></code></pre>
+<span class="ot">entitySet ::</span> <span class="dt">Set</span> <span class="dt">String</span></code></pre></div>
 <p>Как видите я объявил две функции <code>entityMap</code> и <code>entitySet</code>. <code>entityMap</code> это просто <code>Map</code> со строками-мнемониками в качестве ключей и списками знаков в качестве значений. <code>entitySet</code> это <code>Set</code> содержащий только строки-мнемоники для того чтобы можно было быстро проверять корректность мнемоник.</p>
 <p>Чуть позже я покажу как распарсить этот шаблон и дополнить его сгенерированными данными. Но вначале нужно сгенерировать эти данные.</p>
 <p>AST хаскелла достаточно объемный, но разобраться с ним не составит труда если следовать <a href="https://hackage.haskell.org/package/haskell-src-1.0.2.0/docs/Language-Haskell-Syntax.html">документации</a> на haddock.</p>
 <p>Начнём с определения AST функции <code>entitySet</code>. Для начала напишем прототип на нашем привычном языке:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">entitySet <span class="fu">=</span> S.fromList []</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">entitySet <span class="fu">=</span> S.fromList []</code></pre></div>
 <p>В списке который я оставил пустым должны быть все наши 2000+ мнемоник.</p>
 <p>Главная часть объявления нашей функции это выражение <code>S.fromList []</code>, вот как оно будет выглядеть в форме AST:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>) (<span class="dt">HsList</span> [])</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>) (<span class="dt">HsList</span> [])</code></pre></div>
 <p>Если разбить это выражение на части, то оно состоит из применения функции <code>S.fromList</code> к пустому списку. Думаю у вас не составит проблемы соотнести эти части с AST приведённым выше.</p>
 <p>Но нам не нужно выражение возвращающее пустой <code>Set</code>, нам нужен <code>Set</code> с нашими мнемониками. Объявим функцию <code>mkEntitySet :: Entities -&gt; HsExp</code> которая принимает список мнемоник, и возвращает выражение с <code>Set</code>-ом этих мнемоник:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkEntitySet ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkEntitySet ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
 mkEntitySet ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)
-                         (<span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsString</span> <span class="fu">.</span> fst) ents)</code></pre>
+                         (<span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsString</span> <span class="fu">.</span> fst) ents)</code></pre></div>
 <p>Ничего очень нового, разве что вместо пустого списка мы имеем <code>map (HsLit . HsString . fst) ents</code>. Которое превращает список мнемоник <code>ents</code> в список строковых литералов.</p>
 <p>Функция mkEntityMap которая делает аналогичное для <code>entityMap</code> не намного сложнее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkEntityMap ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkEntityMap ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span>
 mkEntityMap ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="fu">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;M&quot;</span>) <span class="fu">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)
                          (<span class="dt">HsList</span> <span class="fu">$</span> map mkMapElemTup ents)
 
@@ -296,9 +296,9 @@ mkEntityMap ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span 
 mkMapElemTup (name, codes) <span class="fu">=</span>
     <span class="dt">HsTuple</span> [ <span class="dt">HsLit</span> <span class="fu">$</span> <span class="dt">HsString</span> name
             , <span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsInt</span>) codes
-            ] </code></pre>
+            ] </code></pre></div>
 <p>Но постойте, ведь <code>mkEntitySet</code> и <code>mkEntityMap</code> это всего-лишь объявления выражений мы так и не привязали их к именам функций. Привяжем же:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">decls ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> [<span class="dt">HsDecl</span>]
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">decls ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> [<span class="dt">HsDecl</span>]
 decls ents <span class="fu">=</span>
     [ <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entityMap&quot;</span>) []
                                (<span class="dt">HsUnGuardedRhs</span> (mkEntityMap ents)) []]
@@ -306,10 +306,10 @@ decls ents <span class="fu">=</span>
                                (<span class="dt">HsUnGuardedRhs</span> (mkEntitySet ents)) []]
     ]
 
-noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></code></pre>
+noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></code></pre></div>
 <p>За исключением небольшой (оправданной) многословности, все просто. <code>SrcLoc</code> указывает на местоположение объявления в файле, но при генерации кода оно не имеет значения.</p>
 <p>Похоже что мы закончили с генерацией данных. Все что осталось это распарсить шаблон, дополнить его нашими определениями и записать это все в файл. Здесь все ещё проще. Дополним нашу <code>main</code> функцию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span>
     entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;generation/entities.json&quot;</span>
     <span class="kw">let</span> <span class="dt">Just</span> entMap <span class="fu">=</span> HM.toList <span class="fu">.</span> HM.map codepoints <span class="fu">&lt;$&gt;</span> decode entFile
     <span class="dt">ParseOk</span> template <span class="ot">&lt;-</span> parseModule <span class="fu">&lt;$&gt;</span> readFile <span class="st">&quot;generation/Template.hs&quot;</span>
@@ -318,9 +318,9 @@ noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">
 
 <span class="ot">appendTemplate ::</span> <span class="dt">HsModule</span> <span class="ot">-&gt;</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsModule</span>
 appendTemplate (<span class="dt">HsModule</span> srcLoc modName exports imports decls') ents <span class="fu">=</span>
-    <span class="dt">HsModule</span> srcLoc modName exports imports (decls' <span class="fu">++</span> decls ents)</code></pre>
+    <span class="dt">HsModule</span> srcLoc modName exports imports (decls' <span class="fu">++</span> decls ents)</code></pre></div>
 <p>На этом наш код для генерации модуля с данными готов. Вот его полный исходник:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span>
 
 <span class="kw">import           </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;))
 <span class="kw">import           </span><span class="dt">Data.Aeson</span>
@@ -375,9 +375,9 @@ mkEntitySet ents <span class="fu">=</span> <span class="dt">HsApp</span> (<span 
                          (<span class="dt">HsList</span> <span class="fu">$</span> map (<span class="dt">HsLit</span> <span class="fu">.</span> <span class="dt">HsString</span> <span class="fu">.</span> fst) ents)
 
 <span class="ot">noloc ::</span> <span class="dt">SrcLoc</span>
-noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></code></pre>
+noloc <span class="fu">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></code></pre></div>
 <p>Попробуем запустить и получим вот такой результат:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span>
 <span class="kw">import </span><span class="dt">Data.Map</span> (<span class="dt">Map</span>)
 <span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
 <span class="kw">import </span><span class="dt">Data.Set</span> (<span class="dt">Set</span>)
@@ -391,10 +391,10 @@ entityMap
       [(<span class="st">&quot;&amp;intlarhk;&quot;</span>, [<span class="dv">10775</span>]), (<span class="st">&quot;&amp;male;&quot;</span>, [<span class="dv">9794</span>]), (<span class="st">&quot;&amp;not;&quot;</span>, [<span class="dv">172</span>])<span class="fu">.....</span>]
 entitySet
   <span class="fu">=</span> S.fromList
-      [<span class="st">&quot;&amp;intlarhk;&quot;</span>, <span class="st">&quot;&amp;male;&quot;</span>, <span class="st">&quot;&amp;not;&quot;</span>, <span class="st">&quot;&amp;clubs;&quot;</span>, <span class="st">&quot;&amp;cudarrl;&quot;</span><span class="fu">.....</span>]</code></pre>
+      [<span class="st">&quot;&amp;intlarhk;&quot;</span>, <span class="st">&quot;&amp;male;&quot;</span>, <span class="st">&quot;&amp;not;&quot;</span>, <span class="st">&quot;&amp;clubs;&quot;</span>, <span class="st">&quot;&amp;cudarrl;&quot;</span><span class="fu">.....</span>]</code></pre></div>
 <h1 id="доступ-к-данным">Доступ к данным</h1>
 <p>Данные у нас есть, дело осталось за малым, написать удобные функции для доступа к этим данным:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Text.Html5.Entity</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Text.Html5.Entity</span>
 
 <span class="kw">import           </span><span class="dt">Control.Applicative</span> ((&lt;$&gt;))
 <span class="kw">import           </span><span class="dt">Data.Char</span> (chr)
@@ -423,7 +423,7 @@ entityNameCodePoints <span class="fu">=</span> entityCodePoints <span class="fu"
 entityNameChars <span class="fu">=</span> entityChars <span class="fu">.</span> nameToEntity
 
 <span class="ot">isValidEntityName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
-isValidEntityName name <span class="fu">=</span> S.member (nameToEntity name) entitySet</code></pre>
+isValidEntityName name <span class="fu">=</span> S.member (nameToEntity name) entitySet</code></pre></div>
 <h1 id="заключение">Заключение</h1>
 <p>Поставленная проблема решена. Конечно для полной законченности нужно поработать над оптимизацией. В целом идея генерации таких модулей не нова, к примеру существует инструмент <a href="https://www.gnu.org/software/gperf/">gperf</a> который генерирует C(++) код для поиска по хеш-таблицам построенных на основе списков строк. Тем не менее, я не смог найти примеров использования этой техники в Хаскелле, хотя наверняка они есть. Было бы интересно написать библиотеку которая упрощала бы генерацию вот таких модулей, с другой стороны куда уж проще, непосредственно генерирующий код умещается в 20-30 строк.</p>
 <p>Получившуюся библиотеку я разместил на hackage под именем <a href="https://hackage.haskell.org/package/html5-entity">html5-entity</a>.</p>

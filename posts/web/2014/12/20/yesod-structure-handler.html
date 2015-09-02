@@ -194,11 +194,11 @@
 <p>Сегодня мы продолжаем изучать структура Yesod-проекта. Пришла пора взглянуть на содержимое каталога <code>Handler</code>.</p>
 <h2 id="ресурсы">Ресурсы</h2>
 <p>Вспомним корневой маршрут, задаваемый в файле <code>config/routes</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/</span>       HomeR       GET POST</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/</span>       HomeR       GET POST</code></pre></div>
 <p>Все <code>GET-</code> и <code>POST</code>-запросы, направленные к корневой странице нашего приложения, будут обработаны сущностью, называемой <code>HomeR</code>. И теперь пришла пора заглянуть в каталог <code>Handler</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Home.hs</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Home.hs</span></code></pre></div>
 <p>В этом каталоге расположены файлы, содержащие код наших обработчиков. Откроем файл <code>Home.hs</code> и взглянем на них:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Handler.Home</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">module</span> <span class="dt">Handler.Home</span> <span class="kw">where</span>
 
 <span class="kw">import </span><span class="dt">Import</span>
 
@@ -208,20 +208,20 @@ getHomeR <span class="fu">=</span> <span class="kw">do</span>
 
 <span class="ot">postHomeR ::</span> <span class="dt">Handler</span> <span class="dt">Html</span>
 postHomeR <span class="fu">=</span> <span class="kw">do</span>
-    <span class="fu">...</span></code></pre>
+    <span class="fu">...</span></code></pre></div>
 <p>В этом файле есть ещё кое-что, но я специально убрал это, чтобы мы сфокусировались на главном. Итак, ресурс <code>HomeR</code> представлен двумя обработчиками: <code>GET</code>-запросы принимает функция <code>getHomeR</code>, а <code>POST</code>-запросы - функция <code>postHomeR</code>. Обратите внимание: имена этих функций образованы от имени ресурса <code>HomeR</code> путём приписывания к нему префиксов <code>get</code> и <code>post</code> (как вы помните, имя Haskell-функции всегда начинается с маленькой буквы). Впрочем, сейчас мы не станем рассматривать тела этих функций, это тема для отдельного разговора.</p>
 <p>Обратите также внимание на имя модуля <code>Handler.Home</code>. В Yesod-проектах принято, что имя модуля, содержащего код обработчиков для ресурса, совпадает с именем этого ресурса, за вычетом буквы <code>R</code>. Таким образом, ресурсу <code>HomeR</code> соответствует модуль <code>Handler.Home</code>, а, скажем, ресурсу <code>ContactsR</code> будет соответствовать модуль <code>Handler.Contacts</code>.</p>
 <h2 id="иерархия">Иерархия</h2>
 <p>Разумеется, файлы внутри каталога <code>Handler</code> могут располагаться в некой иерархии. В реальном проекте это значительно удобнее, нежели валить все файлы в одну кучу. Например, в моём проекте файлы, отвечающие за аутенификационные аспекты, расположены в отдельном подкаталоге, в частности:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Handler/</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Handler/</span>
     <span class="kw">Authentication/</span>
         <span class="kw">Error.hs</span>
-        <span class="kw">VerificationLetter.hs</span></code></pre>
+        <span class="kw">VerificationLetter.hs</span></code></pre></div>
 <p>В этом случае модуль, отвечающий за обработку неудачной попытки залогиниться, называется <code>Handler.Authentication.Error</code>.</p>
 <h2 id="ресурсы-по-умолчанию">Ресурсы по умолчанию</h2>
 <p>В списке наших маршрутов присутствуют, в частности, вот эти два:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/favicon.ico</span>    FaviconR    GET
-<span class="kw">/robots.txt</span>     RobotsR     GET</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/favicon.ico</span>    FaviconR    GET
+<span class="kw">/robots.txt</span>     RobotsR     GET</code></pre></div>
 <p>Первый возвращает наш любимый favicon, второй возвращает заметки для поисковых роботов. Помните содержимое каталога <code>config</code>? Там уже лежат файлы <code>favicon.ico</code> и <code>robots.txt</code>, вот они и возвращаются.</p>
 <p>Но вы спросите, а где же определены соответствующие обработчики? Ведь для ресурса <code>HomeR</code> есть файл <code>Handler/Home.hs</code>, однако файлов <code>Handler/Favicon.hs</code> и <code>Handler/Robots.hs</code> мы не видим. А всё очень просто: соответствующие обработчики уже определены внутри нашего проекта.</p>
 <p>Дело в том, что Yesod делает за нас кое-какие рутинные операции. Согласитесь, файлы <code>favicon.ico</code> и <code>robots.txt</code> нужны в любом веб-приложении. Ну а раз они нужны, Yesod создаёт их за нас автоматически. Нам остаётся только лишь заменить <code>config/favicon.ico</code> и подредактировать, при необходимости, содержимое <code>config/robots.txt</code>.</p>

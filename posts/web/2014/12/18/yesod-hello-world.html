@@ -204,23 +204,23 @@
 <p>Я не стану расписывать в радужных красках эти преимущества. К тому же есть <a href="http://www.yesodweb.com/book">офицальная книга по Yesod</a>. Цель этой заметки не в том, чтобы спеть славную оду в адрес Yesod и уговорить вас его попробовать, а в том, чтобы помочь тем, кто <em>уже</em> решил его попробовать. Впрочем, от себя скажу, что лично мне Yesod очень понравился.</p>
 <h2 id="готовимся">Готовимся</h2>
 <p>Разумеется, нам нужны пакеты семейства <code>yesod</code>. Начнём:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> update
-$ <span class="kw">cabal</span> install yesod-bin alex happy</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> update
+$ <span class="kw">cabal</span> install yesod-bin alex happy</code></pre></div>
 <p>Установка этого пакета потянет за собой ооооочень много других пакетиков, так что наберитесь терпения: их установка займёт на среднем современном ноутбуке минут 15.</p>
 <p>После того, как всё готово, упростим себе жизнь: пропишем пути к новым утилитам в нашу <code>PATH</code>, дабы было удобнее. Откроем файл <code>~/.bashrc</code> и добавим в него строку наподобие такой:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">export</span> <span class="ot">PATH=$PATH</span>:<span class="ot">$HOME</span>/.cabal/bin</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">export</span> <span class="ot">PATH=$PATH</span>:<span class="ot">$HOME</span>/.cabal/bin</code></pre></div>
 <p>Убедитесь, что команда <code>yesod</code> доступна в терминале.</p>
 <h2 id="скелет">Скелет</h2>
 <p>Теперь необходимо создать скелет нашего будущего веб-приложения. Для этого выполняем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span>
-$ <span class="kw">yesod</span> init</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span>
+$ <span class="kw">yesod</span> init</code></pre></div>
 <p>После этого вы увидите приглашение к краткой беседе:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Welcome</span> to the Yesod scaffolder.
-<span class="kw">I</span><span class="st">'m going to be creating a skeleton Yesod project for you.</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Welcome</span> to the Yesod scaffolder.
+<span class="kw">I</span><span class="st">'m going to be creating a skeleton Yesod project for you.</span></code></pre></div>
 <p>Затем вам следует ответить на два простых вопроса. Во-первых, указать имя проекта. Во-вторых, выбрать СУБД. Yesod поддерживает классическую четвёрку: SQLite, PostgreSQL, MySQL и MongoDB. Можно, конечно, и без СУБД (ну, для совсем helloworld-ных случаев), но мы с вами знаем, что без БД в реальном веб-приложении чрезвычайно скучно. Я выбрал Postgres. Далее подразумевается, что вы имеете (хотя бы минимальный) навык работы с <code>psql</code>.</p>
 <p><em>Кстати! Haskell-овский пакет, взаимодействующий с Postgres, завязан на стандартную C-шную библиотеку <code>libpq</code>. Если вы решили использовать Postgres и у вас ещё нет этой библиотеки, обязательно установите её из своего репозитория.</em></p>
 <p>После этого вы увидите вот такую забавную картинку:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">                     <span class="kw">___</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">                     <span class="kw">___</span>
                             {<span class="kw">-</span>)   <span class="kw">|\</span>
                        [<span class="kw">m</span>,].-<span class="st">&quot;-.   /</span>
 <span class="st">      [][__][__]         \(/\__/\)/</span>
@@ -228,28 +228,28 @@ $ <span class="kw">yesod</span> init</code></pre>
 <span class="st">      [][__][__][__][__][] /   |</span>
 <span class="st">      [__][__][__][__][__]| /| |</span>
 <span class="st">      [][__][__][__][__][]| || |  ~~~~</span>
-<span class="st">  ejm [__][__][__][__][__]__,__,  \__/</span></code></pre>
+<span class="st">  ejm [__][__][__][__][__]__,__,  \__/</span></code></pre></div>
 <p>а это значит, что дело сделано. У нас появился каталог по имени нашего проекта, пусть это будет <code>webhs</code>. Внутри этого каталога расположился наш проект. Причём он далеко не такой уж и helloworld-ный, каким может показаться…</p>
 <h2 id="стартуем">Стартуем</h2>
 <p>Вперёд:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> webhs
-$ <span class="kw">cabal</span> install</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> webhs
+$ <span class="kw">cabal</span> install</code></pre></div>
 <p>В результате этой команды наш проект будет собран, и мы готовы впервые лицезреть его. Для этого запускаем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3001</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3001</code></pre></div>
 <p>Запустится отладочный сервер, и приложение будет доступно на порту <code>3001</code>. Если же не указывать порт, по умолчанию используется <code>3000</code>.</p>
 <p>Впрочем, я обманул вас. На данный момент запустить приложение нам не удастся. Причина проста: мы же выбрали работу с Postgres, однако никак к этому не подготовились. Потому мы и увидим в терминале нечто подобное:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Devel</span> application launched: http://localhost:3001
-<span class="kw">devel.hs</span>: libpq: failed (FATAL:  role <span class="st">&quot;webhs&quot;</span> does not exist</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Devel</span> application launched: http://localhost:3001
+<span class="kw">devel.hs</span>: libpq: failed (FATAL:  role <span class="st">&quot;webhs&quot;</span> does not exist</code></pre></div>
 <p>Дабы исправить эту досадную оплошность, открываем файл <code>config/postgresql.yml</code> и вносим в него нужные параметры. Я не буду описывать их, потому что там всё предельно просто: указываем имя БД, пользователя и пароль (в качестве последних двух по умолчанию используется имя нашего проекта). Естественно, далее я исхожу из того, что соответствующую БД вы уже создали и предоставили права на неё соответствующему пользователю.</p>
 <p>Теперь мы готовы. Запускаем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3001</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yesod</span> devel -p 3001</code></pre></div>
 <p>заглядываем в <code>http://localhost:3001</code> и любуемся. Конечно, любоваться особенно нечем, но начало положено.</p>
 <h2 id="пояснение-по-приложению">Пояснение по приложению</h2>
 <p>Вы спросите, а что же такое мы запустили? Чем является наше приложение с технической точки зрения?</p>
 <p>Всё предельно просто. В каталоге нашего проекта, после его сборки, появился следующий файл: <code>~/webhs/dist/build/webhs/webhs</code>. Это и есть исполняемый файл нашего приложения. Команда <code>yesod devel -p 3001</code> просто запустила его в отладочном режиме (что очень удобно на стадии знакомства с системой), однако мы можем запустить этот файл и напрямую:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./dist/build/webhs/webhs</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./dist/build/webhs/webhs</span>
 <span class="kw">Usage</span>: webhs <span class="kw">&lt;</span>environment<span class="kw">&gt;</span> [--port <span class="kw">&lt;</span>port<span class="kw">&gt;</span>]
-<span class="kw">Valid</span> environments: [Development,Testing,Staging,Production]</code></pre>
+<span class="kw">Valid</span> environments: [Development,Testing,Staging,Production]</code></pre></div>
 <p>Здесь следует указать среду <code>Development</code> и, если нужно, порт. И всё запустится точно так же.</p>
 <p>Но вы спросите меня, а как же веб-сервер? Ведь запросы на <code>http://localhost:3001</code> должен кто-то принимать, не так ли? Совершенно верно, но для первого знакомства нам не понадобится ни наш любимый <code>nginx</code>, ни его братья. Наше приложение уже содержит в себе свой собственный веб-сервер. Называется он <code>warp</code>. Его можно использовать и как отдельный, легковесный http-сервер, но в Yesod-приложении он уже и так есть. Разумеется, если вы хотите, чтобы поверх него работал, например, <code>nginx</code>, вы можете сделать простое перенаправление на <code>localhost:3001</code>. Именно так я сделал на моём продакшн-сервере.</p>
 <p>Ну что ж, для первой заметки достаточно. В следующей заметке мы поговорим о структуре нашего проекта.</p>

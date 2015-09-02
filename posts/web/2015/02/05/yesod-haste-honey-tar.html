@@ -195,31 +195,31 @@
 <h2 id="подготовка">Подготовка</h2>
 <p>Haste - это Haskell-диалект, заточенный специально под веб-разработку. В него заложены довольно-таки интересные идеи, и одна из них - попытка отказа от нативного JavaScript. Haste позволяет писать настоящий Haskell-код, компилирующийся в <code>.js</code>-файлы. И это не могло не привлечь моё внимание: я захотел связать этот инструмент с моим Yesod-проектом с целью замены <code>.julius</code>-шаблонов Haskell-кодом.</p>
 <p>Установка Haste тривиальна, ведь, в отличие от того же PureScript, Haste не требует никаких JS-зависимостей:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> install haste-compiler
-$ <span class="kw">haste-boot</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cabal</span> install haste-compiler
+$ <span class="kw">haste-boot</span></code></pre></div>
 <p>Минут через десять установка завершится. Теперь мне доступна команда <code>hastec</code>, это и есть наш компилятор. Его использование в общем и целом таково:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">haste</span> Form.hs -o Form.js</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">haste</span> Form.hs -o Form.js</code></pre></div>
 <p><code>Form.hs</code> - исходный Haste-код, <code>Form.js</code> - сгенерированный JS-код. Всё предельно просто.</p>
 <p>И вот какой была моя задумка: беру Yesod-виджет (состоящий, как вы помните, из трёх шаблонных файлов) и заменяю <code>.julius</code>-шаблон Haste-файлом. Например, для формы регистрации нового пользователя было вот так:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">templates/</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">templates/</span>
     <span class="kw">home/</span>
         <span class="kw">register/</span>
             <span class="kw">form/</span>
                 <span class="kw">form.hamlet</span>
                 <span class="kw">form.lucius</span>
-                <span class="kw">form.julius</span></code></pre>
+                <span class="kw">form.julius</span></code></pre></div>
 <p>а стало вот так:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">templates/</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">templates/</span>
     <span class="kw">home/</span>
         <span class="kw">register/</span>
             <span class="kw">form/</span>
                 <span class="kw">form.hamlet</span>
                 <span class="kw">form.lucius</span>
-                <span class="kw">Form.hs</span></code></pre>
+                <span class="kw">Form.hs</span></code></pre></div>
 <p>Файл назван с большой буквы по привычке, чтобы было единство с остальными <code>.hs</code>-файлами. Затем я выполняю вот такую команду:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> templates/home/register/form/Form.hs -o static/js/Form.js</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> templates/home/register/form/Form.hs -o static/js/Form.js</code></pre></div>
 <p>В результате в каталоге <code>static/js/</code> появится файл <code>Form.js</code>. После этого мне останется лишь подключить его к проекту:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Foundation.hs</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Foundation.hs</span>
 <span class="fu">...</span>
     pageContent <span class="ot">&lt;-</span> widgetToPageContent <span class="fu">$</span> <span class="kw">do</span>
         <span class="fu">...</span>
@@ -227,24 +227,24 @@ $ <span class="kw">haste-boot</span></code></pre>
         addScript <span class="fu">$</span>     <span class="dt">StaticR</span> js_default_js
         addStylesheet <span class="fu">$</span> <span class="dt">StaticR</span> css_default_css
         addScript <span class="fu">$</span>     <span class="dt">StaticR</span> js_Form_js
-<span class="fu">...</span></code></pre>
+<span class="fu">...</span></code></pre></div>
 <p>Кстати, после добавления нового статического скрипта не забываем выполнить команду <code>touch Settings/StaticFiles.hs</code>, иначе проект не соберётся.</p>
 <p>Помимо прочего, компилятор <code>hastec</code> позволяет оптимизировать генерируемый JS-код. Выполняем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> --help</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> --help</code></pre></div>
 <p>и читаем, там всё понятно изложено. К сожалению, получить production-оптимизацию “из коробки” не получится:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> --opt-all templates/home/register/form/Form.hs -o static/js/Form.js
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">hastec</span> --opt-all templates/home/register/form/Form.hs -o static/js/Form.js
 <span class="kw">No</span> Java runtime present, requesting install.
-<span class="kw">hastec</span>: user error (Couldn<span class="st">'t execute Google Closure compiler: Command '</span>java<span class="st">' failed with error  code 1)</span></code></pre>
+<span class="kw">hastec</span>: user error (Couldn<span class="st">'t execute Google Closure compiler: Command '</span>java<span class="st">' failed with error  code 1)</span></code></pre></div>
 <p>Google Closure compiler <a href="https://developers.google.com/closure/compiler/faq#sourcemaps">требует</a> наличия JDK.</p>
 <p>Вот, собственно, и всё. Теперь заглянем внутрь.</p>
 <h2 id="мёд">Мёд</h2>
 <p>Вот содержимое файла <code>Form.hs</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Haste</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Haste</span>
 <span class="kw">import </span><span class="dt">Data.Maybe</span>
 
 main <span class="fu">=</span> <span class="kw">do</span>
     createProfileButton <span class="ot">&lt;-</span> elemById <span class="st">&quot;createProfileButton&quot;</span>
-    setClass (fromJust createProfileButton) <span class="st">&quot;disabled&quot;</span> <span class="dt">True</span></code></pre>
+    setClass (fromJust createProfileButton) <span class="st">&quot;disabled&quot;</span> <span class="dt">True</span></code></pre></div>
 <p>Красиво и понятно: мы получаем доступ к кнопке <code>#createProfileButton</code> и делаем её неактивной с помощью Bootstrap-класса <code>.disabled</code>.</p>
 <p>Как видите, это настоящий Haskell-код, и это не может не радовать. В модуле <code>Haste.DOM</code> присутствует множество стандартных обвязок для нативных JS-функций, лично я сориентировался весьма быстро.</p>
 <p>Какое же главное преимущество мы получаем, используя Haste? Мы получаем compile-time проверку! Больше никаких проблем с опечатками в именах JS-функций, никаких ошибок с несимметричными круглыми/фигурными скобками, никакой путаницы с количеством аргументов у функций. Теперь подобные ошибки будут отлавливаться на стадии компиляции, а про нагромождение JS-скобок вообще можно забыть.</p>
@@ -256,8 +256,8 @@ main <span class="fu">=</span> <span class="kw">do</span>
 <p>И в-третьих, избавиться от ручного написания JS-кода нам вряд ли удастся, и это хуже всего.</p>
 <p>В реальном проекте мы едва ли будем писать весь JS-код с нуля. Скорее всего, мы захотим использовать какие-то готовые библиотеки, типа JQuery и тому подобных. К сожалению, перевести такой библиотечный код в Haste-код невозможно, ведь разработчики Haste думали только о чистом JavaScript. Разумеется, мы можем интегрировать чистый JS-код в Haste-код с использованием FFI-механизма. Но это сводит к нулю главный плюс Haste - избавление от необходимости писать JS-код вручную.</p>
 <p>Более того, даже если мы напишем FFI-JS обёртку, наподобие такой:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getText ::</span> <span class="dt">JQuery</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">String</span>
-getText <span class="fu">=</span> ffi <span class="st">&quot;(function (DOMElement) { return DOMElement.text(); })&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getText ::</span> <span class="dt">JQuery</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">String</span>
+getText <span class="fu">=</span> ffi <span class="st">&quot;(function (DOMElement) { return DOMElement.text(); })&quot;</span></code></pre></div>
 <p>мы потеряем и второй плюс Haste, а именно проверку JS-кода на стадии компиляции. Как видите, JS-функция записана в виде обычной строки, и это не имеет никаких преимуществ перед тем, как если бы мы вернулись к сырым <code>.js</code>-файлам. В частности, взгляните на <a href="https://github.com/valderman/haste-compiler/tree/master/examples/ffi">этот FFI-пример</a>. Мало того, что мы пишем-таки JS-код, так ещё и создаём дополнительный <code>.js</code>-файл.</p>
 <h2 id="выводы">Выводы</h2>
 <p>Да, я считаю прекрасной саму идею замены JavaScript на Haskell. И если вы не собираетесь использовать в вашем Yesod-проекте много библиотечного JS-кода, то Haste весьма уместен. В самом деле, весь нативный JS-код можно заменить на Haste-код, а немногочисленные библиотечные функции обернуть в FFI. Конечно, у вас в любом случае не будет type-safe URL, но делать нечего.</p>

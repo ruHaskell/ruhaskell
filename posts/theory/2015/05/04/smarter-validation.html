@@ -199,7 +199,7 @@
 <p>В данной статье вы найдёте ряд упражнений, выполнение которых, надеюсь, поможет вам лучше понять поднятые здесь вопросы.</p>
 <h2 id="пример">Пример</h2>
 <p>Итак, начнём:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">{-# LANGUAGE GeneralizedNewtypeDeriving, KindSignatures, DataKinds,</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">{-# LANGUAGE GeneralizedNewtypeDeriving, KindSignatures, DataKinds,</span>
 <span class="co">             ScopedTypeVariables, RankNTypes, DeriveFunctor #-}</span>
 <span class="kw">import </span><span class="dt">Text.Printf</span>
 <span class="kw">import </span><span class="dt">Text.Read</span>
@@ -214,15 +214,15 @@
 <span class="kw">import </span><span class="dt">Data.Proxy</span>
 <span class="kw">import </span><span class="dt">System.Exit</span>
 <span class="kw">import </span><span class="dt">System.IO</span>
-<span class="kw">import </span><span class="dt">GHC.TypeLits</span></code></pre>
+<span class="kw">import </span><span class="dt">GHC.TypeLits</span></code></pre></div>
 <p>В нашем примере мы будем читать список целых чисел из файла, по одному числу на строку, а затем выведем сумму этих чисел. Вот простейший способ сделать это:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printSum1 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
-printSum1 path <span class="fu">=</span> print <span class="fu">.</span> sum <span class="fu">.</span> map read <span class="fu">.</span> lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printSum1 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+printSum1 path <span class="fu">=</span> print <span class="fu">.</span> sum <span class="fu">.</span> map read <span class="fu">.</span> lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre></div>
 <p>Этот код работает именно так, как мы ожидаем, однако есть одна проблема: если строка будет содержать не число, а что-нибудь другое, мы получим невнятную ошибку вида:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Prelude.read</span>: no parse</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Prelude.read</span>: no parse</code></pre></div>
 <h2 id="монада-either">Монада Either</h2>
 <p>Перепишем нашу функцию, чтобы возможные ошибки не прошли мимо нас:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">parseNum
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseNum
 <span class="ot">  ::</span> <span class="dt">Int</span> <span class="co">-- Номер строки (для отчёта об ошибке)</span>
   <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="co">-- Содержимое строки</span>
   <span class="ot">-&gt;</span> <span class="dt">Either</span> <span class="dt">String</span> <span class="dt">Integer</span>
@@ -244,9 +244,9 @@ printSum2 path <span class="fu">=</span>
   either die print <span class="fu">.</span>
   liftM sum <span class="fu">.</span>
   sequence <span class="fu">.</span> zipWith parseNum [<span class="dv">1</span><span class="fu">..</span>] <span class="fu">.</span>
-  lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre>
+  lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre></div>
 <p>Теперь, если на одной из строк нашего файла окажется какой-нибудь хлам, мы увидим нечто подобное:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 2: foo</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 2: foo</code></pre></div>
 <p>Это стандартный способ использования монады <code>Either</code>, так что в детали вдаваться я не хочу. Уточню лишь, что данный код имеет два отличия от кода предыдущего:</p>
 <ol style="list-style-type: decimal">
 <li>Мы используем функцию <code>readMaybe</code> вместо <code>read</code>, что помогает нам сформировать вменяемое сообщение об ошибке. Именно для этого нам нужен номер проблемной строки.</li>
@@ -256,12 +256,12 @@ printSum2 path <span class="fu">=</span>
 <h2 id="аппликативный-функтор-validation">Аппликативный функтор Validation</h2>
 <p>Итак, представьте: вы получаете от вашего бухгалтера большой-пребольшой файл с числами. Бухгалтер очень просит вас посчитать сумму всех этих чисел, потому что программа, которую он обычно использует для этих целей, неожиданно упала в процессе чтения этого здоровенного файла.</p>
 <p>Вы, засучив рукава, берётесь за дело, будучи уверенным в вашей Haskell-программе. И вот что она выдаёт вам:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 378: 12o0</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 378: 12o0</code></pre></div>
 <p>Ага, попалась! Кто-то поставил букву <code>o</code> вместо нуля. Исправим же это: переходим к строке 378, исправляем букву на цифру, сохраняем файл, и перезапускаем нашу программу. Но тут снова неприятность:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 380: 11i3</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 380: 11i3</code></pre></div>
 <p>Так, ещё одна: вместо единицы стоит буква <code>i</code>. Исправили, сохранили… Стоп. Если бы программа сообщила нам об этих двух ошибках сразу, мы бы исправили их быстрее! В самом деле, почему бы не сделать так, чтобы наша программа проверила каждую строку в файле и сообщила нам обо всех найденных ошибках сразу? Сказано - сделано. Однако в этом случае мы уже не сможем воспользоваться ни экземпляром <code>Monad Either</code>, ни <code>Applicative Either</code>. Нам нужен тип <code>Validation</code>.</p>
 <p>Аппликативный функтор <code>Validation</code> совмещает два <code>Either</code>-значения таким образом, что если они оба инициированы <code>Left</code>, эти <code>Left</code>-значения объединяются через моноидную операцию (на самом деле, достаточно и <code>Semigroup</code>). Это позволяет нам собирать ошибки с разных строк нашего файла. Вот как это выглядит:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Validation</span> e a <span class="fu">=</span> <span class="dt">Validation</span> {<span class="ot"> getValidation ::</span> <span class="dt">Either</span> e a }
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Validation</span> e a <span class="fu">=</span> <span class="dt">Validation</span> {<span class="ot"> getValidation ::</span> <span class="dt">Either</span> e a }
   <span class="kw">deriving</span> <span class="dt">Functor</span>
 
 <span class="kw">instance</span> <span class="dt">Monoid</span> e <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Validation</span> e) <span class="kw">where</span>
@@ -269,37 +269,37 @@ printSum2 path <span class="fu">=</span>
   <span class="dt">Validation</span> a <span class="fu">&lt;*&gt;</span> <span class="dt">Validation</span> b <span class="fu">=</span> <span class="dt">Validation</span> <span class="fu">$</span>
     <span class="kw">case</span> a <span class="kw">of</span>
       <span class="dt">Right</span> va <span class="ot">-&gt;</span> fmap va b
-      <span class="dt">Left</span> ea <span class="ot">-&gt;</span> either (<span class="dt">Left</span> <span class="fu">.</span> mappend ea) (const <span class="fu">$</span> <span class="dt">Left</span> ea) b</code></pre>
+      <span class="dt">Left</span> ea <span class="ot">-&gt;</span> either (<span class="dt">Left</span> <span class="fu">.</span> mappend ea) (const <span class="fu">$</span> <span class="dt">Left</span> ea) b</code></pre></div>
 <p>Следующий пример демонстрирует отличие между стандартным экземпляром <code>Applicative</code> и <code>Validation</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> e1 <span class="fu">=</span> <span class="dt">Left</span> <span class="st">&quot;error1&quot;</span>; e2 <span class="fu">=</span> <span class="dt">Left</span> <span class="st">&quot; error2&quot;</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> e1 <span class="fu">=</span> <span class="dt">Left</span> <span class="st">&quot;error1&quot;</span>; e2 <span class="fu">=</span> <span class="dt">Left</span> <span class="st">&quot; error2&quot;</span>
 <span class="fu">&gt;</span> e1 <span class="fu">*&gt;</span> e2
 <span class="dt">Left</span> <span class="st">&quot;error1&quot;</span>
 
 <span class="fu">&gt;</span> getValidation <span class="fu">$</span> <span class="dt">Validation</span> e1 <span class="fu">*&gt;</span> <span class="dt">Validation</span> e2
-<span class="dt">Left</span> <span class="st">&quot;error1 error2&quot;</span></code></pre>
+<span class="dt">Left</span> <span class="st">&quot;error1 error2&quot;</span></code></pre></div>
 <p>Хорошая реализация подобного аппликативного функтора имеется в пакете <code>transformers</code>. Ross Paterson заметил, что этот функтор может формироваться так:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Errors</span> e <span class="fu">=</span> <span class="dt">Lift</span> (<span class="dt">Constant</span> e)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Errors</span> e <span class="fu">=</span> <span class="dt">Lift</span> (<span class="dt">Constant</span> e)</code></pre></div>
 <p>Подробности здесь - <a href="http://hackage.haskell.org/package/transformers-0.4.3.0/docs/Control-Applicative-Lift.html">Control.Applicative.Lift</a>. В любом случае, давайте воспользуемся этим для улучшения нашей суммирующей программы:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printSum3 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printSum3 ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
 printSum3 path <span class="fu">=</span>
   either (die <span class="fu">.</span> intercalate <span class="st">&quot;\n&quot;</span>) print <span class="fu">.</span>
   liftM sum <span class="fu">.</span>
   getValidation <span class="fu">.</span> sequenceA <span class="fu">.</span>
   map (<span class="dt">Validation</span> <span class="fu">.</span> left (\e <span class="ot">-&gt;</span> [e])) <span class="fu">.</span>
   zipWith parseNum [<span class="dv">1</span><span class="fu">..</span>] <span class="fu">.</span>
-  lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre>
+  lines <span class="fu">=&lt;&lt;</span> readFile path</code></pre></div>
 <p>Теперь нам достаточно единожды запустить программу, чтобы разом увидеть все обнаруженные ею ошибки:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 378: 12o0
-<span class="kw">Bad</span> number on line 380: 11i3</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 378: 12o0
+<span class="kw">Bad</span> number on line 380: 11i3</code></pre></div>
 <p><strong>Упражнение</strong>. Можем ли мы использовать <code>Writer [String]</code> для сбора всех сообщений об ошибках?</p>
 <p><strong>Упражнение</strong>. Когда мы склеиваем списки, существует риск прийти к квадратичной сложности. Произойдёт ли это в вышеприведённой функции? И должно ли это произойти в функции, которая использует функтор <code>Validation</code>, основанный на list monoid?</p>
 <h2 id="функтор-validation-ещё-умнее">Функтор Validation: ещё умнее</h2>
 <p>На следующий день бухгалтер присылает нам другой здоровенный файл с той же просьбой: вычислить сумму чисел. Бодро запускаем нашу программу и видим большущий список ошибок следующего вида:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 1: 27297.
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Bad</span> number on line 1: 27297.
 <span class="kw">Bad</span> number on line 2: 11986.
 <span class="kw">Bad</span> number on line 3: 18938.
 <span class="kw">Bad</span> number on line 4: 22820.
-<span class="kw">...</span></code></pre>
+<span class="kw">...</span></code></pre></div>
 <p>Проблема налицо: каждое число в файле заканчивается точкой. Подобная проблема очень просто выявляется и исправляется, и нет никакой нужды печатать тысячи однотипных сообщений об ошибках. На самом деле, ограничивать число таких сообщений имеет смысл ради двух целей:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Удобство</strong>. Едва ли пользователь прочтёт более, нежели, скажем, 10 сообщений за раз. И если мы попытаемся отобразить огромное количество сообщений об ошибках на веб-странице, это и работать будет медленно, и выглядеть будет ужасно.</li>
@@ -311,13 +311,13 @@ printSum3 path <span class="fu">=</span>
 <p>Несмотря на то, что для нужной нам валидации мы моглы бы явно задать ограничение в 10 сообщений, будет неплохо создать обобщённый тип с гибким ограничением. Поэтому мы сделаем это самое ограничение частью нашего типа.</p>
 <p><strong>Упражнение</strong> Подумайте над альтернативными решениями, когда ограничение не является частью типа. Каковы плюсы и минусы подобных решений?</p>
 <p>На уровне значений, мы основываем новый тип на difference list, далее DL (Прим. переводчика - речь идёт о <a href="https://hackage.haskell.org/package/dlist-0.5/docs/Data-DList.html">Data.DList</a>), во избежании квадратичной сложности, упомянутой ранее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BoundedList</span> (<span class="ot">n ::</span> <span class="dt">Nat</span>) a <span class="fu">=</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BoundedList</span> (<span class="ot">n ::</span> <span class="dt">Nat</span>) a <span class="fu">=</span>
   <span class="dt">BoundedList</span>
     <span class="fu">!</span><span class="dt">Integer</span> <span class="co">-- Текущая длина списка</span>
-    (<span class="dt">Endo</span> [a])</code></pre>
+    (<span class="dt">Endo</span> [a])</code></pre></div>
 <p><strong>Упражнение</strong>. Почему важно хранить текущую длину, вместо того чтобы вычислять её, исходя из DL?</p>
 <p>Итак, поняв основные идеи нашего решения (включение ограничения непосредственно в тип, использование DL, хранение текущей длины), взглянем на реализацию:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">singleton ::</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">BoundedList</span> n a
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">singleton ::</span> <span class="dt">KnownNat</span> n <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">BoundedList</span> n a
 singleton a <span class="fu">=</span> fromList [a]
 
 <span class="ot">toList ::</span> <span class="dt">BoundedList</span> n a <span class="ot">-&gt;</span> [a]
@@ -342,14 +342,14 @@ fromList lst <span class="fu">=</span> <span class="dt">BoundedList</span> (min 
 full (<span class="dt">BoundedList</span> l _) <span class="fu">=</span> l <span class="fu">&gt;=</span> natVal (<span class="dt">Proxy</span><span class="ot"> ::</span> <span class="dt">Proxy</span> n)
 
 null<span class="ot"> ::</span> <span class="dt">BoundedList</span> n a <span class="ot">-&gt;</span> <span class="dt">Bool</span>
-null (<span class="dt">BoundedList</span> l _) <span class="fu">=</span> l <span class="fu">&lt;=</span> <span class="dv">0</span></code></pre>
+null (<span class="dt">BoundedList</span> l _) <span class="fu">=</span> l <span class="fu">&lt;=</span> <span class="dv">0</span></code></pre></div>
 <h2 id="smartvalidation">SmartValidation</h2>
 <p>Теперь мы создадим аппликативный функтор <code>SmartValidation</code>, который будет прекращать свою работу, как только продолжать собирать ошибки станет бессмысленным. Это нечто среднее между функтором <code>Either</code>, способным хранить <em>одну-единственную</em> ошибку, и функтором <code>Validation</code>, хранящим <em>все</em> ошибки.</p>
 <p>Реализация такого функтора не столь тривиальна, какой может показаться на первый взгляд. На самом деле, прежде чем вы прочтёте код ниже, я рекомендую вам выполнить следующее упражнение:</p>
 <p><strong>Упражение</strong>. Попробуйте реализовать тип и его аппликативный экземпляр, соответствующие вышеозвученному требованию.</p>
 <p>Попробовали? У вас получилось? Это не риторический вопрос, мне действительно интересно (поэтому дайте мне знать о ваших результатах). Похожа ли ваша реализация на мою, или, может, она легче? А может, наоборот, сложнее?</p>
 <p>Итак, вот моя реалиация:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">SmartValidation</span> (<span class="ot">n ::</span> <span class="dt">Nat</span>) e a <span class="fu">=</span> <span class="dt">SmartValidation</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">SmartValidation</span> (<span class="ot">n ::</span> <span class="dt">Nat</span>) e a <span class="fu">=</span> <span class="dt">SmartValidation</span>
   {<span class="ot"> getSmartValidation ::</span> forall r <span class="fu">.</span>
       <span class="dt">Either</span> (<span class="dt">BoundedList</span> n e) (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> <span class="dt">Either</span> (<span class="dt">BoundedList</span> n e) r }
   <span class="kw">deriving</span> <span class="dt">Functor</span>
@@ -360,9 +360,9 @@ null (<span class="dt">BoundedList</span> l _) <span class="fu">=</span> l <span
     <span class="kw">let</span> k' <span class="fu">=</span> fmap (<span class="fu">.</span>) k <span class="kw">in</span>
     <span class="kw">case</span> a k' <span class="kw">of</span>
       <span class="dt">Left</span> errs <span class="fu">|</span> full errs <span class="ot">-&gt;</span> <span class="dt">Left</span> errs
-      r <span class="ot">-&gt;</span> b r</code></pre>
+      r <span class="ot">-&gt;</span> b r</code></pre></div>
 <p>А вот функции для создания и анализа значений типа <code>SmartValidation</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Конвертируем SmartValidation в Either</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Конвертируем SmartValidation в Either</span>
 <span class="ot">fatal ::</span> <span class="dt">SmartValidation</span> n e a <span class="ot">-&gt;</span> <span class="dt">Either</span> [e] a
 fatal <span class="fu">=</span> left toList <span class="fu">.</span> (<span class="fu">$</span> <span class="dt">Right</span> id) <span class="fu">.</span> getSmartValidation
 
@@ -380,7 +380,7 @@ a <span class="fu">&lt;+&gt;</span> b <span class="fu">=</span> <span class="kw"
   (<span class="dt">Right</span> va, <span class="dt">Right</span> vb) <span class="ot">-&gt;</span> <span class="dt">Right</span> <span class="fu">$</span> va vb
   (<span class="dt">Left</span> e,   <span class="dt">Right</span> _)  <span class="ot">-&gt;</span> <span class="dt">Left</span> e
   (<span class="dt">Right</span> _,  <span class="dt">Left</span> e)   <span class="ot">-&gt;</span> <span class="dt">Left</span> e
-  (<span class="dt">Left</span> e1,  <span class="dt">Left</span> e2)  <span class="ot">-&gt;</span> <span class="dt">Left</span> <span class="fu">$</span> e1 <span class="fu">&lt;&gt;</span> e2</code></pre>
+  (<span class="dt">Left</span> e1,  <span class="dt">Left</span> e2)  <span class="ot">-&gt;</span> <span class="dt">Left</span> <span class="fu">$</span> e1 <span class="fu">&lt;&gt;</span> e2</code></pre></div>
 <p><strong>Упражнение</strong>. Подумайте над тем, что делает <code>fmap (.) k</code> в определении <code>&lt;*&gt;</code>.</p>
 <p><strong>Упражнение</strong>. В определении <code>&lt;*&gt;</code>, должны ли мы проверять, является ли <code>k</code> полным перед вычислением <code>a k'</code>?</p>
 <p><strong>Упражнение</strong>. Мы разработали два механизма - <code>BoundedList</code> и <code>SmartValidation</code>, которые делают практически одно и то же, но на разных уровнях. Достаточен ли какой-то из этих двух механизмов для достижения обеих целей (удобство пользователя и эффективность) в том случае, если количество отображаемых ошибок будет велико?</p>
