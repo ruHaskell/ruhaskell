@@ -4,7 +4,7 @@ title:          RPC на основе WAI
 tags:           WAI
 description:    Демонстрация создания простого сервиса с помошью WAI
 hrefToOriginal: https://astynax.github.io/posts/2015-09-01-wai-rpc.html
---
+---
 
 * Введение
 Сейчас web-разработка на *Haskell* достаточно проста, даже для новичка. Этому способствует
