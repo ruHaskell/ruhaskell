@@ -10,7 +10,6 @@ module XMLMap (
     createXMLMap
 ) where
 
-import Data.Monoid          (mconcat)
 import Context              (postContext)
 import Misc                 (aHost, TagsReader)
 import Control.Monad.Reader
@@ -30,4 +29,3 @@ createXMLMap = do
             -- Формируем страницу sitemap.xml, применяя к ней шаблон и контекст.
             makeItem "" >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapContext
     return ()
-

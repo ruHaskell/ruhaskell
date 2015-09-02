@@ -10,7 +10,6 @@ module Archive (
     createPageWithAllPosts
 ) where
 
-import Data.Monoid          (mconcat)
 import Context              (postContext)
 import Misc                 (TagsReader)
 import Control.Monad.Reader
