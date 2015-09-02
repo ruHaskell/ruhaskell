@@ -194,18 +194,18 @@
 <p>Как и было обещано в <a href="../../../../../posts/packages/2015/01/23/lenses-hello-world.html">предыдущей заметке</a>, мы продолжаем беседу о линзах. Впрочем, я чуть-чуть нарушил своё обещание: вместо пакета <code>lens</code> мы рассмотрим пакет <code>fclabels</code>. Дело в том, что я поверил на слово <a href="http://www.stephendiehl.com/what/#lenses">вот этой рекомендации</a>. Пакет <code>fclabels</code> значительно легковеснее, нежели <code>lens</code>, к тому же, что приятно обрадовало лично меня, у него куда как более понятная документация. Разумеется, между этими двумя пакетами есть общие черты. За сим и начнём.</p>
 <h2 id="люди-и-места">Люди и места</h2>
 <p>Допустим, есть у нас место:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Place</span> <span class="fu">=</span> <span class="dt">Place</span> { _city
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Place</span> <span class="fu">=</span> <span class="dt">Place</span> { _city
                    , _country
                    , _<span class="ot">continent ::</span> <span class="dt">String</span>
-                   } <span class="kw">deriving</span> <span class="dt">Show</span></code></pre>
+                   } <span class="kw">deriving</span> <span class="dt">Show</span></code></pre></div>
 <p>и есть у нас человек, живущий в этом месте:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> { _<span class="ot">name  ::</span> <span class="dt">String</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> { _<span class="ot">name  ::</span> <span class="dt">String</span>
                      , _<span class="ot">age   ::</span> <span class="dt">Int</span>
                      , _<span class="ot">place ::</span> <span class="dt">Place</span>
-                     } <span class="kw">deriving</span> <span class="dt">Show</span></code></pre>
+                     } <span class="kw">deriving</span> <span class="dt">Show</span></code></pre></div>
 <p>Всё предельно просто, перед нами два многопольных типа. Обратите внимание, что имена полей начинаются с символа <code>_</code>. Это не просто так. Ведь мы собираемся использовать пакет <code>fclabels</code> (который вы уже установили, не так ли?), а он требует, чтобы имена полей (к которым мы будем получать доступ через линзы) начинались с подчёркивания. Чуть позже станет понятно, почему.</p>
 <p>Теперь весь наш модуль:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE TemplateHaskell #-}</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE TemplateHaskell #-}</span>
 <span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
 <span class="kw">import </span><span class="dt">Control.Category</span> ((.), id)
@@ -230,25 +230,25 @@ main <span class="fu">=</span>
         janName  <span class="fu">=</span> get name jan
         janAge   <span class="fu">=</span> get age jan
         janCity  <span class="fu">=</span> get (city <span class="fu">.</span> place) jan
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> janName <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> (show janAge) <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> janCity</code></pre>
+    <span class="kw">in</span> putStrLn <span class="fu">$</span> janName <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> (show janAge) <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> janCity</code></pre></div>
 <p>Ожидаемый вывод:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Jan</span>, 71, Utrecht</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Jan</span>, 71, Utrecht</code></pre></div>
 <p>Теперь давайте разбираться. Самая необычная строка, которую мы здесь видим - вот эта:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">mkLabels [<span class="ch">''</span><span class="dt">Person</span>, <span class="ch">''</span><span class="dt">Place</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mkLabels [<span class="ch">''</span><span class="dt">Person</span>, <span class="ch">''</span><span class="dt">Place</span>]</code></pre></div>
 <p>Эта строка есть представитель так называемого Template Haskell. Для тех кто не знает - Template Haskell (сокращённо TH) это специальное расширение языка Haskell, предназначенное для метапрограммирования. Суть его очень проста: специальная конструкция, не являющаяся Haskell-кодом, превращается в некий Haskell-код на этапе компиляции. Часто это избавляет от рутины.</p>
 <p>Таким образом, конструкция со словом <code>mkLabels</code> вежливо сгенерирует код наших линз за нас. И вот для того, чтобы это прошло гладко, мы и указали символ <code>_</code> в именах полей наших типов (таково требование TH). Однако при <em>использовании</em> созданных линз мы уже не видим никаких подчёркиваний, и это очень удобно:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">janName  <span class="fu">=</span> get name jan</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">janName  <span class="fu">=</span> get name jan</code></pre></div>
 <p>Вот наш старый знакомый, линзовый геттер. Красиво и понятно.</p>
 <p>Как вы уже догадались, <code>mkLabels</code> создаёт линзы для нескольких типов одновременно. Если же мы работаем с единственным типом, то можно написать проще:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">mkLabel <span class="ch">''</span><span class="dt">Person</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mkLabel <span class="ch">''</span><span class="dt">Person</span></code></pre></div>
 <h2 id="комбинирование">Комбинирование</h2>
 <p>Обратите внимание вот на эту строчку:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">janCity  <span class="fu">=</span> get (city <span class="fu">.</span> place) jan</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">janCity  <span class="fu">=</span> get (city <span class="fu">.</span> place) jan</code></pre></div>
 <p>Геттер используется для доступа к имени города, которое, в свою очередь, спрятано в поле <code>place</code>. Комбинирование полей при линзовом доступе - мощный и удобный механизм. Вспомним комбинационное прочтение: вместо точки добавляем фразу “будет вызвана после”:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">get (city <span class="st">&quot;будет вызвана после&quot;</span> place) jan</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">get (city <span class="st">&quot;будет вызвана после&quot;</span> place) jan</code></pre></div>
 <p>Таким образом, <code>place</code> даёт нам доступ к полю типа <code>Place</code>, а <code>city</code> в свою очередь даёт доступ к имени города.</p>
 <p>Давайте чуток усложним:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Address</span> <span class="fu">=</span> <span class="dt">Address</span> { _<span class="ot">street ::</span> <span class="dt">String</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Address</span> <span class="fu">=</span> <span class="dt">Address</span> { _<span class="ot">street ::</span> <span class="dt">String</span>
                        , _<span class="ot">house  ::</span> <span class="dt">Int</span>
                        } <span class="kw">deriving</span> <span class="dt">Show</span>
 
@@ -256,9 +256,9 @@ main <span class="fu">=</span>
                    , _city
                    , _country
                    , _<span class="ot">continent ::</span> <span class="dt">String</span>
-                   } <span class="kw">deriving</span> <span class="dt">Show</span></code></pre>
+                   } <span class="kw">deriving</span> <span class="dt">Show</span></code></pre></div>
 <p>Теперь место жительства содержит поле типа <code>Address</code>. Далее пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">mkLabels [<span class="ch">''</span><span class="dt">Person</span>, <span class="ch">''</span><span class="dt">Place</span>, <span class="ch">''</span><span class="dt">Address</span>]
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mkLabels [<span class="ch">''</span><span class="dt">Person</span>, <span class="ch">''</span><span class="dt">Place</span>, <span class="ch">''</span><span class="dt">Address</span>]
 
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
@@ -266,78 +266,78 @@ main <span class="fu">=</span>
         jan       <span class="fu">=</span> <span class="dt">Person</span> <span class="st">&quot;Jan&quot;</span> <span class="dv">71</span> (<span class="dt">Place</span> anAddress <span class="st">&quot;Utrecht&quot;</span> <span class="st">&quot;The Netherlands&quot;</span> <span class="st">&quot;Europe&quot;</span>)
         janName   <span class="fu">=</span> get name jan
         janStreet <span class="fu">=</span> get (street <span class="fu">.</span> address <span class="fu">.</span> place) jan
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> janName <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> janStreet</code></pre>
+    <span class="kw">in</span> putStrLn <span class="fu">$</span> janName <span class="fu">++</span> <span class="st">&quot;, &quot;</span> <span class="fu">++</span> janStreet</code></pre></div>
 <p>Вывод:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Jan</span>, Bilthoven</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Jan</span>, Bilthoven</code></pre></div>
 <p>Обратите внимание: мы сгенерировали линзы и для типа <code>Address</code>. А теперь комбинируем поля для доступа к названию улицы:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">janStreet <span class="fu">=</span> get (street <span class="fu">.</span> address <span class="fu">.</span> place) jan</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">janStreet <span class="fu">=</span> get (street <span class="fu">.</span> address <span class="fu">.</span> place) jan</code></pre></div>
 <p>Красиво, не правда ли? Таким образом, линзовый доступ позволяет нам заглянуть сколь угодно глубоко.</p>
 <h2 id="изменяем">Изменяем</h2>
 <p>Геттеры геттерами, но пришла пора что-нибудь поменять. Изменим возраст:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> anAddress  <span class="fu">=</span> <span class="dt">Address</span> <span class="st">&quot;Bilthoven&quot;</span> <span class="dv">8</span>
         jan        <span class="fu">=</span> <span class="dt">Person</span> <span class="st">&quot;Jan&quot;</span> <span class="dv">71</span> (<span class="dt">Place</span> anAddress <span class="st">&quot;Utrecht&quot;</span> <span class="st">&quot;The Netherlands&quot;</span> <span class="st">&quot;Europe&quot;</span>)
         youngerJan <span class="fu">=</span> set age <span class="dv">65</span> jan
-    <span class="kw">in</span> putStrLn <span class="fu">.</span> show <span class="fu">$</span> get age youngerJan</code></pre>
+    <span class="kw">in</span> putStrLn <span class="fu">.</span> show <span class="fu">$</span> get age youngerJan</code></pre></div>
 <p>Итак, Jan помолодел на 6 лет, сеттер <code>set</code> работает в точности как мы и ожидаем.</p>
 <p>Разумеется, мы и здесь можем использовать комбинирование полей, дабы заглянуть вглубь. Представим, что наш Jan решил переехать в другой дом на своей улице:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> anAddress   <span class="fu">=</span> <span class="dt">Address</span> <span class="st">&quot;Bilthoven&quot;</span> <span class="dv">8</span>
         jan         <span class="fu">=</span> <span class="dt">Person</span> <span class="st">&quot;Jan&quot;</span> <span class="dv">71</span> (<span class="dt">Place</span> anAddress <span class="st">&quot;Utrecht&quot;</span> <span class="st">&quot;The Netherlands&quot;</span> <span class="st">&quot;Europe&quot;</span>)
         movedJan    <span class="fu">=</span> set (house <span class="fu">.</span> address <span class="fu">.</span> place) <span class="dv">9</span> jan
         newJanHouse <span class="fu">=</span> get (house <span class="fu">.</span> address <span class="fu">.</span> place) movedJan
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> show newJanHouse</code></pre>
+    <span class="kw">in</span> putStrLn <span class="fu">$</span> show newJanHouse</code></pre></div>
 <p>Теперь Jan живёт в доме номер 9. Элегантно и просто.</p>
 <h2 id="модифицируем">Модифицируем</h2>
 <p>Пакет <code>fclabels</code> предоставляет нам ещё один способ линзового изменения, а именно через функцию <code>modify</code>. Если уже известная нам функция <code>set</code> изменяет поле прямым значением, то <code>modify</code> делает это через функцию.</p>
 <p>Помните, как мы изменили возраст? Сделаем же это иначе: теперь наш Jan повзрослеет на один год. Пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> anAddress   <span class="fu">=</span> <span class="dt">Address</span> <span class="st">&quot;Bilthoven&quot;</span> <span class="dv">8</span>
         jan         <span class="fu">=</span> <span class="dt">Person</span> <span class="st">&quot;Jan&quot;</span> <span class="dv">71</span> (<span class="dt">Place</span> anAddress <span class="st">&quot;Utrecht&quot;</span> <span class="st">&quot;The Netherlands&quot;</span> <span class="st">&quot;Europe&quot;</span>)
         olderJan    <span class="fu">=</span> modify age (<span class="fu">+</span><span class="dv">1</span>) jan
-    <span class="kw">in</span> putStrLn <span class="fu">.</span> show <span class="fu">$</span> get age olderJan</code></pre>
+    <span class="kw">in</span> putStrLn <span class="fu">.</span> show <span class="fu">$</span> get age olderJan</code></pre></div>
 <p>И как вы уже догадались, мы и тут можем заглянуть вглубь. Пусть наш Jan опять переедет, но уже в другой конец улицы:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> anAddress   <span class="fu">=</span> <span class="dt">Address</span> <span class="st">&quot;Bilthoven&quot;</span> <span class="dv">8</span>
         jan         <span class="fu">=</span> <span class="dt">Person</span> <span class="st">&quot;Jan&quot;</span> <span class="dv">71</span> (<span class="dt">Place</span> anAddress <span class="st">&quot;Utrecht&quot;</span> <span class="st">&quot;The Netherlands&quot;</span> <span class="st">&quot;Europe&quot;</span>)
         movedJan    <span class="fu">=</span> modify (house <span class="fu">.</span> address <span class="fu">.</span> place) (<span class="fu">+</span><span class="dv">10</span>) jan
         newJanHouse <span class="fu">=</span> get (house <span class="fu">.</span> address <span class="fu">.</span> place) movedJan
-    <span class="kw">in</span> putStrLn <span class="fu">$</span> show newJanHouse</code></pre>
+    <span class="kw">in</span> putStrLn <span class="fu">$</span> show newJanHouse</code></pre></div>
 <p>Теперь Jan живёт в 18 доме.</p>
 <h2 id="персона-в-облаке">Персона в облаке</h2>
 <p>В модуле <code>Data.Label.Monadic</code> определены вкусности для работы с трансформерами <code>Reader</code> и <code>State</code>. Далее я предполагаю, что вы знакомы с этими трансформерами. Используется пакет <code>mtl</code>.</p>
 <p>Поместим нашего Jan в облако, дабы с ним было удобно работать из нескольких функций. Вот наше облако:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">...</span>
 <span class="kw">import qualified</span> <span class="dt">Control.Monad.Reader</span> <span class="kw">as</span> <span class="dt">R</span>
 <span class="kw">import </span><span class="dt">Data.Label.Monadic</span>
 
 <span class="fu">...</span>
 
-<span class="kw">type</span> <span class="dt">PersonInCloud</span> <span class="fu">=</span> <span class="dt">R.ReaderT</span> <span class="dt">Person</span> <span class="dt">IO</span> ()</code></pre>
+<span class="kw">type</span> <span class="dt">PersonInCloud</span> <span class="fu">=</span> <span class="dt">R.ReaderT</span> <span class="dt">Person</span> <span class="dt">IO</span> ()</code></pre></div>
 <p>Задача такова: вывести на экран информацию о персоне, причём есть несколько функций, каждая из которых вытаскивает лишь часть информации об этой персоне. Вот как это будет выглядеть:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span> <span class="kw">do</span>
     <span class="kw">let</span> anAddress <span class="fu">=</span> <span class="dt">Address</span> <span class="st">&quot;Bilthoven&quot;</span> <span class="dv">8</span>
         jan       <span class="fu">=</span> <span class="dt">Person</span> (<span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Bakker&quot;</span>) <span class="dv">71</span> (<span class="dt">Place</span> anAddress <span class="st">&quot;Utrecht&quot;</span> <span class="st">&quot;The Netherlands&quot;</span> <span class="st">&quot;Europe&quot;</span>)
     R.runReaderT (printName
                   <span class="fu">&gt;&gt;</span> printAge
                   <span class="fu">&gt;&gt;</span> printStreet) jan
-    putStrLn <span class="st">&quot;\nIt's done.&quot;</span></code></pre>
+    putStrLn <span class="st">&quot;\nIt's done.&quot;</span></code></pre></div>
 <p>Мы можем работать с облачным значением двумя способами. Рассмотрим на примере функции <code>printAge</code>. Вот первый, канонический способ:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printAge ::</span> <span class="dt">PersonInCloud</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printAge ::</span> <span class="dt">PersonInCloud</span>
 printAge <span class="fu">=</span> <span class="kw">do</span>
     jan <span class="ot">&lt;-</span> R.ask
     <span class="kw">let</span> janAge <span class="fu">=</span> get age jan
-    R.liftIO <span class="fu">.</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Age: &quot;</span> <span class="fu">++</span> show janAge</code></pre>
+    R.liftIO <span class="fu">.</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Age: &quot;</span> <span class="fu">++</span> show janAge</code></pre></div>
 <p>Тут всё как обычно: сначала, используя <code>Reader</code>-функцию <code>ask</code>, мы вытаскиваем нашу персону, а затем, через уже известную нам линзу, получаем возраст. Но есть путь короче:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printAge ::</span> <span class="dt">PersonInCloud</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">printAge ::</span> <span class="dt">PersonInCloud</span>
 printAge <span class="fu">=</span> <span class="kw">do</span>
     anAge <span class="ot">&lt;-</span> asks age
-    R.liftIO <span class="fu">.</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Age: &quot;</span> <span class="fu">++</span> show anAge</code></pre>
+    R.liftIO <span class="fu">.</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Age: &quot;</span> <span class="fu">++</span> show anAge</code></pre></div>
 <p>Круто, правда? Мы использовали функцию <code>asks</code> из модуля <code>Data.Label.Monadic</code>. Она упрощает нам жизнь, сразу же вытаскивая из облачной персоны её возраст.</p>
 <p>Таким же образом можно работать и с трансформером <code>State</code>: в модуле <code>Data.Label.Monadic</code> вы найдёте функции <code>gets</code>, <code>puts</code> и <code>modify</code>.</p>
 <h2 id="выводы">Выводы</h2>

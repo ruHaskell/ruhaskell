@@ -197,33 +197,33 @@
 <p class="caption">whatIf</p>
 </div>
 <p>Допустим мы хотим сделать список/словарь вида “Текст -&gt; Метод”. И сразу же облом:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">methods ::</span> [(<span class="dt">String</span>, <span class="fu">????</span>)]
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">methods ::</span> [(<span class="dt">String</span>, <span class="fu">????</span>)]
 methods <span class="fu">=</span> [ (<span class="st">&quot;add&quot;</span>, \x y <span class="ot">-&gt;</span> return (x <span class="fu">+</span> y))
           , (<span class="st">&quot;reverse&quot;</span>, \s <span class="ot">-&gt;</span> return (reverse s))
-          ]</code></pre>
+          ]</code></pre></div>
 <p>Все методы имеют разный тип. Это можно решить, положив их в непрозрачную коробку.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> a
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> a
 
-<span class="ot">methods ::</span> [(<span class="dt">String</span>, <span class="dt">BaconBox</span>)]</code></pre>
+<span class="ot">methods ::</span> [(<span class="dt">String</span>, <span class="dt">BaconBox</span>)]</code></pre></div>
 <p>Но такую коробку нельзя распаковать т.к. непонятно что вообще с ними можно делать, распаковав. Это значит, что нужен класс типов, которые могут в ней находиться и описывающий как привести функцию к нормальному виду т.е. функции готовой к десериализации входных данных и сериализации результата.</p>
 <p>В этом примере будет использоваться “протокол” <code>Read</code>/<code>Show</code>. Не самый лучший, но для остальных всё тоже самое. Типом данных, соответственно будет <code>String</code>.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Tossable</span> t <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Tossable</span> t <span class="kw">where</span>
 <span class="ot">    toss ::</span> [<span class="dt">String</span>] <span class="ot">-&gt;</span> t <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">String</span>
 
-<span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> (<span class="dt">Tossable</span> a) <span class="ot">=&gt;</span> <span class="dt">BaconBox</span> a</code></pre>
+<span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> (<span class="dt">Tossable</span> a) <span class="ot">=&gt;</span> <span class="dt">BaconBox</span> a</code></pre></div>
 <p>С таким определением уже понятно даже компилятору, что внутрь коробки можно положить любой тип, для которого определена функция toss, которая…. Бах! Тут мы плавно переходим ко второй проблеме. Ведь хочется, чтобы вызываемые методы могли иметь любые аргументы и в любом количестве. Т.е. чтобы в коробку можно было просто взять и положить любой обработчик RPC, для которого определены процедуры маршалинга. У Олега и на хаскельной вики есть пример кое-чего похожего - printf с любым количеством аргументов любого типа: http://www.haskell.org/haskellwiki/Varargs. Но это не совсем то. Но и не совсем не то! <img src="https://i.imgur.com/Hpo7n9A.gif" alt="awesome" /></p>
 <p>Трюк основывается на двух инстансах - базовая форма и свёртывание аргументов. Базовая форма определяет что же всё-таки делать, когда данные собраны. В ней же опредляется класс выходного типа метода.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Show</span> a) <span class="ot">=&gt;</span> <span class="dt">Tossable</span> (<span class="dt">IO</span> a) <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Show</span> a) <span class="ot">=&gt;</span> <span class="dt">Tossable</span> (<span class="dt">IO</span> a) <span class="kw">where</span>
     toss [] f <span class="fu">=</span> fmap show f
-    toss _ _ <span class="fu">=</span> fail <span class="st">&quot;Избыточное количество аргументов&quot;</span></code></pre>
+    toss _ _ <span class="fu">=</span> fail <span class="st">&quot;Избыточное количество аргументов&quot;</span></code></pre></div>
 <p>Если все аргументы использованы и у нас на руках есть готовое значние (в данном случае это действие, которое надо выполнить), т.е. к функции применены все аргументы - мы его выполняем и сразу же сериализуем результат. Оставшиеся аргументы можно выбросить, а можно и ругнуться - я предпочитаю кинуть ошибку, чем гадать о корректности.</p>
 <p>Для свёртывания аргументов используется весьма интересный инстанс, демонстрирующий во всей красе мощщъ функционального подхода в целом и правильной системы типов в частности. Тут фиксируется класс входных аргументов, гарантирующий <s>успешность</s> наличие десерилизатора для типа, используемого в вызове RPC метода.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Read</span> a, <span class="dt">Tossable</span> t) <span class="ot">=&gt;</span> <span class="dt">Tossable</span> (a <span class="ot">-&gt;</span> t) <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Read</span> a, <span class="dt">Tossable</span> t) <span class="ot">=&gt;</span> <span class="dt">Tossable</span> (a <span class="ot">-&gt;</span> t) <span class="kw">where</span>
     toss [] _ <span class="fu">=</span> fail <span class="st">&quot;Недостаточно аргументов&quot;</span>
-    toss (a<span class="fu">:</span>as) f <span class="fu">=</span> toss as (f (read a))</code></pre>
+    toss (a<span class="fu">:</span>as) f <span class="fu">=</span> toss as (f (read a))</code></pre></div>
 <p>Не смотря на магичность определения, происходящее довольно тривиально. Если наш тип это функция <code>(a -&gt; t)</code>, а у нас есть ещё для неё аргументы, то мы десериализуем следующий аргумент в соответствии с типом, который ожидает функция и применяем его к ней.</p>
 <p>Если результат получился в виде базовой формы - хорошо, если после применения аргумента к функции, снова получилась функция - повторяем процедуру.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">doAnd ::</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Bool</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">doAnd ::</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Bool</span>
 doAnd a b <span class="fu">=</span> return (a <span class="fu">&amp;&amp;</span> b)
 
 <span class="ot">doSum3 ::</span> <span class="dt">Double</span> <span class="ot">-&gt;</span> <span class="dt">Double</span> <span class="ot">-&gt;</span> <span class="dt">Double</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Bool</span>
@@ -234,18 +234,18 @@ main <span class="fu">=</span> <span class="kw">do</span>
     toss [<span class="st">&quot;True&quot;</span>] (doAnd <span class="dt">True</span>) <span class="fu">&gt;&gt;=</span> print
     toss [<span class="st">&quot;True&quot;</span>, <span class="st">&quot;True&quot;</span>] doAnd <span class="fu">&gt;&gt;=</span> print
 
-    toss [<span class="st">&quot;42&quot;</span>, <span class="st">&quot;2.71828&quot;</span>, <span class="st">&quot;3.14159&quot;</span>] doSum3 <span class="fu">&gt;&gt;=</span> print </code></pre>
+    toss [<span class="st">&quot;42&quot;</span>, <span class="st">&quot;2.71828&quot;</span>, <span class="st">&quot;3.14159&quot;</span>] doSum3 <span class="fu">&gt;&gt;=</span> print </code></pre></div>
 <p>Et voila! Функция спокойно распаковывает и скармливает аргументы и упаковывает результат.</p>
 <p>Остался последний штрих - динамическая диспетчеризация методов из коробок. Добавим в нашу коробку немного метаданных и функцию поиска по ним.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> (<span class="dt">Tossable</span> a) <span class="ot">=&gt;</span> <span class="dt">BaconBox</span> <span class="dt">String</span> a
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">BaconBox</span> <span class="fu">=</span> forall a<span class="fu">.</span> (<span class="dt">Tossable</span> a) <span class="ot">=&gt;</span> <span class="dt">BaconBox</span> <span class="dt">String</span> a
 
 <span class="ot">tossBacon ::</span> (<span class="dt">Show</span> a) <span class="ot">=&gt;</span> [<span class="dt">BaconBox</span>] <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> [<span class="dt">String</span>] <span class="ot">-&gt;</span> <span class="dt">IO</span> a
 tossBacon [] _ _ <span class="fu">=</span> fail <span class="st">&quot;Метод не найден&quot;</span>
 tossBacon (<span class="dt">BaconBox</span> bn bf <span class="fu">:</span> bs) name args
     <span class="fu">|</span> bn <span class="fu">==</span> name <span class="fu">=</span> toss args bf
-    <span class="fu">|</span> otherwise <span class="fu">=</span> tossBacon bs name args</code></pre>
+    <span class="fu">|</span> otherwise <span class="fu">=</span> tossBacon bs name args</code></pre></div>
 <p>Специальная функция нужна для того, чтобы у компилятора не взорвался мозг(sic!) при раскрытии экзистенциального контейнера любым способом кроме паттерн-матчинга. FP-world problems…</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- класс, инстансы, функции как раньше</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- класс, инстансы, функции как раньше</span>
 
 <span class="ot">bacon ::</span> [<span class="dt">BaconBox</span>]
 bacon <span class="fu">=</span> [ <span class="dt">BaconBox</span> <span class="st">&quot;bool.and&quot;</span> doAnd
@@ -255,7 +255,7 @@ bacon <span class="fu">=</span> [ <span class="dt">BaconBox</span> <span class="
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span> <span class="kw">do</span>
     (method<span class="fu">:</span>args) <span class="ot">&lt;-</span> getArgs
-    tossBacon bacon method args <span class="fu">&gt;&gt;=</span> print</code></pre>
+    tossBacon bacon method args <span class="fu">&gt;&gt;=</span> print</code></pre></div>
 <p>Итак, у нас получился контейнер, позволяющий совать внутрь функции с произвольным (но строго ограниченым по вводу и выводу) типом и вызывать их по имени, автоматически выполняя рутинную работу по маршалингу. Меньше кода - меньше багов. Ура!</p>
 
 <div id="socialButtons">

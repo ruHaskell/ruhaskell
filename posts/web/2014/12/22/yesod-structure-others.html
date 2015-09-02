@@ -196,21 +196,21 @@
 <p>Одними из самых главных в нашем проекте являются два файла, а именно <code>Application.hs</code> и <code>Foundation.hs</code>. Содержимое этих файлов весьма объёмно, поэтому рассматривать его мы сейчас не станем. Однако в будущих заметках, когда мы начнём писать реальные части нашего Yesod-проекта, нам придётся весьма часто редактировать эти два файла, так что запомните их.</p>
 <h2 id="статика">Статика</h2>
 <p>Заглянем внутрь каталога <code>static</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">static/</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">static/</span>
     <span class="kw">css/</span>
         <span class="kw">bootstrap.css</span>
     <span class="kw">fonts/</span>
         <span class="kw">glyphicons-halflings-regular.eot</span>
         <span class="kw">glyphicons-halflings-regular.svg</span>
         <span class="kw">glyphicons-halflings-regular.ttf</span>
-        <span class="kw">glyphicons-halflings-regular.woff</span></code></pre>
+        <span class="kw">glyphicons-halflings-regular.woff</span></code></pre></div>
 <p>Ба, знакомые все лица! Именно в этом каталоге лежат сторонние стили, скрипты и шрифты. Как видите, сюда уже включен наш любимый Bootstrap, но об этом мы поговорим в будущих заметках. Скажу лишь, что использовать Bootstrap в Yesod-проекте очень легко.</p>
 <h2 id="интернационализация">Интернационализация</h2>
 <p>Веб-приложения для реального мира редко говорят лишь по-английски, а для многих современных веб-проектов интернационализация вообще рассматривается как нечто, само собою разумеющееся. Разработчики Yesod прекрасно знают это, поэтому в корне проекта вы найдёте каталог <code>messages</code>. Сейчас в нашем проекте этот каталог содержит один-единственный файл, <code>en.msg</code>. Откроем его:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Hello</span>: Hello</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Hello</span>: Hello</code></pre></div>
 <p>В этом файле хранятся пары “ключ-перевод”. Ключи задаются на английском, а перевод - на любом языке. В данном случае мы можем использовать ключ <code>Hello</code> для того, чтобы где-нибудь на наших страницах появился текст “Hello”.</p>
 <p>Соответственно, если нам нужен русский вариант наших страниц, мы создаём файл <code>messages/ru.msg</code>. Как вы уже поняли, файлы именуются стандартными двубуквенными языковыми кодами, в соответствие с <a href="http://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>. Содержимое файла <code>ru.msg</code> может быть таким:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Hello</span>: Привет</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Hello</span>: Привет</code></pre></div>
 <p>Думаю, теперь всё предельно ясно: ключ в коде будет один, а переводов - множество. Таким образом, везде где используется данный ключ, в английской версии страниц появится строка “Hello”, а в русской - “Привет”. При такой схеме добавление нового интерфейсного языка - дело чрезвычайно простое.</p>
 <p>Разумеется, в одной из будущих заметок мы подробно поговорим об интернационализации, и в том числе о том, как реализовать переключатель языков.</p>
 <h2 id="тестирование">Тестирование</h2>

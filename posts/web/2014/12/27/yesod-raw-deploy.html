@@ -204,10 +204,10 @@
 <p>В моём случае оба эти сервера работают под Ubuntu 14.04.1, а на рабочем сервере установлен Nginx и PostgreSQL.</p>
 <h2 id="подготовка-рабочего-сервера">Подготовка рабочего сервера</h2>
 <p>Создаём рабочий каталог, в котором будет жить наше приложение. Скажем, <code>/srv/www/webhs</code>. В нём создаём ещё три каталога:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/srv/www/webhs/</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/srv/www/webhs/</span>
     <span class="kw">bin/</span>
     <span class="kw">config/</span>
-    <span class="kw">static/</span></code></pre>
+    <span class="kw">static/</span></code></pre></div>
 <p>Каталог <code>bin</code> предназначен для исполняемого файла <code>webhs</code>, каталог <code>config</code> - это копия каталога <code>config</code> в корне нашего проекта, а каталог <code>static</code> - это копия каталога <code>static</code> там же.</p>
 <p>Теперь по поводу веб-сервера. Тут всё просто: классическая модель перенаправления. Например, в моём случае (а возможно, и в вашем) приложение представлено четырьмя веб-стендами, поэтому получается нечто подобное:</p>
 <ol style="list-style-type: decimal">
@@ -220,7 +220,7 @@
 <p>Ну и по поводу Postgres всё совсем просто: создаём пользователя и БД, соответствующие указанным в файле <code>config/postgresql.yml</code>. Рассказывать о том, как это сделать, я не стану, ведь если вы <em>уже</em> выбрали PostgreSQL, значит вы <em>уже</em> знаете как с ним работать, не так ли?</p>
 <h2 id="стенды">Стенды</h2>
 <p>Как уже было упомянуто, наше приложение представлено четырьмя версиями, работающими на четырёх стендах (поддоменах). Для удобства можно расширить рабочий каталог, предоставив для каждой из версий свою квартирку:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/srv/www/webhs/</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/srv/www/webhs/</span>
     <span class="kw">alpha/</span>
         <span class="kw">bin/</span>
         <span class="kw">config/</span>
@@ -236,7 +236,7 @@
     <span class="kw">stable/</span>
         <span class="kw">bin/</span>
         <span class="kw">config/</span>
-        <span class="kw">static/</span></code></pre>
+        <span class="kw">static/</span></code></pre></div>
 <p>Полагаю, тут всё понятно без комментариев.</p>
 <h2 id="вперёд">Вперёд!</h2>
 <p>После того, как мы запушили изменения в соответствующую версионную ветку, запускается наш CI-механизм (ведь у вас есть такой, не правда ли?). В моём случае это <a href="http://blog.dshevchenko.biz/2014/12/13/buildbot-hello-world.html">рассмотренный ранее</a> Buildbot. Он, увидев изменения в ветке, дёргает скрипт в корне репозитория проекта. Пусть в нашем случае это будет <code>webhs_update.sh</code>. Внутри этого скрипта совершаются следующие шаги:</p>
@@ -250,7 +250,7 @@
 <li>Старт нового процесса нашего приложения на рабочем сервере.</li>
 </ol>
 <p>Рассмотрим эти шаги на примере разворачивания версии <code>alpha</code>. Вот каким может быть такой скрипт:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
 
 <span class="kw">git</span> checkout --force alpha <span class="kw">&amp;&amp;</span> <span class="kw">git</span> pull origin alpha
 <span class="kw">cabal</span> clean <span class="kw">&amp;&amp;</span> <span class="kw">cabal</span> configure <span class="kw">&amp;&amp;</span> <span class="kw">cabal</span> build
@@ -258,24 +258,24 @@
 <span class="kw">ssh</span> denis@service.com <span class="st">&quot;./webhs_ctl.sh alpha stop&quot;</span>
 <span class="kw">ssh</span> denis@service.com <span class="st">&quot;rm -f /srv/www/webhs/alpha/bin/webhs-alpha 2&gt; /dev/null&quot;</span>
 <span class="kw">scp</span> ~/webhs/dist/build/webhs/webhs denis@service.com:/srv/www/webhs/alpha/bin/webhs-alpha
-<span class="kw">ssh</span> denis@service.com <span class="st">&quot;./webhs_ctl.sh alpha start&quot;</span></code></pre>
+<span class="kw">ssh</span> denis@service.com <span class="st">&quot;./webhs_ctl.sh alpha start&quot;</span></code></pre></div>
 <p>Пара пояснений.</p>
 <p>Во-первых, напомню, что такого вида строка:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ssh</span> denis@service.com <span class="st">&quot;COMMAND&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ssh</span> denis@service.com <span class="st">&quot;COMMAND&quot;</span></code></pre></div>
 <p>запускает команду <code>COMMAND</code> на рабочем сервере в домашнем каталоге пользователя <code>denis</code>. Во-вторых, подразумевается, что у вас уже есть ssh-ключ, дающий право на ssh-копирование с разработческого сервера на рабочий. А в-третьих, здесь упоминается скрипт <code>webhs_ctl.sh</code>, уже лежащий в вашем домашнем каталоге на рабочем сервере. Пара слов об этом.</p>
 <h2 id="управляющий-скрипт">Управляющий скрипт</h2>
 <p>Строго говоря, можно было бы обойтись и без него, но лично мне так удобнее. В домашнем каталоге рабочего сервера делаем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">touch</span> webhs_ctl.sh
-$ <span class="kw">chmod</span> +x webhs_ctl.sh</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">touch</span> webhs_ctl.sh
+$ <span class="kw">chmod</span> +x webhs_ctl.sh</code></pre></div>
 <p>Этот скрипт может принимать два аргумента: имя стенда (<code>alpha</code>, <code>beta</code>, <code>rc</code> и <code>stable</code>) и команду (<code>stop</code>, <code>start</code> и <code>restart</code>). Поэтому для запуска процесса на alpha-стенде мы делаем так:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./webhs_ctl.sh</span> alpha start</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./webhs_ctl.sh</span> alpha start</code></pre></div>
 <p>Соответственно, внутри этого скрипта, после разбора аргументов, осуществляется либо запуск процесса нашего приложения, либо его останов. С остановом всё просто, можно использовать команду <code>killall</code> с передачей ему имени нашего исполняемого файла. А вот с запуском чуток посложнее.</p>
 <h2 id="демонизация">Демонизация</h2>
 <p>Разумеется, наш процесс должен быть демоном. Следовательно, мы не можем запустить наше приложение просто так:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> /srv/www/webhs/alpha
-$ <span class="kw">bin/webhs-alpha</span> Development</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> /srv/www/webhs/alpha
+$ <span class="kw">bin/webhs-alpha</span> Development</code></pre></div>
 <p>Нужно как-то демонизировать наш процесс, дабы отвязать его от текущего терминала. Сделать это можно по-разному, например через команду <code>start-stop-daemon</code> или <code>nohup</code>. Я выбрал <code>nohup</code>, и после долгих исканий по Сети я сформировал такой вариант:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">nohup</span> bin/webhs-alpha Development <span class="kw">&gt;</span> /dev/null <span class="kw">2&gt;&amp;1</span> <span class="kw">&amp;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">nohup</span> bin/webhs-alpha Development <span class="kw">&gt;</span> /dev/null <span class="kw">2&gt;&amp;1</span> <span class="kw">&amp;</span></code></pre></div>
 <p>Такая команда запускает процесс и полноценно отвязывает его от текущего терминала, причём сама эта команда правильно завершается (что чрезвычайно важно, если мы хотим запихнуть её в скрипт). Кстати, я напоминаю, что запускать процесс нужно не из каталога <code>bin</code>, а из каталога уровнем выше, то есть из той точки, в которой лежит каталог <code>config</code>.</p>
 <p>Если вам интересно, вот <a href="https://gist.github.com/denisshevchenko/1d529775493bc153bf33">возможный вариант управляющего скрипта</a> на рабочем стенде.</p>
 <h2 id="вот-и-всё">Вот и всё</h2>

@@ -196,98 +196,98 @@
 
 <p>Ни одно достаточно крупное приложение не обходится без конфигурационных файлов. Сегодня мы познакомимся с пакетом configurator, который позволяет не только банально парсить конфиги в Haskell, но и делать другие интересные вещи. Например, узнавать об изменении конфигов и автоматически перечитывать их. Автором пакета является широко известный в узких кругах Bryan O’Sullivan.</p>
 <p>Создадим у себя в домашнем каталоге простой конфиг с именем test.conf:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml">database <span class="kw">{</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml">database <span class="kw">{</span>
   host = &quot;127.0.0.1&quot;
   name = &quot;mydatabase&quot;
   user = &quot;admin&quot;
   pass = &quot;qwerty&quot;
-<span class="kw">}</span></code></pre>
+<span class="kw">}</span></code></pre></div>
 <p>Как видите, синтаксис конфига прост и понятен. Также в конфиге можно импортировать другие конфиги:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml">import <span class="st">&quot;$(HOME)/someapp.conf&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml">import <span class="st">&quot;$(HOME)/someapp.conf&quot;</span></code></pre></div>
 <p>Основные функции для работы с конфигурационными файлами следующие:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">empty ::</span> <span class="dt">Config</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">empty ::</span> <span class="dt">Config</span></code></pre></div>
 <p>Создаем новый пустой конфиг.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">load ::</span> [<span class="dt">Worth</span> FilePath] <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Config</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">load ::</span> [<span class="dt">Worth</span> FilePath] <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Config</span></code></pre></div>
 <p>Читаем конфигурационные файлы с диска. Тип <code>Worth</code> определяется примерно как <code>data Worth a = Required a | Optional a</code>.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">subconfig ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Config</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">subconfig ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Config</span></code></pre></div>
 <p>Получение части конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">reload ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">reload ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre></div>
 <p>Перечитываем конфиги. При этом конфиги, полученные с помощью функции <code>subconfig</code>, также обновляются.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">lookup<span class="ot"> ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Maybe</span> a)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">lookup<span class="ot"> ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Maybe</span> a)</code></pre></div>
 <p>Чтение параметра из конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lookupDefault ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> a</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lookupDefault ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> a</code></pre></div>
 <p>Аналогично предыдущей функции, только в случае отсутствия параметра будет использовано значение по умолчанию.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">require ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> a</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">require ::</span> <span class="dt">Configured</span> a <span class="ot">=&gt;</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> a</code></pre></div>
 <p>Аналогично <code>lookup</code>, только в случае отсутствия параметра вместо того, чтобы вернуть <code>Nothing</code>, будет брошено исключение.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">display ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">display ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre></div>
 <p>Вспомогательная функция для вывода конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getMap ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">HashMap</span> <span class="dt">Name</span> <span class="dt">Value</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getMap ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">HashMap</span> <span class="dt">Name</span> <span class="dt">Value</span>)</code></pre></div>
 <p>Преобразуем конфиг в простой <code>HashMap</code>. Удобно, например, для последующей передачи этого <code>HashMap</code> в чистые функции.</p>
 <p>Теперь дружно скажем <code>cabal install configurator</code> и запустим <code>ghci</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> import qualified Data.Configurator as C
-<span class="kw">ghci&gt;</span> import qualified Data.Text as T</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> import qualified Data.Configurator as C
+<span class="kw">ghci&gt;</span> import qualified Data.Text as T</code></pre></div>
 <p>Загрузим наш конфиг:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> conf <span class="kw">&lt;</span>- C.load [C.Required <span class="st">&quot;</span><span class="ot">$(</span><span class="kw">HOME</span><span class="ot">)</span><span class="st">/test.conf&quot;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> conf <span class="kw">&lt;</span>- C.load [C.Required <span class="st">&quot;</span><span class="ot">$(</span><span class="kw">HOME</span><span class="ot">)</span><span class="st">/test.conf&quot;</span>]</code></pre></div>
 <p>Выведем его на экран:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> C.display conf
-<span class="kw">(</span><span class="st">&quot;&quot;</span>,<span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;admin&quot;</span><span class="kw">)</span>,<span class="kw">(</span><span class="st">&quot;database.name&quot;</span>,<span class="kw">String</span> <span class="st">&quot;mydatabase&quot;</span><span class="kw">)</span>,<span class="kw">(</span><span class="st">&quot;database.pass&quot;</span>,<span class="kw">String</span> <span class="st">&quot;qwerty&quot;</span><span class="kw">)</span>,<span class="kw">(</span><span class="st">&quot;database.host&quot;</span>,<span class="kw">String</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="kw">)</span>])</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> C.display conf
+<span class="kw">(</span><span class="st">&quot;&quot;</span>,<span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;admin&quot;</span><span class="kw">)</span>,<span class="kw">(</span><span class="st">&quot;database.name&quot;</span>,<span class="kw">String</span> <span class="st">&quot;mydatabase&quot;</span><span class="kw">)</span>,<span class="kw">(</span><span class="st">&quot;database.pass&quot;</span>,<span class="kw">String</span> <span class="st">&quot;qwerty&quot;</span><span class="kw">)</span>,<span class="kw">(</span><span class="st">&quot;database.host&quot;</span>,<span class="kw">String</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="kw">)</span>])</code></pre></div>
 <p>Получим имя пользователя:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let key = T.pack <span class="st">&quot;database.user&quot;</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let key = T.pack <span class="st">&quot;database.user&quot;</span>
 <span class="kw">ghci&gt;</span> user <span class="kw">&lt;</span>- C.lookup conf key :: IO (Maybe String)
 <span class="kw">ghci&gt;</span> user
-<span class="kw">Just</span> <span class="st">&quot;admin&quot;</span></code></pre>
+<span class="kw">Just</span> <span class="st">&quot;admin&quot;</span></code></pre></div>
 <p>Попробуем поработать с сабконфигом:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let subconf = C.subconfig (T.pack <span class="st">&quot;database&quot;</span>) <span class="kw">conf</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let subconf = C.subconfig (T.pack <span class="st">&quot;database&quot;</span>) <span class="kw">conf</span>
 <span class="kw">ghci&gt;</span> pass <span class="kw">&lt;</span>- C.require subconf (T.pack <span class="st">&quot;pass&quot;</span>) :: <span class="kw">IO</span> String
 <span class="kw">ghci&gt;</span> pass
-<span class="st">&quot;qwerty&quot;</span></code></pre>
+<span class="st">&quot;qwerty&quot;</span></code></pre></div>
 <p>… и использовать значения по умолчанию:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> port <span class="kw">&lt;</span>- C.lookupDefault 5432 subconf (T.pack <span class="st">&quot;port&quot;</span>) :: <span class="kw">IO</span> Int
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> port <span class="kw">&lt;</span>- C.lookupDefault 5432 subconf (T.pack <span class="st">&quot;port&quot;</span>) :: <span class="kw">IO</span> Int
 <span class="kw">ghci&gt;</span> port
-<span class="kw">5432</span></code></pre>
+<span class="kw">5432</span></code></pre></div>
 <p>Совсем не сложно, правда?</p>
 <p>Теперь попробуем разобраться с автоматическим обновлением конфигов. Типы и функции, которые нам понадобятся, следующие:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">AutoConfig</span> <span class="fu">=</span> <span class="dt">AutoConfig</span> {
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">AutoConfig</span> <span class="fu">=</span> <span class="dt">AutoConfig</span> {
 <span class="ot">      interval ::</span> <span class="dt">Int</span>
     ,<span class="ot"> onError ::</span> <span class="dt">SomeException</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
-    }</code></pre>
+    }</code></pre></div>
 <p>Этот тип определяет, как часто следует перечитывать конфиг и что делать в случае возникновения ошибки.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">autoConfig ::</span> <span class="dt">AutoConfig</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">autoConfig ::</span> <span class="dt">AutoConfig</span></code></pre></div>
 <p>Возвращает значение по умолчанию типа <code>AutoConfig</code>. Интервал равен одной секунде, ошибки игнорируются.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">autoReload ::</span> <span class="dt">AutoConfig</span> <span class="ot">-&gt;</span> [<span class="dt">Worth</span> FilePath] <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Config</span>, <span class="dt">ThreadId</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">autoReload ::</span> <span class="dt">AutoConfig</span> <span class="ot">-&gt;</span> [<span class="dt">Worth</span> FilePath] <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Config</span>, <span class="dt">ThreadId</span>)</code></pre></div>
 <p>Создает автоматически обновляемый конфиг.</p>
 <p>Посмотрим на все это хозяйство в действии. Говорим:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let paths = [C.Required <span class="st">&quot;/home/eax/test.conf&quot;</span>]
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> let paths = [C.Required <span class="st">&quot;/home/eax/test.conf&quot;</span>]
 <span class="kw">ghci&gt;</span> (conf2, _) <span class="kw">&lt;-</span> C.autoReload C.autoConfig paths
 <span class="kw">ghci&gt;</span> C.getMap conf2
-<span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;admin&quot;</span>), <span class="kw">...</span></code></pre>
+<span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;admin&quot;</span>), <span class="kw">...</span></code></pre></div>
 <p>Открываем конфиг, заменяем имя пользователя на «guest», снова говорим:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> C.getMap conf2
-<span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;guest&quot;</span>), <span class="kw">...</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> C.getMap conf2
+<span class="kw">fromList</span> [(<span class="st">&quot;database.user&quot;</span>,String <span class="st">&quot;guest&quot;</span>), <span class="kw">...</span></code></pre></div>
 <p>Кажется, работает! Ну, почти. На момент написания этих строк в <code>configurator</code>было несколько неисправленных багов. Например, если использовать в пути к конфигу переменную <code>$(HOME)</code>, он не будет обновляться. Ознакомиться со списком известных багов можно <a href="https://github.com/bos/configurator/issues">здесь</a>.</p>
 <p>Также configurator позволяет подписаться на обновления определенных частей конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prefix ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prefix ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span></code></pre></div>
 <p>Возвращает шаблон для подписки на определенную часть конфига.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">exact ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">exact ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span></code></pre></div>
 <p>Создает шаблон для подписки на один конкретный параметр.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChangeHandler</span> <span class="fu">=</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChangeHandler</span> <span class="fu">=</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre></div>
 <p>Тип функции, вызываемой при внесении изменений в конфиге.</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">subscribe ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span> <span class="ot">-&gt;</span> <span class="dt">ChangeHandler</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">subscribe ::</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Pattern</span> <span class="ot">-&gt;</span> <span class="dt">ChangeHandler</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</code></pre></div>
 <p>Подписаться на изменения.</p>
 <p>Проверяем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> :{
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> :{
 <span class="kw">Prelude</span> C T<span class="kw">|</span> <span class="kw">let</span> changeHandler name val = do
 <span class="kw">Prelude</span> C T<span class="kw">|</span>       <span class="kw">putStrLn</span> $ show name ++ <span class="st">&quot; changed to &quot;</span> ++ show val
 <span class="kw">Prelude</span> C T<span class="kw">|</span> :}
 <span class="kw">ghci&gt;</span> let prfx = (C.prefix $ T.pack <span class="st">&quot;database&quot;</span>)
 <span class="kw">ghci&gt;</span> let exct = (C.exact $ T.pack <span class="st">&quot;database.port&quot;</span>)
 <span class="kw">ghci&gt;</span> C.subscribe conf2 prfx changeHandler
-<span class="kw">ghci&gt;</span> C.subscribe conf2 exct changeHandler</code></pre>
+<span class="kw">ghci&gt;</span> C.subscribe conf2 exct changeHandler</code></pre></div>
 <p>Открываем конфиг и дописываем в него строчку:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml">  port = 5432</code></pre>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml">  port = 5432</code></pre></div>
 <p>В ghci видим:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> <span class="st">&quot;database.port&quot;</span> changed to Just (Number (5432 % 1))
-<span class="st">&quot;database.port&quot;</span> <span class="kw">changed</span> to Just (Number (5432 % 1))</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ghci&gt;</span> <span class="st">&quot;database.port&quot;</span> changed to Just (Number (5432 % 1))
+<span class="st">&quot;database.port&quot;</span> <span class="kw">changed</span> to Just (Number (5432 % 1))</code></pre></div>
 <p>Вот такой занятный пакет этот <code>configurator</code>. А чем вы парсите конфиги в Haskell?</p>
 
 <div id="socialButtons">

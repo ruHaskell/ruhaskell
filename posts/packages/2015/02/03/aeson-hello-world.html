@@ -195,26 +195,26 @@
 <p>Разумеется, выбор мой пал на пакет <code>aeson</code>, ибо он мощный, шустрый и весьма широко используемый. В рамках данной статьи мы рассмотрим лишь самые азы работы с ним (которых, впрочем, будет достаточно для базовой работы с JSON).</p>
 <h2 id="привет-json-мир">Привет, JSON-мир!</h2>
 <p>Итак, у нас есть JSON-файл с информацией об одном-единственном хосте:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
     <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
     <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3000</span>
-<span class="fu">}</span></code></pre>
+<span class="fu">}</span></code></pre></div>
 <p>Соответственно, требуется распарсить это хозяйство и вывести. Наиболее простым способом использования пакета <code>aeson</code> является чтение в (составной) тип. Определим же его:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Host</span> <span class="fu">=</span> <span class="dt">Host</span> {<span class="ot"> ip   ::</span> <span class="dt">String</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Host</span> <span class="fu">=</span> <span class="dt">Host</span> {<span class="ot"> ip   ::</span> <span class="dt">String</span>
                  ,<span class="ot"> port ::</span> <span class="dt">Int</span>
                  }
 
 <span class="ot">printPretty ::</span> <span class="dt">Host</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
-printPretty (<span class="dt">Host</span> ip port) <span class="fu">=</span> ip <span class="fu">++</span> <span class="st">&quot;:&quot;</span> <span class="fu">++</span> show port</code></pre>
+printPretty (<span class="dt">Host</span> ip port) <span class="fu">=</span> ip <span class="fu">++</span> <span class="st">&quot;:&quot;</span> <span class="fu">++</span> show port</code></pre></div>
 <p>Теперь нужно поведать, <em>каким образом</em> мы желаем извлекать значение этого типа из сырого JSON. Для этого определим экземпляр класса <code>FromJSON</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Host</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Host</span> <span class="kw">where</span>
     parseJSON (<span class="dt">Object</span> host) <span class="fu">=</span> <span class="dt">Host</span> <span class="fu">&lt;$&gt;</span> host <span class="fu">.:</span> <span class="st">&quot;ip&quot;</span>
                                    <span class="fu">&lt;*&gt;</span> host <span class="fu">.:</span> <span class="st">&quot;port&quot;</span>
 
-    parseJSON _             <span class="fu">=</span> mzero</code></pre>
+    parseJSON _             <span class="fu">=</span> mzero</code></pre></div>
 <p>Как вы поняли, класс типов <code>FromJSON</code> объединяет все типы, значения которых могут быть построены из содержимого JSON. Этот класс включает в себя единственный метод <code>parseJSON</code>, но мы пока не станем рассматривать его подробно.</p>
 <p>Теперь пишем наш главный код:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span>
 
 <span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
 
@@ -232,88 +232,88 @@ main <span class="fu">=</span> <span class="kw">do</span>
     <span class="kw">let</span> result <span class="fu">=</span> decodeStrict rawJSON
     putStrLn <span class="fu">$</span> <span class="kw">case</span> result <span class="kw">of</span>
         <span class="dt">Nothing</span>   <span class="ot">-&gt;</span> <span class="st">&quot;Invalid JSON!&quot;</span>
-        <span class="dt">Just</span> host <span class="ot">-&gt;</span> printPretty host</code></pre>
+        <span class="dt">Just</span> host <span class="ot">-&gt;</span> printPretty host</code></pre></div>
 <p>При работе с пакетом <code>aeson</code> умолчальным строковым типом является <code>ByteString</code>, а не <code>String</code> (и это хорошо, ибо значиииительно эффективнее). После прочтения файла мы вызываем функцию <code>decodeStrict</code>, которая и делает всю главную работу по извлечению данных из JSON. Обращаю ваше внимание на то, что функция <code>decodeStrict</code> является строгим вариантом функции <code>decode</code>. Мы решили использовать строгие строки, поэтому взяли <code>decodeStrict</code>, для ленивых строк мы бы взяли <code>decode</code> и <code>Data.ByteString.Lazy.readFile</code>.</p>
 <p>После запуска этой программы результат вполне ожидаем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">127.0.0.1</span>:3000</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">127.0.0.1</span>:3000</code></pre></div>
 <h2 id="из-json">Из JSON</h2>
 <p>Взглянем ещё раз на экземпляр класса <code>FromJSON</code> для нашего хоста:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Host</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Host</span> <span class="kw">where</span>
     parseJSON (<span class="dt">Object</span> host) <span class="fu">=</span> <span class="dt">Host</span> <span class="fu">&lt;$&gt;</span> host <span class="fu">.:</span> <span class="st">&quot;ip&quot;</span>
                                    <span class="fu">&lt;*&gt;</span> host <span class="fu">.:</span> <span class="st">&quot;port&quot;</span>
 
-    parseJSON _             <span class="fu">=</span> mzero</code></pre>
+    parseJSON _             <span class="fu">=</span> mzero</code></pre></div>
 <p>Обратите внимание на тип <code>Object</code>. Используя этот тип, мы заявляем о нашем желании работать с классическим JSON-объектом (представляющим собой набор пар “ключ-значение”). И в данном случае это именно то, что нам нужно: есть один JSON-объект, содержащий две пары, для IP-адреса и для порта. Поэтому мы формируем значение заготовленного типа <code>Host</code> на основании извлечённых значений, а именно IP-адреса:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">host <span class="fu">.:</span> <span class="st">&quot;ip&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">host <span class="fu">.:</span> <span class="st">&quot;ip&quot;</span></code></pre></div>
 <p>и порта:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">host <span class="fu">.:</span> <span class="st">&quot;port&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">host <span class="fu">.:</span> <span class="st">&quot;port&quot;</span></code></pre></div>
 <p>Ну а второй вариант метода <code>parseJSON</code> для типа <code>Host</code>, как вы уже поняли, представляет собой пустышку: если в JSON не окажется ожидаемого нами объекта, значит ничего и сделать нельзя.</p>
 <p>Кстати, если аппликативный синтаксис вызывает у вас затруднения, метод <code>parseJSON</code> можно переписать в более явной форме:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">parseJSON (<span class="dt">Object</span> host) <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseJSON (<span class="dt">Object</span> host) <span class="fu">=</span> <span class="kw">do</span>
     anIP  <span class="ot">&lt;-</span> host <span class="fu">.:</span> <span class="st">&quot;ip&quot;</span>
     aPort <span class="ot">&lt;-</span> host <span class="fu">.:</span> <span class="st">&quot;port&quot;</span>
-    return <span class="fu">$</span> <span class="dt">Host</span> anIP aPort</code></pre>
+    return <span class="fu">$</span> <span class="dt">Host</span> anIP aPort</code></pre></div>
 <p>Здесь мы последовательно извлекаем значения двух ключей и строим из них значение типа <code>Host</code>, возвращая его в монадическую обёртку.</p>
 <h2 id="в-json">В JSON</h2>
 <p>Проделаем обратный фокус - подготовимся к превращаению значения типа <code>Host</code> в JSON. Для этого нам необходимо определить свой экземпляр класса <code>ToJSON</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Host</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Host</span> <span class="kw">where</span>
     toJSON (<span class="dt">Host</span> anIP aPort) <span class="fu">=</span> object [ <span class="st">&quot;ip&quot;</span>   <span class="fu">.=</span> anIP
                                       , <span class="st">&quot;port&quot;</span> <span class="fu">.=</span> aPort
-                                      ]</code></pre>
+                                      ]</code></pre></div>
 <p>Здесь всё наоборот: берём значение типа <code>Host</code> и указываем его IP-адрес и порт для ключей <code>ip</code> и <code>port</code> соответственно. Обратите внимание на функцию <code>object</code>: раньше мы извлекали JSON-объект, а теперь мы его формируем.</p>
 <p>Пишем главный код:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy.Char8</span> <span class="kw">as</span> <span class="dt">LC</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy.Char8</span> <span class="kw">as</span> <span class="dt">LC</span>
 
 <span class="fu">...</span>
 
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> host <span class="fu">=</span> <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3050</span>
-    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encode host</code></pre>
+    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encode host</code></pre></div>
 <p>Функция <code>encode</code> сериализует значение хоста, и потому на выходе мы получим ожидаемый результат:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span><span class="dt">&quot;ip&quot;</span><span class="fu">:</span><span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span><span class="dt">&quot;port&quot;</span><span class="fu">:</span><span class="dv">3050</span><span class="fu">}</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span><span class="dt">&quot;ip&quot;</span><span class="fu">:</span><span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span><span class="dt">&quot;port&quot;</span><span class="fu">:</span><span class="dv">3050</span><span class="fu">}</span></code></pre></div>
 <h2 id="украшаем">Украшаем</h2>
 <p>Не знаю как вам, друзья, а мне не нравятся вот такие однострочные JSON. Всё-таки иногда JSON читают не только программы, но и люди. К счастью, есть маленький пакет <code>aeson-pretty</code>, который украсит наш результат. Установив его, пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Data.Aeson.Encode.Pretty</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Data.Aeson.Encode.Pretty</span>
 
 <span class="fu">...</span>
 
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> host <span class="fu">=</span> <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3050</span>
-    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty host</code></pre>
+    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty host</code></pre></div>
 <p>Вместо функции <code>encode</code> теперь используется функция <code>encodePretty</code>, и поэтому на выходе мы получим вот такую красоту:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
     <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
     <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
-<span class="fu">}</span></code></pre>
+<span class="fu">}</span></code></pre></div>
 <p>Кстати, если отступ в 4 символа вас не устраивает (я знаю, многие привыкли к двум пробелам), это можно легко изменить:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> host <span class="fu">=</span> <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3050</span>
         prettyConfig <span class="fu">=</span> <span class="dt">Config</span> { confIndent  <span class="fu">=</span> <span class="dv">2</span>
                               , confCompare <span class="fu">=</span> mempty
                               }
-    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty' prettyConfig host</code></pre>
+    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty' prettyConfig host</code></pre></div>
 <p>Мы используем второй вариант функции <code>encodePretty</code>, а именно <code>encodePretty'</code>, потому что лишь этот вариант принимает конфиг в качестве первого аргумента. Результат:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
   <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
   <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
-<span class="fu">}</span></code></pre>
+<span class="fu">}</span></code></pre></div>
 <h2 id="опциональное-значение">Опциональное значение</h2>
 <p>Пусть наличие порта для хоста будет необязательным, то есть файл может быть и таким:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
     <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span>
-<span class="fu">}</span></code></pre>
+<span class="fu">}</span></code></pre></div>
 <p>В этом случае мы обязаны сообщить об опциональности ключа “port”:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">parseJSON (<span class="dt">Object</span> host) <span class="fu">=</span> <span class="kw">do</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseJSON (<span class="dt">Object</span> host) <span class="fu">=</span> <span class="kw">do</span>
     anIP  <span class="ot">&lt;-</span> host <span class="fu">.:</span>  <span class="st">&quot;ip&quot;</span>
     aPort <span class="ot">&lt;-</span> host <span class="fu">.:?</span> <span class="st">&quot;port&quot;</span> <span class="fu">.!=</span> <span class="dv">80</span>
-    return <span class="fu">$</span> <span class="dt">Host</span> anIP aPort</code></pre>
+    return <span class="fu">$</span> <span class="dt">Host</span> anIP aPort</code></pre></div>
 <p>Оператор <code>.:?</code> указывает на то, что значения “port” может не быть. А оператор <code>.!=</code>, в свою очередь, задаёт умолчальное значение порта, в случае его отсутствия в JSON. Просто и понятно.</p>
 <h2 id="массив">Массив</h2>
 <p>Чуток усложним наш JSON. Пусть теперь в нём живёт безымянный массив хостов:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
     <span class="fu">{</span>
         <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
         <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3000</span>
@@ -326,28 +326,28 @@ main <span class="fu">=</span>
         <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
         <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3020</span>
     <span class="fu">}</span>
-<span class="ot">]</span></code></pre>
+<span class="ot">]</span></code></pre></div>
 <p>Очевидно, теперь в качестве результата мы ожидаем получить список значений типа <code>Host</code>. Нет ничего проще! Пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span> <span class="kw">do</span>
     rawJSON <span class="ot">&lt;-</span> B.readFile <span class="st">&quot;/Users/dshevchenko/our.json&quot;</span>
     <span class="kw">let</span> result <span class="fu">=</span> decodeStrict<span class="ot"> rawJSON ::</span> <span class="dt">Maybe</span> [<span class="dt">Host</span>]
     putStrLn <span class="fu">$</span> <span class="kw">case</span> result <span class="kw">of</span>
         <span class="dt">Nothing</span>    <span class="ot">-&gt;</span> <span class="st">&quot;Invalid JSON!&quot;</span>
-        <span class="dt">Just</span> hosts <span class="ot">-&gt;</span> show <span class="fu">$</span> printPretty <span class="fu">&lt;$&gt;</span> hosts</code></pre>
+        <span class="dt">Just</span> hosts <span class="ot">-&gt;</span> show <span class="fu">$</span> printPretty <span class="fu">&lt;$&gt;</span> hosts</code></pre></div>
 <p>Видите? Мы всего лишь явно указали тип значения, возвращаемого функцией <code>decodeStrict</code>: раньше тип был <code>Maybe Host</code>, а теперь - <code>Maybe [Host]</code>. Соответственно, в <code>Just</code>-секции мы бежим по извлечённому списку и красиво отображаем каждый из хостов. И вот результат:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre></div>
 <h2 id="массив---в-json">Массив - в JSON</h2>
 <p>Теперь наоборот: сформируем JSON-массив на основании списка хостов. К счастью, нам ничего не придётся переделывать для этого. Мы просто пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> hosts <span class="fu">=</span> [ <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3050</span>
                 , <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3070</span>
                 , <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3080</span>
                 ]
-    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty hosts</code></pre>
+    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty hosts</code></pre></div>
 <p>То есть просто формируем список хостов и передаём на сериализацию. Готово:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
     <span class="fu">{</span>
         <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
         <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3050</span>
@@ -360,10 +360,10 @@ main <span class="fu">=</span>
         <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
         <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3080</span>
     <span class="fu">}</span>
-<span class="ot">]</span></code></pre>
+<span class="ot">]</span></code></pre></div>
 <h2 id="именованный-массив">Именованный массив</h2>
 <p>Ещё немного усложним наш JSON. Пусть теперь у нас будет именованный массив хостов:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
     <span class="dt">&quot;hosts&quot;</span><span class="fu">:</span> <span class="ot">[</span>
         <span class="fu">{</span>
             <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
@@ -378,39 +378,39 @@ main <span class="fu">=</span>
             <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3020</span>
         <span class="fu">}</span>
     <span class="ot">]</span>
-<span class="fu">}</span></code></pre>
+<span class="fu">}</span></code></pre></div>
 <p>В этом случае достать их прежним способом мы уже, разумеется, не сможем. Ведь теперь у нас есть один JSON-объект на верхнем уровне, содержащий ключ, которому соответствует уже известный нам массив хостов. Поэтому определим ещё один тип:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Hosts</span> <span class="fu">=</span> <span class="dt">Hosts</span> [<span class="dt">Host</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Hosts</span> <span class="fu">=</span> <span class="dt">Hosts</span> [<span class="dt">Host</span>]</code></pre></div>
 <p>Значение типа <code>Hosts</code> хранит список хостов. А раз появился новый тип, нужно и ещё одно парсинговое правило. Определим экземпляр класса <code>FromJSON</code> для типа <code>Hosts</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Hosts</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Hosts</span> <span class="kw">where</span>
     parseJSON (<span class="dt">Object</span> hosts) <span class="fu">=</span> <span class="kw">do</span>
         anArray <span class="ot">&lt;-</span> hosts <span class="fu">.:</span> <span class="st">&quot;hosts&quot;</span>
-        return <span class="fu">$</span> <span class="dt">Hosts</span> anArray</code></pre>
+        return <span class="fu">$</span> <span class="dt">Hosts</span> anArray</code></pre></div>
 <p>Тут всё точно так как и прежде, ведь на верхнем иерархическом уровне у нас располагается обычный JSON-объект, с единственным ключом “hosts”. Поэтому главный код остаётся без изменений:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span> <span class="kw">do</span>
     rawJSON <span class="ot">&lt;-</span> B.readFile <span class="st">&quot;/Users/dshevchenko/our.json&quot;</span>
     <span class="kw">let</span> result <span class="fu">=</span> decodeStrict rawJSON
     putStrLn <span class="fu">$</span> <span class="kw">case</span> result <span class="kw">of</span>
         <span class="dt">Nothing</span>            <span class="ot">-&gt;</span> <span class="st">&quot;Invalid JSON!&quot;</span>
-        <span class="dt">Just</span> (<span class="dt">Hosts</span> hosts) <span class="ot">-&gt;</span> show <span class="fu">$</span> printPretty <span class="fu">&lt;$&gt;</span> hosts</code></pre>
+        <span class="dt">Just</span> (<span class="dt">Hosts</span> hosts) <span class="ot">-&gt;</span> show <span class="fu">$</span> printPretty <span class="fu">&lt;$&gt;</span> hosts</code></pre></div>
 <p>И наш результат:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">[<span class="st">&quot;127.0.0.1:3000&quot;</span>,<span class="st">&quot;127.0.0.1:3010&quot;</span>,<span class="st">&quot;127.0.0.1:3020&quot;</span>]</code></pre></div>
 <h2 id="и-вновь-в-json">И вновь в JSON</h2>
 <p>Сделаем обратное действие: сформируем JSON с именованным списком хостов. И поскольку у нас появился тип <code>Hosts</code>, определим правило превращения в JSON и для него:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Hosts</span> <span class="kw">where</span>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Hosts</span> <span class="kw">where</span>
     toJSON (<span class="dt">Hosts</span> hosts) <span class="fu">=</span> object [ <span class="st">&quot;hosts&quot;</span> <span class="fu">.=</span> hosts
-                                  ]</code></pre>
+                                  ]</code></pre></div>
 <p>Полагаю, тут уже всё ясно без комментариев. А теперь пишем:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
 main <span class="fu">=</span>
     <span class="kw">let</span> hosts <span class="fu">=</span> [ <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3050</span>
                 , <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3070</span>
                 , <span class="dt">Host</span> <span class="st">&quot;127.0.0.1&quot;</span> <span class="dv">3080</span>
                 ]
-    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty <span class="fu">$</span> <span class="dt">Hosts</span> hosts</code></pre>
+    <span class="kw">in</span> LC.putStrLn <span class="fu">$</span> encodePretty <span class="fu">$</span> <span class="dt">Hosts</span> hosts</code></pre></div>
 <p>Как видите, мы передали на сериализацию уже не голый список, а значение типа <code>Hosts</code> (для этого нам и понадобился экземпляр класса <code>ToJSON</code> для данного типа). И вот результат:</p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
     <span class="dt">&quot;hosts&quot;</span><span class="fu">:</span> <span class="ot">[</span>
         <span class="fu">{</span>
             <span class="dt">&quot;ip&quot;</span><span class="fu">:</span> <span class="st">&quot;127.0.0.1&quot;</span><span class="fu">,</span>
@@ -425,7 +425,7 @@ main <span class="fu">=</span>
             <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">3080</span>
         <span class="fu">}</span>
     <span class="ot">]</span>
-<span class="fu">}</span></code></pre>
+<span class="fu">}</span></code></pre></div>
 <h2 id="выводы">Выводы</h2>
 <p>Как мы убедились, использовать <code>aeson</code> для работы с простым JSON совершенно несложно. Лично мне очень понравилось. Но, как я и сказал, всё это только азы. В будущих заметках мы изучим более продвинутые возможности этого пакета.</p>
 

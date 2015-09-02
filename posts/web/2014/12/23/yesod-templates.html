@@ -194,16 +194,16 @@
 <p>Как вы <a href="http://blog.dshevchenko.biz/2014/12/21/yesod-structure-templates.html">уже знаете</a>, в корне Yesod-проекта имеется каталог <code>templates</code>, содержащий шаблоны, в которых уютно расположились наши HTML, CSS и JS. Пришло время узнать обо всём об этом подробнее.</p>
 <h2 id="гамлет">Гамлет</h2>
 <p>Шаблоны с расширением <code>.hamlet</code> - самые главные, ведь именно в них живёт HTML. Впрочем, не совсем обыкновенный HTML. Те из вас, кто знаком с Ruby on Rails, наверняка знают о <a href="http://slim-lang.com">Slim</a>. Так вот Hamlet - это что-то в том же духе. Вот простейший пример:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.centered</span><span class="kw">&gt;</span>
-    Привет, это Hamlet, мета-язык для создания HTML!</code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.centered</span><span class="kw">&gt;</span>
+    Привет, это Hamlet, мета-язык для создания HTML!</code></pre></div>
 <p>После сборки нашего проекта этот код превратится в следующий HTML:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;centered&quot;</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;centered&quot;</span><span class="kw">&gt;</span>
     Привет, это Hamlet, мета-язык для создания HTML!
-<span class="kw">&lt;/div&gt;</span></code></pre>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
 <p>А теперь о деталях.</p>
 <h3 id="теги">Теги</h3>
 <p>Как вы заметили, в Hamlet-коде не нужно закрывать теги, это будет сделано за нас автоматически. И на мой взгляд, это чрезвычайно удобно. Ведь если не нужно вручную закрывать тег, то мы не сможем ни забыть этого сделать, ни сделать это криво. Взгляните:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span>
     <span class="kw">&lt;div</span> <span class="er">.just-centered</span><span class="kw">&gt;</span>
         <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?
  
@@ -214,37 +214,37 @@
                     <span class="er">.btn-lg</span>
                     <span class="er">#registerButton</span>
 <span class="ot">                    data-toggle=</span><span class="st">modal</span>
-<span class="ot">                    data-target=</span><span class="st">#registerForm</span><span class="kw">&gt;</span>Зарегистрируйтесь</code></pre>
+<span class="ot">                    data-target=</span><span class="st">#registerForm</span><span class="kw">&gt;</span>Зарегистрируйтесь</code></pre></div>
 <p>Но вы спросите, а как же задаётся вложенность тегов, если нет закрывающих? Очень просто: через отступы. В этом плане синтаксис Hamlet похож на синтаксис Haskell: отступы имееют значение. Поэтому если мы напишем так:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span>
     <span class="kw">&lt;div</span> <span class="er">.just-centered</span><span class="kw">&gt;</span>
-        <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?</code></pre>
+        <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?</code></pre></div>
 <p>то HTML получится такой:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;register&quot;</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;register&quot;</span><span class="kw">&gt;</span>
     <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;just-centered&quot;</span><span class="kw">&gt;</span>
         <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?<span class="kw">&lt;/h4&gt;</span>
     <span class="kw">&lt;/div&gt;</span>
-<span class="kw">&lt;/div&gt;</span></code></pre>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
 <p>Однако стоит нам убрать отступ:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span>
 <span class="kw">&lt;div</span> <span class="er">.just-centered</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?</code></pre>
+    <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?</code></pre></div>
 <p>и HTML получится таким:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;register&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;register&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
 <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;just-centered&quot;</span><span class="kw">&gt;</span>
     <span class="kw">&lt;h4&gt;</span>Ещё нет профиля?<span class="kw">&lt;/h4&gt;</span>
-<span class="kw">&lt;/div&gt;</span></code></pre>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
 <p>Кто-то скажет, мол, не такая уж и большая выгода получается: в чистом HTML-коде нужно внимательно следить за симметрией открывающих/закрывающих тегов, а в Hamlet нужно столь же внимательно следить за отступами. Но тут уж, как говорится, на ваш выбор. Лично мне больше нравятся отступы, ведь, работая с Haskell, я уже и так привык к их важности.</p>
 <h3 id="классы-и-идентификаторы">Классы и идентификаторы</h3>
 <p>Имена CSS-классов и идентификаторов задаются точно так же, как в самом CSS: классы через точку, а идентификаторы - через хэш. Во-первых, это сокращает код, а во-вторых, имена классов и идентификаторов можно не заключать в кавычки. Согласитесь, вот так:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span> <span class="er">.register</span><span class="kw">&gt;</span></code></pre></div>
 <p>выглядит красивее, нежели так:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;register&quot;</span><span class="kw">&gt;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;register&quot;</span><span class="kw">&gt;</span></code></pre></div>
 <h3 id="кавычки">Кавычки</h3>
 <p>Как было сказано выше, в Hamlet кавычки можно опускать, за исключением случаев, когда они необходимы (например, при наличии пробелов в идентификаторе). Поэтому в коде моей Bootstrap-овской кнопки я пишу так:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">...</span><span class="ot"> data-toggle=</span><span class="st">modal</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">...</span><span class="ot"> data-toggle=</span><span class="st">modal</span></code></pre></div>
 <p>а не так:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">...</span><span class="ot"> data-toggle=</span><span class="st">&quot;modal&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span> <span class="er">...</span><span class="ot"> data-toggle=</span><span class="st">&quot;modal&quot;</span></code></pre></div>
 <h3 id="haskell-примочки">Haskell-примочки</h3>
 <p>Мы можем запихнуть в Hamlet-код ряд особых программных конструкций, таких как условия, <code>Maybe</code>, <code>forall</code> и <code>case</code>. Более того, мы можем даже чистый Haskell использовать внутри Hamlet-кода. Однако писать об этом подробно сейчас я не стану, ведь всё это мы рассмотрим в будущих заметках, когда приступим к написанию реальных кусочков нашего проекта.</p>
 <h3 id="интернационализация">Интернационализация</h3>
@@ -253,18 +253,18 @@
 <p>Lucius - это мета-язык, предназначенный для написания CSS. Без стилей, сами понимаете, никуда, однако с Луцием всё значительно проще, нежели с Гамлетом. Как правило, шаблоны с расширением <code>.lucius</code> включают в себя самый обыкновенный CSS. Правда, есть несколько вкусностей.</p>
 <h3 id="вложенность">Вложенность</h3>
 <p>Стилевые секции в Lucius могут быть вложенными. Таким образом, вместо того, чтобы писать так:</p>
-<pre class="sourceCode css"><code class="sourceCode css">article code <span class="kw">{</span> <span class="kw">background-color:</span> <span class="dt">#eee</span><span class="kw">;</span> <span class="kw">}</span>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">article code <span class="kw">{</span> <span class="kw">background-color:</span> <span class="dt">#eee</span><span class="kw">;</span> <span class="kw">}</span>
 article p <span class="kw">{</span> <span class="kw">text-indent:</span> <span class="dt">1.5em</span><span class="kw">;</span> <span class="kw">}</span>
-article a <span class="kw">{</span> <span class="kw">text-decoration:</span> <span class="dt">none</span><span class="kw">;</span> <span class="kw">}</span></code></pre>
+article a <span class="kw">{</span> <span class="kw">text-decoration:</span> <span class="dt">none</span><span class="kw">;</span> <span class="kw">}</span></code></pre></div>
 <p>мы можем написать так:</p>
-<pre class="sourceCode css"><code class="sourceCode css">article <span class="kw">{</span>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">article <span class="kw">{</span>
     <span class="er">code</span> <span class="er">{</span> <span class="kw">background-color:</span> <span class="dt">#eee</span><span class="kw">;</span> <span class="kw">}</span>
     p <span class="kw">{</span> <span class="kw">text-indent:</span> <span class="dt">1.5em</span><span class="kw">;</span> <span class="kw">}</span>
     a <span class="kw">{</span> <span class="kw">text-decoration:</span> <span class="dt">none</span><span class="kw">;</span> <span class="kw">}</span>
-}</code></pre>
+}</code></pre></div>
 <h3 id="переменные">Переменные</h3>
 <p>Во избежание дубляжа, можно использовать особые переменные внутри <code>.lucius</code>-файлов. Например:</p>
-<pre class="sourceCode css"><code class="sourceCode css">@bigSpace<span class="dv">:</span> 100px;
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">@bigSpace<span class="dv">:</span> 100px;
 
 <span class="fl">.register-block</span> <span class="kw">{</span> 
     <span class="kw">padding-top:</span> #{bigSpace<span class="kw">}</span>;
@@ -272,7 +272,7 @@ article a <span class="kw">{</span> <span class="kw">text-decoration:</span> <sp
 
 <span class="fl">.login-block</span> <span class="kw">{</span> 
     <span class="kw">padding-top:</span> #{bigSpace<span class="kw">}</span>;
-}</code></pre>
+}</code></pre></div>
 <p>По мере продвижения по нашему проекту мы увидим всё это в действии.</p>
 <h2 id="юлий">Юлий</h2>
 <p>С Julius всё совсем просто. Шаблоны с расширением <code>.julius</code> содержат в себе нативный JS. Правда, там можно использовать несколько Haskell-овских примочек, но их значительно меньше, нежели в Hamlet. Поэтому пока воспринимайте <code>.julius</code>-файлы как обычные <code>.js</code>-файлы.</p>

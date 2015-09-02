@@ -214,25 +214,25 @@
 <p>Идём <a href="https://github.com/commercialhaskell/stack/wiki/Downloads">сюда</a> и скачиваем <code>stack</code> для своей ОС. На момент написания данной статьи последней версией была <code>1.2.0</code>, датируемая 6 июля. После скачивания архива распаковываем его - и вот он наш файлик. Переименовываем его в <code>stack</code>, делаем исполняемым, копируем куда-нибудь в <code>PATH</code> (я положил в <code>/usr/local/bin</code>) - и можно работать.</p>
 <h2 id="начнём-с-пустышки">Начнём с пустышки</h2>
 <p>Делаем следующее:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> probe
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mkdir</span> probe
 $ <span class="kw">cd</span> probe
-$ <span class="kw">stack</span> new</code></pre>
+$ <span class="kw">stack</span> new</code></pre></div>
 <p>Команда <code>new</code> создаёт простейший проект-пустышку в текущем каталоге:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span>
 <span class="kw">LICENSE</span>
 <span class="kw">Setup.hs</span>
 <span class="kw">app/</span>
 <span class="kw">new-template.cabal</span>
 <span class="kw">src/</span>
 <span class="kw">stack.yaml</span>
-<span class="kw">test/</span></code></pre>
+<span class="kw">test/</span></code></pre></div>
 <p>Перед нами - самый обыкновенный Haskell-проект. Кстати, он прямо сейчас, без каких-либо дополнительных манипуляций готов к сборке, в отличие от проекта, создаваемого с помощью <code>cabal init</code>.</p>
 <p>Самая важная часть, которой не было раньше - файл <code>stack.yaml</code>. Заглянем в него:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">flags:</span> <span class="kw">{}</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">flags:</span> <span class="kw">{}</span>
 <span class="fu">packages:</span>
 <span class="kw">-</span> <span class="st">'.'</span>
 <span class="fu">extra-deps:</span> <span class="kw">[]</span>
-<span class="fu">resolver:</span> lts-2.15</code></pre>
+<span class="fu">resolver:</span> lts-2.15</code></pre></div>
 <p>Обратите внимание на последнюю строчку, ибо она очень, очень важна. <code>lts-2.15</code> - это версия нашей Haskell-экосистемы. LTS - от “Long Term Support” - представляет собой фиксированный набор Haskell-пакетов. Но что значит “фиксированный набор”? Поясню.</p>
 <h2 id="stackage">Stackage</h2>
 <p>Как мы знаем, наш любимый <a href="http://hackage.haskell.org/packages/">Hackage</a> содержит очень много пакетов: на данный момент их чуть более 8400 штук. Но будет честными - далеко не всё из этой кучи пригодно для реального применения. Многие из пакетов - сугубо экспериментальные (читай “игрушечные”), а есть и вообще заброшенные. Поэтому друзья из FP Complete придумали Stackage, от “Stable Hackage”.</p>
@@ -241,12 +241,12 @@ $ <span class="kw">stack</span> new</code></pre>
 <p>Это особенно полезно при расширении разработки. Пришёл новый человек в команду - никаких проблем с вечно обновляющимися пакетами: он просто берёт ту же версию снимка, что и все остальные коллеги, собирает - и у него всё ок.</p>
 <h2 id="собираем">Собираем</h2>
 <p>Пора собрать наш проект:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> build
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> build
 <span class="kw">Downloaded</span> lts-2.15 build plan.
 <span class="kw">Caching</span> build plan
 <span class="kw">Fetched</span> package index.
 <span class="kw">Populated</span> index cache.
-<span class="kw">GHC</span> version mismatched, found 7.8.3 (x86_64), <span class="kw">but</span> expected version 7.8.4 (x86_64) <span class="kw">(based</span> on resolver setting in /Users/dshevchenko/probe_stack/stack.yaml<span class="kw">).</span> <span class="kw">Try</span> running stack setup</code></pre>
+<span class="kw">GHC</span> version mismatched, found 7.8.3 (x86_64), <span class="kw">but</span> expected version 7.8.4 (x86_64) <span class="kw">(based</span> on resolver setting in /Users/dshevchenko/probe_stack/stack.yaml<span class="kw">).</span> <span class="kw">Try</span> running stack setup</code></pre></div>
 <p>В начале происходит загрузка “lts-2.15 build plan”, чтобы <code>stack</code> понял, с какими версиями пакетов следует работать в данном проекте. А теперь обратите внимание на последнюю строчку: <code>stack</code> сообщает нам о несоответствии версий GHC. На моей машине стоит 7.8.3, однако ожидается версия 7.8.4. Заглянем на <a href="https://www.stackage.org/lts-2.15">lts-страницу</a> - так и есть:</p>
 <blockquote>
 <p>LTS Haskell 2.15 - GHC 7.8.4</p>
@@ -254,22 +254,22 @@ $ <span class="kw">stack</span> new</code></pre>
 <p>Данный снимок был проверен с использованием 7.8.4, а следовательно, эту версию и нужно использовать. Однако на моей машине, в рамках последней Haskell Platform, установлена версия 7.8.3. Что же делать? Следует установить версию 7.8.4 (спасибо, Кэп!).</p>
 <h2 id="ставим-нужный-компилятор">Ставим нужный компилятор</h2>
 <p>К счастью, возможность установки нужного компилятора входит в обязанности <code>stack</code>! Да-да, он и это умеет. Более того, он сам подсказал нам нужную команду. Вспомните ту самую последнюю строчку, в самом конце: “Try running stack setup”. Сделаем же это:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> setup
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> setup
 <span class="kw">Downloaded</span> ghc-7.8.4.
 <span class="kw">Installed</span> GHC.
-<span class="kw">Would</span> add the following to PATH: /Users/dshevchenko/.stack/programs/x86_64-osx/ghc-7.8.4/bin</code></pre>
+<span class="kw">Would</span> add the following to PATH: /Users/dshevchenko/.stack/programs/x86_64-osx/ghc-7.8.4/bin</code></pre></div>
 <p>Немного терпения - и новый компилятор готов к использованию. Обратите внимание, что установлен он в скрытый каталог <code>.stack</code>, созданный в вашем домашнем каталоге. Следовательно, никаких конфликтов с уже имеющимся компилятором не будет:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ghc</span> --version
-<span class="kw">The</span> Glorious Glasgow Haskell Compilation System, version 7.8.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ghc</span> --version
+<span class="kw">The</span> Glorious Glasgow Haskell Compilation System, version 7.8.3</code></pre></div>
 <p>Новая версия 7.8.4 будет использоваться исключительно в процессе сборки нашего проекта. А кстати, вдруг я вас обманываю? Как мы можем проверить версию реально используемого компилятора? Очень просто, ведь <code>stack</code> умеет запускать интерпретатор <code>ghci</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> ghci
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> ghci
 <span class="kw">Configuring</span> GHCi with the following packages: new-template
 <span class="kw">GHCi</span>, version 7.8.4: http://www.haskell.org/ghc/  :? for help
-<span class="kw">...</span></code></pre>
+<span class="kw">...</span></code></pre></div>
 <p>Та-дам! Действительно 7.8.4.</p>
 <h2 id="теперь-уже-точно-собираем">Теперь уже точно собираем</h2>
 <p>Выполняем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> build
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> build
 <span class="kw">new-template-0.1.0.0</span>: configure
 <span class="kw">Configuring</span> new-template-0.1.0.0...
 <span class="kw">new-template-0.1.0.0</span>: build
@@ -285,26 +285,26 @@ $ <span class="kw">stack</span> new</code></pre>
 <span class="kw">/Users/dshevchenko/probe_stack/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/lib/x86_64-osx-ghc-7.8.4/new-template-0.1.0.0</span>
 <span class="kw">Installing</span> executable(s) <span class="kw">in</span>
 <span class="kw">/Users/dshevchenko/probe_stack/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/bin</span>
-<span class="kw">Registering</span> new-template-0.1.0.0...</code></pre>
+<span class="kw">Registering</span> new-template-0.1.0.0...</code></pre></div>
 <p>Как видите, в корне проекта появился скрытый каталог <code>.stack-work</code>, в котором и осуществляется вся сборка. Взгляните, куда установилась наша программка:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">~/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/bin</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">~/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/bin</span></code></pre></div>
 <p>Как видите, указана не только версия используемого компилятора, но и версия используемого <code>lts</code>-снимка.</p>
 <h2 id="проверяем-версии-пакетов">Проверяем версии пакетов</h2>
 <p>Итак, собрали. А теперь убедимся в правоте наших ожиданий в отношении версий используемых пакетов.</p>
 <p>Раньше версии пакетов (или диапазоны версий) указывались в <code>.cabal</code>-файле, в секции <code>build-depends</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">    build<span class="fu">-</span>depends<span class="fu">:</span>   split    <span class="fu">&gt;=</span><span class="fl">0.2</span>    <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">0.3</span>,
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    build<span class="fu">-</span>depends<span class="fu">:</span>   split    <span class="fu">&gt;=</span><span class="fl">0.2</span>    <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">0.3</span>,
                      filepath <span class="fu">&gt;=</span><span class="fl">1.3</span>    <span class="fu">&amp;&amp;</span> <span class="fu">&lt;</span><span class="fl">1.4</span>,
-    <span class="fu">...</span></code></pre>
+    <span class="fu">...</span></code></pre></div>
 <p>Теперь же, как мы помним, версии пакетов определяются используемым нами <code>lts</code>-снимком. Проверим это.</p>
 <p>Я воспользуюсь одним из своих блогов, создаваемых, как многие знают, с помощью <code>hakyll</code>. Проект зависит от маленькой библиотеки <code>split</code>, помогающей разделывать строчки на кусочки. <code>lts</code>-снимок версии 2.15 содержит указание версии:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">...</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">...</span>
 <span class="kw">split-0.2.2</span>         Combinator library for splitting lists
-<span class="kw">...</span></code></pre>
+<span class="kw">...</span></code></pre></div>
 <p>Итак, используется 0.2.2. А теперь я сделаю вид, что напутал с версиями и указал в <code>.cabal</code>-файле следующее:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">    build<span class="fu">-</span>depends<span class="fu">:</span>   split  <span class="fu">==</span><span class="fl">0.3</span><span class="fu">.*</span>,
-    <span class="fu">...</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    build<span class="fu">-</span>depends<span class="fu">:</span>   split  <span class="fu">==</span><span class="fl">0.3</span><span class="fu">.*</span>,
+    <span class="fu">...</span></code></pre></div>
 <p>На самом деле, версия 0.2.2 является последней, но суть не в этом. Суть в том, что проект не соберётся, потому что <code>stack</code> строг и аккуратен по отношению к версиям.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> hand
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> hand
 $ <span class="kw">stack</span> init
 <span class="kw">Writing</span> default config file to: /Users/dshevchenko/hand/stack.yaml
 <span class="kw">Basing</span> on cabal files:
@@ -314,66 +314,66 @@ $ <span class="kw">stack</span> init
 
 <span class="kw">*</span> Build plan did not match your requirements:
     <span class="kw">split</span> version 0.2.2 found
-    <span class="kw">-</span> hand requires ==0.3.*</code></pre>
+    <span class="kw">-</span> hand requires ==0.3.*</code></pre></div>
 <p>Первое, на что следует обратить внимание - новая команда. Мы используем <code>stack init</code>, потому что собираемся использовать <code>stack</code> для <em>уже существующего</em> Haskell-проекта. <code>stack</code> создаёт в его корне уже знакомый нам файл <code>stack.yaml</code>. И кстати, если в корне вашего проекта есть <code>cabal</code>-песочницы или файл <code>cabal.config</code> - смело удаляйте всё это.</p>
 <p>Сразу после создания <code>.yaml</code>-файла <code>stack</code> проверяет готовность проекта быть собранным в соответствии с <code>lts</code>-снимком версии 2.15. И тут - неприятный, но вполне ожидаемый результат:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">*</span> Build plan did not match your requirements:
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">*</span> Build plan did not match your requirements:
     <span class="kw">split</span> version 0.2.2 found
-    <span class="kw">-</span> hand requires ==0.3.*</code></pre>
+    <span class="kw">-</span> hand requires ==0.3.*</code></pre></div>
 <p>Версии пакета в <code>.lts</code>-снимке и в <code>.cabal</code>-файле различаются, поэтому сборка не пройдёт. Решение - убрать указание версий из <code>.cabal</code>-файла (ещё раз спасибо, Кэп!). Больше никакой путаницы - версии всех используемых пакетов явно указаны в <code>lts</code>-снимке, и нигде более.</p>
 <h2 id="больше-компиляторов-хороших-и-разных">Больше компиляторов, хороших и разных</h2>
 <p>Ну что ж, раз можно поставить дополнительный “локальный” компилятор, исходя из версии экосистемы конкретного проекта, значит, можно поставить и несколько компиляторов.</p>
 <p>Допустим, я хочу поэкспериментировать с новым GHC 7.10.1 с существующим проектом. Перехожу в проект:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> new_hs_project
-$ <span class="kw">stack</span> init</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> new_hs_project
+$ <span class="kw">stack</span> init</code></pre></div>
 <p>Теперь открываем <code>stack.yaml</code> и заменяем последнюю строчку на:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">resolver</span>: nightly-2015-07-12</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">resolver</span>: nightly-2015-07-12</code></pre></div>
 <p>Оказывается, <code>lts</code>-снимок - не единственная возможность указания Haskell-экосистемы. LTS прекрасно подходит для серьёзных долгоживущих проектов, но для экспериментаторов, предпочитающих быть на гребне волны, подойдёт одна из ночных сборок. В данном случае - сборка от 12 июля сего года. Живёт она <a href="http://www.stackage.org/nightly-2015-07-12">здесь</a>. Откроем её:</p>
 <blockquote>
 <p>Stackage Nightly 2015-07-12 - GHC 7.10.1</p>
 </blockquote>
 <p>То, что нам нужно! Раз данная сборка проверена с помощью 7.10.1, то при выполнении команды <code>stack setup</code> произойдёт установка именно этой версии компилятора:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> setup
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> setup
 <span class="kw">Downloaded</span> ghc-7.10.1.
 <span class="kw">Installed</span> GHC.
-<span class="kw">Would</span> add the following to PATH: /Users/dshevchenko/.stack/programs/x86_64-osx/ghc-7.10.1/bin</code></pre>
+<span class="kw">Would</span> add the following to PATH: /Users/dshevchenko/.stack/programs/x86_64-osx/ghc-7.10.1/bin</code></pre></div>
 <p>И теперь у нас есть два разных компилятора, не мешающих друг другу. Соответственно, все мои проекты, зависящие от 7.8.4, будут использовать только его, а проекты, зависящие от 7.10.1 - его. Никакой путаницы.</p>
 <h2 id="а-куда-он-ставит-пакеты">А куда он ставит пакеты?</h2>
 <p>До появляения <code>cabal sandbox</code> все пакеты ставились в глобальное пространство, и это было ужасно. Идея песочницы частично решила проблему: каждый проект теперь скрыто включал свою собственную песочницу, в которую устанавливалось всё, необходимое для данного проекта.</p>
 <p>Вроде бы неплохое решение, но оно грубое в силу своей избыточности. Представьте себе, что у вас на машине есть три <code>yesod</code>-проекта. Соответственно, у вас появится три песочницы с тремя <em>полными копиями</em> всех пакетов, входящих в <code>yesod</code>-зависимости (кто работал с <code>yesod</code>, тот знает, что зависимостей этих, мягко выражаясь, много). Во-первых, попусту растрачивается дисковое пространство, а во-вторых, при появлении четвёртого <code>yesod</code>-проекта (ну вот любите вы <code>yesod</code>, почему бы и нет?) весь <code>yesod</code> будет заново установлен в чертвёртую песочницу. И особенно обидно будет при условии, если во всех четырёх проектах используется одна и та же версия <code>yesod</code>…</p>
 <p>В <code>stack</code> всё умнее. Больше никаких избыточных копий пакетов внутри каждого из проектов. Теперь пакеты устанавливаются в единое глобальное место, а именно в упомянутый ранее скрытый каталог <code>.stack</code> в вашем домашнем каталоге. Но! Пакеты больше не валятся в одну кучу. Напротив, они устанавливаются иерархично, в соответствии с <code>lts</code>-снимками (ну и ночными сборками, если таковые используются).</p>
 <p>Заглянем:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> ~/.stack/snapshots/x86_64-osx/
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> ~/.stack/snapshots/x86_64-osx/
 <span class="kw">lts-2.15</span>
-<span class="kw">nightly-2015-07-12</span></code></pre>
+<span class="kw">nightly-2015-07-12</span></code></pre></div>
 <p>Вот они, наши снимки. Глянем поглубже:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> ~/.stack/snapshots/x86_64-osx/lts-2.15/7.8.4/lib/x86_64-osx-ghc-7.8.4/
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> ~/.stack/snapshots/x86_64-osx/lts-2.15/7.8.4/lib/x86_64-osx-ghc-7.8.4/
 <span class="kw">HTTP-4000.2.19</span>                          data-default-instances-containers-0.0.1 regex-tdfa-1.2.0
 <span class="kw">HUnit-1.2.5.2</span>                           data-default-instances-dlist-0.0.1      resourcet-1.1.5
 <span class="kw">JuicyPixels-3.2.5.2</span>                     data-default-instances-old-locale-0.0.1 rfc5051-0.1.0.3
 <span class="kw">MonadCatchIO-transformers-0.3.1.3</span>       deepseq-generics-0.1.1.2                scientific-0.3.3.8
-<span class="kw">...</span></code></pre>
+<span class="kw">...</span></code></pre></div>
 <p>И вот они, все наши пакеты. Из пути сразу понятно, о каком снимке идёт речь и какая версия компилятора используется.</p>
 <p>Таким образом, если упомянутые ранее три <code>yesod</code>-проекта используют одну и ту же версию <code>lts</code>-снимка - скажем, <code>2.15</code> - тогда использованы будут пакеты из каталога <code>~/.stack/snapshots/x86_64-osx/lts-2.15/7.8.4/</code>. Если же четвёртый <code>yesod</code>-проект будет использовать, скажем, одну из ночных сборок совместно с GHC 7.10.1, то будут использованы пакеты из <code>~/.stack/snapshots/x86_64-osx/nightly-2015-07-12/7.10.1/</code>. Никаких излишних копий, и при этом никаких конфликтов.</p>
 <h2 id="за-пределами-снимка">За пределами снимка</h2>
 <p>Как было сказано выше, <code>lts</code>-снимки (равно как и ночные сборки) содержат не всё то, что есть на просторах Hackage. Ну а вдруг мой проект использует некий пакет, которого нет в используемом мною снимке! Что делать?</p>
 <p>Допустим, мне понадобился какой-нибудь <a href="http://hackage.haskell.org/package/string-qq"><code>string-qq</code></a>. Если я просто укажу его в своём <code>.cabal</code>-файле, при попытке сборки <code>stack</code> выразит свой категорический протест:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">--</span>  While attempting to add dependency,
-    <span class="kw">Could</span> not find package string-qq in known packages</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">--</span>  While attempting to add dependency,
+    <span class="kw">Could</span> not find package string-qq in known packages</code></pre></div>
 <p>Поэтому открываем <code>stack.yaml</code>, ищем строчку:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">extra-deps:</span> <span class="kw">[]</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">extra-deps:</span> <span class="kw">[]</span></code></pre></div>
 <p>и заменяем её на:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">extra-deps:</span>
-<span class="kw">-</span> string-qq-0.0.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">extra-deps:</span>
+<span class="kw">-</span> string-qq-0.0.2</code></pre></div>
 <p>Готово. Теперь при сборке <code>stack</code> увидит, что данный пакет нужно искать не в используемом снимке, а напрямую в Hackage. Соответственно, если мне вдруг понадобится более одного внешнего пакета, я просто дописываю их следом:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">extra-deps:</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">extra-deps:</span>
 <span class="kw">-</span> string-qq-0.0.2
-<span class="kw">-</span> hfsevents-0.1.5</code></pre>
+<span class="kw">-</span> hfsevents-0.1.5</code></pre></div>
 <p>И всё заработает.</p>
 <h2 id="установка-в-удобное-место">Установка в удобное место</h2>
 <p>Иногда после сборки проекта бывает удобно установить исполняемый файл приложения в какое-нибудь доступное место. Для этого служит команда <code>install</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> install
-<span class="kw">Copying</span> from /Users/dshevchenko/probe/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/bin/new-template-exe to /Users/dshevchenko/.local/bin/new-template-exe</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">stack</span> install
+<span class="kw">Copying</span> from /Users/dshevchenko/probe/.stack-work/install/x86_64-osx/lts-2.15/7.8.4/bin/new-template-exe to /Users/dshevchenko/.local/bin/new-template-exe</code></pre></div>
 <p>И если путь <code>~/.local/bin/</code> добавлен в PATH, то приложение будет немедленно доступно напрямую. Весьма удобно.</p>
 <h2 id="вывод">Вывод</h2>
 <p>Вывод только один - классную штуку сделали друзья из FP Complete. Лично я перевожу на <code>stack</code> все мои проекты. Прощай, <code>cabal</code>!</p>

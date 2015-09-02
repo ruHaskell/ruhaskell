@@ -192,7 +192,7 @@
 
 <p>Приветствую!</p>
 <p>После <a href="http://blog.dshevchenko.biz/2014/12/18/yesod-hello-world.html">первого знакомства</a> с Yesod пришла пора заглянуть внутрь нашего проекта. Должны же мы узнать, что сделала команда <code>yesod init</code>, не так ли? Давайте же заглянем в корень:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Application.hs</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">Application.hs</span>
 <span class="kw">Foundation.hs</span> 
 <span class="kw">Model.hs</span>       
 <span class="kw">Settings.hs</span>    
@@ -209,20 +209,20 @@
 <span class="kw">dist/</span>           
 <span class="kw">static/</span>         
 <span class="kw">test/</span>           
-<span class="kw">yesod-devel/</span></code></pre>
+<span class="kw">yesod-devel/</span></code></pre></div>
 <p>В этой заметке мы рассмотрим содержимое одного-единственного каталога, <code>config</code>. В этом каталоге содержатся базовые конфигурационные файлы, без которых приложение категорически откажется работать.</p>
 <p>Вот содержимое, созданное по умолчанию:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">favicon.ico</span>    
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">favicon.ico</span>    
 <span class="kw">robots.txt</span>     
 <span class="kw">postgresql.yml</span> 
 <span class="kw">keter.yml</span>      
 <span class="kw">models</span>         
 <span class="kw">routes</span>         
-<span class="kw">settings.yml</span></code></pre>
+<span class="kw">settings.yml</span></code></pre></div>
 <p>Полагаю, назначение файлов <code>favicon.ico</code> и <code>robots.txt</code> вопросов не вызывает, не правда ли? С файлом <code>postgresql.yml</code> вы уже познакомились, когда настраивали параметры доступа приложения к Postgres.</p>
 <h2 id="сетевая-конфигурация">Сетевая конфигурация</h2>
 <p>Вглянем на содержимое важного файла <code>settings.yml</code>:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">Default:</span> <span class="dt">&amp;defaults</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">Default:</span> <span class="dt">&amp;defaults</span>
   <span class="fu">host:</span> <span class="st">&quot;*4&quot;</span><span class="er"> # any IPv4 host</span>
   <span class="fu">port:</span> 3000
   <span class="fu">approot:</span> <span class="st">&quot;http://localhost:3000&quot;</span>
@@ -240,9 +240,9 @@
 
 <span class="fu">Production:</span>
   <span class="co">#approot: &quot;http://www.example.com&quot;</span>
-  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span></code></pre>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span></code></pre></div>
 <p>Помните, в <a href="http://blog.dshevchenko.biz/2014/12/18/yesod-hello-world.html">прошлой заметке</a> я упомянул о том, что приложение можно запустить не через <code>yesod devel</code>, а непосредственно? И там упоминались четыре возможные окружения: <code>Development</code>, <code>Testing</code>, <code>Staging</code> и <code>Production</code>. Полагаю, теперь, когда вы увидели содержимое файла <code>settings.yml</code>, всё встало на свои места: для каждого из окружений мы можем задать свои сетевые параметры. Например, можно переопределить значение параметра <code>approot</code>, чтобы различные версии нашего приложения ассоциировали себя с разными URL-ами, и то же самое можно сделать с параметрами <code>host</code> и <code>port</code>. Вот возможный результат:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">Default:</span> <span class="dt">&amp;defaults</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">Default:</span> <span class="dt">&amp;defaults</span>
   <span class="fu">host:</span> <span class="st">&quot;127.0.0.1&quot;</span>
   <span class="co">#analytics: UA-YOURCODE</span>
 
@@ -264,18 +264,18 @@
 <span class="fu">Production:</span>
   <span class="fu">port:</span> 3000
   <span class="fu">approot:</span> <span class="st">&quot;http://my-service.com&quot;</span>
-  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span></code></pre>
+  <span class="fu">&lt;&lt;:</span> <span class="dt">*defaults</span></code></pre></div>
 <h2 id="разворачивание-через-keter">Разворачивание через Keter</h2>
 <p>Содержимое файла <code>keter.yml</code> мы сейчас рассматривать не будем. Это конфигурационный файл для утилиты <code>keter</code>, предназначенной для автоматического разворачивания нашего приложения в виде специального бандла. Подробнее об этом рассказано <a href="http://www.yesodweb.com/blog/2012/05/keter-app-deployment">здесь</a>. Однако на данный момент я деплою приложение другим (более простым и понятным мне) способом. Кстати, об этом способе мы поговорим в следующих заметках.</p>
 <h2 id="маршруты">Маршруты</h2>
 <p>Теперь взглянем на файл <code>routes</code>. Этот файл - один из самых важных для нашего приложения. Взглянем внутрь:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/static</span>         StaticR     Static getStatic
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/static</span>         StaticR     Static getStatic
 <span class="kw">/auth</span>           AuthR       Auth   getAuth
    
 <span class="kw">/favicon.ico</span>    FaviconR    GET
 <span class="kw">/robots.txt</span>     RobotsR     GET
    
-<span class="kw">/</span>               HomeR       GET POST</code></pre>
+<span class="kw">/</span>               HomeR       GET POST</code></pre></div>
 <p>Перед нами маршруты (routes). Обычный маршрут определяет три сущности (слева направо):</p>
 <ol style="list-style-type: decimal">
 <li>Путь, то есть URL (начиная от корня), по которому мы обращаемся к той или иной странице нашего приложения.</li>
@@ -283,15 +283,15 @@
 <li>Типы запросов, которые мы можем направить по тому или иному пути.</li>
 </ol>
 <p>Рассмотрим корневой маршрут:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/</span>               HomeR       GET POST</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/</span>               HomeR       GET POST</code></pre></div>
 <p>Путь понятен - это корень нашего приложения (домашняя страница). Ресурс <code>HomeR</code> отвечает за обработку запросов, направленных к корню приложения. И, как видите, домашняя страница нашего приложения способна принимать как <code>GET</code>, так и <code>POST</code>-запросы.</p>
 <p>Таким образом, по мере расширения функциональности нашего веб-приложения мы будем довольно часто обращаться к файлу <code>routes</code>, чтобы дописать новые маршруты.</p>
 <p>Вы спросите, почему же первые два маршрута выглядят необычно? Например:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/auth</span>           AuthR       Auth   getAuth</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/auth</span>           AuthR       Auth   getAuth</code></pre></div>
 <p>Об этом будет подробнее рассказано в следующих заметках. В частности, путь <code>/auth</code> скрывает несколько возможных запросов, связанных, как вы уже поняли, с авторизацией.</p>
 <h2 id="модели">Модели</h2>
 <p>Взглянем на содержимое файла <code>models</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">User</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">User</span>
     <span class="kw">ident</span> Text
     <span class="kw">password</span> Text Maybe
     <span class="kw">UniqueUser</span> ident
@@ -302,22 +302,22 @@
     <span class="kw">verkey</span> Text Maybe
     <span class="kw">UniqueEmail</span> email
  
-<span class="kw">--</span> By default this file is used in Model.hs (which is imported by Foundation.hs)</code></pre>
+<span class="kw">--</span> By default this file is used in Model.hs (which is imported by Foundation.hs)</code></pre></div>
 <p>Перед нами - модели для работы с БД. Но об этом мы поговорим особо. Поверьте, эта тема достойна отдельной заметки.</p>
 <h2 id="расположение">Расположение</h2>
 <p>Содержимое каталога <code>config</code> уже вполне пригодно для реального использования. Осталось уточнить одну деталь, касающуюся расположения этого каталога, ведь, как уже было сказано выше, без конфигурационных файлов, расположенных в нём, наше приложение не сможет работать.</p>
 <p>Попробуем запустить наше приложение вот так:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> dist/build/webhs
-$ <span class="kw">./webhs</span> Development -p 3001</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> dist/build/webhs
+$ <span class="kw">./webhs</span> Development -p 3001</code></pre></div>
 <p>Ага, разбежались! Получите ошибку:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">webhs</span>: InvalidYaml (Just (YamlException <span class="st">&quot;Yaml file not found: config/settings.yml&quot;</span>))</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">webhs</span>: InvalidYaml (Just (YamlException <span class="st">&quot;Yaml file not found: config/settings.yml&quot;</span>))</code></pre></div>
 <p>Файл <code>config/settings.yml</code> не найден, и это вполне ожидаемо. Наше приложение рассчитывает на то, что каталог <code>config</code> расположен не абы где, а в строго определённом месте. Правило очень простое: этот каталог должен располагаться в том же месте, откуда мы запускаем наше приложение.</p>
 <p>Например, мы могли бы расположить этот каталог рядом с исполняемым файлом:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> dist/build/webhs
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> dist/build/webhs
 $ <span class="kw">cp</span> -R ../../../config .
-$ <span class="kw">./webhs</span> Development -p 3001</code></pre>
+$ <span class="kw">./webhs</span> Development -p 3001</code></pre></div>
 <p>Так заработает. Но можно просто запустить из того места, где <code>config</code> уже лежит:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./dist/build/webhs/webhs</span> Development -p 3001</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./dist/build/webhs/webhs</span> Development -p 3001</code></pre></div>
 <p>Впрочем, я опять вас немного обманул, потому что исполняемый файл рассчитывает не только на каталог <code>config</code>, но и ещё на кое-что. Однако об этом в отдельной заметке.</p>
 
 <div id="socialButtons">

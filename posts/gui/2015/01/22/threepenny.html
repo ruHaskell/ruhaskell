@@ -196,7 +196,7 @@
 <p>Данная статья, надеюсь, даст представление о возможности быстрой разработки GUI на Haskell, достаточное для того, чтобы иметь данный подход ввиду, буде такая задача возникнет.</p>
 <p>Примером нам будет служить приложение, имитирующее настольный калькулятор с базовым набором операций. Его мы и разработаем. Итак, поехали!</p>
 <div class="figure">
-<img src="https://www.haskell.org/wikiupload/7/7c/Reactive-Banana-banana.png" />
+<img src="https://www.haskell.org/wikiupload/7/7c/Reactive-Banana-banana.png" alt />
 
 </div>
 <h2 id="окно">Окно</h2>
@@ -204,7 +204,7 @@
 <p>А мы увидели Солнце, открыли окна. А иначе зачем это все? (© “Пикник”)</p>
 </blockquote>
 <p>Каждое (ну, почти каждое) графическое приложение начинается с <em>окна</em>. Threepenny создаёт окно сама (помним, что это страница в браузере), от нас же ожидается его настройка и наполнение. Поручим это функции <code>setup</code>, которая будет вызываться из <code>main</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Control.Monad</span>               (void)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Control.Monad</span>               (void)
 <span class="kw">import qualified</span> <span class="dt">Graphics.UI.Threepenny</span>      <span class="kw">as</span> <span class="dt">UI</span>
 <span class="kw">import           </span><span class="dt">Graphics.UI.Threepenny</span>      (set, title, (#), <span class="dt">UI</span>, <span class="dt">Window</span>)
 <span class="kw">import           </span><span class="dt">Graphics.UI.Threepenny.Core</span> (startGUI, defaultConfig)
@@ -213,10 +213,10 @@
 
 <span class="ot">setup ::</span> <span class="dt">Window</span> <span class="ot">-&gt;</span> <span class="dt">UI</span> ()
 setup win <span class="fu">=</span> void <span class="fu">$</span> <span class="kw">do</span>
-  return win <span class="st"># set title &quot;ReaCalc&quot;</span>
+  return win <span class="fu">#</span> set title <span class="st">&quot;ReaCalc&quot;</span>
 
 <span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> startGUI defaultConfig setup</code></pre>
+main <span class="fu">=</span> startGUI defaultConfig setup</code></pre></div>
 <p>Из кода видно, что работа с окном происходит в специальной монаде <code>UI</code>: cамо окно (как и все остальные UI-элементы) - “чистое”, а операции над ним - “не очень”, поэтому типичное взаимодействие с элементом выглядит так: <code>return elem # set ... ...</code>.</p>
 <p>В общем то, всё! Приложение уже можно запускать! У меня это выглядит так:</p>
 <pre class="shell"><code>$ cabal run
@@ -224,29 +224,29 @@ Listening on http://127.0.0.1:8023/
 [22/Jan/2015:20:23:04 +0300] Server.httpServe: START, binding to [http://127.0.0.1:8023/]</code></pre>
 <p>Открыв в браузере url <code>http://127.0.0.1:8023/</code>, мы увидим страницу с указанным нами <em>title</em>. Да, страница пока пуста, но приложение уже работает!</p>
 <p>Настало время наполнить окно содержимым. Создадим “индикатор” - элемент, отображающий результаты вычислений. Под индикатором будет располагаться блок клавиш. Дополним <code>setup</code>:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Graphics.UI.Threepenny</span>      (set, attr, text, value, (#+))
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Graphics.UI.Threepenny</span>      (set, attr, text, value, (#+))
 
 <span class="co">-- ...</span>
 
 setup win <span class="fu">=</span> <span class="co">-- ...</span>
   <span class="fu">---</span> <span class="fu">...</span>
-  out <span class="ot">&lt;-</span> UI.input <span class="st"># set (attr &quot;readonly&quot;) &quot;true&quot;</span>
-                  <span class="st"># set (attr &quot;style&quot;) &quot;text-align: right; min-width: 240px&quot;</span>
-                  <span class="st"># set value &quot;0&quot;</span>
+  out <span class="ot">&lt;-</span> UI.input <span class="fu">#</span> set (attr <span class="st">&quot;readonly&quot;</span>) <span class="st">&quot;true&quot;</span>
+                  <span class="fu">#</span> set (attr <span class="st">&quot;style&quot;</span>) <span class="st">&quot;text-align: right; min-width: 240px&quot;</span>
+                  <span class="fu">#</span> set value <span class="st">&quot;0&quot;</span>
 
   buttons <span class="ot">&lt;-</span> mapM (mapM mkButton) buttonLabels
 
-  UI.getBody win <span class="st">#+ [return out]</span>
-                 <span class="st">#+ map UI.row (map (map return) buttons)</span>
+  UI.getBody win <span class="fu">#+</span> [return out]
+                 <span class="fu">#+</span> map UI.row (map (map return) buttons)
 
   <span class="kw">where</span>
-    mkButton s <span class="fu">=</span> UI.input <span class="st"># set text s</span>
-                          <span class="st"># set value s</span>
-                          <span class="st"># set (attr &quot;type&quot;) &quot;button&quot;</span>
-                          <span class="st"># set (attr &quot;style&quot;) &quot;min-width: 50px&quot;</span>
+    mkButton s <span class="fu">=</span> UI.input <span class="fu">#</span> set text s
+                          <span class="fu">#</span> set value s
+                          <span class="fu">#</span> set (attr <span class="st">&quot;type&quot;</span>) <span class="st">&quot;button&quot;</span>
+                          <span class="fu">#</span> set (attr <span class="st">&quot;style&quot;</span>) <span class="st">&quot;min-width: 50px&quot;</span>
 
 <span class="ot">buttonLabels ::</span> [[<span class="dt">String</span>]]
-buttonLabels <span class="fu">=</span> map words <span class="fu">$</span> lines <span class="st">&quot;7 8 9 CE C\n4 5 6 + -\n1 2 3 * /\n . 0 =&quot;</span></code></pre>
+buttonLabels <span class="fu">=</span> map words <span class="fu">$</span> lines <span class="st">&quot;7 8 9 CE C\n4 5 6 + -\n1 2 3 * /\n . 0 =&quot;</span></code></pre></div>
 <p>Элементы управления настраиваются так же, как это делалось бы в HTML - мы добавляем стили, указываем атрибуты, и т.п. Но всё оперирование компонентами производится на Haskell, ну не красота ли!? (на самом деле, красоты в текущем интерфейсе мало - на вид он, что называется, “инженерный”. Ну да ладно, эта статья не о дизайне, всё таки!)</p>
 <p>Теперь интерфейс в наличии, настало время его “оживить”!</p>
 <h2 id="логика">Логика</h2>
@@ -266,28 +266,28 @@ buttonLabels <span class="fu">=</span> map words <span class="fu">$</span> lines
 </blockquote>
 <p>В Reactive Banana интерактивность описывется в терминах <code>Event</code> и <code>Behaviour</code>.</p>
 <p><code>Event a</code> представляет собой, не одиночное событие, как это бывает в классических event-driven системах, а поток событий, выдаваемых потоком по мере того, как оные происходят. Каждое событие в потоке сопровождается временной отметкой и содержит некие данные (типа <code>a</code>), характеризующие событие. Два потока событий одного типа можно объединить в один с помощью комбинатора</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">UI.unionWith<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Event</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> a</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">UI.unionWith<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Event</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> a</code></pre></div>
 <p>Этот комбинатор, помимо, собственно, объединения потоков, занимается обработкой ситуации, когда два события из разных потоков имеют одинаковую временную отметку: в этом случае вызывается функция, передаваемая в комбинатор первым параметром - она то и решает, что делать с данными.</p>
 <p><code>Behaviour a</code>, в свою очередь, изображает некую “ячейку”, в которой <em>содержатся</em> данные типа <code>a</code>. Данные в коробке всегда имеют некое мгновенное значение, меняющееся с течением времени под действием событий.</p>
 <p>Наша программа изображает некое устройство (калькулятор), имеющее начальное состояние, возникающее единожды при “включении”. В процессе работы это состояние меняется под действием команд (нажатий кнопок). Индикатор же калькулятора занимается отображением значения, характеризующего это сотояние. При этом, состояние существует в течении всего времени работы кальклятора.</p>
 <p>Тут нам пригодится функция</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell">UI.accumB<span class="ot"> ::</span> <span class="dt">MonadIO</span> m <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> m (<span class="dt">Behavior</span> a)</code></pre>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">UI.accumB<span class="ot"> ::</span> <span class="dt">MonadIO</span> m <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Event</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> m (<span class="dt">Behavior</span> a)</code></pre></div>
 <p>Она принимает начальное значение и поток событий, содержащих функции, способные изменить это значение, а возвращает - “поведение”, т.е. ячейку в которой и будет храниться изменяющееся во времени состояние.</p>
 <p>Дополним функцию <code>setup</code> кодом, отвечающим да интерактив:</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Graphics.UI.Threepenny</span>      ((&lt;@), <span class="dt">Event</span>, sink, accumB)
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Graphics.UI.Threepenny</span>      ((&lt;@), <span class="dt">Event</span>, sink, accumB)
 <span class="co">-- ...</span>
 setup win <span class="fu">=</span> <span class="co">-- ...</span>
   <span class="co">-- ...</span>
   <span class="kw">let</span> clicks <span class="fu">=</span> buttonClicks (zip (concat buttons) (concat buttonLabels))
       commands <span class="fu">=</span> fmap populate clicks
   calcBehaviour <span class="ot">&lt;-</span> accumB (<span class="ot">def ::</span> <span class="dt">State</span>) commands
-  return out <span class="st"># sink value (fmap display calcBehaviour)</span>
+  return out <span class="fu">#</span> sink value (fmap display calcBehaviour)
   <span class="co">-- ...</span>
   <span class="kw">where</span>
 <span class="ot">    buttonClicks ::</span> [(<span class="dt">Element</span>, <span class="dt">String</span>)] <span class="ot">-&gt;</span> <span class="dt">Event</span> <span class="dt">String</span>
     buttonClicks <span class="fu">=</span> foldr1 (UI.unionWith const) <span class="fu">.</span> map makeClick
       <span class="kw">where</span>
-        makeClick (e, s) <span class="fu">=</span> (UI.pure s) <span class="fu">&lt;@</span> (UI.click e)</code></pre>
+        makeClick (e, s) <span class="fu">=</span> (UI.pure s) <span class="fu">&lt;@</span> (UI.click e)</code></pre></div>
 <p>Некоторого пояснения требует код функции <code>makeClick</code>, но на самом деле тут всё просто: клики по кнопке (<code>e</code>) попадают в поток, но значения событий отбрасываются (комбинатором <code>&lt;@</code>), а вместо них вставляется текст кнопки (<code>pure s</code>).</p>
 <p>А <code>sink</code> в коде означает “сток” - связывание ячейки со свойством элемента (тут это <code>value</code>). После связывания изменяющееся значение будет автоматически отражаться на “индикаторе”.</p>
 <p>К вышеперечисленному хочется добавить, что <code>Event</code> и <code>Behaviour</code> реализуют класс <code>Functor</code>. Это позволяет обрабатывать потоки событий очень “функционально”!</p>
