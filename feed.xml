@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Tue, 01 Sep 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 04 Sep 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Liscript</title>
+    <link>http://ruhaskell.org/posts/projects/2015/09/04/liscript.html</link>
+    <description><![CDATA[Экспериментальный интерпретатор языка Lisp, реализованный на Haskell.]]></description>
+    <pubDate>Fri, 04 Sep 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/projects/2015/09/04/liscript.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>RPC на основе WAI</title>
     <link>http://ruhaskell.org/posts/web/2015/09/01/wai-rpc.html</link>
     <description><![CDATA[Демонстрация создания простого сервиса с помошью WAI]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Доклад Дениса Шевченко о ленивых вычислениях на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/talks/2015/06/21/lazy-evaluation.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Haskell для питониста</title>
-    <link>http://ruhaskell.org/posts/talks/2015/06/21/haskell-for-pythonista.html</link>
-    <description><![CDATA[Доклад Юрия Сыровецкого о Haskell для питониста на RuHaskell.Meetup 2015 Summer.]]></description>
-    <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/talks/2015/06/21/haskell-for-pythonista.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
