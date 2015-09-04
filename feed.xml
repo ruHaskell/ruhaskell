@@ -17,6 +17,14 @@
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 <item>
+    <title>Выпуск 4</title>
+    <link>http://ruhaskell.org/posts/cast/2015/09/04/issue4.html</link>
+    <description><![CDATA[Четвёртый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
+    <pubDate>Fri, 04 Sep 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/cast/2015/09/04/issue4.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>RPC на основе WAI</title>
     <link>http://ruhaskell.org/posts/web/2015/09/01/wai-rpc.html</link>
     <description><![CDATA[Демонстрация создания простого сервиса с помошью WAI]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Доклад Дениса Редозубова о системах типов на RuHaskell.Meetup 2015 Summer.]]></description>
     <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/talks/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Ленивые вычисления: плюсы и минусы</title>
-    <link>http://ruhaskell.org/posts/talks/2015/06/21/lazy-evaluation.html</link>
-    <description><![CDATA[Доклад Дениса Шевченко о ленивых вычислениях на RuHaskell.Meetup 2015 Summer.]]></description>
-    <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/talks/2015/06/21/lazy-evaluation.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
