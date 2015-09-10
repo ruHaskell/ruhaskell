@@ -19,6 +19,18 @@
         <atom:link href="http://ruhaskell.org/itunes-feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Выпуск 5</title>
+                <itunes:author>Рома, Шевченко</itunes:author>
+                <itunes:subtitle>Пятый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue5-2015-09-10.mp3" length="21794305" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue5-2015-09-10.mp3</guid>
+                <pubDate>Thu, 10 Sep 2015 00:00:00 +0300</pubDate>
+                <itunes:duration>00:47:41</itunes:duration>
+            </item>
+        
+            <item>
                 <title>Выпуск 4</title>
                 <itunes:author>Шевченко, Денис, Рома</itunes:author>
                 <itunes:subtitle>Четвёртый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>

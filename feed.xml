@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 04 Sep 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Thu, 10 Sep 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Выпуск 5</title>
+    <link>http://ruhaskell.org/posts/cast/2015/09/10/issue5.html</link>
+    <description><![CDATA[Пятый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
+    <pubDate>Thu, 10 Sep 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/cast/2015/09/10/issue5.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>Liscript</title>
     <link>http://ruhaskell.org/posts/projects/2015/09/04/liscript.html</link>
     <description><![CDATA[Экспериментальный интерпретатор языка Lisp, реализованный на Haskell.]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Видео с первой встречи нашего сообщества 21 июня 2015 года.]]></description>
     <pubDate>Wed, 01 Jul 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/events/2015/07/01/meet-up-summer-2015-videos.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Краткий экскурс в системы типов или как избежать дезинтеграции.</title>
-    <link>http://ruhaskell.org/posts/talks/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</link>
-    <description><![CDATA[Доклад Дениса Редозубова о системах типов на RuHaskell.Meetup 2015 Summer.]]></description>
-    <pubDate>Sun, 21 Jun 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/talks/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
