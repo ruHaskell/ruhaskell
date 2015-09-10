@@ -22,7 +22,7 @@
                 <title>Выпуск 5</title>
                 <itunes:author>Рома, Шевченко</itunes:author>
                 <itunes:subtitle>Пятый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
-                <itunes:summary><![CDATA[]]></itunes:summary>
+                <itunes:summary><![CDATA[Беседуем о Facebook, о новом Haskell-плагине для Idea, о лени и опять о stack.]]></itunes:summary>
                 <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
                 <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue5-2015-09-10.mp3" length="21794305" type="audio/mpeg" />
                 <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue5-2015-09-10.mp3</guid>
