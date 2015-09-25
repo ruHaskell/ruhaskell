@@ -19,6 +19,18 @@
         <atom:link href="http://ruhaskell.org/itunes-feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Выпуск 6</title>
+                <itunes:author>Рома, Денис, Шевченко</itunes:author>
+                <itunes:subtitle>Шестой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[Беседуем о MRP, новом плагине для GHC, Num, Type Families и о конференции РИФ-Воронеж 2015.]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue6-2015-09-25.mp3" length="23635873" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue6-2015-09-25.mp3</guid>
+                <pubDate>Fri, 25 Sep 2015 00:00:00 +0300</pubDate>
+                <itunes:duration>00:55:58</itunes:duration>
+            </item>
+        
+            <item>
                 <title>Выпуск 5</title>
                 <itunes:author>Рома, Шевченко</itunes:author>
                 <itunes:subtitle>Пятый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>

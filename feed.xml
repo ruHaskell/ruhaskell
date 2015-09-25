@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Thu, 10 Sep 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 25 Sep 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Выпуск 6</title>
+    <link>http://ruhaskell.org/posts/cast/2015/09/25/issue6.html</link>
+    <description><![CDATA[Шестой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
+    <pubDate>Fri, 25 Sep 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/cast/2015/09/25/issue6.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>Выпуск 5</title>
     <link>http://ruhaskell.org/posts/cast/2015/09/10/issue5.html</link>
     <description><![CDATA[Пятый выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Первый выпуск нашего русскоязычного подкаста, посвящённого Haskell и всему вокруг него.]]></description>
     <pubDate>Sun, 05 Jul 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/cast/2015/07/05/issue1.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Первая встреча: все видео</title>
-    <link>http://ruhaskell.org/posts/events/2015/07/01/meet-up-summer-2015-videos.html</link>
-    <description><![CDATA[Видео с первой встречи нашего сообщества 21 июня 2015 года.]]></description>
-    <pubDate>Wed, 01 Jul 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/events/2015/07/01/meet-up-summer-2015-videos.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
