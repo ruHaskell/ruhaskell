@@ -19,7 +19,6 @@ module Tags (
 ) where
 
 import Data.List            (intercalate, isInfixOf)
-import Network.HTTP         (urlEncode)
 import Context              (postContext)
 import Misc                 (TagsReader,
                              TagsAndAuthors,
@@ -35,18 +34,16 @@ import qualified Text.Blaze.Html5.Attributes     as A
 import Hakyll
 
 -- Функция извлекает из всех статей значения поля tags и собирает их в кучу.
--- Функция urlEncode необходима для корректного формирования неанглийских меток.
 buildPostsTags :: MonadMetadata m => m Tags
-buildPostsTags = buildTags "posts/**" $ fromCapture "tags/*.html" . urlEncode
+buildPostsTags = buildTags "posts/**" $ fromCapture "tags/*.html"
 
 -- Функция определяет категорию, к которой относится статья.
 buildPostsCategories :: MonadMetadata m => m Tags
 buildPostsCategories = buildCategories "posts/**" $ fromCapture "categories/*.html"
 
 -- Функция извлекает из всех статей значения поля author и собирает их в кучу.
--- Функция urlEncode необходима для корректного формирования неанглийских имён авторов.
 buildPostsAuthors :: MonadMetadata m => m Tags
-buildPostsAuthors = buildTagsWith getNameOfAuthor "posts/**" $ fromCapture "authors/*.html" . urlEncode
+buildPostsAuthors = buildTagsWith getNameOfAuthor "posts/**" $ fromCapture "authors/*.html"
 
 -- Функция отрисовывает тег-ссылку вместе со значком, отражающим количество публикаций,
 -- соответствующих данному тегу. Например, количество статей данного автора.
