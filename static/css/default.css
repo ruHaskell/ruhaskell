@@ -98,6 +98,17 @@ span#github-link a {
     border-bottom: 0;
 }
 
+span#twitter-link {
+    color: #55acee;
+    padding-right: 6px;
+}
+
+span#twitter-link a {
+    text-decoration: none !important;
+    color: #000 !important;
+    border-bottom: 0;
+}
+
 span#rss-link {
     color: #FF9132;
     padding-right: 6px;
@@ -212,11 +223,6 @@ div#social {
 div#tagsCloud {
     font-family: 'Ubuntu Mono';
     text-align: center;
-}
-
-span#twitter {
-    font-weight: 700;
-    font-size: 20px;
 }
 
 span#github {
