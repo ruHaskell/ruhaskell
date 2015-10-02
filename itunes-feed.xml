@@ -19,6 +19,18 @@
         <atom:link href="http://ruhaskell.org/itunes-feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Выпуск 7</title>
+                <itunes:author>Рома, Денис, Шевченко</itunes:author>
+                <itunes:subtitle>Седьмой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[Беседуем про опрос по поводу Hackage, Haskell-консалтинг в России, новый пакет для работы с сокетами, PVP и порог вхождения в Yesod.]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue7-2015-10-02.mp3" length="24465197" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue7-2015-10-02.mp3</guid>
+                <pubDate>Fri,  2 Oct 2015 00:00:00 +0300</pubDate>
+                <itunes:duration>00:55:08</itunes:duration>
+            </item>
+        
+            <item>
                 <title>Выпуск 6</title>
                 <itunes:author>Рома, Денис, Шевченко</itunes:author>
                 <itunes:subtitle>Шестой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
