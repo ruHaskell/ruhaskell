@@ -19,6 +19,18 @@
         <atom:link href="http://ruhaskell.org/itunes-feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Выпуск 8</title>
+                <itunes:author>Рома, Денис, Шевченко</itunes:author>
+                <itunes:subtitle>Восьмой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
+                <itunes:summary><![CDATA[Беседуем про Haskell-стартапы, битву вокруг Monad-no-return proposal, Generics.SOP и тайпклассы.]]></itunes:summary>
+                <itunes:image href="http://dshevchenko.biz/ruhaskell/cast/image.png" />
+                <enclosure url="http://dshevchenko.biz/ruhaskell/cast/audio/issue8-2015-10-09.mp3" length="22706162" type="audio/mpeg" />
+                <guid>http://dshevchenko.biz/ruhaskell/cast/audio/issue8-2015-10-09.mp3</guid>
+                <pubDate>Fri,  9 Oct 2015 00:00:00 +0300</pubDate>
+                <itunes:duration>00:50:05</itunes:duration>
+            </item>
+        
+            <item>
                 <title>Выпуск 7</title>
                 <itunes:author>Рома, Денис, Шевченко</itunes:author>
                 <itunes:subtitle>Седьмой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.</itunes:subtitle>
