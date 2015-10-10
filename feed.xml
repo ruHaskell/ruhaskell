@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 09 Oct 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Sat, 10 Oct 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Зимняя встреча: вопросы, темы, пожелания</title>
+    <link>http://ruhaskell.org/posts/events/2015/10/10/meetup-winter-2015.html</link>
+    <description><![CDATA[Объявляем общий сбор докладчиков!]]></description>
+    <pubDate>Sat, 10 Oct 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/events/2015/10/10/meetup-winter-2015.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>Выпуск 8</title>
     <link>http://ruhaskell.org/posts/cast/2015/10/09/issue8.html</link>
     <description><![CDATA[Восьмой выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Stack и Yesod: как их подружить.]]></description>
     <pubDate>Wed, 19 Aug 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/utils/2015/08/19/stack-and-yesod.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Выпуск 2</title>
-    <link>http://ruhaskell.org/posts/cast/2015/08/13/issue2.html</link>
-    <description><![CDATA[Второй выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
-    <pubDate>Thu, 13 Aug 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/cast/2015/08/13/issue2.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
