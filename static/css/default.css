@@ -120,12 +120,12 @@ span#rss-link a {
     border-bottom: 0;
 }
 
-span#itunes-rss-link {
+span#bananasandlenses-link {
     color: #1998d8;
-    padding-right: 6px;
+    padding-right: 5px;
 }
 
-span#itunes-rss-link a {
+span#bananasandlenses-link a {
     text-decoration: none !important;
     color: #1998d8 !important;
     border-bottom: 0;
