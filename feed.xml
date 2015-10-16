@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Sat, 10 Oct 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Fri, 16 Oct 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>"Бананы и линзы" переехали!</title>
+    <link>http://ruhaskell.org/posts/events/2015/10/16/bananasandlenses.html</link>
+    <description><![CDATA[Наш подкаст "Бананы и линзы" обрёл новый уютный дом.]]></description>
+    <pubDate>Fri, 16 Oct 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/events/2015/10/16/bananasandlenses.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>Зимняя встреча: вопросы, темы, пожелания</title>
     <link>http://ruhaskell.org/posts/events/2015/10/10/meetup-winter-2015.html</link>
     <description><![CDATA[Объявляем общий сбор докладчиков!]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Третий выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
     <pubDate>Thu, 27 Aug 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/cast/2015/08/27/issue3.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>stack и Yesod: дружба навек</title>
-    <link>http://ruhaskell.org/posts/utils/2015/08/19/stack-and-yesod.html</link>
-    <description><![CDATA[Stack и Yesod: как их подружить.]]></description>
-    <pubDate>Wed, 19 Aug 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/utils/2015/08/19/stack-and-yesod.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 
