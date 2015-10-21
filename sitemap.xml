@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://ruhaskell.org/posts/packages/2015/10/21/HaskellLuaHowTo.html</loc>
+    </url>
+
+    <url>
         <loc>http://ruhaskell.org/posts/events/2015/10/16/bananasandlenses.html</loc>
     </url>
 

@@ -7,8 +7,16 @@
         <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
         <atom:link href="http://ruhaskell.org/feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Fri, 16 Oct 2015 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2015 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Haskell + Lua = дружба!</title>
+    <link>http://ruhaskell.org/posts/packages/2015/10/21/HaskellLuaHowTo.html</link>
+    <description><![CDATA[Использование Lua-скриптов в Haskell-программах]]></description>
+    <pubDate>Wed, 21 Oct 2015 00:00:00 UT</pubDate>
+    <guid>http://ruhaskell.org/posts/packages/2015/10/21/HaskellLuaHowTo.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
     <title>"Бананы и линзы" переехали!</title>
     <link>http://ruhaskell.org/posts/events/2015/10/16/bananasandlenses.html</link>
     <description><![CDATA[Наш подкаст "Бананы и линзы" обрёл новый уютный дом.]]></description>
@@ -78,14 +86,6 @@
     <description><![CDATA[Демонстрация создания простого сервиса с помошью WAI]]></description>
     <pubDate>Tue, 01 Sep 2015 00:00:00 UT</pubDate>
     <guid>http://ruhaskell.org/posts/web/2015/09/01/wai-rpc.html</guid>
-    <dc:creator>Денис Шевченко</dc:creator>
-</item>
-<item>
-    <title>Выпуск 3</title>
-    <link>http://ruhaskell.org/posts/cast/2015/08/27/issue3.html</link>
-    <description><![CDATA[Третий выпуск нашего подкаста, посвящённого Haskell и всему вокруг него.]]></description>
-    <pubDate>Thu, 27 Aug 2015 00:00:00 UT</pubDate>
-    <guid>http://ruhaskell.org/posts/cast/2015/08/27/issue3.html</guid>
     <dc:creator>Денис Шевченко</dc:creator>
 </item>
 

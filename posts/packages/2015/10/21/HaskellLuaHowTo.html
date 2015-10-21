@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" href="../../../../../static/images/favicon.ico">
+
+        <title>Haskell + Lua = дружба!</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <link href="../../../../../static/css/default.css" rel="stylesheet">
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+          window.___gcfg = {
+            lang: 'ru'
+          };
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer>
+        </script>
+
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://ruhaskell.org/feed.xml" />
+
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    </head>
+
+  <body>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58217738-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <div id="ruhaskell-logo">
+                <a class="navbar-brand" href="../../../../../" title="Домой">
+                  <img alt="ruHaskell" src="../../../../../static/images/logo.png" width="60">
+                </a>
+              </div>
+            </div>
+
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Публикации<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="../../../../../archive.html">
+                            <span class="archive-link">
+                                <span class="fa fa-pencil"></span>
+                            </span>Статьи
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../tags.html">
+                            <span class="tags-link">
+                                <span class="fa fa-tags"></span>
+                            </span>Теги
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../categories.html">
+                            <span class="categories-link">
+                                <span class="fa fa-star"></span>
+                            </span>Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../authors.html">
+                            <span class="authors-link">
+                                <span class="fa fa-users"></span>
+                            </span>Авторы
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Общение<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://gitter.im/ruHaskell/forall" target="_blank">
+                            <span class="chat-link">
+                                <span class="fa fa-smile-o"></span>
+                            </span>Чат
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://forum.ruhaskell.org" target="_blank">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Форум
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../maillist.html">
+                            <span class="group-link">
+                                <span class="fa fa-group"></span>
+                            </span>Список рассылки
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li><a href="../../../../../links.html">Ссылки</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Присоединяйтесь!<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="https://twitter.com/RuHaskell" target="_blank">
+                            <span id="twitter-link">
+                                <span class="fa fa-twitter-square"></span>
+                            </span>Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ruHaskell/ruhaskell" target="_blank">
+                            <span id="github-link">
+                                <span class="fa fa-github-square"></span>
+                            </span>GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/communities/117343381540538069054" target="_blank">
+                            <span id="google-plus-link">
+                                <span class="fa fa-google-plus-square"></span>
+                            </span>Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../../feed.xml">
+                            <span id="rss-link">
+                                <span class="fa fa-rss-square"></span>
+                            </span>RSS
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://bananasandlenses.net/" target="_blank">
+                            <span id="bananasandlenses-link">
+                                <span class="fa fa-headphones"></span>
+                            </span>Подкаст
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div id="content">
+            <h1>Haskell + Lua = дружба!</h1>
+
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%20%D0%9F%D0%B8%D1%80%D0%BE%D0%B3%D0%BE%D0%B2.html">Алексей Пирогов</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 oct 21<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/packages.html">Пакеты</a>"<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/haskell.html">haskell</a>&quot;, &quot;<a href="../../../../../tags/lua.html">lua</a>&quot;, &quot;<a href="../../../../../tags/scripting.html">scripting</a>&quot;]
+        </div>
+    </div>
+
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+            <div class="href-to-original">
+                <a href="http://astynax.github.io/posts/2015-10-21-HaskellLuaHowTo.html" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
+            </div>
+        
+    </div>
+</div>
+
+<p>Обратите внимание на то, что эта статья является исходником программы - она написана на <a href="https://wiki.haskell.org/Literate_programming">Literate Haskell</a>! Запустить эту программу можно с помощью <a href="https://github.com/commercialhaskell/stack/blob/master/doc/install_and_upgrade.md">stack</a> командой:</p>
+<pre class="shell"><code>stack --resolver lts-3.2 runghc --package hslua --package bytestring имя_файла.lhs</code></pre>
+<h1 id="использование-lua-скриптов-в-программе-на-haskell">Использование <strong>Lua</strong>-скриптов в программе на <strong>Haskell</strong></h1>
+<p>Иногда бывает очень полезно иметь возможность расширения/изменения поведения программы без её перекомпиляции. Для решения этой задачи часто используют <em>скриптовые языки</em>, встраивая их интерпретаторы прямо в основную программу. Один из наиболее популярных встраиваемых скриптовых языков, это <a href="http://www.lua.org">Lua</a>. Это динамически типизированный процедурный язык программирования, очень экономно расходующий ресурсы процессора и памяти. Эта статья не рассматривает сам Lua, а демонстрирует лишь типичный сценарий его использования, поэтому тем, кто желает познакомиться с этим языком поближе, автор рекомендует почитать официальное руководство по оному.</p>
+<p>Итак, приступим. Начнем, как обычно, с импортов:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> <span class="kw">import           </span><span class="dt">Control.Monad</span>         (when, void)
+<span class="ot">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Scripting.Lua</span>         <span class="kw">as</span> <span class="dt">Lua</span>
+<span class="ot">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.ByteString.Char8</span> <span class="kw">as</span> <span class="dt">BSS</span></code></pre></div>
+<p>“Скриптом” нам послужит такая строка:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; script ::</span> <span class="dt">String</span>
+<span class="ot">&gt;</span> script <span class="fu">=</span> unlines
+<span class="ot">&gt;</span>   [ <span class="st">&quot;function pine(height)                             &quot;</span>
+<span class="ot">&gt;</span>   , <span class="st">&quot;   for i = 1, height do                           &quot;</span>
+<span class="ot">&gt;</span>   , <span class="st">&quot;      write(  replicate(height - i,      \&quot; \&quot;))  &quot;</span>
+<span class="ot">&gt;</span>   , <span class="st">&quot;      writeLn(replicate(1 + (i - 1) * 2, \&quot;*\&quot;))  &quot;</span>
+<span class="ot">&gt;</span>   , <span class="st">&quot;   end                                            &quot;</span>
+<span class="ot">&gt;</span>   , <span class="st">&quot;end                                               &quot;</span> ]</code></pre></div>
+<p>Автору этот код видится достаточно очевидным для любого читателя, знакомого с каким-либо процедурным языком. Делает же функция <code>pine</code> следующее: при вызове для некоего числа, скажем, <code>5</code>, она всего лишь выводит на экран (печатает в <code>stdout</code>) “ёлочку” с высотой, равной этому числу:</p>
+<pre><code>    *
+   ***
+  *****
+ *******
+*********</code></pre>
+<p>Заметьте, что скрипт не обязан быть строкой, более того, чаще всего скрипты расширения именно из файлов и читаются. Это, собственно, и позволяет модифицировать их после того, как основная программа скомпилирована. В данном же случае скрипт хранится в строке только лишь для того, чтобы literate-исходник оставался самодостаточным.</p>
+<p>Теперь напишем основную программу:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; main ::</span> <span class="dt">IO</span> ()
+<span class="ot">&gt;</span> main <span class="fu">=</span> <span class="kw">do</span></code></pre></div>
+<p>Для начала инициализируем интерпретатор и загрузим стандартные библиотеки:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   lua <span class="ot">&lt;-</span> Lua.newstate
+<span class="ot">&gt;</span>   Lua.openlibs lua</code></pre></div>
+<p>Теперь стоит снова обратить свой взор на код скрипта, а точнее, на процедуры <code>write</code> и <code>writeLn</code> и функцию <code>replicate</code>. Дело в том, что это не встроенные в язык элементы - функция и процедуры инжектируются в пространство имен скрипта нашей основной программой! Т.е. мы способны не только вызывать скрипт снаружи, мы можем расширять “лексикон” самого скриптового языка! Регистрируются функции довольно просто:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   Lua.registerhsfunction lua <span class="st">&quot;write&quot;</span>     <span class="fu">$</span> putStr   <span class="fu">.</span> BSS.unpack
+<span class="ot">&gt;</span>   Lua.registerhsfunction lua <span class="st">&quot;writeLn&quot;</span>   <span class="fu">$</span> putStrLn <span class="fu">.</span> BSS.unpack
+<span class="ot">&gt;</span>   Lua.registerhsfunction lua <span class="st">&quot;replicate&quot;</span> <span class="fu">$</span> \n s <span class="ot">-&gt;</span>
+<span class="ot">&gt;</span>     (return <span class="fu">$</span> BSS.concat <span class="fu">$</span> replicate n s)<span class="ot"> ::</span> <span class="dt">IO</span> <span class="dt">BSS.ByteString</span></code></pre></div>
+<p>Последняя функция выглядит чуть сложнее первых двух, но так же довольно проста. Регистрируемые функции должны принимать аргументы нескольких простых типов, таких как числа (<code>Int</code>) и байтовые строки (<code>ByteString</code>), и возвращать столь же простые значения, но уже в контексте <code>IO</code>. Так, первые две зарегистрированные функции - настоящие процедуры, возвращающие <code>IO()</code>, т.е. “ничего”.</p>
+<p>Окружение готово, теперь нужно загрузить скрипт:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   res <span class="ot">&lt;-</span> Lua.loadstring lua script <span class="st">&quot;script&quot;</span></code></pre></div>
+<p>Строка <code>&quot;script&quot;</code> здесь - “имя” скрипта, которое интерпретатор использует в сообщениях об ошибках. Из файла скрипт бы загружался так:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   <span class="co">-- res &lt;- Lua.loadfile lua &quot;replua.lua&quot;</span></code></pre></div>
+<p>Скрипт может и не загрузиться и это стоит проверить:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   when (res <span class="fu">/=</span> <span class="dv">0</span>) <span class="fu">$</span> error <span class="st">&quot;Can't load script!&quot;</span></code></pre></div>
+<p>Загруженный скрипт можно выполнить (с начала первой строки, <code>0 0</code>):</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   Lua.call lua <span class="dv">0</span> <span class="dv">0</span></code></pre></div>
+<p>Скрипт загружен, можно что-нибудь из него повызывать:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   void <span class="fu">$</span> Lua.callproc lua <span class="st">&quot;pine&quot;</span> (<span class="dv">10</span><span class="ot"> ::</span> <span class="dt">Int</span>)</code></pre></div>
+<p>И, конечно же, корректно завершить работу с интерпретатором:</p>
+<div class="sourceCode"><pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span>   Lua.close lua</code></pre></div>
+<p>Вот и всё! Тем Lua и хорош (не только этим, конечно же), что легко встраивается, в т.ч. и в Haskell :)</p>
+
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+        </div>
+
+        <div id="searchForm">
+            <script>
+              (function() {
+                var cx = '007697214108744450483:w49n7qbvpdy';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:search></gcse:search>
+        </div>
+
+        <footer class="footer">
+            Сайт работает на <strong><a href="http://jaspervdj.be/hakyll/" target="_blank">Hakyll</a></strong> и живёт на <strong><a href="https://github.com/ruHaskell/ruhaskell" target="_blank">GitHub</a></strong>.
+            <div class="stargaze">
+                <a data-count-api="/repos/ruHaskell/ruhaskell#stargazers_count" data-count-href="/ruHaskell/ruhaskell/stargazers" data-icon="octicon-star" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Star</a>
+
+                <span style="padding-left: 20px;"></span>
+
+                <a data-count-api="/repos/ruHaskell/ruhaskell#forks_count" data-count-href="/ruHaskell/ruhaskell/network" data-icon="octicon-git-branch" href="https://github.com/ruHaskell/ruhaskell" class="github-button">Fork</a>
+            </div>
+
+            <div class="copyright-note">
+                Исходный код данного сайта, а также все опубликованные на нём материалы распространяются на условиях <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" target="_blank">свободной лицензии MIT</a>.
+            </div>
+        </footer>
+    </div>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+  </body>
+</html>
