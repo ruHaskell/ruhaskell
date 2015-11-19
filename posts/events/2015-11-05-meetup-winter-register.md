@@ -66,10 +66,11 @@ Lightning talk — доклад-молния — короткий, около 5 
 <div class="collapse" id=donations>
 <table class="table">
 <tr><th>Дата и время, MSK</th><th class=text-right>Сумма в рублях</th><th>Комментарий</th></tr>
-<tr><td>2015-11-06 09:22</td><td class=text-right> 98</td></tr>
-<tr><td>2015-11-06 14:00</td><td class=text-right> 98</td></tr>
-<tr><td>2015-11-06 15:58</td><td class=text-right>199</td><td>На видеосъёмку</td></tr>
-<tr><td>2015-11-16 14:27</td><td class=text-right>200</td><td>Haskell rocks! :-D</td></tr>
-<tr><td>2015-11-17 12:11</td><td class=text-right>299</td><td>На видеосъёмку</td></tr>
+<tr><td>2015-11-06 09:22</td><td class=text-right>  98</td></tr>
+<tr><td>2015-11-06 14:00</td><td class=text-right>  98</td></tr>
+<tr><td>2015-11-06 15:58</td><td class=text-right> 199</td><td>На видеосъёмку</td></tr>
+<tr><td>2015-11-16 14:27</td><td class=text-right> 200</td><td>Haskell rocks! :-D</td></tr>
+<tr><td>2015-11-17 12:11</td><td class=text-right> 299</td><td>На видеосъёмку</td></tr>
+<tr><td>2015-11-19 13:10</td><td class=text-right>2940</td><td>На видеосъёмку</td></tr>
 </table>
 </div>
