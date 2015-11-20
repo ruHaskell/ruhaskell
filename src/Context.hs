@@ -92,5 +92,6 @@ postContext tagsAndAuthors = mconcat [ constField "host" aHost
                                      , quottedTagField "postTags" $ head tagsAndAuthors
                                      , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
                                      , authorField "postAuthor" $ tagsAndAuthors !! 2
+                                     , field "authorName" (error "field authorName") -- for RSS:dc:creator
                                      , defaultContext
                                      ]
