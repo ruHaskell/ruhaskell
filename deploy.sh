@@ -27,7 +27,7 @@ if [ "$1" != "" ]
 then
     git add .
     git commit -a -m "$COMMIT_MESSAGE"
-    git push -f origin master
+    git push origin master
 fi
 
 echo "Собираем новую версию сайта..."
@@ -52,7 +52,7 @@ else
     git commit -a -m "Обновление после слияния."
 fi
 
-git push -f origin gh-pages
+git push origin gh-pages
 
 echo "Возвращаемся в мастер..."
 git checkout master
