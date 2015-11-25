@@ -46,6 +46,7 @@ Lightning talk — доклад-молния — короткий, около 5 
 
 Спонсоров опять нет, поэтому собираем на услуги оператора силами сообщества.
 
+<!--
 <script type="text/javascript">
     $(document).ready(function() {
         var url = $(".yandex-donate a").attr('href');
@@ -59,6 +60,9 @@ Lightning talk — доклад-молния — короткий, около 5 
 <span class="yandex-donate">**[100 рублей на Яндекс.Деньги](https://money.yandex.ru/embed/donate.xml?account=410012081048179&quickpay=donate&payment-type-choice=on&default-sum=100&targets=%D0%9D%D0%B0+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%81%D1%8A%D1%91%D0%BC%D0%BA%D1%83&target-visibility=on&project-name=RuHaskell&project-site=http%3A%2F%2Fruhaskell.org%2F&button-text=05&fio=on&mail=on&successURL=)**</span>
 или
 **[100 рублей на PayPal](https://www.paypal.me/YSyrovetskiy/100rub)**
+-->
+
+UPD. Собрали достаточно — 4638 из 4000 требуемых. Всем спасибо.
 
 <a class="btn btn-default" role=button data-toggle=collapse data-target="#donations">
 Пожертвовано <span class=caret></span>
