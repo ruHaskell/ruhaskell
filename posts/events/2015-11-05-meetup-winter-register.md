@@ -74,5 +74,6 @@ Lightning talk — доклад-молния — короткий, около 5 
 <tr><td>2015-11-19 13:10</td><td class=text-right>2940</td><td>На видеосъёмку</td></tr>
 <tr><td>2015-11-20 13:58</td><td class=text-right> 100</td></tr>
 <tr><td>2015-11-22 13:59</td><td class=text-right> 104</td><td>На видеосъёмку</td></tr>
+<tr><td>2015-11-25 21:43</td><td class=text-right> 600</td><td>Ещё на съёмку Haskell meetup.</td></tr>
 </table>
 </div>
