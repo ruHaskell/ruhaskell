@@ -11,7 +11,7 @@ description:    Регистрация на зимнюю московскую в
 
 ## Когда
 
-6 декабря 2015 года, воскресенье, 14:00.
+6 декабря 2015 года (воскресенье), **12:00**.
 
 ## Где
 
@@ -22,11 +22,13 @@ description:    Регистрация на зимнюю московскую в
 1. **Сергей Зефиров** расскажет об использовании дерева слияния журналов (log structured merge tree) в качестве хранилища базы данных. Поделится знанием, как сделать быстрое хранилище для базы данных, с гарантиями надежности, с разными уровнями изоляции и при этом не сойти с ума. В процессе рассказа пройдётся по B+-tree и прочему.
 1. **Антон Холомьёв** продолжит музыкальную тему, начатую на предыдущем митапе, объяснением монад с точки зрения барабанщиков.
 1. **Максим Талдыкин** поведает о зависимых типах в GHC 8.0, зачем они нужны, почему пришлось так долго ждать, и в чём отличие от Coq и Idris.
-1. **Денис Редозубов** научит разгонять веб-сервисы с помощью Servant.
-1. **Александр Вершилов** держит тему в тайне.
-1. Секретный доклад от секретного докладчика.
 
-Перерыва на обед не будет.
+Перерыв на обед.
+
+<ol start=4>
+<li>**Денис Редозубов** научит улучшать веб-сервисы с помощью Servant.</li>
+<li>**Александр Вершилов** расскажет о возможностях и проблемах FFI (foreign function interface) и покажет примеры его использования.</li>
+</ol>
 
 После выступлений будет возможность
 пообщаться с докладчиками и слушателями в неформальной обстановке.
@@ -46,8 +48,26 @@ Lightning talk — доклад-молния — короткий, около 5 
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".yandex-donate").html("<iframe frameborder='0' allowtransparency='true' scrolling='no' src='https://money.yandex.ru/embed/donate.xml?account=410012081048179&quickpay=donate&payment-type-choice=on&default-sum=100&targets=%D0%9D%D0%B0+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%81%D1%8A%D1%91%D0%BC%D0%BA%D1%83&target-visibility=on&project-name=RuHaskell&project-site=http%3A%2F%2Fruhaskell.org%2F&button-text=05&fio=on&mail=on&successURL=' width='510' height='131'></iframe>");
+        var url = $(".yandex-donate a").attr('href');
+        $(".yandex-donate").html(
+            "<iframe frameborder='0' allowtransparency='true' scrolling='no' src='"
+            + url + "' width='510' height='131'></iframe>"
+        );
     });
 </script>
 
-<div class="yandex-donate"></div>
+<span class="yandex-donate">**[100 рублей на Яндекс.Деньги](https://money.yandex.ru/embed/donate.xml?account=410012081048179&quickpay=donate&payment-type-choice=on&default-sum=100&targets=%D0%9D%D0%B0+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%81%D1%8A%D1%91%D0%BC%D0%BA%D1%83&target-visibility=on&project-name=RuHaskell&project-site=http%3A%2F%2Fruhaskell.org%2F&button-text=05&fio=on&mail=on&successURL=)**</span>
+или
+**[100 рублей на PayPal](https://www.paypal.me/YSyrovetskiy/100rub)**
+
+<a class="btn btn-default" role=button data-toggle=collapse data-target="#donations">
+Пожертвовано <span class=caret></span>
+</a>
+<div class="collapse" id=donations>
+<table class="table">
+<tr><th>Дата и время</th><th class=text-right>Сумма в рублях</th></tr>
+<tr><td>2015-11-06 09:22</td><td class=text-right> 98</td></tr>
+<tr><td>2015-11-06 14:00</td><td class=text-right> 98</td></tr>
+<tr><td>2015-11-06 15:58</td><td class=text-right>199</td></tr>
+</table>
+</div>

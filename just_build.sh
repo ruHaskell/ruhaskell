@@ -3,8 +3,8 @@ set -eux
 
 # Просто собираем сайт, локально.
 
-stack install
+stack build
 
-ruHaskell rebuild
+stack exec ruHaskell rebuild
 
 # После этого в корне репозитория смотрим в каталог _site.
