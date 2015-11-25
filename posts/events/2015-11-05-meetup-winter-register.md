@@ -62,7 +62,7 @@ Lightning talk — доклад-молния — короткий, около 5 
 **[100 рублей на PayPal](https://www.paypal.me/YSyrovetskiy/100rub)**
 -->
 
-UPD. Собрали достаточно — 4638 из 4000 требуемых. Всем спасибо.
+UPD. Собрали достаточно — 4638 рублей из 4000 требуемых. Всем спасибо. Излишек пойдёт на бонусы или на следующий митап.
 
 <a class="btn btn-default" role=button data-toggle=collapse data-target="#donations">
 Пожертвовано <span class=caret></span>
