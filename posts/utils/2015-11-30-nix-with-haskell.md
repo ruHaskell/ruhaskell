@@ -7,7 +7,7 @@ description: Продолжаем разбираться с Nix, теперь у
 
 Всем привет!
 
-[Попробовав Nix на вкус](http://ruhaskell.org/posts/utils/2015/11/26/nix-hello-world.html), идём далее. Хватит играться с `vim`, давайте уже приступим к нашему любимому Haskell!
+[Попробовав Nix на вкус](http://ruhaskell.org/posts/utils/2015/11/26/nix-hello-world.html), идём далее. Хватит нам играться с `vim`, давайте приступим к нашему любимому Haskell!
 
 ## Готовимся
 
