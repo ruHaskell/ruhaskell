@@ -5,8 +5,9 @@ name:                ruHaskell
 version:             0.1.0.0
 synopsis:            Russian community of Haskell-developers
 
-homepage:            http://haskell.ru
+homepage:            http://ruhaskell.org
 
+license: 	     MIT
 license-file:        LICENSE
 
 author:              Denis Shevchenko
