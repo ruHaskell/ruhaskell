@@ -1,60 +1,32 @@
 #!/bin/bash
-
-# Скрипт для для автоматического обновления сайта на GitHub Pages.
-
-USAGE="
-Запускаем так: ./deploy.sh \"Сообщение о коммите\"
-
-Пример:
-  ./deploy.sh \"Обновление стиля.\"
-"
-
-# При любой ошибке скрипт вылетает...
-set -ex
-
-# Устанавливаем переменную, для нашего коммит-сообщения...
-COMMIT_MESSAGE=$1
-
-#if [ "$1" = "" ]
-#then
-#    echo "А сообщение о коммите где?"
-#    echo "${USAGE}"
-#    exit 1
-#fi
-
-echo "Учитываем изменения в ветке master..."
-if [ "$1" != "" ]
-then
-    git add .
-    git commit -a -m "$COMMIT_MESSAGE"
-    git push origin master
-fi
+set -eux -o pipefail
+# Скрипт для для обновления сайта на GitHub Pages.
 
 echo "Собираем новую версию сайта..."
 ./just_build.sh
 
-echo "Копируем во временное место, предварительно удалив старое, если нужно..."
-rm -rf /tmp/_site/ || true 1> /dev/null
-cp -R _site /tmp/
+# запоминаем сообщение текущей ревизии
+commit_message="$(git log --format=%B HEAD^1..HEAD)"
 
-echo "Переключаемся на ветку 'gh-pages'..."
-git checkout gh-pages
+(
+    cd _site
+    git init
+    git remote add source ..
+    git fetch source
 
-echo "Копируем прямо в корень содержимое подготовленного каталога _site..."
-cp -R /tmp/_site/* .
+    echo "Создаём коммит из _site..."
+    git add .
+    git write-tree                          | xargs \
+    git commit-tree                                 \
+        -p source/gh-pages -p source/master         \
+        -m "$commit_message" `: tree id :`  | xargs \
+    git checkout --quiet `: commit id :`
 
-echo "Учитываем все последние новшества, если таковые имеются, и публикуем на GitHub Pages..."
-git add .
-if [ "$1" != "" ]
-then
-    git commit -a -m "$COMMIT_MESSAGE"
-else
-    git commit -a -m "Обновление после слияния."
-fi
+    echo "Копируем коммит в оригинальный репозиторий..."
+    git push source HEAD:gh-pages
+)
 
-git push -f origin gh-pages
-
-echo "Возвращаемся в мастер..."
-git checkout master
+echo "Публикуем gh-pages на сервере..."
+git push --force origin gh-pages:gh-pages
 
 echo "Готово!"
