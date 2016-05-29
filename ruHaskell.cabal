@@ -42,7 +42,8 @@ executable ruHaskell
                        mtl,
                        containers,
                        blaze-html,
-                       time
+                       time,
+                       pandoc
 
   hs-source-dirs:      src
 
