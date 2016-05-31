@@ -15,6 +15,7 @@ commit_message="$(git log --format=%B HEAD^1..HEAD)"
     git fetch source
 
     echo "Создаём коммит из _site..."
+    export GIT_COMMITTER_EMAIL=root@localhost
     git add .
     git write-tree                          | xargs \
     git commit-tree                                 \
