@@ -13,6 +13,7 @@ module Posts (
 import Data.List.Split      (splitOn)
 import Data.List            (intersperse)
 import System.FilePath      (splitExtension)
+import Text.Pandoc.Options  (WriterOptions(..),HTMLMathMethod(..))
 import Context              (postContext)
 import Misc                 (TagsReader)
 import Control.Monad.Reader
@@ -48,7 +49,8 @@ createPosts = do
         route $ directorizeDate `composeRoutes`
                 setExtension "html"
         -- Для превращения Markdown в HTML используем pandocCompiler
-        compile $ pandocCompiler
+        compile $ pandocCompilerWith defaultHakyllReaderOptions
+                                     defaultHakyllWriterOptions{ writerHTMLMathMethod = MathJax "" }
               >>= loadAndApplyTemplate "templates/post.html" (postContext tagsAndAuthors)
               >>= loadAndApplyTemplate "templates/default.html" (postContext tagsAndAuthors)
               >>= relativizeUrls
