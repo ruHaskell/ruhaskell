@@ -1,7 +1,7 @@
 ---
 author:      Алексей Худяков
 title:       Улучшение тестов для statistics, часть 1
-tags:        numeric
+tags:        численные методы, тестирование
 description: Длинная история об отладке тестов для statistics и пакета math-functions
 ---
 
