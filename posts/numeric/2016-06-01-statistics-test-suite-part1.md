@@ -142,9 +142,11 @@ $$
 ```haskell
 roundtripError :: ContDistr d => d -> Double -> Double
 roundtripError d x
-  = m_epsilon/2 * (1 + abs ((y / x) * density d y))
+  = m_epsilon/2 * (1 + abs (y / x * f_inv' y))
   where
-    y = quantile d x
+    f = quantile d
+    f_inv' = density d
+    y = f x
 ```
 
 Теперь можно начать строить картинки с оценкой ошибки и фактической ошибкой при
