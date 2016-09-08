@@ -1,6 +1,6 @@
 ---
 author:         Денис Шевченко
-title:          Структура Yesod-проекта: базовая конфигурация
+title:          "Структура Yesod-проекта: базовая конфигурация"
 tags:           Yesod
 description:    Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Пришла пора изучить структуру нашего проекта. И начнём мы с базовой конфигурации.
 ---
@@ -11,22 +11,22 @@ description:    Yesod - это мощный веб-фреймворк, напи�
 
 ```bash
 Application.hs
-Foundation.hs 
-Model.hs       
-Settings.hs    
-devel.hs       
+Foundation.hs
+Model.hs
+Settings.hs
+devel.hs
 webhs.cabal
-Import.hs      
-Handler/        
-config/         
-messages/       
-templates/      
-Settings/       
-app/            
-deploy/         
-dist/           
-static/         
-test/           
+Import.hs
+Handler/
+config/
+messages/
+templates/
+Settings/
+app/
+deploy/
+dist/
+static/
+test/
 yesod-devel/
 ```
 
@@ -35,16 +35,16 @@ yesod-devel/
 Вот содержимое, созданное по умолчанию:
 
 ```bash
-favicon.ico    
-robots.txt     
-postgresql.yml 
-keter.yml      
-models         
-routes         
+favicon.ico
+robots.txt
+postgresql.yml
+keter.yml
+models
+routes
 settings.yml
 ```
 
-Полагаю, назначение файлов `favicon.ico` и `robots.txt` вопросов не вызывает, не правда ли? С файлом `postgresql.yml` вы уже познакомились, когда настраивали параметры доступа приложения к Postgres. 
+Полагаю, назначение файлов `favicon.ico` и `robots.txt` вопросов не вызывает, не правда ли? С файлом `postgresql.yml` вы уже познакомились, когда настраивали параметры доступа приложения к Postgres.
 
 ## Сетевая конфигурация
 
@@ -112,10 +112,10 @@ Production:
 ```bash
 /static         StaticR     Static getStatic
 /auth           AuthR       Auth   getAuth
-   
+
 /favicon.ico    FaviconR    GET
 /robots.txt     RobotsR     GET
-   
+
 /               HomeR       GET POST
 ```
 
@@ -158,7 +158,7 @@ Email
     user UserId Maybe
     verkey Text Maybe
     UniqueEmail email
- 
+
 -- By default this file is used in Model.hs (which is imported by Foundation.hs)
 ```
 
@@ -197,14 +197,4 @@ $ ./webhs Development -p 3001
 ./dist/build/webhs/webhs Development -p 3001
 ```
 
-Впрочем, я опять вас немного обманул, потому что исполняемый файл рассчитывает не только на каталог `config`, но и ещё на кое-что. Однако об этом в отдельной заметке. 
-
-
-
-
-
-
-
-
-
-
+Впрочем, я опять вас немного обманул, потому что исполняемый файл рассчитывает не только на каталог `config`, но и ещё на кое-что. Однако об этом в отдельной заметке.

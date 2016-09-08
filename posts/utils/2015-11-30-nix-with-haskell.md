@@ -1,6 +1,6 @@
 ---
 author: Денис Шевченко
-title:  Nix и Haskell: первая встреча
+title:  "Nix и Haskell: первая встреча"
 tags:   Nix, Haskell
 description: Продолжаем разбираться с Nix, теперь уже в свете нашего любимого языка. Давайте уже создадим что-нибудь!
 ---
@@ -106,7 +106,7 @@ $ tree
 ```nixos
 { pkgs ? import <nixpkgs> {} }:
 
-let command = name: pathToNix: 
+let command = name: pathToNix:
         pkgs.runCommand name {} ''
             ${pkgs.cabal2nix}/bin/cabal2nix ${pathToNix} > $out
         '';
@@ -173,7 +173,7 @@ $ ls -al result
 Тот самый хэш. Таким образом, можем запускать следующим образом:
 
 ```bash
-$ ./result/bin/hello 
+$ ./result/bin/hello
 hello
 ```
 

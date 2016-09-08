@@ -1,6 +1,6 @@
 ---
 author:         Денис Шевченко
-title:          Линзы: Hello World!
+title:          "Линзы: Hello World!"
 tags:           lens
 description:    Введение в линзы. Только для новичков, опытным хаскелистам не читать!
 ---
@@ -37,7 +37,7 @@ setName newName (Athlete _) = Athlete newName
 
 ```haskell
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete ""
         realAthlete        = setName "Taylor Fausak" athleteWithoutName
         nameOfRealAthlete  = getName realAthlete
@@ -57,7 +57,7 @@ module Main where
 data Athlete = Athlete { name :: String }
 
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete ""
         realAthlete        = athleteWithoutName { name = "Taylor Fausak" }
         nameOfRealAthlete  = name realAthlete
@@ -111,7 +111,7 @@ import Athlete
 import Club
 
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete ""
         realAthlete        = athleteWithoutName { name = "Taylor Fausak" }
         nameOfRealAthlete  = name realAthlete
@@ -147,7 +147,7 @@ import Athlete as A
 import Club    as C
 
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete ""
         realAthlete        = athleteWithoutName { A.name = "Taylor Fausak" }
         nameOfRealAthlete  = A.name realAthlete
@@ -191,7 +191,7 @@ import Athlete
 import Club
 
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete ""
         realAthlete        = athleteWithoutName { athleteName = "Taylor Fausak" }
         nameOfRealAthlete  = athleteName realAthlete
@@ -235,7 +235,7 @@ instance HasName Club where
 
 ```haskell
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete ""
         realAthlete        = setName "Taylor Fausak" athleteWithoutName
         nameOfRealAthlete  = getName realAthlete
@@ -245,7 +245,7 @@ main =
     in putStrLn $ nameOfRealAthlete ++ ", " ++ nameOfRealClub
 ```
 
-Ну что ж, такое решение значительно красивее, ведь никакого "масла масляного" уже нет. Казалось бы, мы нашли идеальное решение, но... 
+Ну что ж, такое решение значительно красивее, ведь никакого "масла масляного" уже нет. Казалось бы, мы нашли идеальное решение, но...
 
 ## Разные типы
 
@@ -311,7 +311,7 @@ instance HasName Club String where
 
 ```haskell
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete empty
         realAthlete        = setName (pack "Taylor Fausak") athleteWithoutName
         nameOfRealAthlete  = getName realAthlete
@@ -376,7 +376,7 @@ instance HasName Club String where
 
 ```haskell
 main :: IO ()
-main = 
+main =
     let athleteWithoutName = Athlete empty
         realAthlete        = set name (pack "Taylor Fausak") athleteWithoutName
         nameOfRealAthlete  = get name realAthlete
@@ -401,4 +401,3 @@ set name "Fixed Touring" clubWithoutName
 ## Правда
 
 А правда, друзья мои, состоит в том, что всё вышеизложенное есть не более чем мааааааленькая демонстрация. Существует мощный пакет [lens](http://hackage.haskell.org/package/lens), в котором всё уже реализовано очень умными людьми. К рассмотрению возможностей этого пакета мы приступим в следующих статьях.
-

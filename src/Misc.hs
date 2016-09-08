@@ -1,64 +1,74 @@
 {-
     Вспомогательный модуль.
     https://github.com/ruHaskell/ruhaskell
-    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
+    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015-2016 г.
 -}
-
 {-# LANGUAGE OverloadedStrings #-}
 
-module Misc (
-    aHost,
-    prepareAllTemplates,
-    getNameOfAuthor,
-    TagsAndAuthors,
-    TagsReader,
-    getRussianNameOfCategory
-) where
+module Misc
+  ( aHost
+  , prepareAllTemplates
+  , getNameOfAuthor
+  , TagsAndAuthors
+  , TagsReader
+  , getRussianNameOfCategory
+  ) where
 
-import Control.Monad.Reader
-import qualified Data.Map as M
-import Hakyll
+import           Control.Monad.Reader (ReaderT)
+import           Data.Aeson           (Value (String))
+import qualified Data.HashMap.Lazy    as HashMap
+import           Data.Map             (Map)
+import qualified Data.Map             as Map
+import qualified Data.Text            as Text
+import           Hakyll               (Identifier, MonadMetadata, Rules, Tags,
+                                       compile, getMetadata, match,
+                                       templateCompiler, trim)
 
--- Данный URL останется актуальным до тех пор, пока сайт будет жить на GitHub Pages.
+-- | Данный URL останется актуальным до тех пор, пока сайт будет жить на GitHub Pages.
 aHost :: String
 aHost = "http://ruhaskell.org"
 
--- Готовим все шаблоны из каталога templates.
+-- | Готовим все шаблоны из каталога templates.
 prepareAllTemplates :: Rules ()
 prepareAllTemplates = match "templates/*" $ compile templateCompiler
 
--- Читательское "облако" с тематическими тегами, категориями и именами авторов статей.
+-- | Читательское "облако" с тематическими тегами, категориями и именами авторов статей.
 type TagsAndAuthors = [Tags]
+
 type TagsReader = ReaderT TagsAndAuthors Rules ()
 
--- Извлекает из статьи значение атрибута `author`.
-getNameOfAuthor :: MonadMetadata m => Identifier -> m [String]
+-- | Извлекает из статьи значение атрибута `author`.
+getNameOfAuthor
+  :: MonadMetadata m
+  => Identifier -> m [String]
 getNameOfAuthor identifier = do
-    -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
-    metadata <- getMetadata identifier
-    let author = M.findWithDefault "Не указан" "author" metadata
-    return [trim author]
+  metadata <- getMetadata identifier -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
+  let String author = HashMap.lookupDefault "Не указан" "author" metadata
+  return [trim $ Text.unpack author]
 
--- Имена категорий извлекаются из файлового пути, поэтому они всегда английские.
+-- | Имена категорий извлекаются из файлового пути, поэтому они всегда английские.
 -- Это не красиво, поэтому мы формируем словарь русских имён для категорий.
-russianNamesOfCategories :: M.Map String String
-russianNamesOfCategories = M.fromList[ ("algorithms", "Алгоритмы")
-                                     , ("cast",       "Подкаст")
-                                     , ("dynamic",    "Динамика")
-                                     , ("elm",        "Elm")
-                                     , ("events",     "События")
-                                     , ("frp",        "FRP")
-                                     , ("gui",        "GUI")
-                                     , ("numeric",    "Численные методы")
-                                     , ("packages",   "Пакеты")
-                                     , ("projects",   "Проекты")
-                                     , ("talks",      "Выступления")
-                                     , ("tasks",      "Задачи")
-                                     , ("theory",     "Теория")
-                                     , ("typesystem", "Система типов")
-                                     , ("utils",      "Утилиты")
-                                     , ("web",        "Веб")
-                                     ]
+russianNamesOfCategories :: Map String String
+russianNamesOfCategories =
+  Map.fromList
+    [ ("algorithms", "Алгоритмы")
+    , ("cast", "Подкаст")
+    , ("dynamic", "Динамика")
+    , ("elm", "Elm")
+    , ("events", "События")
+    , ("frp", "FRP")
+    , ("gui", "GUI")
+    , ("numeric", "Численные методы")
+    , ("packages", "Пакеты")
+    , ("projects", "Проекты")
+    , ("talks", "Выступления")
+    , ("tasks", "Задачи")
+    , ("theory", "Теория")
+    , ("typesystem", "Система типов")
+    , ("utils", "Утилиты")
+    , ("web", "Веб")
+    ]
 
 getRussianNameOfCategory :: String -> String
-getRussianNameOfCategory englishName = M.findWithDefault englishName englishName russianNamesOfCategories
+getRussianNameOfCategory englishName =
+  Map.findWithDefault englishName englishName russianNamesOfCategories

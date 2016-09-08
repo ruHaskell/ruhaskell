@@ -1,6 +1,6 @@
 ---
 author:         Антон Холомьёв
-title:          Библиотека csound-expression: EDSL, музыка, FRP и многое другое
+title:          "Библиотека csound-expression: EDSL, музыка, FRP и многое другое"
 tags:           доклад, митап, DSL, музыка, FRP, csound, csound-expression
 description:    Доклад Антона Холомьёва о библиотеке csound-expression, EDSL, музыке, FRP и многом другом на RuHaskell.Meetup 2015 Summer.
 ---

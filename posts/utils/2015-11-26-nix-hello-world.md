@@ -1,6 +1,6 @@
 ---
 author: Денис Шевченко
-title:  Nix: начало
+title:  "Nix: начало"
 tags:   Nix
 description: Пробуем Nix на вкус...
 ---
@@ -45,7 +45,7 @@ fetching path ‘/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827’...
                                  Dload  Upload   Total   Spent    Left  Speed
 100 5782k  100 5782k    0     0   601k      0  0:00:09  0:00:09 --:--:--  681k
 
-building path(s) ‘/nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment’                                                                              
+building path(s) ‘/nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment’
 created 2 symlinks in user environment
 ```
 
@@ -170,8 +170,8 @@ total 92
 
 ```
 demo-profile  -> /nix/store/user-environment -> /nix/store/vim-7.4.827
-              /                          
-demo2-profile 
+              /
+demo2-profile
 ```
 
 Два пользователя пользуются общим пакетом `vim`! Это в высшей степени рациональный подход, поскольку нет никакого дубляжа. Даже если бы в нашей системе было сто пользователей, то, когда все они запросят установку пакета `vim` одной и той же версии, тогда один-единственный пакет `vim` просто расшарится между ними, через ссылки в их профилях.

@@ -1,6 +1,6 @@
 ---
 author:         Денис Шевченко
-title:          Yesod: Гамлет и прочие
+title:          "Yesod: Гамлет и прочие"
 tags:           Yesod
 description:    Yesod - это мощный веб-фреймворк, написанный на языке Haskell. Сегодня продробнее рассмотрим уже известные нам веб-шаблоны.
 ---
@@ -36,7 +36,7 @@ description:    Yesod - это мощный веб-фреймворк, напи�
 <div .register>
     <div .just-centered>
         <h4>Ещё нет профиля?
- 
+
         <div .register-button>
             <button type=button
                     .btn
@@ -151,11 +151,11 @@ article {
 ```css
 @bigSpace: 100px;
 
-.register-block { 
+.register-block {
     padding-top: #{bigSpace};
 }
 
-.login-block { 
+.login-block {
     padding-top: #{bigSpace};
 }
 ```

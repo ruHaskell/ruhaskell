@@ -1,6 +1,6 @@
 ---
 author:         Денис Шевченко
-title:          Yesod и Haste: мёд и дёготь
+title:          "Yesod и Haste: мёд и дёготь"
 tags:           Yesod, Haste
 description:    Yesod и Haste - стоит ли игра свеч?
 ---

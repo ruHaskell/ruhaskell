@@ -2,7 +2,7 @@
 author: Денис Шевченко
 title:  Прощай, cabal. Здравствуй, stack!
 tags:   stack, cabal
-description: Про stack: что это такое и с чем его едят.
+description: "Про stack: что это такое и с чем его едят."
 ---
 
 Приветствую, друзья!
@@ -343,4 +343,3 @@ Copying from /Users/dshevchenko/probe/.stack-work/install/x86_64-osx/lts-2.15/7.
 - [FP Complete про stack](https://www.fpcomplete.com/blog/2015/06/why-is-stack-not-cabal).
 - [Архитектура stack](https://github.com/commercialhaskell/stack/wiki/Architecture).
 - Подробнее про [stack.yaml](https://github.com/commercialhaskell/stack/wiki/stack.yaml).
-

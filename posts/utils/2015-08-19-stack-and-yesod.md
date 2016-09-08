@@ -1,8 +1,8 @@
 ---
 author: Денис Шевченко
-title:  stack и Yesod: дружба навек
+title:  "stack и Yesod: дружба навек"
 tags:   stack, Yesod
-description: Stack и Yesod: как их подружить.
+description: "Stack и Yesod: как их подружить."
 ---
 
 Приветствую, друзья!
