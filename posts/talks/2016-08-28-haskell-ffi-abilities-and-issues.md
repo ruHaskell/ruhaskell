@@ -11,6 +11,7 @@ src="https://www.youtube.com/embed/xlymbMe105Q"
 frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/NGho5JUrXico0S"
 width="476" height="400"
-frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></nobr>
+frameborder="0" marginwidth="0" marginheight="0" scrolling="no"
+allowfullscreen></iframe></nobr>
 
 [Слайды](https://github.com/qnikst/haskell-fun/tree/master/talks/ffi/presentation)
