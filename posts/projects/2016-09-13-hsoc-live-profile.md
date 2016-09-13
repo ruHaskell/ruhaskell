@@ -2,7 +2,7 @@
 author:         Anton Gushcha
 title:          Сервер для онлайн-профилирования приложений
 tags:           HSOC, eventlog, profiling
-description:    Результаты Haskell Summer of Code 2016 проекта по улучшению eventlog.
+description:    Результаты проекта Haskell Summer of Code 2016 по улучшению eventlog.
 ---
 
 Лето закончилось,
