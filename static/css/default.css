@@ -531,3 +531,8 @@ input.gsc-search-button-v2{
     color: #888 !important;
 }
 
+img[src*='#center']{     
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+}
