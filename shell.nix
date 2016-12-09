@@ -1,21 +1,21 @@
 with (import <nixpkgs> {}).pkgs;
 let pkg = haskellngPackages.callPackage
-            ({ mkDerivation, base, blaze-html, BlogLiterately, containers
-             , filepath, hakyll, HTTP, mtl, old-locale, split, stdenv
+            ({ mkDerivation, aeson, base, blaze-html, clay, containers, filepath, hakyll
+             , mtl, pandoc, split, string-qq, text, time, unordered-containers, stdenv
              }:
              mkDerivation {
                pname = "ruHaskell";
-               version = "0.1.0.0";
+               version = "0.2.0.0";
                sha256 = "0";
                isLibrary = false;
                isExecutable = true;
                buildDepends = [
-                 base blaze-html BlogLiterately containers filepath hakyll HTTP mtl
-                 old-locale split
+                 aeson base blaze-html clay containers filepath hakyll mtl
+                 pandoc split string-qq text time unordered-containers
                ];
-               homepage = "http://haskell.ru";
+               homepage = "http://ruhaskell.org";
                description = "Russian community of Haskell-developers";
-               license = stdenv.lib.licenses.unfree;
+               license = stdenv.lib.licenses.mit;
              }) {};
 in
   pkg.env

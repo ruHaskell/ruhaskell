@@ -1,17 +1,14 @@
-{-
-    Модуль, отвечающий за формирование главной страницы.
-    https://github.com/ruHaskell/ruhaskell
-    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
--}
-
 {-# LANGUAGE OverloadedStrings #-}
 
 module IndexPage (
     createIndexPage
 ) where
 
-import Context              (postContext)
-import Misc                 (TagsReader)
+import Context              ( postContext )
+import Misc                 ( TagsReader )
+import Markup.Index         ( indexTemplate )
+import Markup.Default       ( defaultTemplate )
+
 import Control.Monad.Reader
 import Hakyll
 
@@ -21,14 +18,14 @@ createIndexPage = do
     lift $ create ["index.html"] $ do
         route idRoute
         compile $ do
-            -- На главной странице будет отражено 7 последних публикаций.
-            last7Posts <- fmap (take 7) . recentFirst =<< loadAll "posts/**"
-            let indexContext = mconcat [ listField "posts" (postContext tagsAndAuthors) (return last7Posts)
+            last5Posts <- fmap (take 5) . recentFirst =<< loadAll "posts/**"
+            let indexContext = mconcat [ listField "posts" (postContext tagsAndAuthors) (return last5Posts)
                                        , constField "title" "Русскоязычное сообщество Haskell-разработчиков"
+                                       , constField "others" "Прочие"
                                        , defaultContext
                                        ]
 
-            makeItem "" >>= loadAndApplyTemplate "templates/index.html" indexContext
-                        >>= loadAndApplyTemplate "templates/default.html" indexContext
+            makeItem "" >>= applyTemplate indexTemplate indexContext
+                        >>= applyTemplate defaultTemplate indexContext
                         >>= relativizeUrls
     return ()

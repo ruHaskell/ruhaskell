@@ -1,15 +1,9 @@
-{-
-    Модуль копировщиков.
-    https://github.com/ruHaskell/ruhaskell
-    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
--}
-
 {-# LANGUAGE OverloadedStrings #-}
 
 module Copiers (
-    justCopy,
-    justCreateAndCopy,
-    justCompressAndCopy
+      justCopy
+    , justCreateAndCopy
+    , justCompressAndCopy
 ) where
 
 import Hakyll
@@ -31,4 +25,3 @@ justCompressAndCopy :: Pattern -> Rules ()
 justCompressAndCopy something = match something $ do
     route   idRoute
     compile compressCssCompiler
-

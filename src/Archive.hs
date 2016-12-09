@@ -1,17 +1,14 @@
-{-
-    Модуль, отвечающий за формирование архива (списка всех статей).
-    https://github.com/ruHaskell/ruhaskell
-    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
--}
-
 {-# LANGUAGE OverloadedStrings #-}
 
 module Archive (
     createPageWithAllPosts
 ) where
 
-import Context              (postContext)
-import Misc                 (TagsReader)
+import Context              ( postContext )
+import Misc                 ( TagsReader )
+import Markup.Archive       ( archiveTemplate )
+import Markup.Default       ( defaultTemplate )
+
 import Control.Monad.Reader
 import Hakyll
 
@@ -23,11 +20,11 @@ createPageWithAllPosts = do
         compile $ do
             allPosts <- recentFirst =<< loadAll "posts/**"
             let archiveContext = mconcat [ listField "posts" (postContext tagsAndAuthors) (return allPosts)
-                                         , constField "title" "Архив статей"
+                                         , constField "title" "Все статьи"
                                          , defaultContext
                                          ]
 
-            makeItem "" >>= loadAndApplyTemplate "templates/archive.html" archiveContext
-                        >>= loadAndApplyTemplate "templates/default.html" archiveContext
+            makeItem "" >>= applyTemplate archiveTemplate archiveContext
+                        >>= applyTemplate defaultTemplate archiveContext
                         >>= relativizeUrls
     return ()

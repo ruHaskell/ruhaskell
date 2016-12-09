@@ -1,7 +1,7 @@
 {-
     Модуль, отвечающий за формирование базового контекста статей.
     https://github.com/ruHaskell/ruhaskell
-    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015 г.
+    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015-2016 г.
 -}
 
 {-# LANGUAGE OverloadedStrings #-}
@@ -85,12 +85,13 @@ ruTimeLocale =  TimeLocale { wDays  = []
 
 -- Основной контекст публикаций.
 postContext :: TagsAndAuthors -> Context String
-postContext tagsAndAuthors = mconcat [ constField "host" aHost
-                                     , dateFieldWith ruTimeLocale "date" "%d %B %Y"
-                                     , dateFieldWith ruTimeLocale "haskellDate" "%Y %b %d"
-                                     , dateField "issuePubDateInRFC2822" "%a, %_d %b %Y %H:%M:%S +0300"
-                                     , quottedTagField "postTags" $ head tagsAndAuthors
-                                     , categoryFieldInRussian "postCategory" $ tagsAndAuthors !! 1
-                                     , authorField "postAuthor" $ tagsAndAuthors !! 2
-                                     , defaultContext
-                                     ]
+postContext tagsAndAuthors = mconcat
+    [ constField                "host"                  aHost
+    , dateFieldWith             ruTimeLocale            "date" "%d %B %Y"
+    , dateFieldWith             ruTimeLocale            "haskellDate" "%Y %b %d"
+    , dateField                 "issuePubDateInRFC2822" "%a, %_d %b %Y %H:%M:%S +0300"
+    , quottedTagField           "postTags"              $ tagsAndAuthors !! 0
+    , categoryFieldInRussian    "postCategory"          $ tagsAndAuthors !! 1
+    , authorField               "postAuthor"            $ tagsAndAuthors !! 2
+    , defaultContext
+    ]

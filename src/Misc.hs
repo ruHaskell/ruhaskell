@@ -1,18 +1,13 @@
-{-
-    Вспомогательный модуль.
-    https://github.com/ruHaskell/ruhaskell
-    Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015-2016 г.
--}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Misc
-  ( aHost
-  , prepareAllTemplates
-  , getNameOfAuthor
-  , TagsAndAuthors
-  , TagsReader
-  , getRussianNameOfCategory
-  ) where
+module Misc (
+      aHost
+    , prepareAllTemplates
+    , getNameOfAuthor
+    , TagsAndAuthors
+    , TagsReader
+    , getRussianNameOfCategory
+) where
 
 import           Control.Monad.Reader (ReaderT)
 import           Data.Aeson           (Value (String))
@@ -38,9 +33,7 @@ type TagsAndAuthors = [Tags]
 type TagsReader = ReaderT TagsAndAuthors Rules ()
 
 -- | Извлекает из статьи значение атрибута `author`.
-getNameOfAuthor
-  :: MonadMetadata m
-  => Identifier -> m [String]
+getNameOfAuthor :: MonadMetadata m => Identifier -> m [String]
 getNameOfAuthor identifier = do
   metadata <- getMetadata identifier -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
   let String author = HashMap.lookupDefault "Не указан" "author" metadata
@@ -49,26 +42,27 @@ getNameOfAuthor identifier = do
 -- | Имена категорий извлекаются из файлового пути, поэтому они всегда английские.
 -- Это не красиво, поэтому мы формируем словарь русских имён для категорий.
 russianNamesOfCategories :: Map String String
-russianNamesOfCategories =
-  Map.fromList
-    [ ("algorithms", "Алгоритмы")
-    , ("cast", "Подкаст")
-    , ("dynamic", "Динамика")
-    , ("elm", "Elm")
-    , ("events", "События")
-    , ("frp", "FRP")
-    , ("gui", "GUI")
-    , ("numeric", "Численные методы")
-    , ("packages", "Пакеты")
-    , ("projects", "Проекты")
-    , ("talks", "Выступления")
-    , ("tasks", "Задачи")
-    , ("theory", "Теория")
-    , ("typesystem", "Система типов")
-    , ("utils", "Утилиты")
-    , ("web", "Веб")
+russianNamesOfCategories = Map.fromList
+    [ ("algorithms" , "Алгоритмы")
+    , ("cast"       , "Подкаст")
+    , ("dynamic"    , "Динамика")
+    , ("elm"        , "Elm")
+    , ("events"     , "События")
+    , ("frp"        , "FRP")
+    , ("gui"        , "GUI")
+    , ("numeric"    , "Численные методы")
+    , ("packages"   , "Пакеты")
+    , ("projects"   , "Проекты")
+    , ("talks"      , "Выступления")
+    , ("tasks"      , "Задачи")
+    , ("theory"     , "Теория")
+    , ("typesystem" , "Система типов")
+    , ("utils"      , "Утилиты")
+    , ("web"        , "Веб")
     ]
 
 getRussianNameOfCategory :: String -> String
 getRussianNameOfCategory englishName =
-  Map.findWithDefault englishName englishName russianNamesOfCategories
+    Map.findWithDefault englishName
+                        englishName
+                        russianNamesOfCategories

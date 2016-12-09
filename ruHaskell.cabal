@@ -2,8 +2,8 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                ruHaskell
-version:             0.1.0.0
-synopsis:            Russian community of Haskell-developers
+version:             0.2.0.0
+synopsis:            Website of Russian community of Haskell-developers
 
 homepage:            http://ruhaskell.org
 
@@ -21,6 +21,8 @@ cabal-version:       >= 1.10
 executable ruHaskell
   main-is:             Main.hs
 
+  hs-source-dirs:      src
+  
   other-modules:       Copiers
                        RSSFeed
                        Context
@@ -28,28 +30,38 @@ executable ruHaskell
                        Tags
                        XMLMap
                        Archive
+                       About
                        IndexPage
-                       Links
                        Misc
-
-  other-extensions:    OverloadedStrings
+                       Markup.About
+                       Markup.Archive
+                       Markup.Authors
+                       Markup.Categories
+                       Markup.Default
+                       Markup.Footer
+                       Markup.Head
+                       Markup.Index
+                       Markup.Post
+                       Markup.PostList
+                       Markup.Posts
+                       Markup.Sitemap
+                       Markup.Tags
 
   build-depends:       aeson
                      , base
                      , blaze-html
+                     , clay
                      , containers
                      , filepath
                      , hakyll
-                     , HTTP
                      , mtl
                      , pandoc
                      , split
+                     , string-qq
                      , text
                      , time
                      , unordered-containers
 
-  hs-source-dirs:      src
-
   default-language:    Haskell2010
 
-  ghc-options:         -Wall -Werror
+  ghc-options:         -Wall
