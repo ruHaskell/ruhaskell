@@ -99,6 +99,11 @@ ownCss = Lazy.toStrict . render $ do
         color           "#2d3644"
         textDecoration  none
         borderBottom    dotted (px 1) "#333333"
+    
+    ".href-to-original" ? do
+        rightAlign
+        fontSizePct     90
+        paddingTopPx    10
 
     "#authors-link" ? do
         textDecoration  none
