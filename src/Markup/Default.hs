@@ -31,7 +31,7 @@ raw = docTypeHtml $ do
             navigation
         div ! A.class_ "container" $ do
             lastPosts
-    commonFooter
+        commonFooter
 
 navigation :: Html
 navigation =
