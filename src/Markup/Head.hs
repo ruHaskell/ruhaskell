@@ -6,6 +6,7 @@ module Markup.Head (
 ) where
 
 import           Css.Own                        ( ownCss )
+import           Misc                           ( aHost )
 
 import           Prelude                        hiding ( div, span, head )
 import           Text.Blaze.Html5
