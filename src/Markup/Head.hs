@@ -51,7 +51,7 @@ commonHead = head $ do
     link ! A.rel "alternate"
          ! A.type_ "application/rss+xml"
          ! A.title "RSS"
-         ! A.href "http://ruhaskell.org/feed.xml"
+         ! A.href (toValue $ aHost ++ "/feed.xml")
   where
     cssLink :: String -> Html
     cssLink url = link ! A.rel "stylesheet" ! A.href (toValue url)
