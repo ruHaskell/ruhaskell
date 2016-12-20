@@ -22,17 +22,13 @@ executable ruHaskell
   main-is:             Main.hs
 
   hs-source-dirs:      src
-  
-  other-modules:       Copiers
-                       RSSFeed
-                       Context
-                       Posts
-                       Tags
-                       XMLMap
+
+  other-modules:       About
                        Archive
-                       About
+                       Context
+                       Copiers
+                       Css.Own
                        IndexPage
-                       Misc
                        Markup.About
                        Markup.Archive
                        Markup.Authors
@@ -46,6 +42,11 @@ executable ruHaskell
                        Markup.Posts
                        Markup.Sitemap
                        Markup.Tags
+                       Misc
+                       Posts
+                       RSSFeed
+                       Tags
+                       XMLMap
 
   build-depends:       aeson
                      , base
