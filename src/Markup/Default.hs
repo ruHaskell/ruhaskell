@@ -10,15 +10,19 @@ module Markup.Default (
     defaultTemplate
 ) where
 
-import           Markup.Head
-import           Markup.Footer
+import           Prelude                         hiding (div, span)
 
-import           Prelude                            hiding ( div, span )
-import           Data.Text                          ( Text )
-import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes        as A
-import           Text.Blaze.Html.Renderer.Pretty    ( renderHtml )
-import           Hakyll.Web.Template
+import           Data.Text                       (Text)
+import           Hakyll.Web.Template             (Template, readTemplate)
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
+import           Text.Blaze.Html5                (Html, a, body,
+                                                  customAttribute, div,
+                                                  docTypeHtml, i, img,
+                                                  preEscapedToHtml, span, (!))
+import qualified Text.Blaze.Html5.Attributes     as A
+
+import           Markup.Footer
+import           Markup.Head
 
 defaultTemplate :: Template
 defaultTemplate = readTemplate . renderHtml $ raw
@@ -27,9 +31,9 @@ raw :: Html
 raw = docTypeHtml $ do
     commonHead
     body $ do
-        div ! A.class_ "container-fluid" $ do
+        div ! A.class_ "container-fluid" $
             navigation
-        div ! A.class_ "container" $ do
+        div ! A.class_ "container" $
             lastPosts
         commonFooter
 
@@ -67,24 +71,24 @@ socialLinks =
     div ! A.class_ "social-links" $ do
         a ! A.href "https://gitter.im/ruHaskell/forall" ! A.id "sl-1" ! A.title "Наш чат" $
             i ! A.class_ "fa fa-commenting gitter-color" ! customAttribute "aria-hidden" "true" $ ""
-        
+
         span ! A.class_ "social-links-separator" $ ""
-        
+
         a ! A.href "https://twitter.com/ruHaskell" ! A.id "sl-2" ! A.title "Следите за нашим Твиттером" $
             i ! A.class_ "fa fa-twitter twitter-color" ! customAttribute "aria-hidden" "true" $ ""
-        
+
         span ! A.class_ "social-links-separator" $ ""
-        
+
         a ! A.href "https://www.reddit.com/r/ruhaskell/" ! A.id "sl-3" ! A.title "Наш реддит-канал" $
             i ! A.class_ "fa fa-reddit-alien reddit-color" ! customAttribute "aria-hidden" "true" $ ""
-        
+
         span ! A.class_ "social-links-separator" $ ""
-        
+
         a ! A.href "https://github.com/ruHaskell/ruhaskell" ! A.id "sl-4" ! A.title "Мы живём на GitHub" $
             i ! A.class_ "fa fa-github github-color" ! customAttribute "aria-hidden" "true" $ ""
-        
+
         span ! A.class_ "social-links-separator" $ ""
-        
+
         a ! A.href "/feed.xml" ! A.id "sl-5" ! A.title "Наш RSS" $
             i ! A.class_ "fa fa-rss rss-color" ! customAttribute "aria-hidden" "true" $ ""
 
