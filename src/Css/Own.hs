@@ -171,7 +171,7 @@ ownCss = Lazy.toStrict . render $ do
     
     ".links" ? do
         marginTopPx     17
-        fontSizePct     96
+        fontSizePct     90
         paddingBottomPx 10
 
     ".logo-area" ? do
