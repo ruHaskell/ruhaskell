@@ -69,7 +69,7 @@ logoArea =
 socialLinks :: Html
 socialLinks =
     div ! A.class_ "social-links" $ do
-        a ! A.href "https://gitter.im/ruHaskell/forall" ! A.id "sl-1" ! A.title "Наш чат" $
+        a ! A.href "https://gitter.im/ruHaskell/home" ! A.id "sl-1" ! A.title "Наши чаты" $
             i ! A.class_ "fa fa-commenting gitter-color" ! customAttribute "aria-hidden" "true" $ ""
 
         span ! A.class_ "social-links-separator" $ ""
