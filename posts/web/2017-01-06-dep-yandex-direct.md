@@ -37,15 +37,15 @@ data Operation a = Operation
 Каждая операция возвращает некоторый результат:
 
 ```haskell
-data Result r = Result
-  { result :: !r
+newtype Result r = Result
+  { result :: r
   }
 ```
 
 Разные методы возвращают значения разных типов. В случае использования метода `add`, возвращается структура `AddResults`:
 
 ```haskell
-data AddResults = AddResults
+newtype AddResults = AddResults
   { getAddResults :: [ActionResult]
   }
 
@@ -65,7 +65,7 @@ data ExceptionNotification = ExceptionNotification
 Если же используется метод `get`, то результат зависит от параметра, с которым метод был вызван. К примеру, если методу `get` был передан параметр типа `DictionaryNames` (по сути список названий словарей)
 
 ```haskell
-data DictionaryNames = DictionaryNames
+newtype DictionaryNames = DictionaryNames
   { getDictionaryNames :: [DictionaryNameEnum]
   }
 
@@ -123,7 +123,7 @@ evalSMethod SGet = Get
 Сначала пару примеров. Объявления:
 
 ```haskell
-data Ads = Ads
+newtype Ads = Ads
   { getAds :: [AdAddItem]
   }
 
@@ -133,7 +133,7 @@ data AdAddItem = ...
 Кампании:
 
 ```haskell
-data Campaigns = Campaigns
+newtype Campaigns = Campaigns
   { getCampaigns :: [CampaignAddItem]
   }
 
