@@ -2,7 +2,7 @@
 author:         Юрий Сыровецкий
 title:          CoLaboratory:RuHaskell:2017:Весна:CFP
 tags:           митап
-description:    Собираем доклаы к митапу
+description:    Собираем доклады к митапу
                 6 апреля сообщества RuHaskell и Лаборатории Касперского.
 ---
 
