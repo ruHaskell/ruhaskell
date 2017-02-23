@@ -2,7 +2,7 @@
 author:         Алексей Пирогов
 title:          Haskell + Lua = дружба!
 description:    Использование Lua-скриптов в Haskell-программах
-tags:           haskell,lua,scripting
+tags:           Haskell, Lua, scripting
 hrefToOriginal: http://astynax.github.io/posts/2015-10-21-HaskellLuaHowTo.html
 ---
 

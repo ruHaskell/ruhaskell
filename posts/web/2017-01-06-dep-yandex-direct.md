@@ -1,7 +1,7 @@
 ---
 author: Роман Киреев
 title:  "Зависимые типы на примере взаимодействия с Яндекс.Директ API"
-tags:   зависимые типы, семейства типов, web, servant
+tags:   зависимые типы, семейства типов, web, Servant
 description: На примере Яндекс.Директ API в статье показывается, как типизировать такой запрос к API, тип результата которого зависит от содержимого запроса.
 ---
 
@@ -74,7 +74,7 @@ data DictionaryNameEnum
   | SupplySidePlatforms
   | ...
 ```
-  
+
 то результатом будет `Dictionaries` (тип, изоморфный гетерогенному списку всех словарей, каждый из которых завернут в `Maybe`, так что для каждого словаря, который не был запрошен, будет возвращено `Nothing`):
 
 ```haskell
@@ -178,11 +178,11 @@ data DirectConfig = DirectConfig
   , getLogin :: !(Maybe Text)
   , getHost  :: !Text         -- Может быть как "api.direct.yandex.com",
                               --          так и "api-sandbox.direct.yandex.com"
-  }                  
+  }
 ```
 
 И мы наконец можем собрать все вместе и определить основную функцию для общения с API Директа:
-  
+
 ```haskell
 perform :: (FromJSON (ResultOf m a), Entity a)
         => DirectConfig -> Manager -> SMethod m -> a -> ClientM (ResultOf m a)
