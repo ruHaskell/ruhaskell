@@ -15,7 +15,7 @@ description:    Собираем доклады к митапу
 ## Call For Papers
 
 Заявки на доклады принимаются до 6 марта на
-https://goo.gl/forms/HZ7LPYCbpJAALf802
+[goo.gl/forms/HZ7LPYCbpJAALf802](https://goo.gl/forms/HZ7LPYCbpJAALf802)
 
 ## А судьи кто?
 
