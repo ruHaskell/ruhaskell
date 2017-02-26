@@ -122,4 +122,4 @@ $ ./watch.sh
 
 ### Обратная связь
 
-Вопросы? Предложения? Критика? Стучитесь в наш [чат](https://gitter.im/ruHaskell/forall) или пишите [Юрию Сыровецкому](cblp@cblp.su) и [Денису Шевченко](mailto:me@dshevchenko.biz).
+Вопросы? Предложения? Критика? Стучитесь в наш [чат](https://gitter.im/ruHaskell/forall) или пишите [Юрию Сыровецкому](mailto:cblp@cblp.su) и [Денису Шевченко](mailto:me@dshevchenko.biz).
