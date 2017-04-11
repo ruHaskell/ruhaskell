@@ -8,30 +8,25 @@
 
 module Main where
 
-import Copiers              ( justCopy
-                            , justCreateAndCopy
-                            , justCompressAndCopy
-                            )
-import RSSFeed              ( setupRSSFeed )
-import Posts                ( createPosts )
-import Tags                 ( createPageWithAllTags
-                            , createPageWithAllCategories
-                            , createPageWithAllAuthors
-                            , convertTagsToLinks
-                            , convertCategoriesToLinks
-                            , convertAuthorsToLinks
-                            , buildPostsTags
-                            , buildPostsAuthors
-                            , buildPostsCategories
-                            )
-import XMLMap               ( createXMLMap )
-import Archive              ( createPageWithAllPosts )
-import Misc                 ( prepareAllTemplates )
-import About                ( createAboutPage )
-import IndexPage            ( createIndexPage )
+import           About                (createAboutPage)
+import           Archive              (createPageWithAllPosts)
+import           Copiers              (justCompressAndCopy, justCopy,
+                                       justCreateAndCopy)
+import           IndexPage            (createIndexPage)
+import           Misc                 (prepareAllTemplates)
+import           Posts                (createPosts)
+import           RSSFeed              (setupRSSFeed)
+import           Tags                 (buildPostsAuthors, buildPostsCategories,
+                                       buildPostsTags, convertAuthorsToLinks,
+                                       convertCategoriesToLinks,
+                                       convertTagsToLinks,
+                                       createPageWithAllAuthors,
+                                       createPageWithAllCategories,
+                                       createPageWithAllTags)
+import           XMLMap               (createXMLMap)
 
-import Control.Monad.Reader ( runReaderT )
-import Hakyll
+import           Control.Monad.Reader (runReaderT)
+import           Hakyll               (hakyll)
 
 main :: IO ()
 main = hakyll $ do
@@ -50,15 +45,16 @@ main = hakyll $ do
     authors     <- buildPostsAuthors
 
     -- Теги и имена авторов нужны всем, поэтому для удобства запускаем читателя.
-    runReaderT (    createPosts
-                 >> createPageWithAllPosts
-                 >> createPageWithAllTags
-                 >> createPageWithAllCategories
-                 >> createPageWithAllAuthors
-                 >> convertTagsToLinks
-                 >> convertCategoriesToLinks
-                 >> convertAuthorsToLinks
-                 >> createXMLMap
-                 >> setupRSSFeed
-                 >> createIndexPage
-                 >> createAboutPage ) [tags, categories, authors]
+    (`runReaderT` [tags, categories, authors]) $ do
+        createPosts
+        createPageWithAllPosts
+        createPageWithAllTags
+        createPageWithAllCategories
+        createPageWithAllAuthors
+        convertTagsToLinks
+        convertCategoriesToLinks
+        convertAuthorsToLinks
+        createXMLMap
+        setupRSSFeed
+        createIndexPage
+        createAboutPage
