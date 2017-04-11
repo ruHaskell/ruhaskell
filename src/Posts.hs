@@ -10,27 +10,30 @@ module Posts (
     createPosts
 ) where
 
-import Context              ( postContext )
-import Misc                 ( TagsReader )
-import Markup.Post          ( postTemplate )
-import Markup.Default       ( defaultTemplate )
+import           Control.Monad.Reader (ask, lift)
+import           Data.List            (intercalate)
+import           Data.List.Split      (splitOn)
+import           Hakyll               (Routes, applyTemplate, compile,
+                                       composeRoutes, customRoute,
+                                       defaultHakyllReaderOptions,
+                                       defaultHakyllWriterOptions, match,
+                                       pandocCompilerWith, relativizeUrls,
+                                       route, setExtension, toFilePath)
+import           System.FilePath      (dropExtension, joinPath)
+import           Text.Pandoc.Options  (HTMLMathMethod (..), WriterOptions (..))
 
-import Text.Pandoc.Options  ( WriterOptions(..), HTMLMathMethod(..) )
-import System.FilePath      ( splitExtension )
-import Data.List.Split      ( splitOn )
-import Data.List            ( intersperse )
-import Control.Monad.Reader
-import Hakyll
+import           Context              (postContext)
+import           Markup.Default       (defaultTemplate)
+import           Markup.Post          (postTemplate)
+import           Misc                 (TagsReader)
 
 -- Дата публикации будет отражена в URL в виде подкаталогов.
 directorizeDate :: Routes
-directorizeDate = customRoute (\i -> directorize $ toFilePath i)
+directorizeDate = customRoute (directorize . toFilePath)
   where
-    directorize path = dirs
+    directorize path = dropExtension $ joinPath [y, m, d, intercalate "-" title]
       where
-        (dirs, _) = splitExtension $ concat $ (intersperse "/" date) ++ ["/"] ++ (intersperse "-" rest)
-        minusBetweenDateAndTitle = 3
-        (date, rest) = splitAt minusBetweenDateAndTitle $ splitOn "-" path
+        y : m : d : title = splitOn "-" path
 
 createPosts :: TagsReader
 createPosts = do
@@ -38,9 +41,10 @@ createPosts = do
     lift $ match "posts/**" $ do
         route $ directorizeDate `composeRoutes` setExtension "html"
         -- Для превращения Markdown в HTML используем pandocCompiler
-        compile $ pandocCompilerWith defaultHakyllReaderOptions
-                                     defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "" }
-              >>= applyTemplate postTemplate    (postContext tagsAndAuthors)
-              >>= applyTemplate defaultTemplate (postContext tagsAndAuthors)
-              >>= relativizeUrls
-    return ()
+        compile $
+            pandocCompilerWith
+                defaultHakyllReaderOptions
+                defaultHakyllWriterOptions{writerHTMLMathMethod = MathJax ""}
+            >>= applyTemplate postTemplate    (postContext tagsAndAuthors)
+            >>= applyTemplate defaultTemplate (postContext tagsAndAuthors)
+            >>= relativizeUrls
