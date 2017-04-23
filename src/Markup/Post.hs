@@ -1,32 +1,36 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE QuasiQuotes       #-}
 
-module Markup.Post (
-    postTemplate
-) where
+module Markup.Post
+    ( postTemplate
+    ) where
 
-import           Prelude                            hiding ( div, span )
-import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes        as A
-import           Text.Blaze.Html.Renderer.Pretty    ( renderHtml )
-import           Data.String.QQ
+import           Prelude                         hiding (div, span)
+
+import           Data.String.QQ                  (s)
+import           Data.Text                       (Text)
 import           Hakyll.Web.Template
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
+import           Text.Blaze.Html5
+import qualified Text.Blaze.Html5.Attributes     as A
 
 postTemplate :: Template
 postTemplate = readTemplate . renderHtml $ raw
 
 raw :: Html
 raw = do
-    h1 $ "$title$"
+    h1 "$title$"
 
     div ! A.class_ "row" $ do
-        div ! A.class_ "col-xs-9 col-sm-8 col-md-8 col-lg-8" $ do
+        div ! A.class_ "col-xs-9 col-sm-8 col-md-8 col-lg-8" $
             div ! A.class_ "post-info" $ preEscapedToHtml postInfo
 
-        div ! A.class_ "col-xs-3 col-sm-4 col-md-4 col-lg-4" $ do
-            preEscapedToHtml linkToOriginal            
-        
-    div $ "$body$"
+        div ! A.class_ "col-xs-3 col-sm-4 col-md-4 col-lg-4" $
+            preEscapedToHtml linkToOriginal
+
+    talkHeader
+    div "$body$"
+
     div ! A.class_ "social-buttons-separator" $ ""
     div ! A.id "socialButtons" $ preEscapedToHtml socialButtons
     div ! A.class_ "social-buttons-separator" $ ""
@@ -69,3 +73,11 @@ disqusThread = [s|
     })();
 </script>
 |]
+
+talkHeader :: Html
+talkHeader = do
+    "$if(talk.event)$" :: Html
+    a ! A.href "$talk.event$" $ do
+        preEscapedToHtml ("&uarr;&nbsp;" :: Text)
+        "все доклады"
+    "$endif$"

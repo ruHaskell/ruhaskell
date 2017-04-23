@@ -10,7 +10,7 @@ module Posts (
     createPosts
 ) where
 
-import           Control.Monad.Reader (ask, lift)
+import           Control.Monad.Reader (ReaderT (..))
 import           Data.List            (intercalate)
 import           Data.List.Split      (splitOn)
 import           Hakyll               (Routes, applyTemplate, compile,
@@ -36,9 +36,8 @@ directorizeDate = customRoute (directorize . toFilePath)
         y : m : d : title = splitOn "-" path
 
 createPosts :: TagsReader
-createPosts = do
-    tagsAndAuthors <- ask
-    lift $ match "posts/**" $ do
+createPosts = ReaderT $ \tagsAndAuthors ->
+    match "posts/**" $ do
         route $ directorizeDate `composeRoutes` setExtension "html"
         -- Для превращения Markdown в HTML используем pandocCompiler
         compile $

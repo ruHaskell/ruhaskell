@@ -10,88 +10,118 @@ module Context (
     postContext
 ) where
 
-import Data.List        (intersperse)
-import Data.Time        (TimeLocale(..))
-import Misc             (aHost,
-                         TagsAndAuthors,
-                         getNameOfAuthor,
-                         getRussianNameOfCategory)
-import System.FilePath  (takeBaseName, takeDirectory)
+import           Data.Aeson                  (Value (Object, String))
+import qualified Data.HashMap.Strict         as HashMap
+import           Data.List                   (intersperse)
+import qualified Data.Text                   as Text
+import           Data.Time                   (TimeLocale (..))
+import           Misc                        (TagsAndAuthors, aHost,
+                                              getNameOfAuthor,
+                                              getRussianNameOfCategory)
+import           System.FilePath             (takeBaseName, takeDirectory)
 
-import qualified Text.Blaze.Html5               as H
-import qualified Text.Blaze.Html5.Attributes    as A
-import           Text.Blaze.Html                (toHtml, toValue, (!))
+import           Text.Blaze.Html             (toHtml, toValue, (!))
+import qualified Text.Blaze.Html5            as H
+import qualified Text.Blaze.Html5.Attributes as A
 
-import Hakyll
+import           Hakyll                      (Compiler, Context, Identifier,
+                                              Item, MonadMetadata, Tags,
+                                              constField, dateField,
+                                              dateFieldWith, defaultContext,
+                                              field, fromFilePath, getMetadata,
+                                              getRoute, getTags, itemIdentifier,
+                                              tagsFieldWith, toFilePath, toUrl)
 
--- Код данной функции для формирования простой ссылки взят из исходников Hakyll.
-simpleRenderLink :: String
-                 -> Maybe FilePath
-                 -> Maybe H.Html
+-- | Код данной функции для формирования простой ссылки взят из исходников Hakyll.
+simpleRenderLink :: String -> Maybe FilePath -> Maybe H.Html
 simpleRenderLink tag = fmap $ \filePath -> -- Формируем тег <a href...>
     H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
 
--- Превращает имя автора в ссылку, ведущую к списку статей данного автора.
+-- | Превращает имя автора в ссылку, ведущую к списку статей данного автора.
 authorField :: String -> Tags -> Context a
-authorField = tagsFieldWith getNameOfAuthor simpleRenderLink (mconcat . intersperse ", ")
+authorField =
+    tagsFieldWith getNameOfAuthor simpleRenderLink (mconcat . intersperse ", ")
 
--- Оборачиваем ссылку-тег в программерские кавычки, чтобы было как в Haskell-коде. ;-)
-simpleRenderQuottedLink :: String
-                        -> Maybe FilePath
-                        -> Maybe H.Html
+-- | Оборачиваем ссылку-тег в программерские кавычки, чтобы было как в Haskell-коде. ;-)
+simpleRenderQuottedLink :: String -> Maybe FilePath -> Maybe H.Html
 simpleRenderQuottedLink tag = fmap $ \filePath -> -- Формируем тег <a href...>
     let rawHref = H.a ! A.href (toValue $ toUrl filePath) $ toHtml tag
-        quote = toHtml ("\"" :: String)
+        quote = "\"" :: H.Html
     in quote >> rawHref >> quote
 
--- Превращает имя ссылки в ссылку, ведущую к списку статей данного автора.
-quottedTagField :: String
-                -> Tags
-                -> Context a
-quottedTagField = tagsFieldWith getTags simpleRenderQuottedLink (mconcat . intersperse ", ")
+-- | Превращает имя ссылки в ссылку, ведущую к списку статей данного автора.
+quottedTagField :: String -> Tags -> Context a
+quottedTagField =
+    tagsFieldWith getTags simpleRenderQuottedLink (mconcat . intersperse ", ")
 
--- Формируем ссылку, конвертируя "родное файловое" имя категории в русскоязычный аналог...
-simpleRenderLinkForRussianCategory :: String
-                                   -> Maybe FilePath
-                                   -> Maybe H.Html
-simpleRenderLinkForRussianCategory tag = fmap $ \filePath ->
-    H.a ! A.href (toValue $ toUrl filePath) $ toHtml (getRussianNameOfCategory tag)
+-- | Формируем ссылку, конвертируя "родное файловое" имя категории в русскоязычный аналог...
+simpleRenderLinkForRussianCategory :: String -> Maybe FilePath -> Maybe H.Html
+simpleRenderLinkForRussianCategory tag =
+    fmap $ \filePath ->
+        H.a ! A.href (toValue $ toUrl filePath) $
+            toHtml (getRussianNameOfCategory tag)
 
--- Код данной функции, извлекающей имя категории из файлового пути, взят из исходников Hakyll.
+-- | Код данной функции, извлекающей имя категории из файлового пути, взят из исходников Hakyll.
 getCategory :: MonadMetadata m => Identifier -> m [String]
 getCategory = return . return . takeBaseName . takeDirectory . toFilePath
 
--- Превращает имя категории в русскоязычную ссылку, ведущую к списку статей, входящих в данную категорию.
+-- | Превращает имя категории в русскоязычную ссылку, ведущую к списку статей,
+-- входящих в данную категорию.
 categoryFieldInRussian :: String -> Tags -> Context a
-categoryFieldInRussian = tagsFieldWith getCategory simpleRenderLinkForRussianCategory (mconcat . intersperse ", ")
+categoryFieldInRussian =
+    tagsFieldWith
+        getCategory
+        simpleRenderLinkForRussianCategory
+        (mconcat . intersperse ", ")
 
--- Локализация в данном случае задаётся только для русских названий месяцев.
+-- | Локализация в данном случае задаётся только для русских названий месяцев.
 -- Остальные поля типа TimeLocale инициализированы пустыми значениями.
 ruTimeLocale :: TimeLocale
-ruTimeLocale =  TimeLocale { wDays  = []
-                           , months = [("января",   "jan"),  ("февраля", "feb"),
-                                       ("марта",    "mar"),  ("апреля",  "apr"),
-                                       ("мая",      "may"),  ("июня",    "jun"),
-                                       ("июля",     "jul"),  ("августа", "aug"),
-                                       ("сентября", "sep"),  ("октября", "oct"),
-                                       ("ноября",   "nov"),  ("декабря", "dec")]
-                           , knownTimeZones = []
-                           , amPm = ("", "")
-                           , dateTimeFmt = ""
-                           , dateFmt = ""
-                           , timeFmt = ""
-                           , time12Fmt = ""
-                           }
+ruTimeLocale =  TimeLocale
+    { wDays = []
+    , months =
+          [ ("января",  "jan"), ("февраля", "feb"), ("марта",    "mar")
+          , ("апреля",  "apr"), ("мая",     "may"), ("июня",     "jun")
+          , ("июля",    "jul"), ("августа", "aug"), ("сентября", "sep")
+          , ("октября", "oct"), ("ноября",  "nov"), ("декабря",  "dec")
+          ]
+    , knownTimeZones = []
+    , amPm = ("", "")
+    , dateTimeFmt = ""
+    , dateFmt = ""
+    , timeFmt = ""
+    , time12Fmt = ""
+    }
 
--- Основной контекст публикаций.
+-- | Основной контекст публикаций.
 postContext :: TagsAndAuthors -> Context String
 postContext tagsAndAuthors = mconcat
     [ constField                "host"                  aHost
     , dateFieldWith             ruTimeLocale            "date" "%d %B %Y"
     , dateFieldWith             ruTimeLocale            "haskellDate" "%Y %b %d"
     , dateField                 "issuePubDateInRFC2822" "%a, %_d %b %Y %H:%M:%S +0300"
-    , quottedTagField           "postTags"              $ tagsAndAuthors !! 0
-    , categoryFieldInRussian    "postCategory"          $ tagsAndAuthors !! 1
-    , authorField               "postAuthor"            $ tagsAndAuthors !! 2
+    , quottedTagField           "postTags"              tags
+    , categoryFieldInRussian    "postCategory"          category
+    , authorField               "postAuthor"            author
+    , field                     "talk.event"            talkEventCompiler
     , defaultContext
     ]
+  where
+    [tags, category, author] = tagsAndAuthors
+
+talkEventCompiler :: Item a -> Compiler String
+talkEventCompiler item = do
+    metadata <- getMetadata $ itemIdentifier item
+    Just talkMetadataValue <- pure $ HashMap.lookup "talk" metadata
+    talkMetadata <- case talkMetadataValue of
+        Object talkMetadata -> pure talkMetadata
+        _                   -> error $ "$.talk = " ++ show talkMetadataValue
+    eventFile <-
+        case HashMap.lookup "event" talkMetadata of
+            Just (String eventFile) -> pure $ Text.unpack eventFile
+            r                       -> error $ "$.talk.event = " ++ show r
+    mRoute <- getRoute $ fromFilePath $ "posts/events/" ++ eventFile
+    route <- case mRoute of
+        Just route -> pure route
+        Nothing    -> error $ "No route for " ++ eventFile
+    pure $ toUrl route

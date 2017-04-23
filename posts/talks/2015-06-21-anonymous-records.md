@@ -3,9 +3,10 @@ author:         Никита Волков
 title:          Анонимные записи в Haskell
 tags:           доклад, митап, записи, синтаксис
 description:    Доклад Никиты Волкова об анонимных записях на RuHaskell.Meetup 2015 Summer.
----
 
-[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+talk:
+  event: 2015-07-01-meet-up-summer-2015-videos.md
+---
 
 <nobr><iframe
 width="712" height="400"

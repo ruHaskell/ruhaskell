@@ -1,13 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Misc (
-      aHost
+module Misc
+    ( aHost
     , prepareAllTemplates
     , getNameOfAuthor
     , TagsAndAuthors
     , TagsReader
     , getRussianNameOfCategory
-) where
+    ) where
 
 import           Control.Monad.Reader (ReaderT)
 import           Data.Aeson           (Value (String))
