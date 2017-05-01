@@ -11,12 +11,12 @@ description:    Доклад об использовании дерева сли
 
 talk:
   event: 2015-12-06-meetup-2015-winter-videos.md
+  video:
+    youtubeId: fSXkhR4lHSw
+    width: 533
 ---
 
 <nobr><iframe
-width="533" height="400"
-src="https://www.youtube.com/embed/fSXkhR4lHSw"
-frameborder="0" allowfullscreen></iframe><iframe
 src="https://docs.google.com/presentation/d/1KqrNePVZmSTQrVOIxG7hBBRbAB6bsmgiTmSZ2x6zgtQ/embed"
 frameborder="0" width="533" height="400" allowfullscreen="true" mozallowfullscreen="true"
 webkitallowfullscreen="true"></iframe></nobr>

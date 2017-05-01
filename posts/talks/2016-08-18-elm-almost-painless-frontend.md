@@ -10,6 +10,10 @@ description:    Этот доклад призван как дать общее 
 
 talk:
   event: 2016-08-18-meetup-2016-summer-videos.md
+  video:
+    youtubeId: f6TmB6Zw8MQ
+    start: [1, 38, 41]
+    end: [2, 08, 35]
 ---
 
 Этот доклад призван как дать общее представление о языке Elm,

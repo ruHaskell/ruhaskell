@@ -1,11 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes       #-}
+{-# LANGUAGE QuasiQuotes #-}
 
 module Markup.Post
     ( postTemplate
     ) where
 
-import           Prelude                         hiding (div, span)
+import Prelude hiding (div, span)
 
 import           Data.String.QQ                  (s)
 import           Data.Text                       (Text)
@@ -77,7 +77,16 @@ disqusThread = [s|
 talkHeader :: Html
 talkHeader = do
     "$if(talk.event)$" :: Html
-    a ! A.href "$talk.event$" $ do
-        preEscapedToHtml ("&uarr;&nbsp;" :: Text)
-        "все доклады"
-    "$endif$"
+    div $
+        a ! A.href "/categories/talks.html" $ do
+            preEscapedToHtml ("&uarr;&nbsp;" :: Text)
+            "все доклады"
+    div $
+        a ! A.href "$talk.event$" $ do
+            preEscapedToHtml ("&uarr;&nbsp;" :: Text)
+            "все доклады с этого события"
+    "$endif$" :: Html
+
+    "$if(talk.video)$" :: Html
+    div ! A.style "white-space: nowrap" $ "$talk.video$"
+    "$endif$" :: Html

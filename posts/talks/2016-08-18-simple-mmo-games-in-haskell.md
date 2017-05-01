@@ -12,4 +12,8 @@ description:    В этом докладе мы с нуля реализуем �
 
 talk:
   event: 2016-08-18-meetup-2016-summer-videos.md
+  video:
+    youtubeId: f6TmB6Zw8MQ
+    start: [2, 09, 25]
+    end: [2, 48, 18]
 ---

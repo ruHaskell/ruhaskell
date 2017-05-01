@@ -6,12 +6,11 @@ description:    Доклад Антона Холомьёва о библиоте
 
 talk:
   event: 2015-07-01-meet-up-summer-2015-videos.md
+  video:
+    youtubeId: kCcWv6q6Bqc
 ---
 
 <nobr><iframe
-width="712" height="400"
-src="https://www.youtube.com/embed/kCcWv6q6Bqc"
-frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/ctKmj4HgbwlGNk"
 width="476" height="400"
 frameborder="0" marginwidth="0" marginheight="0" scrolling="no"

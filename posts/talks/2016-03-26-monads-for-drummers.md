@@ -6,12 +6,12 @@ description:    Доклад-введение в монады.
 
 talk:
   event: 2015-12-06-meetup-2015-winter-videos.md
+  video:
+    youtubeId: molRenqeYQY
+    width: 533
 ---
 
 <nobr><iframe
-width="533" height="400"
-src="https://www.youtube.com/embed/molRenqeYQY"
-frameborder="0" allowfullscreen></iframe><iframe
 src="https://www.slideshare.net/slideshow/embed_code/key/jc4kJ5FPtRG33h"
 width="476" height="400"
 frameborder="0" marginwidth="0" marginheight="0" scrolling="no"

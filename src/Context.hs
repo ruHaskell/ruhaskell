@@ -4,35 +4,71 @@
     Все права принадлежат русскоязычному сообществу Haskell-разработчиков, 2015-2016 г.
 -}
 
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ViewPatterns      #-}
+{-# LANGUAGE ViewPatterns #-}
 
 module Context (
     postContext
 ) where
 
-import           Data.Aeson                  (Value (Object, String))
-import qualified Data.HashMap.Strict         as HashMap
-import           Data.List                   (intersperse, isPrefixOf)
-import qualified Data.Text                   as Text
-import           Data.Time                   (TimeLocale (..))
-import           GHC.Stack                   (HasCallStack)
-import           Misc                        (TagsAndAuthors, aHost,
-                                              getNameOfAuthor,
-                                              getRussianNameOfCategory)
-import           System.FilePath             (takeBaseName, takeDirectory)
+import           Data.Aeson          (FromJSON, Value (Null), parseJSON,
+                                      withArray)
+import           Data.Aeson.Types    (parseEither)
+import           Data.Foldable       (toList)
+import qualified Data.HashMap.Strict as HashMap
+import           Data.List           (intercalate, intersperse, isPrefixOf)
+import           Data.Maybe          (fromMaybe)
+import           Data.Time           (TimeLocale (..))
+import           GHC.Generics        (Generic)
+import           GHC.Stack           (HasCallStack)
+import           Misc                (TagsAndAuthors, aHost, getNameOfAuthor,
+                                      getRussianNameOfCategory)
+import           Numeric.Natural     (Natural)
+import           System.FilePath     (takeBaseName, takeDirectory)
 
 import           Text.Blaze.Html             (toHtml, toValue, (!))
 import qualified Text.Blaze.Html5            as H
 import qualified Text.Blaze.Html5.Attributes as A
 
-import           Hakyll                      (Compiler, Context, Identifier,
-                                              Item, MonadMetadata, Tags,
-                                              constField, dateField,
-                                              dateFieldWith, defaultContext,
-                                              field, fromFilePath, getMetadata,
-                                              getRoute, getTags, itemIdentifier,
-                                              tagsFieldWith, toFilePath, toUrl)
+import Hakyll (Compiler, Context, Identifier, Item, MonadMetadata, Tags,
+               constField, dateField, dateFieldWith, defaultContext, field,
+               fromFilePath, getMetadata, getRoute, getTags, itemIdentifier,
+               tagsFieldWith, toFilePath, toUrl)
+
+newtype TimePos = TimePos {seconds :: Natural}
+
+instance FromJSON TimePos where
+    parseJSON = withArray format $ fromList . toList
+      where
+        format = "[mm, ss] or [hh, mm, ss]"
+        fromList = \case
+            [mm, ss]      -> fromHMmSs 0 mm ss
+            [hh, mm, ss]  -> do
+                h <- parseJSON hh
+                fromHMmSs h mm ss
+            _             -> fail format
+        fromHMmSs h mm ss = do
+            m <- parseJSON mm
+            s <- parseJSON ss
+            pure TimePos{seconds = (h * 60 + m) * 60 + s}
+
+data TalkVideo = TalkVideo
+    { youtubeId :: String
+    , width :: Maybe Natural
+    , start :: Maybe TimePos
+    , end :: Maybe TimePos
+    }
+    deriving (FromJSON, Generic)
+
+data TalkMetadata = TalkMetadata
+    { event :: String
+    , video :: TalkVideo
+    }
+    deriving (FromJSON, Generic)
 
 -- | Код данной функции для формирования простой ссылки взят из исходников Hakyll.
 simpleRenderLink :: String -> Maybe FilePath -> Maybe H.Html
@@ -106,26 +142,56 @@ postContext tagsAndAuthors = mconcat
     , categoryFieldInRussian    "postCategory"          category
     , authorField               "postAuthor"            author
     , field                     "talk.event"            talkEvent
+    , field                     "talk.video"            talkVideo
     , defaultContext
     ]
   where
     [tags, category, author] = tagsAndAuthors
 
 talkEvent :: HasCallStack => Item a -> Compiler String
-talkEvent (itemIdentifier -> iid@(toFilePath -> file))
-        | "posts/talks/" `isPrefixOf` file = do
-    metadata <- getMetadata iid
-    talkMetadata <-
-        case HashMap.lookup "talk" metadata of
-            Just (Object talkMetadata) -> pure talkMetadata
-            r -> error $ file ++ ": $.talk: expected Object, got " ++ show r
-    eventFile <-
-        case HashMap.lookup "event" talkMetadata of
-            Just (String eventFile) -> pure $ Text.unpack eventFile
-            r -> error $ file ++ ": $.talk.event: expected String, got " ++ show r
-    mRoute <- getRoute $ fromFilePath $ "posts/events/" ++ eventFile
+talkEvent item = do
+    TalkMetadata{event} <- getTalkMetadata iid
+    mRoute <- getRoute $ fromFilePath $ "posts/events/" ++ event
     route <- case mRoute of
         Just route -> pure route
-        Nothing    -> error $ file ++ ": No route for " ++ eventFile
+        Nothing    -> error $ file ++ ": No route for " ++ event
     pure $ toUrl route
-talkEvent _ = fail "not a talk"
+  where
+    iid = itemIdentifier item
+    file = toFilePath iid
+
+talkVideo :: HasCallStack => Item a -> Compiler String
+talkVideo item = do
+    TalkMetadata{video} <- getTalkMetadata iid
+    pure $ youtubeSnippet video
+  where
+    iid = itemIdentifier item
+
+getTalkMetadata :: HasCallStack => Identifier -> Compiler TalkMetadata
+getTalkMetadata iid@(toFilePath -> file) | "posts/talks/" `isPrefixOf` file = do
+    metadata <- getMetadata iid
+    either (\e -> error $ file ++ ", metadata.talk: " ++ e) pure $
+        parseEither parseJSON $
+        fromMaybe Null $
+        HashMap.lookup "talk" metadata
+getTalkMetadata _ = fail "not a talk"
+
+youtubeSnippet :: TalkVideo -> String
+youtubeSnippet TalkVideo{youtubeId, width, start, end} = intercalate "\""
+    [ "<iframe width=", showIntegral $ fromMaybe defaultWidth width
+    , " height=\"400\" src=", url
+    , " frameborder=\"0\" allowfullscreen></iframe>"
+    ]
+  where
+    defaultWidth = 712
+    url = concat
+        [ "https://www.youtube.com/embed/"
+        , youtubeId
+        , "?"
+        , intercalate "&" $ showTimePos "start" start ++ showTimePos "end" end
+        ]
+    showTimePos name mval =
+        [ name ++ "=" ++ showIntegral seconds
+        | Just TimePos{seconds} <- pure mval
+        ]
+    showIntegral = show :: (Integral a, Show a) => a -> String
