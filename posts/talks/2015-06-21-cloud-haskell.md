@@ -3,9 +3,10 @@ author:         Александр Вершилов
 title:          Cloud Haskell
 tags:           доклад, митап, Cloud Haskell, распределённые вычисления
 description:    Доклад Александра Вершилова о состоянии Cloud Haskell на RuHaskell.Meetup 2015 Summer.
----
 
-[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+talk:
+  event: 2015-07-01-meet-up-summer-2015-videos.md
+---
 
 <nobr><iframe
 width="712" height="400"

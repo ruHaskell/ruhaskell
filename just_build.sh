@@ -1,5 +1,5 @@
 #!/bin/bash
 set -eux
 
-stack build
+stack build --test --pedantic
 stack exec -- ruHaskell rebuild

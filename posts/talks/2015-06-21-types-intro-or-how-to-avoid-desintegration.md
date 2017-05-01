@@ -3,9 +3,10 @@ author:         Денис Редозубов
 title:          Краткий экскурс в системы типов или как избежать дезинтеграции.
 tags:           доклад, митап, типы
 description:    Доклад Дениса Редозубова о системах типов на RuHaskell.Meetup 2015 Summer.
----
 
-[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+talk:
+  event: 2015-07-01-meet-up-summer-2015-videos.md
+---
 
 <nobr><iframe
 width="712" height="400"

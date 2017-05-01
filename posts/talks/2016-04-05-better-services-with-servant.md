@@ -3,6 +3,9 @@ author:         Денис Редозубов
 title:          Делаем свою жизнь проще с Servant
 tags:           доклад, митап, Servant, type-level
 description:    Улучшаем веб-сервисы и делаем свою жизнь проще с Servant
+
+talk:
+  event: 2015-12-06-meetup-2015-winter-videos.md
 ---
 
 <nobr><iframe

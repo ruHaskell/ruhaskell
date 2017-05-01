@@ -13,6 +13,7 @@ module Posts (
 import           Control.Monad.Reader (ReaderT (..))
 import           Data.List            (intercalate)
 import           Data.List.Split      (splitOn)
+import           GHC.Stack            (HasCallStack)
 import           Hakyll               (Routes, applyTemplate, compile,
                                        composeRoutes, customRoute,
                                        defaultHakyllReaderOptions,
@@ -35,7 +36,7 @@ directorizeDate = customRoute (directorize . toFilePath)
       where
         y : m : d : title = splitOn "-" path
 
-createPosts :: TagsReader
+createPosts :: HasCallStack => TagsReader
 createPosts = ReaderT $ \tagsAndAuthors ->
     match "posts/**" $ do
         route $ directorizeDate `composeRoutes` setExtension "html"

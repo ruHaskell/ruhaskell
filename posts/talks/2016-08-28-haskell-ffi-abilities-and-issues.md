@@ -3,6 +3,9 @@ author:         Александр Вершилов
 title:          Возможности и проблемы FFI в Haskell
 tags:           доклад, митап, FFI
 description:    Возможности и проблемы FFI в Haskell и примеры его использования.
+
+talk:
+  event: 2015-12-06-meetup-2015-winter-videos.md
 ---
 
 <nobr><iframe

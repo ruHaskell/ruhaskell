@@ -3,6 +3,9 @@ author:         Антон Холомьёв
 title:          Монады для барабанщиков
 tags:           доклад, митап, монады, теория
 description:    Доклад-введение в монады.
+
+talk:
+  event: 2015-12-06-meetup-2015-winter-videos.md
 ---
 
 <nobr><iframe

@@ -3,9 +3,10 @@ author:         Денис Шевченко
 title:          "Ленивые вычисления: плюсы и минусы"
 tags:           доклад, митап, ленивые вычисления
 description:    Доклад Дениса Шевченко о ленивых вычислениях на RuHaskell.Meetup 2015 Summer.
----
 
-[&larr; Все доклады](/posts/events/2015/07/01/meet-up-summer-2015-videos.html)
+talk:
+  event: 2015-07-01-meet-up-summer-2015-videos.md
+---
 
 <nobr><iframe
 width="712" height="400"
