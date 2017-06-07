@@ -9,6 +9,7 @@
 module Main where
 
 import           About                (createAboutPage)
+import           Links                (createLinksPage)
 import           Archive              (createPageWithAllPosts)
 import           Copiers              (justCompressAndCopy, justCopy,
                                        justCreateAndCopy)
@@ -58,3 +59,4 @@ main = hakyll $ do
         setupRSSFeed
         createIndexPage
         createAboutPage
+        createLinksPage

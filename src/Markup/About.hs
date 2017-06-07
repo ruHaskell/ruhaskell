@@ -29,7 +29,7 @@ raw = do
     contactUs =
         div $ do
             br
-            "Если у вас есть вопросы, пожелания или предложения — напишите" :: Html
+            "Если у вас есть вопросы, пожелания или предложения — напишите " :: Html
             a ! A.href "mailto:me@dshevchenko.biz" $ "Денису Шевченко"
             " или " :: Html
             a ! A.href "mailto:cblp@cblp.su" $ "Юрию Сыровецкому"

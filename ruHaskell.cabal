@@ -26,6 +26,7 @@ executable ruHaskell
                        Copiers
                        Css.Own
                        IndexPage
+                       Links
                        Markup.About
                        Markup.Archive
                        Markup.Authors
@@ -34,6 +35,7 @@ executable ruHaskell
                        Markup.Footer
                        Markup.Head
                        Markup.Index
+                       Markup.Links
                        Markup.Post
                        Markup.PostList
                        Markup.Posts

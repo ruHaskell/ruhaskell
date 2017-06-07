@@ -120,7 +120,11 @@ ownCss = Lazy.toStrict . render $ do
     "#categories-link" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-    
+   
+    "#links-link" ? do
+        textDecoration  none
+        borderBottom    solid (px 0) "#ffffff"
+
     "#sl-1" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"

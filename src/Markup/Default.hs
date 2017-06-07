@@ -55,6 +55,8 @@ links =
         a ! A.href "/categories.html" ! A.id "categories-link" $ "Разделы"
         span ! A.class_ "links-separator" $ ""
         a ! A.href "/about.html" ! A.id "about-link" $ "О нас"
+        span ! A.class_ "links-separator" $ ""
+        a ! A.href "/links.html" ! A.id "links-link" $ "Ресурсы"
 
 logoArea :: Html
 logoArea =
