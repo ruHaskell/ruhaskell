@@ -39,7 +39,7 @@ commonHead = head $ do
     jsLink  "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
     cssLink "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
     jsLink  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
-    jsLink  "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    jsLink  "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
     style $ toHtml ownCss
 
