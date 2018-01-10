@@ -3,16 +3,17 @@
 
 module Markup.Post
     ( postTemplate
+    , disqusCount
     ) where
 
-import Prelude hiding (div, span)
+import           Prelude hiding (div, span)
 
-import           Data.String.QQ                  (s)
-import           Data.Text                       (Text)
+import           Data.String.QQ (s)
+import           Data.Text (Text)
 import           Hakyll.Web.Template
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes     as A
+import qualified Text.Blaze.Html5.Attributes as A
 
 postTemplate :: Template
 postTemplate = readTemplate . renderHtml $ raw
@@ -59,20 +60,25 @@ socialButtons = [s|
 |]
 
 disqusThread :: String
-disqusThread = [s|
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+disqusThread = [s|<div id="disqus_thread"></div>|] ++ disqusBlock "embed"
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-|]
+disqusCount :: String
+disqusCount = disqusBlock "count"
+
+disqusBlock :: String -> String
+disqusBlock scriptName = [s|
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/|] ++ scriptName ++ [s|.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    |]
 
 talkHeader :: Html
 talkHeader = do
