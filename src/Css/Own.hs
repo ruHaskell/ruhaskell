@@ -5,8 +5,8 @@ module Css.Own (
 ) where
 
 import           Clay
-import           Data.Text                      ( Text )
-import qualified Data.Text.Lazy                 as Lazy
+import           Data.Text (Text)
+import qualified Data.Text.Lazy as Lazy
 
 -- | Наш собственный CSS, встраивается в <head>-секцию всех страниц.
 -- Внимание: используйте 'renderWith compact' осторожно, она глючная.
@@ -39,7 +39,7 @@ ownCss = Lazy.toStrict . render $ do
                 "color" -: "black !important"
             a # active  ? do
                 "color" -: "black !important"
-    
+
     ---------------------------------------------
 
     importUrl "https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic"
@@ -69,12 +69,12 @@ ownCss = Lazy.toStrict . render $ do
         fontSizePct     200
         paddingTopPx    30
         paddingBottomPx 30
-    
+
     h2 ? do
         fontSizePct     160
         paddingTopPx    30
         paddingBottomPx 25
-    
+
     h3 ? do
         fontSizePct     140
         paddingTopPx    25
@@ -99,7 +99,7 @@ ownCss = Lazy.toStrict . render $ do
         color           "#2d3644"
         textDecoration  none
         borderBottom    dotted (px 1) "#333333"
-    
+
     ".href-to-original" ? do
         rightAlign
         fontSizePct     90
@@ -108,7 +108,7 @@ ownCss = Lazy.toStrict . render $ do
     "#authors-link" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-    
+
     "#about-link" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
@@ -120,7 +120,7 @@ ownCss = Lazy.toStrict . render $ do
     "#categories-link" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-   
+
     "#links-link" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
@@ -132,11 +132,11 @@ ownCss = Lazy.toStrict . render $ do
     "#sl-2" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-    
+
     "#sl-3" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-    
+
     "#sl-4" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
@@ -144,7 +144,7 @@ ownCss = Lazy.toStrict . render $ do
     "#sl-5" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-    
+
     "#go-home" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
@@ -156,13 +156,13 @@ ownCss = Lazy.toStrict . render $ do
     "#mit-link" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
-    
+
     ".fpconf-link" ? do
         fontSizePct     120
-    
+
     ".fby-link" ? do
         fontSizePct     120
-    
+
     ".friends-separator" ? do
         paddingLeftPx   30
 
@@ -172,7 +172,7 @@ ownCss = Lazy.toStrict . render $ do
         paddingTopPx    40
         paddingBottomPx 40
         fontSizePct     120
-    
+
     ".links" ? do
         marginTopPx     17
         fontSizePct     90
@@ -180,7 +180,7 @@ ownCss = Lazy.toStrict . render $ do
 
     ".logo-area" ? do
         centerAlign
-    
+
     ".social-links" ? do
         rightAlign
         marginTopPx     10
@@ -191,7 +191,7 @@ ownCss = Lazy.toStrict . render $ do
 
     ".links-separator" ? do
         paddingRightPx  20
-    
+
     ".reddit-color" ? do
         color           "#FF4500"
 
@@ -258,7 +258,7 @@ ownCss = Lazy.toStrict . render $ do
 
     ".archive-button" ? do
         paddingTopPx    26
-    
+
     ".undecorated" ? do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
@@ -326,3 +326,8 @@ ownCss = Lazy.toStrict . render $ do
     "pre.sourceCode" ? "span.al" ? do color "#fa0202"; fontWeight600
     "pre.sourceCode" ? "span.fu" ? do color "#06287e"
     "pre.sourceCode" ? "span.er" ? do color "#fa0202"; fontWeight600
+
+    "th, td" ? do
+        borderColor grey
+        borderStyle solid
+        borderWidth 1
