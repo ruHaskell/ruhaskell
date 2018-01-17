@@ -1,0 +1,18 @@
+digraph {
+    bgcolor=transparent;
+    compound=true;
+    rankdir=LR;
+
+    node [shape=none];
+
+    a [label=<<i>a</i>>];
+    b [label=<<i>b</i>>];
+    subgraph {
+        rank=same;
+        p [label=<<i>p</i>>, shape=box];
+        s [label=<<i>s</i>>, shape=egg];
+    }
+
+    p -> b, s;
+    a, s -> p;
+}

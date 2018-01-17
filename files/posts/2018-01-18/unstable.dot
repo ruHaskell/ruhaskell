@@ -1,0 +1,17 @@
+digraph {
+    bgcolor=transparent;
+    rankdir=LR;
+
+    node [shape=none];
+
+    a [label=<<i>a</i>>];
+    b [label=<<i>b</i>>];
+    p [label=<<i>p</i>>, shape=box];
+
+    a -> p;
+    p -> b;
+    p -> b;
+    p -> b;
+    p -> b;
+    p -> b;
+}

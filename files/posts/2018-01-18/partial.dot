@@ -1,0 +1,19 @@
+digraph {
+    bgcolor=transparent;
+    rankdir=LR;
+
+    node [shape=none];
+
+    a       [label=<<i>a</i>>];
+    b       [label=<<i>b</i>>];
+    btm     [label=""];
+    p       [label=<<i>p</i>>, shape=box];
+    pOut, bIn, btmIn [shape=point, width=0.001];
+
+    a       -> p;
+    p       -> pOut     [dir=none];
+    pOut    -> bIn      [dir=none, headport=w, tailport=e];
+    pOut    -> btmIn    [dir=none, headport=w, tailport=e];
+    bIn     -> b        [               weight=10];
+    btmIn   -> btm      [arrowhead=tee, weight=10];
+}

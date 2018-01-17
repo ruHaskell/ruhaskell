@@ -1,0 +1,9 @@
+#!/usr/bin/make -Rf
+
+dots := $(wildcard *.dot)
+images := $(patsubst %.dot,%.svg,$(dots))
+
+all: $(images)
+
+%.svg: %.dot
+	dot -Tsvg $< > $@
