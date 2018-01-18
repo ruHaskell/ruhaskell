@@ -4,9 +4,14 @@ digraph {
 
     node [shape=none];
 
-    a [label=<<i>a</i>>];
-    b [label=<<i>b, b, b...</i>>];
-    p [label=<<i>p</i>>, shape=box];
+    a   [label=<<i>a</i>>];
+    b1  [label=<<i>b</i>>];
+    b2  [label=<<i>b</i>>];
+    b3  [label=<<i>b</i>>];
+    p   [label=<<i>p</i>>, shape=box];
 
-    a -> p -> b;
+    a -> p;
+    p -> b1;
+    p -> b2;
+    p -> b3;
 }

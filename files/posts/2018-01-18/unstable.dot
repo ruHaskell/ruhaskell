@@ -7,11 +7,11 @@ digraph {
     a [label=<<i>a</i>>];
     b [label=<<i>b</i>>];
     p [label=<<i>p</i>>, shape=box];
+    pOut [shape=point, width=0.001];
 
-    a -> p;
-    p -> b;
-    p -> b;
-    p -> b;
-    p -> b;
-    p -> b;
+    a       -> p;
+    p       -> pOut [dir=none];
+    pOut    -> b    [tailport=e];
+    pOut    -> b    [tailport=e];
+    pOut    -> b    [tailport=e];
 }
