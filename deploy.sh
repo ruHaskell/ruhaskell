@@ -20,12 +20,12 @@ commit_message="$(git log --format=%B HEAD^1..HEAD)"
     git add .
     git write-tree                          | xargs \
     git commit-tree                                 \
-        -p source/gh-pages -p source/master         \
+        -p source/master                            \
         -m "$commit_message" `: tree id :`  | xargs \
     git checkout --quiet `: commit id :`
 
     echo "Копируем коммит в оригинальный репозиторий..."
-    git push source HEAD:gh-pages
+    git push --force source HEAD:refs/heads/gh-pages
 )
 
 echo "Публикуем gh-pages на сервере..."
