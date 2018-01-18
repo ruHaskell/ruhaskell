@@ -39,6 +39,22 @@ commonHead = head $ do
     jsLink  "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
     cssLink "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
     jsLink  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
+
+    script ! A.type_ "text/x-mathjax-config" $ [s|
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$$$','$$$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        |]
     jsLink  "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
     style $ toHtml ownCss
