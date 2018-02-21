@@ -65,6 +65,10 @@ headM (x:_) = Just x  -- голова непустого списка — вот
 Пример.
 
 ```haskell
+data Either a b
+    = Left a  -- условно ошибка
+    | Right b -- условно успех
+
 data MyError = EmptyList
 
 headE :: [a] -> Either MyError a
@@ -78,8 +82,9 @@ headE (x:_) = Right x
 headE
     :: MonadError MyError m -- 'm' поддерживает эффект "ошибки"
     => [a] -> m a
-headE []    = throwError EmptyList
 headE (x:_) = pure x
+headE []    =
+    throwError EmptyList -- эффект ошибки, прекращение дальнейших вычислений
 ```
 
 На самом деле частичность — единственный неуправляемый эффект,
@@ -87,6 +92,15 @@ headE (x:_) = pure x
 Любая функция может оказаться частичной,
 то есть зависнуть или выбросить исключение,
 по ошибке или из-за несовершенства реального мира.
+
+```haskell
+-- простейший бесконечный цикл
+x = x -- вычисление 'x' приводит к вычислению 'x', снова и снова
+
+-- не столь тривиальный пример зависания
+n = length $ takeWhile (< 10) [2, 1 ..]
+```
+
 К сожалению, в полных по Тьюрингу языках этого невозможно избежать,
 полнота влечёт возможность реализации бесконечного цикла,
 то есть незавершения программы.
@@ -136,9 +150,13 @@ p :: a -> Reader r b
 ```
 
 ```haskell
+-- процедура, читающая неявное значение и возвращающая его
+ask :: Reader r r
+ask = Reader id
+
 getDataDir :: Reader Config FilePath
 getDataDir = do
-    Config{dataDir} <- ask
+    Config{dataDir} <- ask -- читаем конфиг, переданный неявно
     pure dataDir
 ```
 
@@ -148,13 +166,13 @@ getDataDir = do
 data MyError = DataDirNotSpecified
 
 getDataDir
-    :: ( MonadError MyError m -- 'm' поддерживает эффект "ошибки"
+    :: ( MonadError MyError m
        , MonadReader Config m
          -- 'm' поддерживает эффект неявной зависимости от 'Config'
        )
     => m FilePath
 getDataDir = do
-    Config{mDataDir} <- ask
+    Config{mDataDir} <- ask -- читаем конфиг, переданный неявно
     case mDataDir of
         Nothing      -> throwError DataDirNotSpecified
         Just dataDir -> pure dataDir
@@ -238,25 +256,35 @@ p :: a -> Side s b
 Пример.
 
 ```haskell
+-- процедура, откладывающая побочное значение
+tell :: w -> Writer w ()
+tell w = Writer ((), w)
+
+-- процедура с побочным эффектом журналирования
 sumWithLog :: Int -> Int -> Writer String Int
 sumWithLog x y = do
-    tell $ "sum: x = " ++ show x ++ "\n"
+    tell $ "sum: x = " ++ show x ++ "\n" -- запишем в лог аргументы процедуры
     tell $ "sum: y = " ++ show y ++ "\n"
     let result = x + y
-    tell $ "sum: result = " ++ show result ++ "\n"
+    tell $ "sum: result = " ++ show result ++ "\n" -- и результат запишем
     pure r
+
+-- функция склейки процедур, спрятанная в do-синтаксисе
+-- тут-то и происходит сборка моноида
+(>>) :: Monoid w => Writer w a -> Writer w b -> Writer w b
+Writer (_, w1) >> Writer (b, w2) = Writer (b, w1 <> w2)
 ```
 
-Можно комбиннировать!
+Можно комбинировать!
 
 ```haskell
 data MyError = DataDirNotSpecified
 type AccessCounter = Sum Int
 
+-- процедура с побочным эффектом подсчёта количества вызовов
 getDataDir
-    :: ( MonadError MyError m -- 'm' поддерживает эффект "ошибки"
+    :: ( MonadError MyError m
        , MonadReader Config m
-         -- 'm' поддерживает эффект неявной зависимости от 'Config'
        , MonadWriter AccessCounter m
          -- 'm' поддерживает побочный эффект счётчика
        )
