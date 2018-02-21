@@ -47,15 +47,46 @@ data Maybe a = Nothing | Just a
 p :: a -> Maybe b
 ```
 
+Пример.
+
+```haskell
+headM :: [a] -> Maybe a
+headM []    = Nothing -- невозможно взять голову пустого списка
+headM (x:_) = Just x  -- голова непустого списка — вот она!
+```
+
 Обратите внимание, что тип `Maybe` принадлежит `Functor`, `Applicative`,
 `Monad` и многим другим интересным и полезным классам.
 
-(На практике также применяется тип `Except`, реализующий тот же эффект,
-но позволяющий добавить информацию о том,
-почему вычисление не может быть завершено.)
+На практике также применяется типы `Either` и `Except`,
+реализующие тот же эффект, но позволяющий добавить информацию о том,
+почему вычисление не может быть завершено.
+
+Пример.
+
+```haskell
+data MyError = EmptyList
+
+headE :: [a] -> Either MyError a
+headE []    = Left EmptyList
+headE (x:_) = Right x
+```
+
+Можно комбинировать частичность с другими эффектами:
+
+```haskell
+headE
+    :: MonadError MyError m -- 'm' поддерживает эффект "ошибки"
+    => [a] -> m a
+headE []    = throwError EmptyList
+headE (x:_) = pure x
+```
 
 На самом деле частичность — единственный неуправляемый эффект,
 доступный в Хаскеле непосредственно.
+Любая функция может оказаться частичной,
+то есть зависнуть или выбросить исключение,
+по ошибке или из-за несовершенства реального мира.
 К сожалению, в полных по Тьюрингу языках этого невозможно избежать,
 полнота влечёт возможность реализации бесконечного цикла,
 то есть незавершения программы.
@@ -90,11 +121,43 @@ p :: a -> Maybe b
 p :: a -> r -> b
 ```
 
+Пример.
+
+```haskell
+getDataDir :: Config -> FilePath
+getDataDir Config{dataDir} = dataDir
+```
+
 Для удобства рассуждений об эффектах удобно ввести синоним
 
 ```haskell
 type Reader r b = r -> b
 p :: a -> Reader r b
+```
+
+```haskell
+getDataDir :: Reader Config FilePath
+getDataDir = do
+    Config{dataDir} <- ask
+    pure dataDir
+```
+
+Можно комбинировать неявную зависимость с другими эффектами:
+
+```haskell
+data MyError = DataDirNotSpecified
+
+getDataDir
+    :: ( MonadError MyError m -- 'm' поддерживает эффект "ошибки"
+       , MonadReader Config m
+         -- 'm' поддерживает эффект неявной зависимости от 'Config'
+       )
+    => m FilePath
+getDataDir = do
+    Config{mDataDir} <- ask
+    case mDataDir of
+        Nothing      -> throwError DataDirNotSpecified
+        Just dataDir -> pure dataDir
 ```
 
 Обратите внимание, что тип `Reader r`
@@ -118,6 +181,19 @@ p :: a -> Reader r b
 
 ```haskell
 p :: a -> [b]
+```
+
+Пример.
+
+```haskell
+rollADie :: Int -> [Int]
+rollADie n = [1..n]
+
+rollTwoDiceAndSum :: Int -> [Int]
+rollTwoDiceAndSum n = do
+    a <- rollADie n
+    b <- rollADie n
+    pure $ a + b
 ```
 
 Обратите внимание, что тип `[]` (конструктор типа списка)
@@ -156,8 +232,42 @@ p :: a -> Side s b
 принадлежит `Functor`, `Applicative`,
 `Monad` и многим другим интересным и полезным классам.
 
-(На практике чаще применяется тип `Writer`, структурно идентичный,
-но с более полезными свойствами.)
+На практике чаще применяется тип `Writer`, структурно идентичный,
+но с более полезными свойствами: все побочные эффекты собираются в моноид.
+
+Пример.
+
+```haskell
+sumWithLog :: Int -> Int -> Writer String Int
+sumWithLog x y = do
+    tell $ "sum: x = " ++ show x ++ "\n"
+    tell $ "sum: y = " ++ show y ++ "\n"
+    let result = x + y
+    tell $ "sum: result = " ++ show result ++ "\n"
+    pure r
+```
+
+Можно комбиннировать!
+
+```haskell
+data MyError = DataDirNotSpecified
+type AccessCounter = Sum Int
+
+getDataDir
+    :: ( MonadError MyError m -- 'm' поддерживает эффект "ошибки"
+       , MonadReader Config m
+         -- 'm' поддерживает эффект неявной зависимости от 'Config'
+       , MonadWriter AccessCounter m
+         -- 'm' поддерживает побочный эффект счётчика
+       )
+    => m FilePath
+getDataDir = do
+    tell 1 -- добавить 1 ко счётчику обращений
+    Config{mDataDir} <- ask
+    case mDataDir of
+        Nothing      -> throwError DataDirNotSpecified
+        Just dataDir -> pure dataDir
+```
 
 ## 2 + 3. Эффект состояния
 
