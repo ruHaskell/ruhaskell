@@ -241,7 +241,7 @@ p :: a -> (b, s)
 Для удобства рассуждений об эффектах удобно ввести обёртку
 
 ```haskell
-newtype Side s b = (b, s)
+newtype Side s b = Side (b, s)
 p :: a -> Side s b
 ```
 
@@ -317,8 +317,60 @@ p :: a -> s -> (b, s)
 Для удобства рассуждений об эффектах удобно ввести обёртку
 
 ```haskell
-newtype State s b = s -> (b, s)
+newtype State s b = State (s -> (b, s))
 p :: a -> State s b
+```
+
+Пример.
+
+```haskell
+-- получить значений внутренней переменной
+get :: State a a
+get f = State $ \s -> -- старое значение
+    ( s -- результат
+    , s -- новое значение переменной совпадает со старым
+    )
+
+-- изменить значений внутренней переменной
+put :: a -> State a ()
+put s = State $ \_ -> -- старое значение игнорируем
+    ( () -- результат
+    , s -- новое значение переменной
+    )
+
+-- изменить значений внутренней переменной
+modify :: (a -> a) -> State a ()
+modify f = State $ \s -> -- старое значение
+    ( () -- результат
+    , f s -- новое значение переменной
+    )
+
+-- процедура-генератор псевдослучайных чисел по простейшей формуле
+prng
+    :: State
+        Int -- тип внутренней переменной
+        Int -- тип результата
+prng = do
+    modify $ \s -> s * 23 + 97
+    get
+```
+
+Комбинируем с предыдущими эффектами.
+
+```haskell
+type Storage = Map FilePath Value -- имитация файловой системы для демонстрации
+
+-- процедура с побочным эффектом подсчёта количества вызовов
+putData
+    :: ( MonadError MyError m
+       , MonadReader Config m
+       , MonadWriter AccessCounter m
+       , MonadState Storage m -- 'm' поддерживает эффект изменения 'Storage'
+       )
+    => m FilePath
+putData key value = do
+    dataDir <- getDataDir
+    modify $ Map.insert (dataDir </> key) value -- вносим изменения в Storage
 ```
 
 Не будет сюрпризом, что тип `State s`
