@@ -1,4 +1,4 @@
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/ruHaskell/forall)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/ruHaskell/forall)
 
 ruHaskell
 =========
