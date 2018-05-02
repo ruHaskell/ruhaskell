@@ -152,7 +152,7 @@ p :: a -> Reader r b
 ```haskell
 -- процедура, читающая неявное значение и возвращающая его
 ask :: Reader r r
-ask = Reader id
+ask = id
 
 getDataDir :: Reader Config FilePath
 getDataDir = do
