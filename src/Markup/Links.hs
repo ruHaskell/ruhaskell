@@ -4,12 +4,14 @@ module Markup.Links (
     linksTemplate
 ) where
 
-import qualified Data.Text.Lazy                as Text
-import           Hakyll.Web.Template           (Template, readTemplate)
-import           Prelude                       hiding (div, span)
+import           Prelude hiding (div, span)
+
+import qualified Data.Text.Lazy as Text
+import           Hakyll.Web.Template (Template, readTemplate)
 import           Text.Blaze.Html.Renderer.Text (renderHtml)
-import           Text.Blaze.Html5              (Html, a, div, h1, ul, li, h3, span, (!))
-import qualified Text.Blaze.Html5.Attributes   as A
+import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, span, ul, (!))
+import           Text.Blaze.Html5.Attributes (href)
+import qualified Text.Blaze.Html5.Attributes as A
 
 linksTemplate :: Template
 linksTemplate = readTemplate . Text.unpack . renderHtml $ raw
@@ -84,14 +86,13 @@ raw = do
 
     courses :: Html
     courses = do
-        h3 $ "Курсы"
-        div $ ul $ do
+        h3 "Курсы"
+        ul $
             li $ do
-               a ! A.href "https://stepik.org/course/75/" $ "Курс Дениса Москвина на Степике"
-               span "Часть 1"
-            li $ do
-               a ! A.href "https://stepik.org/course/693/" $ "Курс Дениса Москвина на Степике"
-               span "Часть 2"
+                "Курс Дениса Москвина на Степике: "
+                a ! href "https://stepik.org/course/75/" $ "часть 1"
+                ", "
+                a ! href "https://stepik.org/course/693/" $ "часть 2"
 
     podcasts :: Html
     podcasts = do
