@@ -22,6 +22,7 @@ raw = do
         tools
         packages
         books
+        courses
         podcasts
         community
   where
@@ -80,6 +81,17 @@ raw = do
             li $ do
                 a ! A.href "http://dmkpress.com/catalog/computer/programming/functional/978-5-97060-025-2/" $ "Изучай Haskell во имя добра!"
                 span " Знаменитая книга для новичков с весёлыми картинками."
+
+    courses :: Html
+    courses = do
+        h3 $ "Курсы"
+        div $ ul $ do
+            li $ do
+               a ! A.href "https://stepik.org/course/75/" $ "Курс Дениса Москвина на Степике"
+               span "Часть 1"
+            li $ do
+               a ! A.href "https://stepik.org/course/693/" $ "Курс Дениса Москвина на Степике"
+               span "Часть 2"
 
     podcasts :: Html
     podcasts = do
