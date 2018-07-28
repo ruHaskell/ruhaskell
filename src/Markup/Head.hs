@@ -10,7 +10,6 @@ import           Misc (aHost)
 
 import           Prelude hiding (head)
 
-import           Data.Monoid
 import           Data.String.QQ
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
