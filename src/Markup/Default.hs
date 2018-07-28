@@ -10,16 +10,15 @@ module Markup.Default (
     defaultTemplate
 ) where
 
-import           Prelude                         hiding (div, span)
+import           Prelude hiding (div, span)
 
-import           Data.Text                       (Text)
-import           Hakyll.Web.Template             (Template, readTemplate)
+import           Data.Text (Text)
+import           Hakyll.Web.Template (Template, readTemplate)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
-import           Text.Blaze.Html5                (Html, a, body,
-                                                  customAttribute, div,
-                                                  docTypeHtml, i, img,
-                                                  preEscapedToHtml, span, (!))
-import qualified Text.Blaze.Html5.Attributes     as A
+import           Text.Blaze.Html5 (Html, a, body, customAttribute, div,
+                                   docTypeHtml, i, img, preEscapedToHtml, span,
+                                   (!))
+import qualified Text.Blaze.Html5.Attributes as A
 
 import           Markup.Footer
 import           Markup.Head
@@ -71,7 +70,7 @@ logoArea =
 socialLinks :: Html
 socialLinks =
     div ! A.class_ "social-links" $ do
-        a ! A.href "https://gitter.im/ruHaskell/home" ! A.id "sl-1" ! A.title "Наши чаты" $
+        a ! A.href "/links.html#discussion" ! A.id "sl-1" ! A.title "Общение" $
             i ! A.class_ "fa fa-commenting gitter-color" ! customAttribute "aria-hidden" "true" $ ""
 
         span ! A.class_ "social-links-separator" $ ""

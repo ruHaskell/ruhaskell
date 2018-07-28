@@ -323,6 +323,9 @@ ownCss = Lazy.toStrict . render $ do
         borderStyle solid
         borderWidth 1
 
+    ":target" ?
+        backgroundColor yellow
+
   where
 
     aStyle = do
