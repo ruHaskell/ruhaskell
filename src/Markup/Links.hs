@@ -9,7 +9,7 @@ import           Prelude hiding (div, id)
 import qualified Data.Text.Lazy as Text
 import           Hakyll.Web.Template (Template, readTemplate)
 import           Text.Blaze.Html.Renderer.Text (renderHtml)
-import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, ul, (!))
+import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, strong, ul, (!))
 import           Text.Blaze.Html5.Attributes (class_, href, id)
 
 linksTemplate :: Template
@@ -120,12 +120,78 @@ raw = do
             h3 "Общение"
             ul $ do
                 li $ do
-                    a ! href "https://www.reddit.com/r/haskell/" $ "Haskell Reddit."
-                    " Основной англоязычный Reddit-канал."
+                    strong "Gitter"
+                    ul $ do
+                        li $
+                            a ! href "https://gitter.im/ruHaskell/home" $
+                            strong "Список чатов"
+                        li $ do
+                            a ! href "https://gitter.im/ruHaskell/forall" $
+                                "forall"
+                            " — основной чат"
+                        li $ do
+                            a ! href "https://gitter.im/ruHaskell/meetup" $
+                                "meetup"
+                            " — встречи сообщества"
+                        li $ do
+                            a ! href "https://gitter.im/ruHaskell/novice" $
+                                "novice"
+                            " — чат для новичков"
+                        li $ do
+                            a ! href "https://gitter.im/ruHaskell/jobs" $
+                                "jobs"
+                            " — вакансии и резюме"
+                        li $ do
+                            a ! href "https://gitter.im/ruHaskell/blah" $
+                                "blah"
+                            " — оффтопик"
+                li $ do
+                    strong "Reddit"
+                    ul $ do
+                        li $ do
+                            a ! href "https://www.reddit.com/r/haskell" $
+                                "/r/haskell"
+                            " — основной англоязычный субреддит"
+                        li $ do
+                            a ! href "https://www.reddit.com/r/ruhaskell" $
+                                "/r/ruhaskell"
+                            " — русскоязычный субреддит"
+                li $ do
+                    strong "Telegram"
+                    ul $ do
+                        li $ do
+                            a ! href "https://t.me/haskellru" $ "@haskellru"
+                            " — основной хаскельный чат"
+                        li $ do
+                            a ! href "https://t.me/haskell_learn" $
+                                "@haskell_learn"
+                            " — чат для новичков"
+                        li $ do
+                            a ! href "https://t.me/haskell_job" $ "@haskell_job"
+                            " — канал с хаскельными вакансиями"
+                        li $ do
+                            a ! href "https://t.me/haskell_cv" $ "@haskell_cv"
+                            " — чат для поиска работы"
+                            " и обсуждения работодателей"
+                        li $ do
+                            a ! href "https://t.me/en_haskell" $ "@en_haskell"
+                            " — англоязычный хаскельный чат"
+                        li $ do
+                            a ! href "https://t.me/haskell_blah" $
+                                "@haskell_blah"
+                            " — оффтопик"
+                li $ do
+                    strong "Twitter"
+                    ul $ do
+                        li $ do
+                            a ! href "https://twitter.com/haskellweekly" $
+                                "Haskell Weekly"
+                            " — еженедельные хаскельные новости"
+                        li $ do
+                            a ! href "https://twitter.com/ruhaskell" $
+                                "ruHaskell"
+                            " — новости русскоязычного сообщества"
                 li $ do
                     a ! href "https://mail.haskell.org/mailman/listinfo" $
-                        "Haskell Mailing Lists."
-                    " Все списки рассылки, преимущественно англоязычные."
-                li $ do
-                    a ! href "https://twitter.com/haskellweekly" $ "Haskell Weekly."
-                    " Твиттер-аккаунт для еженедельных Haskell-новостей."
+                        "Haskell Mailing Lists"
+                    " — все списки рассылки, преимущественно англоязычные"
