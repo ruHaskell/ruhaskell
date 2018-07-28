@@ -9,7 +9,7 @@ description: Пост описывает возможности построен
 раз изобрести колесо и попытаться сделать гетерогенные записи.
 Поскольку просто делать такие записи не интересно, то попытаемся так же
 представить простенькую библиотеку для реляционной алгебры. Данный пост посвящен
-в основном отработке подходов к работе с типами и не очень полезен с прикладной 
+в основном отработке подходов к работе с типами и не очень полезен с прикладной
 точки зрения.
 
 Данный пост является [Literate Haskell](https://wiki.haskell.org/Literate_programming) файлом и может быть вставлен в редактор.
@@ -72,7 +72,7 @@ description: Пост описывает возможности построен
 
 Так же введем тип, отвечающий предыдущему на уровне типов
 
-> data a :--> b 
+> data a :--> b
 
 Данное действие совершенно не обязательно, но так удобнее работать.
 
@@ -150,9 +150,9 @@ description: Пост описывает возможности построен
 --------------
 
 Переименованием называется унарная операция $\rho_{a / b}(R)$ результатом которой является
-множество равное $R$, за исключением того, что все аттрибуты `a` в кортежах переименованы в `b`. 
+множество равное $R$, за исключением того, что все аттрибуты `a` в кортежах переименованы в `b`.
 
-Рассмотрим сначала переименование на типах, т.е. если у нас есть список на уровне типов 
+Рассмотрим сначала переименование на типах, т.е. если у нас есть список на уровне типов
 `[s -> a] :: [*]` и список переименований `[s -> g] :: [*]` и если $s_n = g_n$, то тогда
 мы переименовываем $s_n -> a \rightarrow g_n -> a$. Это можно сделать рекурсивно, для
 каждого из элементов списка $G$ мы проходим по всем элементам списка `a`, переименовывая если имена совпадают.
@@ -179,7 +179,7 @@ description: Пост описывает возможности построен
     "HCons (Bar :--> 5) (HCons (Foo :--> ()) (HNil))"
 
 Теперь надо научиться переименовывать записи на уровне значений.
-Для этого введем вспомогательную функцию. Данная функция конструирует 
+Для этого введем вспомогательную функцию. Данная функция конструирует
 прокси, описывающий тип значения, которое получится после переименования.
 
 > rrename :: Rename' HRec a (Rename a b) => HRec a -> proxy b -> HRec (Rename a b)
@@ -240,7 +240,7 @@ description: Пост описывает возможности построен
 
 > type family Project' a b where
 >   Project' s       '[]     = '[]
->   Project' s    (b ': bs)  = ProjectInner' s b ': Project' s bs 
+>   Project' s    (b ': bs)  = ProjectInner' s b ': Project' s bs
 >
 > type family ProjectInner' s b where
 >   ProjectInner' (s :-> a ': as) s = s :-> a
@@ -254,9 +254,9 @@ description: Пост описывает возможности построен
 
 Для построения проекции сначала постоим вспомогательную функцию,
 которая по имени атрибута достает значение из кортежа:
- 
+
 > rlookupP :: Lookup s a b c => s a -> Proxy b -> c
-> rlookupP s b = rlookup' Proxy b s 
+> rlookupP s b = rlookup' Proxy b s
 
 
 Опять же, строим класс для итерирования по структуре. Данный
@@ -266,11 +266,11 @@ description: Пост описывает возможности построен
 обозначают, что параметры типа `s a b` однозначно определяют тип `c`.
 
 > class Lookup s a b c | s a b -> c where
->   rlookup' :: Proxy a -> Proxy b -> s a -> c 
-> 
+>   rlookup' :: Proxy a -> Proxy b -> s a -> c
+>
 > instance Lookup HRec ( (n :-> a) ': xs ) n a where
 >   rlookup' _ _ (HCons a _) = a
-> 
+>
 > instance Lookup HRec xs n c => Lookup HRec ( (m :-> a) ': xs ) n c where
 >   rlookup' pa pb (HCons _ xs) = rlookup' (pa' pa) pb xs
 >     where
@@ -281,11 +281,11 @@ description: Пост описывает возможности построен
 При помощи вспомогательного класса можно построить саму проекцию.
 
 > class Project s a b c | s a b -> c where
->   rproject :: s a -> Proxy b -> s c 
-> 
+>   rproject :: s a -> Proxy b -> s c
+>
 > instance Project HRec a '[] '[] where
 >   rproject _ _ = HNil
-> 
+>
 > instance (Project HRec a bs c, Lookup HRec a b k) => Project HRec a (b ': bs) ((b :-> k) ': c) where
 >   rproject xs p = rcons (pHead p)
 >                         (rlookupP xs (pHead p))
@@ -296,7 +296,7 @@ description: Пост описывает возможности построен
 >           pTail _ = Proxy
 
 > rcons :: Proxy b -> a -> HRec c -> HRec ( (b :-> a) ': c)
-> rcons _ a xs = HCons a xs
+> rcons _ = HCons
 
 Пример:
 
@@ -308,12 +308,12 @@ description: Пост описывает возможности построен
 
 
 > π :: (Project HRec xs ys ys, Ord (HRec ys)) => RelSet xs -> RelSet ys
-> π rs = inner Proxy rs 
+> π = inner Proxy
 >   where inner :: (Project HRec xs ys ys, Ord (HRec ys)) => Proxy ys -> RelSet xs -> RelSet ys
->         inner p (RS sx) = RS $ Set.map (\x -> rproject x p) sx
+>         inner p (RS sx) = RS $ Set.map (`rproject` p) sx
 
 > projection :: (Project HRec xs ys ys, Ord (HRec ys)) => RelSet xs -> RelSet ys
-> projection = π 
+> projection = π
 
 Выборка
 -------
@@ -345,7 +345,7 @@ description: Пост описывает возможности построен
 >   rpredicate1 (HCons a _) (V f) = f a
 
 > instance RPredicate1 HRec as f => RPredicate1 HRec (a ': as) f where
->   rpredicate1 (HCons a as) f = rpredicate1 as f 
+>   rpredicate1 (HCons a as) = rpredicate1 as
 
 Задание. Как можно построить обобщенное решение, позволяющее конструировать произвольные
 предикаты.
@@ -353,7 +353,7 @@ description: Пост описывает возможности построен
 Теперь мы можем построить выборку из множества:
 
 > σ :: (RPredicate HRec xs ys) => RelSet xs -> HRec ys -> RelSet xs
-> σ (RS sx) h = RS $ Set.filter (\x -> rpredicate x h) sx
+> σ (RS sx) h = RS $ Set.filter (`rpredicate` h) sx
 
 > selection :: (RPredicate HRec xs ys) => RelSet xs -> HRec ys -> RelSet xs
 > selection = σ
@@ -392,10 +392,10 @@ description: Пост описывает возможности построен
 
 > class Merge s a b c | s a b -> c where
 >   rmerge :: s a -> s b -> s c
-> 
+>
 > instance Merge HRec '[] b b where
 >   rmerge HNil xs = xs
-> 
+>
 > instance Merge HRec as b c => Merge HRec (a ': as) b (a ': c) where
 >   rmerge (HCons x xs) s = HCons x (rmerge xs s)
 

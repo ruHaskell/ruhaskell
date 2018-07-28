@@ -10,14 +10,13 @@ module Misc
     ) where
 
 import           Control.Monad.Reader (ReaderT)
-import           Data.Aeson           (Value (String))
-import qualified Data.HashMap.Lazy    as HashMap
-import           Data.Map             (Map)
-import qualified Data.Map             as Map
-import qualified Data.Text            as Text
-import           Hakyll               (Identifier, MonadMetadata, Rules, Tags,
-                                       compile, getMetadata, match,
-                                       templateCompiler, trim)
+import           Data.Aeson (Value (String))
+import qualified Data.HashMap.Lazy as HashMap
+import           Data.Map (Map)
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import           Hakyll (Identifier, MonadMetadata, Rules, Tags, compile,
+                         getMetadata, match, templateCompiler, trim)
 
 -- | Данный URL останется актуальным до тех пор, пока сайт будет жить на GitHub Pages.
 aHost :: String
@@ -35,9 +34,12 @@ type TagsReader = ReaderT TagsAndAuthors Rules ()
 -- | Извлекает из статьи значение атрибута `author`.
 getNameOfAuthor :: MonadMetadata m => Identifier -> m [String]
 getNameOfAuthor identifier = do
-  metadata <- getMetadata identifier -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
-  let String author = HashMap.lookupDefault "Не указан" "author" metadata
-  return [trim $ Text.unpack author]
+    metadata <- getMetadata identifier
+        -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
+    author <- case HashMap.lookupDefault "Не указан" "author" metadata of
+        String author -> pure author
+        _             -> fail "expected String"
+    return [trim $ Text.unpack author]
 
 -- | Имена категорий извлекаются из файлового пути, поэтому они всегда английские.
 -- Это не красиво, поэтому мы формируем словарь русских имён для категорий.

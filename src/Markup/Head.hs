@@ -8,7 +8,7 @@ module Markup.Head (
 import           Css.Own (ownCss)
 import           Misc (aHost)
 
-import           Prelude hiding (div, head, span)
+import           Prelude hiding (head)
 
 import           Data.Monoid
 import           Data.String.QQ

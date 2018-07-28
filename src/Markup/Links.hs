@@ -30,8 +30,8 @@ raw = do
   where
     official :: Html
     official = do
-        h3 $ "Язык"
-        div $ ul $ do
+        h3 "Язык"
+        ul $ do
             li $ a ! A.href "https://www.haskell.org/" $ "Официальный сайт языка Haskell."
             li $ do
                 a ! A.href "https://haskell-lang.org/" $ "Альтернативный сайт языка haskell."
@@ -40,8 +40,8 @@ raw = do
 
     tools :: Html
     tools = do
-        h3 $ "Инструменты"
-        div $ ul $ do
+        h3 "Инструменты"
+        ul $ do
             li $ do
                 a ! A.href "https://www.haskellstack.org/" $ "The Haskell Tool Stack."
                 span " Программа для полноценной работы с Haskell-проектами."
@@ -54,8 +54,8 @@ raw = do
 
     packages :: Html
     packages = do
-        h3 $ "Пакеты"
-        div $ ul $ do
+        h3 "Пакеты"
+        ul $ do
             li $ do
                 a ! A.href "http://hackage.haskell.org/packages/" $ "Hackage."
                 span " Много-премного Haskell-пакетов."
@@ -72,8 +72,8 @@ raw = do
 
     books :: Html
     books = do
-        h3 $ "Книги"
-        div $ ul $ do
+        h3 "Книги"
+        ul $ do
             li $ do
                 a ! A.href "https://www.ohaskell.guide/" $ "О Haskell по-человечески."
                 span " Для новичков, ничего не знающих про Haskell."
@@ -96,8 +96,8 @@ raw = do
 
     podcasts :: Html
     podcasts = do
-        h3 $ "Подкасты"
-        div $ ul $ do
+        h3 "Подкасты"
+        ul $ do
             li $ do
                 a ! A.href "https://bananasandlenses.net/" $ "Бананы и Линзы."
                 span " На русском языке."
@@ -107,8 +107,8 @@ raw = do
 
     community :: Html
     community = do
-        h3 $ "Сообщества"
-        div $ ul $ do
+        h3 "Сообщества"
+        ul $ do
             li $ do
                 a ! A.href "https://www.reddit.com/r/haskell/" $ "Haskell Reddit."
                 span " Основной англоязычный Reddit-канал."

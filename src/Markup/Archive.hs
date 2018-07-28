@@ -4,12 +4,11 @@ module Markup.Archive (
     archiveTemplate
 ) where
 
-import Markup.PostList                      ( postList )
+import           Hakyll.Web.Template
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
+import           Text.Blaze.Html5
 
-import Prelude                              hiding ( div, span )
-import Text.Blaze.Html5
-import Text.Blaze.Html.Renderer.Pretty      ( renderHtml )
-import Hakyll.Web.Template
+import           Markup.PostList (postList)
 
 archiveTemplate :: Template
 archiveTemplate = readTemplate . renderHtml $ raw

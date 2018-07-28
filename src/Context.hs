@@ -146,7 +146,9 @@ postContext tagsAndAuthors = mconcat
     , defaultContext
     ]
   where
-    [tags, category, author] = tagsAndAuthors
+    (tags, category, author) = case tagsAndAuthors of
+        [t, c, a] -> (t, c, a)
+        _         -> error "tags, category and author must be collected"
 
 talkEvent :: HasCallStack => Item a -> Compiler String
 talkEvent item = do
@@ -178,7 +180,7 @@ getTalkMetadata _ = fail "not a talk"
 
 youtubeSnippet :: TalkVideo -> String
 youtubeSnippet TalkVideo{youtubeId, width, start, end} = intercalate "\""
-    [ "<iframe width=", showIntegral $ fromMaybe defaultWidth width
+    [ "<iframe width=", showNatural $ fromMaybe defaultWidth width
     , " height=\"400\" src=", url
     , " frameborder=\"0\" allowfullscreen></iframe>"
     ]
@@ -191,7 +193,7 @@ youtubeSnippet TalkVideo{youtubeId, width, start, end} = intercalate "\""
         , intercalate "&" $ showTimePos "start" start ++ showTimePos "end" end
         ]
     showTimePos name mval =
-        [ name ++ "=" ++ showIntegral seconds
+        [ name ++ "=" ++ showNatural seconds
         | Just TimePos{seconds} <- pure mval
         ]
-    showIntegral = show :: (Integral a, Show a) => a -> String
+    showNatural = show :: Natural -> String

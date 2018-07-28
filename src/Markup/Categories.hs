@@ -8,11 +8,12 @@
 
 module Markup.Categories where
 
-import           Prelude                            hiding ( div, span )
-import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes        as A
-import           Text.Blaze.Html.Renderer.Pretty    ( renderHtml )
+import           Prelude hiding (div)
+
 import           Hakyll.Web.Template
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
+import           Text.Blaze.Html5
+import qualified Text.Blaze.Html5.Attributes as A
 
 categoriesTemplate :: Template
 categoriesTemplate = readTemplate . renderHtml $ raw

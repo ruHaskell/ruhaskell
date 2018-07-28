@@ -2,11 +2,12 @@
 
 module Markup.Tags where
 
-import           Prelude                            hiding ( div, span )
-import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes        as A
-import           Text.Blaze.Html.Renderer.Pretty    ( renderHtml )
-import           Hakyll.Web.Template
+import           Prelude hiding (div)
+
+import           Hakyll.Web.Template (Template, readTemplate)
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
+import           Text.Blaze.Html5 (Html, div, h1, (!))
+import           Text.Blaze.Html5.Attributes (class_)
 
 tagsTemplate :: Template
 tagsTemplate = readTemplate . renderHtml $ raw
@@ -14,5 +15,5 @@ tagsTemplate = readTemplate . renderHtml $ raw
 raw :: Html
 raw = do
     h1 "$title$"
-    div ! A.class_ "tags-cloud" $
+    div ! class_ "tags-cloud" $
         "$tagsCloud$"

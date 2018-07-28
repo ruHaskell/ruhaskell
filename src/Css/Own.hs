@@ -80,25 +80,16 @@ ownCss = Lazy.toStrict . render $ do
         paddingTopPx    25
         paddingBottomPx 20
 
-    a ? do
-        color           "#2d3644"
-        textDecoration  none
-        borderBottom    dotted (px 1) "#333333"
+    a ? aStyle
 
     a # hover ? do
         color           "#5493ff"
         textDecoration  none
         borderBottom    solid (px 1) "#999999"
 
-    a # visited ? do
-        color           "#2d3644"
-        textDecoration  none
-        borderBottom    dotted (px 1) "#333333"
+    a # visited ? aStyle
 
-    a # active ? do
-        color           "#2d3644"
-        textDecoration  none
-        borderBottom    dotted (px 1) "#333333"
+    a # active ? aStyle
 
     ".href-to-original" ? do
         rightAlign
@@ -157,13 +148,13 @@ ownCss = Lazy.toStrict . render $ do
         textDecoration  none
         borderBottom    solid (px 0) "#ffffff"
 
-    ".fpconf-link" ? do
+    ".fpconf-link" ?
         fontSizePct     120
 
-    ".fby-link" ? do
+    ".fby-link" ?
         fontSizePct     120
 
-    ".friends-separator" ? do
+    ".friends-separator" ?
         paddingLeftPx   30
 
     ".navigation" ? do
@@ -178,7 +169,7 @@ ownCss = Lazy.toStrict . render $ do
         fontSizePct     90
         paddingBottomPx 10
 
-    ".logo-area" ? do
+    ".logo-area" ?
         centerAlign
 
     ".social-links" ? do
@@ -186,25 +177,25 @@ ownCss = Lazy.toStrict . render $ do
         marginTopPx     10
         fontSizePct     140
 
-    ".social-links-separator" ? do
+    ".social-links-separator" ?
         paddingRightPx  20
 
-    ".links-separator" ? do
+    ".links-separator" ?
         paddingRightPx  20
 
-    ".reddit-color" ? do
+    ".reddit-color" ?
         color           "#FF4500"
 
-    ".twitter-color" ? do
+    ".twitter-color" ?
         color           "#1DA1F2"
 
-    ".gitter-color" ? do
+    ".gitter-color" ?
         color           "#E10454"
 
-    ".github-color" ? do
+    ".github-color" ?
         color           "#000"
 
-    ".rss-color" ? do
+    ".rss-color" ?
         color           "#FF924A"
 
     ".name-of-category" ? do
@@ -236,10 +227,10 @@ ownCss = Lazy.toStrict . render $ do
         marginTopPx     21
         paddingBottomPx 21
 
-    ".post-list" ? a ? do
+    ".post-list" ? a ?
         textDecoration  none
 
-    ".post-list" ? a # hover ? do
+    ".post-list" ? a # hover ?
         textDecoration  none
 
     ".post-comments" ? do
@@ -256,7 +247,7 @@ ownCss = Lazy.toStrict . render $ do
         rightAlign
         color           "#888888"
 
-    ".archive-button" ? do
+    ".archive-button" ?
         paddingTopPx    26
 
     ".undecorated" ? do
@@ -268,10 +259,10 @@ ownCss = Lazy.toStrict . render $ do
         display         block
         maxWidth        $ pct 100
 
-    ".social-buttons-separator" ? do
+    ".social-buttons-separator" ?
         paddingTopPx    40
 
-    ".heart-color" ? do
+    ".heart-color" ?
         color           "#FF3A1D"
 
     ".tags-cloud" ? do
@@ -286,7 +277,7 @@ ownCss = Lazy.toStrict . render $ do
         border          solid (px 1) "#ffbcb1"
         color           inherit
 
-    ".sourceCode" ? code ? do
+    ".sourceCode" ? code ?
         fontFamily      ["Roboto Mono"] [monospace]
 
     "pre.sourceCode" ? do
@@ -316,18 +307,25 @@ ownCss = Lazy.toStrict . render $ do
         paddingRightPx  4
 
     "pre.sourceCode" ? "span.kw" ? do color "#007020"; fontWeight600
-    "pre.sourceCode" ? "span.dt" ? do color "#902000"
-    "pre.sourceCode" ? "span.dv" ? do color "#40a070"
-    "pre.sourceCode" ? "span.bn" ? do color "#40a070"
-    "pre.sourceCode" ? "span.fl" ? do color "#40a070"
-    "pre.sourceCode" ? "span.ch" ? do color "#4070a0"
-    "pre.sourceCode" ? "span.co" ? do color "#60a0b0"
-    "pre.sourceCode" ? "span.ot" ? do color "#007020"
+    "pre.sourceCode" ? "span.dt" ?    color "#902000"
+    "pre.sourceCode" ? "span.dv" ?    color "#40a070"
+    "pre.sourceCode" ? "span.bn" ?    color "#40a070"
+    "pre.sourceCode" ? "span.fl" ?    color "#40a070"
+    "pre.sourceCode" ? "span.ch" ?    color "#4070a0"
+    "pre.sourceCode" ? "span.co" ?    color "#60a0b0"
+    "pre.sourceCode" ? "span.ot" ?    color "#007020"
     "pre.sourceCode" ? "span.al" ? do color "#fa0202"; fontWeight600
-    "pre.sourceCode" ? "span.fu" ? do color "#06287e"
+    "pre.sourceCode" ? "span.fu" ?    color "#06287e"
     "pre.sourceCode" ? "span.er" ? do color "#fa0202"; fontWeight600
 
     "th, td" ? do
         borderColor grey
         borderStyle solid
         borderWidth 1
+
+  where
+
+    aStyle = do
+        color           "#2d3644"
+        textDecoration  none
+        borderBottom    dotted (px 1) "#333333"

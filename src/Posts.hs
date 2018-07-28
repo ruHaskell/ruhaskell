@@ -34,7 +34,9 @@ directorizeDate = customRoute (directorize . toFilePath)
   where
     directorize path = dropExtension $ joinPath [y, m, d, intercalate "-" title]
       where
-        y : m : d : title = splitOn "-" path
+        (y, m, d, title) = case splitOn "-" path of
+            y' : m' : d' : t -> (y', m', d', t)
+            _ -> error "file name must be in format `y-m-d-title`"
 
 createPosts :: HasCallStack => TagsReader
 createPosts = ReaderT $ \tagsAndAuthors ->

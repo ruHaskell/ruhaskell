@@ -1,12 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Copiers (
       justCopy
     , justCreateAndCopy
     , justCompressAndCopy
 ) where
 
-import Hakyll
+import           Hakyll
 
 -- Берём нечто готовое и просто копируем в итоговый сайт.
 justCopy :: Pattern -> Rules ()

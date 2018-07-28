@@ -18,25 +18,22 @@ module Tags (
     , convertAuthorsToLinks
 ) where
 
-import           Markup.Authors                     ( authorsTemplate )
-import           Markup.Tags                        ( tagsTemplate )
-import           Markup.Categories                  ( categoriesTemplate )
-import           Markup.Posts                       ( postsTemplate )
-import           Markup.Default                     ( defaultTemplate )
-import           Context                            ( postContext )
-import           Misc                               ( TagsReader
-                                                    , TagsAndAuthors
-                                                    , getNameOfAuthor
-                                                    , getRussianNameOfCategory
-                                                    )
+import           Context (postContext)
+import           Markup.Authors (authorsTemplate)
+import           Markup.Categories (categoriesTemplate)
+import           Markup.Default (defaultTemplate)
+import           Markup.Posts (postsTemplate)
+import           Markup.Tags (tagsTemplate)
+import           Misc (TagsAndAuthors, TagsReader, getNameOfAuthor,
+                       getRussianNameOfCategory)
 
-import           Data.List                          ( intercalate, isInfixOf )
 import           Control.Monad.Reader
-import           Text.Blaze.Html                    ( toValue, (!) )
-import           Text.Blaze.Html.Renderer.String    ( renderHtml )
-import qualified Text.Blaze.Html5                   as H
-import qualified Text.Blaze.Html5.Attributes        as A
+import           Data.List (intercalate, isInfixOf)
 import           Hakyll
+import           Text.Blaze.Html (toValue, (!))
+import           Text.Blaze.Html.Renderer.String (renderHtml)
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
 
 -- Функция извлекает из всех статей значения поля tags и собирает их в кучу.
 buildPostsTags :: MonadMetadata m => m Tags
@@ -100,7 +97,7 @@ createGenericTagLinkWithBadge convert
         H.a ! A.style (toValue $ "font-size: " ++ show size ++ "%")
             ! A.href (toValue url) $
             H.preEscapedToHtml $ convert tag
-        H.span ! A.style (toValue $ "font-size: " ++ show size ++ "%") $ 
+        H.span ! A.style (toValue $ "font-size: " ++ show size ++ "%") $
             H.preEscapedToHtml $ "&nbsp;<span class=\"tag tag-default\">" ++ show count ++ "</span>"
 
 -- Отрисовываем облако с тегами-ссылками, имеющими количественные значки.
@@ -200,12 +197,12 @@ convertSpecificTagsToLinks :: TagsAndAuthors
                            -> String
                            -> Rules ()
 convertSpecificTagsToLinks tagsAndAuthors specificTags aTitle =
-    tagsRules specificTags $ \tag pattern -> do
+    tagsRules specificTags $ \tag ptrn -> do
         let nameOfTag = if "разделе" `isInfixOf` aTitle then getRussianNameOfCategory tag else tag
             title = renderHtml $ H.preEscapedToHtml $ aTitle ++ " " ++ nameOfTag
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll pattern
+            posts <- recentFirst =<< loadAll ptrn
             let taggedPostsContext = mconcat [ listField "posts" (postContext tagsAndAuthors) (return posts)
                                              , constField "title" title
                                              , defaultContext

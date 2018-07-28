@@ -6,7 +6,7 @@ module Markup.Post
     , disqusCount
     ) where
 
-import           Prelude hiding (div, span)
+import           Prelude hiding (div)
 
 import           Data.String.QQ (s)
 import           Data.Text (Text)

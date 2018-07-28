@@ -2,14 +2,14 @@
 
 module Markup.Footer where
 
-import           Prelude                        hiding ( div, span )
+import           Prelude hiding (div, span)
 import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes    as A
+import qualified Text.Blaze.Html5.Attributes as A
 
 commonFooter :: Html
 commonFooter =
     footer ! A.class_ "footer" $
-        div ! A.class_ "container-fluid" $ do
+        div ! A.class_ "container-fluid" $
             div ! A.class_ "row" $ do
                 div ! A.class_ "col-lg-4 col-md-4 col-sm-4 col-xs-4 left" $   copyright
                 div ! A.class_ "col-lg-4 col-md-4 col-sm-4 col-xs-4 center" $ hakyll
