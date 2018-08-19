@@ -98,18 +98,17 @@ raw = do
 
     courses = do
         h3 "Курсы"
-        ul $
+        ul $ do
             li $ do
                 "Курс Дениса Москвина на Степике: "
                 a ! href "https://stepik.org/course/75/" $ "часть 1"
                 ", "
                 a ! href "https://stepik.org/course/693/" $ "часть 2"
-        ul $
             li $ do
                 a ! href "https://www.edx.org/course/\
                          \introduction-functional-programming-delftx-fp101x-0" $
-                 "Introduction to Functional Programming"
-                " Вводный курс от Эрика Мейера с примерами на Haskell."
+                    "Introduction to Functional Programming"
+                " — вводный курс по ФП от Эрика Мейера с примерами на Haskell"
 
     podcasts = do
         h3 "Подкасты"
