@@ -109,6 +109,10 @@ raw = do
                          \introduction-functional-programming-delftx-fp101x-0" $
                     "Introduction to Functional Programming"
                 " — вводный курс по ФП от Эрика Мейера с примерами на Haskell"
+            li $ do
+                a ! href "https://www.intuit.ru/studies/courses/3652/894/info" $
+                    "Haskell как первый язык программирования"
+                " — автор Абрамов, Сергей Михайлович"
 
     podcasts = do
         h3 "Подкасты"
