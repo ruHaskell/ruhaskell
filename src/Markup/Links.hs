@@ -112,7 +112,11 @@ raw = do
             li $ do
                 a ! href "https://www.intuit.ru/studies/courses/3652/894/info" $
                     "Haskell как первый язык программирования"
-                " — автор Абрамов, Сергей Михайлович"
+                " от "
+                a   ! href
+                        "https://ru.wikipedia.org/wiki/\
+                        \Абрамов,_Сергей_Михайлович_(учёный)"
+                    $ "Сергея Михайловича Абрамова"
 
     podcasts = do
         h3 "Подкасты"
