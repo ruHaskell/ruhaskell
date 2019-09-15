@@ -76,6 +76,10 @@ raw = do
             li $ do
                 a ! href "http://hoogle.haskell.org/" $ "Hoogle."
                 " Поиск по Haskell-пакетам номер два."
+            li $ do
+                a ! href "https://www.stackage.org/lts/hoogle" $
+                    "Stackage Hoogle."
+                " Поиск по Haskell-пакетам номер три."
 
     books = do
         h3 "Книги"
