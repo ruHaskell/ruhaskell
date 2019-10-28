@@ -42,7 +42,7 @@ _типами_,
 а если по контексту подразумевается всё-таки конкретный тип,
 значит, речь идёт о конструкторе с произвольными значениями параметров.
 
-## 0. Отсутствие эффектов
+## 0. No effects -- Отсутствие эффектов
 
 Представим чистую функцию `f :: a -> b` в виде чёрного ящика:
 
@@ -52,18 +52,18 @@ _типами_,
 
 <center>![](../../../../../files/posts/2018-01-18/partial.svg)</center>
 
-Частичная функция либо возвращает результат, либо не возвращает.
-
-Такая вариативность легко моделируется с помощью типа-суммы.
+A partial fucntion either returns a result or it doesn't.
+A sum data type well captures this behaviour. 
 
 ```haskell
 data Maybe a = Nothing | Just a
 ```
 
-Значение типа `Maybe a` либо содержит значение типа `a`, либо нет.
+Value of type `Maybe a` either contains a value 
+of type `a`, or there is no such value.
 
-Мы можем описать частичную процедуру, иногда возвращающую `b`, как функцию,
-всегда возвращающую `Maybe b`.
+We can describe a partial procedure that optionally 
+returns type `b`, as a function that always returns `Maybe b`.
 
 <center>![](../../../../../files/posts/2018-01-18/partial-pure.svg)</center>
 
@@ -71,27 +71,28 @@ data Maybe a = Nothing | Just a
 p :: a -> Maybe b
 ```
 
-Пример.
+Here is an example.
 
 ```haskell
 headM :: [a] -> Maybe a
-headM []    = Nothing -- невозможно взять голову пустого списка
-headM (x:_) = Just x  -- голова непустого списка — вот она!
+headM []    = Nothing -- cannot take a head of empty list 
+headM (x:_) = Just x  -- head of non-mepty list - here it is!
 ```
 
-Обратите внимание, что тип `Maybe` принадлежит `Functor`, `Applicative`,
-`Monad` и многим другим интересным и полезным классам.
+Please note, that `Maybe` type belongs to `Functor`, `Applicative`,
+`Monad` and other interesting and useful typeclasses.
 
-На практике также применяется типы `Either` и `Except`,
-реализующие тот же эффект, но позволяющий добавить информацию о том,
-почему вычисление не может быть завершено.
+In practice we can also use `Either` and `Except`,
+implementing similar effect as `Maybe`, but 
+allows to add additional information why
+a computation was not completed. 
 
 Пример.
 
 ```haskell
 data Either a b
-    = Left a  -- условно ошибка
-    | Right b -- условно успех
+    = Left a  -- considered an error
+    | Right b -- considered success
 
 data MyError = EmptyList
 
