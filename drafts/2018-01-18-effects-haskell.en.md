@@ -87,19 +87,26 @@ implementing similar effect as `Maybe`, but
 allows to add additional information why
 a computation was not completed. 
 
-Пример.
+<! -- Пример -->
+
+In example below we introduce an error type
+`MyError` with a sole value `EmptyList`.
+`MyError` will be used in other code examples below. 
 
 ```haskell
 data Either a b
     = Left a  -- considered an error
     | Right b -- considered success
 
-data MyError = EmptyList
+data MyError = EmptyList -- denotes an custom error name
+
 
 headE :: [a] -> Either MyError a
 headE []    = Left EmptyList
 headE (x:_) = Right x
 ```
+
+<!-- Тут бабах MonadError, когда читатель ни сном ни духом. -->
 
 Можно комбинировать частичность с другими эффектами:
 
