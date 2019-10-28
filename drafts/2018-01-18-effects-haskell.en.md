@@ -162,6 +162,22 @@ p :: a -> r -> b
 
 Пример.
 
+<--
+EP: желательно определить, что такое `Config`, откуда он 
+берется и что значит запись `Config{dataDir}` - она стандартная 
+или через какое-то расширение доступна.
+
+eff.hs:2:12: error:
+    Illegal use of punning for field `dataDir'
+    Use NamedFieldPuns to permit this
+  |
+2 | getDataDir Config{dataDir} = dataDir
+  |            ^^^^^^^^^^^^^^^
+
+
+-->
+
+
 ```haskell
 getDataDir :: Config -> FilePath
 getDataDir Config{dataDir} = dataDir
