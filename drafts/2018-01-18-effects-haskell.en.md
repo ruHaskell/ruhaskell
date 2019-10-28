@@ -174,11 +174,10 @@ eff.hs:2:12: error:
 2 | getDataDir Config{dataDir} = dataDir
   |            ^^^^^^^^^^^^^^^
 
-Можно ли обойтись примером без использования расширений?
-
 getDataDir выглядит какой-то искуственной - просто 
 выдает аттрибут из какой-то структуры данных?
 
+Можно ли обойтись примером без использования расширений?
 -->
 
 
@@ -534,11 +533,10 @@ p :: a -> f b
 | Детерминированность и нет побочных | Состояние   | `State s`                 |
 | Любое                     | Любой                | `IO`                      |
 
-Все упомянутые типы встроены в язык или легко находятся в стандартной библиотеке
-(пакеты `base`, `mtl`), кроме `Putter`.
-`Putter` я придумал только для иллюстрации,
-но его легко представить как `State`, ограниченный до операции `put`.
+All above mentioned types are embedded into the language 
+and can be found in easily in standard packages like `base` and `mtl`, except `Putter`. I created `Putter` as an illustration, but one can envisage it as `State`, contrained to operation `put` only.
 
-Если будет интерес читателей,
-можно будет раскрыть подробности реализации эффектов данными типами в будущих
-статьях.
+To run the examples in this arctile I attach their code in [effects.hs](effects.hs).
+
+We can make a follow-up on effects implementation through types 
+in our further publications, based on reader interest.
