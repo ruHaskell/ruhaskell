@@ -1,22 +1,21 @@
 ---
 author:         Юрий Сыровецкий
-title:          Эффекты в Haskell
-tags:           эффекты
-description:    Реализация эффектов в Haskell.
+title:          Effects in Haskell
+tags:           effects, purity
+description:    Effects implementation in Haskell.
 ---
 
 В [предыдущей статье](../10/effects.html) мы познакомились с основными видами
 эффектов в математике и программировании.
-Сегодня мы докажем, что для процедур,
-то есть «функций с эффектами» не нужна особая поддержка со стороны языка
-программирования,
-достаточно реализации обычных «чистых» функций.
+In this article we will demonstrate that procedures (functions with effects)
+do not require special support from the programming language and that
+regular ‘pure’ functions can be used to handle these procedures with effects.
 
-Для примера возьмём Haskell — чистый язык, в котором, в отличие от «нечистых» C,
-OCaml, JavaScript и прочих, нет никаких встроенных эффектов.
-(Ну, почти нет.)
-Однако, средствами этого языка можно построить чистые управляемые эффекты,
-и не хуже, чем «нечистые».
+As an example we will use Haskell, a pure language,
+which does not have the embedded effects in a way ‘impure’ C, OCaml,
+JavaScript do.
+However, we can build pure, controllable effects in Haskell, which
+serve our goals quite similarly as ‘impure’ effects.
 
 _Замечание о терминах._
 Я позволю себе называть параметрические типы с опущенными параметрами просто
@@ -31,28 +30,30 @@ _типами_,
 а если по контексту подразумевается всё-таки конкретный тип,
 значит, речь идёт о конструкторе с произвольными значениями параметров.
 
-## 0. Отсутствие эффектов
+## 0. No effects
 
-Представим чистую функцию `f :: a -> b` в виде чёрного ящика:
+We can represent a pure funciton `f :: a -> b` as a black box
+that takes in a value of type `a` and returns a value of type `b`:
 
 <center>![](../../../../../files/posts/2018-01-18/pure.svg)</center>
 
-## 1. Эффект частичности
+## 1. Partiality effect
 
 <center>![](../../../../../files/posts/2018-01-18/partial.svg)</center>
 
-Частичная функция либо возвращает результат, либо не возвращает.
+A partial function either returns a result or it doesn't.
 
-Такая вариативность легко моделируется с помощью типа-суммы.
+A sum data type well captures this behaviour.
 
 ```haskell
 data Maybe a = Nothing | Just a
 ```
 
-Значение типа `Maybe a` либо содержит значение типа `a`, либо нет.
+Value of type `Maybe a` either contains a value of type `a`,
+or there is no value.
 
-Мы можем описать частичную процедуру, иногда возвращающую `b`, как функцию,
-всегда возвращающую `Maybe b`.
+We can describe a partial procedure that optionally
+returns type `b` as a function that always returns `Maybe b` type.
 
 <center>![](../../../../../files/posts/2018-01-18/partial-pure.svg)</center>
 
@@ -60,44 +61,50 @@ data Maybe a = Nothing | Just a
 p :: a -> Maybe b
 ```
 
-Пример.
+Here is an example.
 
 ```haskell
 headM :: [a] -> Maybe a
-headM []    = Nothing -- невозможно взять голову пустого списка
-headM (x:_) = Just x  -- голова непустого списка — вот она!
+headM []    = Nothing -- cannot take a head of empty list
+headM (x:_) = Just x  -- head of non-mepty list - here it is!
 ```
 
-Обратите внимание, что тип `Maybe` принадлежит `Functor`, `Applicative`,
-`Monad` и многим другим интересным и полезным классам.
+Please note that `Maybe` type belongs to `Functor`, `Applicative`,
+`Monad` and other interesting and useful typeclasses.
 
-На практике также применяется типы `Either` и `Except`,
-реализующие тот же эффект, но позволяющий добавить информацию о том,
-почему вычисление не может быть завершено.
+In practice we can also use `Either` and `Except` types.
+They implement similar effect as `Maybe`,
+but also add extra information why a computation was not completed.
 
-Пример.
+In example below we introduce an error data type
+`MyError` with a sole value `EmptyList`.
+`MyError` will be used in other code examples below.
 
 ```haskell
 data Either a b
-    = Left a  -- условно ошибка
-    | Right b -- условно успех
+    = Left a  -- considered an error
+    | Right b -- considered success
 
-data MyError = EmptyList
+data MyError = EmptyList -- denotes an custom error name
 
 headE :: [a] -> Either MyError a
 headE []    = Left EmptyList
 headE (x:_) = Right x
 ```
 
-Можно комбинировать частичность с другими эффектами:
+Partiality can be combined with other effects.
+Below we use `MonadError` from
+[mtl](https://hackage.haskell.org/package/mtl/docs/Control-Monad-Except.html)
+package for exception processing:
 
 ```haskell
 headE
-    :: MonadError MyError m -- 'm' поддерживает эффект "ошибки"
+    :: MonadError MyError m -- 'm' type constructor supports "error" effect
     => [a] -> m a
 headE (x:_) = pure x
 headE []    =
-    throwError EmptyList -- эффект ошибки, прекращение дальнейших вычислений
+    -- we add an error effect, it terminates further computations
+    throwError EmptyList
 ```
 
 На самом деле частичность — единственный неуправляемый эффект,
@@ -107,24 +114,28 @@ headE []    =
 по ошибке или из-за несовершенства реального мира.
 
 ```haskell
--- простейший бесконечный цикл
-x = x -- вычисление 'x' приводит к вычислению 'x', снова и снова
+-- a simplistic infinite loop
+x = x -- computation of 'x' requires 'x' again and again
 
--- не столь тривиальный пример зависания
+-- a slightly more complex example:
 n = length $ takeWhile (< 10) [2, 1 ..]
+-- 'length' function iterates over all elements of the list,
+-- 'takeWhile (< 10)' will require a value 10 or above to stop,
+-- there will be no such value in [2, 1 ..],
+-- so length of infinite list will never be computed
 ```
 
-К сожалению, в полных по Тьюрингу языках этого невозможно избежать,
+In Turing-complete languages the possibility of an infinite loop
+cannot be avoided.
 полнота влечёт возможность реализации бесконечного цикла,
 то есть незавершения программы.
-Существуют языки, не полные по Тьюрингу,
-и на них тоже можно писать сколь угодно сложные программы без эффекта
-частичности,
-то есть гарантированно тотальные,
-но такое требование существенно усложняет язык.
+There are non-Turing-complete programming languages,
+where the programs will avoid partiality effect and the program 'totality' is
+garanteed,
+but the drawback is an increase in langauge complexity.
 
-К счастью, в Хаскеле доступна управляемая частичность,
-и иметь дело с неуправляемой частичностью приходится редко.
+Luckily in Haskell we can use controlled partiality and
+cases of uncontrolled partiality are rather rare.
 
 ## 2. Эффекты недетерменированности (неопределённости)
 
