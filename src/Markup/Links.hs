@@ -99,6 +99,10 @@ raw = do
                             \/978-5-97060-025-2/"
                     $ "Изучай Haskell во имя добра!"
                 " Знаменитая книга для новичков с весёлыми картинками."
+            li $ do
+                a ! href "https://typeclasses.com/phrasebook" $
+                    "The Haskell Phrasebook"
+                " — хаскельный разговорник"
 
     courses = do
         h3 "Курсы"
