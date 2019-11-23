@@ -33,13 +33,12 @@ raw = do
             li $
                 a ! href "https://www.haskell.org/" $
                 "Официальный сайт языка Haskell."
-            li $ do
-                a ! href "https://haskell-lang.org/" $
-                    "Альтернативный сайт языка haskell."
-                " Не спрашивайте, почему сайта два, так уж случилось."
             li $
                 a ! href "https://www.haskell.org/onlinereport/haskell2010/" $
                 "Официальный стандарт Haskell 2010."
+            li $
+                a ! href "https://tech.fpcomplete.com/haskell" $
+                 "Сайт о языке Haskell от FPComplete"
 
     tools = do
         h3 "Инструменты"
