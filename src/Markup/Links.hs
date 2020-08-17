@@ -180,12 +180,15 @@ raw = do
                     strong "Telegram"
                     ul $ do
                         li $ do
+                            a ! href "https://t.me/ruhaskell" $ "@ruhaskell"
+                            " — чат про сообщество, встречи и всё остальное"
+                        li $ do
                             a ! href "https://t.me/haskellru" $ "@haskellru"
-                            " — основной хаскельный чат"
+                            " — чат про язык и инструменты"
                         li $ do
                             a ! href "https://t.me/haskell_learn" $
                                 "@haskell_learn"
-                            " — чат для новичков"
+                            " — чат специально для новичков и обучение"
                         li $ do
                             a ! href "https://t.me/haskell_job" $ "@haskell_job"
                             " — канал с хаскельными вакансиями"
