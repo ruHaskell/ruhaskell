@@ -150,4 +150,4 @@ setColorDepth3 d = \case
 
 ## Ссылки
 
-1. Менее предвзятый [пост](https://kodimensional.dev/recordwildcards) Дмитрия Кованикова о возможностях `RecordWildCards`.
+1. Менее предвзятый [пост Дмитрия Кованикова](https://kodimensional.dev/recordwildcards) о возможностях `RecordWildCards`.
