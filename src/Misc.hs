@@ -50,6 +50,7 @@ russianNamesOfCategories = Map.fromList
     , ("dynamic"    , "Динамика")
     , ("elm"        , "Elm")
     , ("events"     , "События")
+    , ("extensions" , "Расширения")
     , ("frp"        , "FRP")
     , ("gui"        , "GUI")
     , ("numeric"    , "Численные методы")
