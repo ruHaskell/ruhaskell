@@ -115,7 +115,6 @@ data Image
   | MonoImage{width, height :: Word}
     -- ^ это добавили позже
 
-setColorDepth1 :: Word -> Image -> Image
 setColorDepth1 d image = image{colorDepth = d}
 --                       ^^^^^^^^^^^^^^^^^^^^^
 --                       Pattern match(es) are non-exhaustive
@@ -126,7 +125,6 @@ setColorDepth1 d image = image{colorDepth = d}
 Внезапно при включении это ворнинга GHC начинает ругаться и на совершенно корректный код:
 
 ```hs
-setColorDepth2 :: Word -> Image -> Image
 setColorDepth2 d = \case
   image@ColorImage{} -> image{colorDepth = d}
                      -- ^^^^^^^^^^^^^^^^^^^^^
@@ -137,7 +135,6 @@ setColorDepth2 d = \case
 Обойти можно так:
 
 ```hs
-setColorDepth3 :: Word -> Image -> Image
 setColorDepth3 d = \case
   ColorImage{..} -> ColorImage{colorDepth = d, ..}
   image          -> image
