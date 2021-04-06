@@ -120,8 +120,6 @@ setColorDepth1 d image = image{colorDepth = d}
 --                       Pattern match(es) are non-exhaustive
 ```
 
-Конечно, лучше сразу избавиться от именованых полей внутри сумм, но допустим, они вам по какой-то причине нужны.
-
 Внезапно при включении этого ворнинга GHC начинает ругаться и на совершенно корректный код:
 
 ```hs
@@ -143,6 +141,17 @@ setColorDepth3 d = \case
 ```
 
 Ну и линзами, конечно.
+
+Возможно, более правильный вариант — вообще разделить суммы и произведения:
+
+```hs
+data Image = ImageColor ColorImage | ImageMono MonoImage
+data ColorImage = ColorImage{width, height, colorDepth :: Word}
+data MonoImage = MonoImage{width, height :: Word}
+
+setColorDepth4 d image = image{colorDepth = d}
+-- выводится тип ColorImage, неопределённости нет, ошибки нет
+```
 
 ## Недостатки
 
