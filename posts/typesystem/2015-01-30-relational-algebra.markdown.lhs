@@ -20,12 +20,8 @@ description: Пост описывает возможности построен
 Для начала загрузим немножно расширений:
 
 > {-# LANGUAGE DataKinds #-}
-> {-# LANGUAGE GADTs #-}
-> {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FlexibleContexts #-}
-> {-# LANGUAGE PolyKinds #-}
-> {-# LANGUAGE UndecidableInstances #-}
-> {-# LANGUAGE OverlappingInstances #-}
+> {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FunctionalDependencies #-}
 > {-# LANGUAGE GADTs #-}
 > {-# LANGUAGE PolyKinds #-}
