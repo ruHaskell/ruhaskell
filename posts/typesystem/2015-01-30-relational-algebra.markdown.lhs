@@ -19,27 +19,24 @@ description: Пост описывает возможности построен
 
 Для начала загрузим немножно расширений:
 
-> {-# LANGUAGE TypeOperators #-}
 > {-# LANGUAGE DataKinds #-}
-> {-# LANGUAGE GADTs #-}
-> {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FlexibleContexts #-}
-> {-# LANGUAGE PolyKinds #-}
-> {-# LANGUAGE UndecidableInstances #-}
-> {-# LANGUAGE OverlappingInstances #-}
+> {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FunctionalDependencies #-}
+> {-# LANGUAGE GADTs #-}
+> {-# LANGUAGE PolyKinds #-}
 > {-# LANGUAGE TypeFamilies #-}
-> {-# LANGUAGE UnicodeSyntax #-}
+> {-# LANGUAGE TypeOperators #-}
+> {-# LANGUAGE UndecidableInstances #-}
 
 И используемых модулей.
 
-> import GHC.TypeLits
-> import Data.Type.Equality
-> import Data.Proxy
+> module Relational.Algebra where
 
+> import           Data.Proxy
 > import           Data.Set (Set)
 > import qualified Data.Set as Set
-> import           Data.Monoid
+> import           GHC.TypeLits
 > import           Unsafe.Coerce
 
 
@@ -343,7 +340,7 @@ description: Пост описывает возможности построен
 >   rpredicate1 (HCons a _) (V f) = f a
 
 > instance RPredicate1 HRec as f => RPredicate1 HRec (a ': as) f where
->   rpredicate1 (HCons a as) = rpredicate1 as
+>   rpredicate1 (HCons _ as) = rpredicate1 as
 
 Задание. Как можно построить обобщенное решение, позволяющее конструировать произвольные
 предикаты.
