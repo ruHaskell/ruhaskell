@@ -14,9 +14,12 @@ import           Hakyll.Web.Template
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
+import           Hakyll                        (makeItem, Compiler)
+import           Control.Monad                 ( (<=<) )
 
-postTemplate :: Template
-postTemplate = readTemplate . renderHtml $ raw
+
+postTemplate :: Compiler Template
+postTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw
 
 raw :: Html
 raw = do

@@ -12,9 +12,11 @@ import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
 import           Markup.PostList (postList)
+import           Hakyll                        (makeItem, Compiler)
+import           Control.Monad                 ( (<=<) )
 
-postsTemplate :: Template
-postsTemplate = readTemplate . renderHtml $ raw
+postsTemplate :: Compiler Template
+postsTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw
 
 raw :: Html
 raw = do

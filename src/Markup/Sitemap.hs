@@ -6,9 +6,11 @@ module Markup.Sitemap (
 
 import           Data.String.QQ
 import           Hakyll.Web.Template
+import           Hakyll                        (makeItem, Compiler)
+import           Control.Monad                 ( (<=<) )
 
-sitemapTemplate :: Template
-sitemapTemplate = readTemplate raw
+sitemapTemplate :: Compiler Template
+sitemapTemplate = compileTemplateItem <=< makeItem $ raw
 
 raw :: String
 raw = [s|<?xml version="1.0" encoding="UTF-8"?>

@@ -9,9 +9,11 @@ import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
 
 import           Markup.PostList (postList)
+import           Hakyll                        (makeItem, Compiler)
+import           Control.Monad                 ( (<=<) )
 
-archiveTemplate :: Template
-archiveTemplate = readTemplate . renderHtml $ raw
+archiveTemplate :: Compiler Template
+archiveTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw
 
 raw :: Html
 raw = do
