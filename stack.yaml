@@ -1,8 +1,4 @@
-resolver: lts-14.0
-
-extra-deps:
-  - hakyll-4.12.5.2
-  # TODO - hakyll-4.13.0.0
+resolver: lts-16.31
 
 flags:
   hakyll:
