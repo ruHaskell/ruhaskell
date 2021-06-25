@@ -21,13 +21,11 @@ description: Пост описывает возможности построен
 
 > {-# LANGUAGE TypeOperators #-}
 > {-# LANGUAGE DataKinds #-}
-> {-# LANGUAGE KindSignatures #-}
 > {-# LANGUAGE GADTs #-}
 > {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FlexibleContexts #-}
 > {-# LANGUAGE PolyKinds #-}
 > {-# LANGUAGE UndecidableInstances #-}
-> {-# LANGUAGE MultiParamTypeClasses #-}
 > {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE FunctionalDependencies #-}
 > {-# LANGUAGE TypeFamilies #-}
