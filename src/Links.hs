@@ -17,10 +17,13 @@ createLinksPage :: TagsReader
 createLinksPage =
     lift . create ["links.html"] $ do
         route idRoute
-        compile $
-            makeItem ""
-            >>= applyTemplate linksTemplate indexContext
-            >>= applyTemplate defaultTemplate indexContext
-            >>= relativizeUrls
+        compile $  do
+            linksTemp   <-  linksTemplate
+            defaultTemp <- defaultTemplate
+            makeItem "" 
+              >>= applyTemplate linksTemp indexContext
+              >>= applyTemplate defaultTemp indexContext
+              >>= relativizeUrls
+
   where
     indexContext = mconcat [constField "title" "Полезные ссылки", defaultContext]

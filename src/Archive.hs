@@ -23,8 +23,9 @@ createPageWithAllPosts = do
                                          , constField "title" "Все статьи"
                                          , defaultContext
                                          ]
-
-            makeItem "" >>= applyTemplate archiveTemplate archiveContext
-                        >>= applyTemplate defaultTemplate archiveContext
+            archiveTemp <- archiveTemplate
+            defaultTemp <- defaultTemplate
+            makeItem "" >>= applyTemplate archiveTemp archiveContext
+                        >>= applyTemplate defaultTemp archiveContext
                         >>= relativizeUrls
     return ()

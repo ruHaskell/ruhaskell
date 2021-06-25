@@ -17,10 +17,12 @@ createAboutPage :: TagsReader
 createAboutPage =
     lift . create ["about.html"] $ do
         route idRoute
-        compile $
+        compile $ do
+            aboutTemp   <- aboutTemplate
+            defaultTemp <- defaultTemplate
             makeItem ""
-            >>= applyTemplate aboutTemplate indexContext
-            >>= applyTemplate defaultTemplate indexContext
-            >>= relativizeUrls
+              >>= applyTemplate aboutTemp indexContext
+              >>= applyTemplate defaultTemp indexContext
+              >>= relativizeUrls
   where
     indexContext = mconcat [constField "title" "О нас", defaultContext]

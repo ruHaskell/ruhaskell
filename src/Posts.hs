@@ -43,10 +43,12 @@ createPosts = ReaderT $ \tagsAndAuthors ->
     match "posts/**" $ do
         route $ directorizeDate `composeRoutes` setExtension "html"
         -- Для превращения Markdown в HTML используем pandocCompiler
-        compile $
+        compile $ do
+            postTemp <- postTemplate
+            defaultTemp <- defaultTemplate
             pandocCompilerWith
                 defaultHakyllReaderOptions
                 defaultHakyllWriterOptions{writerHTMLMathMethod = MathJax ""}
-            >>= applyTemplate postTemplate    (postContext tagsAndAuthors)
-            >>= applyTemplate defaultTemplate (postContext tagsAndAuthors)
-            >>= relativizeUrls
+              >>= applyTemplate postTemp    (postContext tagsAndAuthors)
+              >>= applyTemplate defaultTemp (postContext tagsAndAuthors)
+              >>= relativizeUrls

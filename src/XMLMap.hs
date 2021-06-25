@@ -28,5 +28,6 @@ createXMLMap = do
                                          , constField "host" aHost
                                          , defaultContext
                                          ]
-            makeItem "" >>= applyTemplate sitemapTemplate sitemapContext
+            sitemapTemp <- sitemapTemplate
+            makeItem "" >>= applyTemplate sitemapTemp sitemapContext
     return ()

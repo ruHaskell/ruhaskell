@@ -44,7 +44,7 @@ buildPostsCategories :: MonadMetadata m => m Tags
 buildPostsCategories = buildCategories "posts/**" $ fromCapture "categories/*.html"
 
 -- Функция извлекает из всех статей значения поля author и собирает их в кучу.
-buildPostsAuthors :: MonadMetadata m => m Tags
+buildPostsAuthors :: (MonadMetadata m, MonadFail m) => m Tags
 buildPostsAuthors = buildTagsWith getNameOfAuthor "posts/**" $ fromCapture "authors/*.html"
 
 -- Функция отрисовывает тег-ссылку вместе со значком, отражающим количество публикаций,
@@ -128,7 +128,7 @@ createPageWithTagsCloud :: Tags
                         -> Double
                         -> String
                         -> String
-                        -> Template
+                        -> Compiler Template
                         -> Rules ()
 createPageWithTagsCloud specificTags
                         pageWithSpecificTags
@@ -148,9 +148,10 @@ createPageWithTagsCloud specificTags
                                       , field cloudName renderedCloud
                                       , defaultContext
                                       ]
-
-            makeItem "" >>= applyTemplate specificTemplate tagsContext
-                        >>= applyTemplate defaultTemplate tagsContext
+            defaultTemp <- defaultTemplate
+            specificTemp <- specificTemplate
+            makeItem "" >>= applyTemplate specificTemp tagsContext
+                        >>= applyTemplate defaultTemp tagsContext
                         >>= relativizeUrls
 
 -- Формируем страницу с облаком тематических тегов.
@@ -207,9 +208,10 @@ convertSpecificTagsToLinks tagsAndAuthors specificTags aTitle =
                                              , constField "title" title
                                              , defaultContext
                                              ]
-
-            makeItem "" >>= applyTemplate postsTemplate taggedPostsContext
-                        >>= applyTemplate defaultTemplate taggedPostsContext
+            postsTemp <- postsTemplate
+            defaultTemp <- defaultTemplate
+            makeItem "" >>= applyTemplate postsTemp taggedPostsContext
+                        >>= applyTemplate defaultTemp taggedPostsContext
                         >>= relativizeUrls
 
 -- Делаем тематические теги ссылками, что позволит отфильтровать статьи по тегам.

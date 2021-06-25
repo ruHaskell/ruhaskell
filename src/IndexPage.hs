@@ -24,8 +24,9 @@ createIndexPage = do
                                        , constField "others" "Прочие"
                                        , defaultContext
                                        ]
-
-            makeItem "" >>= applyTemplate indexTemplate indexContext
-                        >>= applyTemplate defaultTemplate indexContext
+            indexTemp   <- indexTemplate
+            defaultTemp <- defaultTemplate
+            makeItem "" >>= applyTemplate indexTemp indexContext
+                        >>= applyTemplate defaultTemp indexContext
                         >>= relativizeUrls
     return ()
