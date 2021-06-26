@@ -32,7 +32,7 @@ type TagsAndAuthors = [Tags]
 type TagsReader = ReaderT TagsAndAuthors Rules ()
 
 -- | Извлекает из статьи значение атрибута `author`.
-getNameOfAuthor :: MonadMetadata m => Identifier -> m [String]
+getNameOfAuthor :: (MonadMetadata m, MonadFail m) => Identifier -> m [String]
 getNameOfAuthor identifier = do
     metadata <- getMetadata identifier
         -- Собираем атрибуты статьи в обычный ассоциативный контейнер.

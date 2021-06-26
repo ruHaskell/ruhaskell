@@ -5,22 +5,25 @@ module Links (
 ) where
 
 import           Control.Monad.Trans (lift)
-import           Hakyll              (applyTemplate, compile, constField,
-                                      create, defaultContext, idRoute, makeItem,
-                                      relativizeUrls, route)
+import           Hakyll (applyTemplate, compile, constField, create,
+                         defaultContext, idRoute, makeItem, relativizeUrls,
+                         route)
 
-import           Markup.Links        (linksTemplate)
-import           Markup.Default      (defaultTemplate)
-import           Misc                (TagsReader)
+import           Markup.Default (defaultTemplate)
+import           Markup.Links (linksTemplate)
+import           Misc (TagsReader)
 
 createLinksPage :: TagsReader
 createLinksPage =
     lift . create ["links.html"] $ do
         route idRoute
-        compile $
+        compile $  do
+            linksTemp   <-  linksTemplate
+            defaultTemp <- defaultTemplate
             makeItem ""
-            >>= applyTemplate linksTemplate indexContext
-            >>= applyTemplate defaultTemplate indexContext
-            >>= relativizeUrls
+              >>= applyTemplate linksTemp indexContext
+              >>= applyTemplate defaultTemp indexContext
+              >>= relativizeUrls
+
   where
     indexContext = mconcat [constField "title" "Полезные ссылки", defaultContext]

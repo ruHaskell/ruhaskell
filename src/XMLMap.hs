@@ -10,12 +10,13 @@ module XMLMap (
     createXMLMap
 ) where
 
-import Context              ( postContext )
-import Misc                 ( aHost, TagsReader )
-import Markup.Sitemap       ( sitemapTemplate )
+import           Control.Monad.Reader
+import           Hakyll
 
-import Control.Monad.Reader
-import Hakyll
+import           Context (postContext)
+import           Markup.Sitemap (sitemapTemplate)
+import           Misc (TagsReader, aHost)
+
 
 createXMLMap :: TagsReader
 createXMLMap = do
@@ -28,5 +29,6 @@ createXMLMap = do
                                          , constField "host" aHost
                                          , defaultContext
                                          ]
-            makeItem "" >>= applyTemplate sitemapTemplate sitemapContext
+            sitemapTemp <- sitemapTemplate
+            makeItem "" >>= applyTemplate sitemapTemp sitemapContext
     return ()

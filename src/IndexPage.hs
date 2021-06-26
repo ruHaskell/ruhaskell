@@ -4,13 +4,14 @@ module IndexPage (
     createIndexPage
 ) where
 
-import Context              ( postContext )
-import Misc                 ( TagsReader )
-import Markup.Index         ( indexTemplate )
-import Markup.Default       ( defaultTemplate )
+import           Control.Monad.Reader
+import           Hakyll
 
-import Control.Monad.Reader
-import Hakyll
+import           Context (postContext)
+import           Markup.Default (defaultTemplate)
+import           Markup.Index (indexTemplate)
+import           Misc (TagsReader)
+
 
 createIndexPage :: TagsReader
 createIndexPage = do
@@ -24,8 +25,9 @@ createIndexPage = do
                                        , constField "others" "Прочие"
                                        , defaultContext
                                        ]
-
-            makeItem "" >>= applyTemplate indexTemplate indexContext
-                        >>= applyTemplate defaultTemplate indexContext
+            indexTemp   <- indexTemplate
+            defaultTemp <- defaultTemplate
+            makeItem "" >>= applyTemplate indexTemp indexContext
+                        >>= applyTemplate defaultTemp indexContext
                         >>= relativizeUrls
     return ()

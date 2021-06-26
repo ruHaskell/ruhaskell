@@ -3,16 +3,17 @@
 module Markup.About (
     aboutTemplate
 ) where
-
-import qualified Data.Text.Lazy                as Text
-import           Hakyll.Web.Template           (Template, readTemplate)
-import           Prelude                       hiding (div, span)
+import           Control.Monad ((<=<))
+import qualified Data.Text.Lazy as Text
+import           Hakyll (Compiler, makeItem)
+import           Hakyll.Web.Template (Template, compileTemplateItem)
+import           Prelude hiding (div, span)
 import           Text.Blaze.Html.Renderer.Text (renderHtml)
-import           Text.Blaze.Html5              (Html, a, br, div, h1, span, (!))
-import qualified Text.Blaze.Html5.Attributes   as A
+import           Text.Blaze.Html5 (Html, a, br, div, h1, span, (!))
+import qualified Text.Blaze.Html5.Attributes as A
 
-aboutTemplate :: Template
-aboutTemplate = readTemplate . Text.unpack . renderHtml $ raw
+aboutTemplate :: Compiler Template
+aboutTemplate = compileTemplateItem <=< makeItem . Text.unpack . renderHtml $ raw
 
 raw :: Html
 raw = do

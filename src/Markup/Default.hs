@@ -13,18 +13,20 @@ module Markup.Default (
 import           Prelude hiding (div, span)
 
 import           Data.Text (Text)
-import           Hakyll.Web.Template (Template, readTemplate)
+import           Hakyll.Web.Template (Template, compileTemplateItem)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5 (Html, a, body, customAttribute, div,
                                    docTypeHtml, i, img, preEscapedToHtml, span,
                                    (!))
 import qualified Text.Blaze.Html5.Attributes as A
 
+import           Control.Monad ((<=<))
+import           Hakyll (Compiler, makeItem)
 import           Markup.Footer
 import           Markup.Head
 
-defaultTemplate :: Template
-defaultTemplate = readTemplate . renderHtml $ raw
+defaultTemplate :: Compiler Template
+defaultTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw
 
 raw :: Html
 raw = docTypeHtml $ do

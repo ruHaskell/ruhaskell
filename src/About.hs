@@ -5,22 +5,24 @@ module About (
 ) where
 
 import           Control.Monad.Trans (lift)
-import           Hakyll              (applyTemplate, compile, constField,
-                                      create, defaultContext, idRoute, makeItem,
-                                      relativizeUrls, route)
+import           Hakyll (applyTemplate, compile, constField, create,
+                         defaultContext, idRoute, makeItem, relativizeUrls,
+                         route)
 
-import           Markup.About        (aboutTemplate)
-import           Markup.Default      (defaultTemplate)
-import           Misc                (TagsReader)
+import           Markup.About (aboutTemplate)
+import           Markup.Default (defaultTemplate)
+import           Misc (TagsReader)
 
 createAboutPage :: TagsReader
 createAboutPage =
     lift . create ["about.html"] $ do
         route idRoute
-        compile $
+        compile $ do
+            aboutTemp   <- aboutTemplate
+            defaultTemp <- defaultTemplate
             makeItem ""
-            >>= applyTemplate aboutTemplate indexContext
-            >>= applyTemplate defaultTemplate indexContext
-            >>= relativizeUrls
+              >>= applyTemplate aboutTemp indexContext
+              >>= applyTemplate defaultTemp indexContext
+              >>= relativizeUrls
   where
     indexContext = mconcat [constField "title" "О нас", defaultContext]

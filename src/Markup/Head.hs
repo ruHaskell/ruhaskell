@@ -5,14 +5,15 @@ module Markup.Head (
     commonHead
 ) where
 
-import           Css.Own (ownCss)
-import           Misc (aHost)
 
 import           Prelude hiding (head)
 
 import           Data.String.QQ
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
+
+import           Css.Own (ownCss)
+import           Misc (aHost)
 
 commonHead :: Html
 commonHead = head $ do

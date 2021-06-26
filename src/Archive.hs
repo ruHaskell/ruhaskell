@@ -4,13 +4,14 @@ module Archive (
     createPageWithAllPosts
 ) where
 
-import Context              ( postContext )
-import Misc                 ( TagsReader )
-import Markup.Archive       ( archiveTemplate )
-import Markup.Default       ( defaultTemplate )
+import           Control.Monad.Reader
+import           Hakyll
 
-import Control.Monad.Reader
-import Hakyll
+import           Context (postContext)
+import           Markup.Archive (archiveTemplate)
+import           Markup.Default (defaultTemplate)
+import           Misc (TagsReader)
+
 
 createPageWithAllPosts :: TagsReader
 createPageWithAllPosts = do
@@ -23,8 +24,9 @@ createPageWithAllPosts = do
                                          , constField "title" "Все статьи"
                                          , defaultContext
                                          ]
-
-            makeItem "" >>= applyTemplate archiveTemplate archiveContext
-                        >>= applyTemplate defaultTemplate archiveContext
+            archiveTemp <- archiveTemplate
+            defaultTemp <- defaultTemplate
+            makeItem "" >>= applyTemplate archiveTemp archiveContext
+                        >>= applyTemplate defaultTemp archiveContext
                         >>= relativizeUrls
     return ()

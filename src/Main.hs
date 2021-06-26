@@ -8,26 +8,23 @@
 
 module Main where
 
-import           About                (createAboutPage)
-import           Links                (createLinksPage)
-import           Archive              (createPageWithAllPosts)
-import           Copiers              (justCompressAndCopy, justCopy,
-                                       justCreateAndCopy)
-import           IndexPage            (createIndexPage)
-import           Misc                 (prepareAllTemplates)
-import           Posts                (createPosts)
-import           RSSFeed              (setupRSSFeed)
-import           Tags                 (buildPostsAuthors, buildPostsCategories,
-                                       buildPostsTags, convertAuthorsToLinks,
-                                       convertCategoriesToLinks,
-                                       convertTagsToLinks,
-                                       createPageWithAllAuthors,
-                                       createPageWithAllCategories,
-                                       createPageWithAllTags)
-import           XMLMap               (createXMLMap)
-
 import           Control.Monad.Reader (runReaderT)
-import           Hakyll               (hakyll)
+import           Hakyll (hakyll)
+
+import           About (createAboutPage)
+import           Archive (createPageWithAllPosts)
+import           Copiers (justCompressAndCopy, justCopy, justCreateAndCopy)
+import           IndexPage (createIndexPage)
+import           Links (createLinksPage)
+import           Misc (prepareAllTemplates)
+import           Posts (createPosts)
+import           RSSFeed (setupRSSFeed)
+import           Tags (buildPostsAuthors, buildPostsCategories, buildPostsTags,
+                       convertAuthorsToLinks, convertCategoriesToLinks,
+                       convertTagsToLinks, createPageWithAllAuthors,
+                       createPageWithAllCategories, createPageWithAllTags)
+import           XMLMap (createXMLMap)
+
 
 main :: IO ()
 main = hakyll $ do

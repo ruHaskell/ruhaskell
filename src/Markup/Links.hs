@@ -6,14 +6,17 @@ module Markup.Links (
 
 import           Prelude hiding (div, id)
 
+import           Control.Monad ((<=<))
 import qualified Data.Text.Lazy as Text
-import           Hakyll.Web.Template (Template, readTemplate)
+import           Hakyll (Compiler, makeItem)
+import           Hakyll.Web.Template (Template, compileTemplateItem)
 import           Text.Blaze.Html.Renderer.Text (renderHtml)
 import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, strong, ul, (!))
 import           Text.Blaze.Html5.Attributes (class_, href, id)
 
-linksTemplate :: Template
-linksTemplate = readTemplate . Text.unpack . renderHtml $ raw
+
+linksTemplate :: Compiler Template
+linksTemplate = compileTemplateItem <=< makeItem . Text.unpack . renderHtml $ raw
 
 raw :: Html
 raw = do

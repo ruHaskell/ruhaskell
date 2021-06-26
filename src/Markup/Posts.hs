@@ -6,6 +6,8 @@ module Markup.Posts (
 
 import           Prelude hiding (div)
 
+import           Control.Monad ((<=<))
+import           Hakyll (Compiler, makeItem)
 import           Hakyll.Web.Template
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
@@ -13,8 +15,8 @@ import qualified Text.Blaze.Html5.Attributes as A
 
 import           Markup.PostList (postList)
 
-postsTemplate :: Template
-postsTemplate = readTemplate . renderHtml $ raw
+postsTemplate :: Compiler Template
+postsTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw
 
 raw :: Html
 raw = do
