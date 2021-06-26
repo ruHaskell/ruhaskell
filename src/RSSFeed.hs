@@ -4,11 +4,12 @@ module RSSFeed (
     setupRSSFeed
 ) where
 
+import           Control.Monad.Reader
+import           Hakyll
+
 import           Context (postContext)
 import           Misc (TagsReader, aHost)
 
-import           Control.Monad.Reader
-import           Hakyll
 
 -- Формируем стандартную RSS-ленту, на основе последних 10 публикаций.
 setupRSSFeed :: TagsReader

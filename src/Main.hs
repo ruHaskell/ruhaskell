@@ -8,6 +8,9 @@
 
 module Main where
 
+import           Control.Monad.Reader (runReaderT)
+import           Hakyll (hakyll)
+
 import           About (createAboutPage)
 import           Archive (createPageWithAllPosts)
 import           Copiers (justCompressAndCopy, justCopy, justCreateAndCopy)
@@ -22,8 +25,6 @@ import           Tags (buildPostsAuthors, buildPostsCategories, buildPostsTags,
                        createPageWithAllCategories, createPageWithAllTags)
 import           XMLMap (createXMLMap)
 
-import           Control.Monad.Reader (runReaderT)
-import           Hakyll (hakyll)
 
 main :: IO ()
 main = hakyll $ do

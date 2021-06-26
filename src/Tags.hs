@@ -18,6 +18,15 @@ module Tags (
     , convertAuthorsToLinks
 ) where
 
+
+import           Control.Monad.Reader
+import           Data.List (intercalate, isInfixOf)
+import           Hakyll
+import           Text.Blaze.Html (toValue, (!))
+import           Text.Blaze.Html.Renderer.String (renderHtml)
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
+
 import           Context (postContext)
 import           Markup.Authors (authorsTemplate)
 import           Markup.Categories (categoriesTemplate)
@@ -27,13 +36,6 @@ import           Markup.Tags (tagsTemplate)
 import           Misc (TagsAndAuthors, TagsReader, getNameOfAuthor,
                        getRussianNameOfCategory)
 
-import           Control.Monad.Reader
-import           Data.List (intercalate, isInfixOf)
-import           Hakyll
-import           Text.Blaze.Html (toValue, (!))
-import           Text.Blaze.Html.Renderer.String (renderHtml)
-import qualified Text.Blaze.Html5 as H
-import qualified Text.Blaze.Html5.Attributes as A
 
 -- Функция извлекает из всех статей значения поля tags и собирает их в кучу.
 buildPostsTags :: MonadMetadata m => m Tags
