@@ -8,14 +8,14 @@ module Markup.Post
 
 import           Prelude hiding (div)
 
+import           Control.Monad ((<=<))
 import           Data.String.QQ (s)
 import           Data.Text (Text)
+import           Hakyll (Compiler, makeItem)
 import           Hakyll.Web.Template
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
-import           Hakyll                        (makeItem, Compiler)
-import           Control.Monad                 ( (<=<) )
 
 
 postTemplate :: Compiler Template

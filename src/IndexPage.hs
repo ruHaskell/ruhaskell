@@ -4,13 +4,13 @@ module IndexPage (
     createIndexPage
 ) where
 
-import Context              ( postContext )
-import Misc                 ( TagsReader )
-import Markup.Index         ( indexTemplate )
-import Markup.Default       ( defaultTemplate )
+import           Context (postContext)
+import           Markup.Default (defaultTemplate)
+import           Markup.Index (indexTemplate)
+import           Misc (TagsReader)
 
-import Control.Monad.Reader
-import Hakyll
+import           Control.Monad.Reader
+import           Hakyll
 
 createIndexPage :: TagsReader
 createIndexPage = do

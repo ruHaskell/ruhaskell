@@ -8,9 +8,9 @@ import           Hakyll.Web.Template
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
 
+import           Control.Monad ((<=<))
+import           Hakyll (Compiler, makeItem)
 import           Markup.PostList (postList)
-import           Hakyll                        (makeItem, Compiler)
-import           Control.Monad                 ( (<=<) )
 
 archiveTemplate :: Compiler Template
 archiveTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw

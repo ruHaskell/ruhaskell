@@ -4,13 +4,13 @@ module Archive (
     createPageWithAllPosts
 ) where
 
-import Context              ( postContext )
-import Misc                 ( TagsReader )
-import Markup.Archive       ( archiveTemplate )
-import Markup.Default       ( defaultTemplate )
+import           Context (postContext)
+import           Markup.Archive (archiveTemplate)
+import           Markup.Default (defaultTemplate)
+import           Misc (TagsReader)
 
-import Control.Monad.Reader
-import Hakyll
+import           Control.Monad.Reader
+import           Hakyll
 
 createPageWithAllPosts :: TagsReader
 createPageWithAllPosts = do

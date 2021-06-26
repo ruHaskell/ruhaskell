@@ -4,10 +4,10 @@ module Markup.Sitemap (
     sitemapTemplate
 ) where
 
+import           Control.Monad ((<=<))
 import           Data.String.QQ
+import           Hakyll (Compiler, makeItem)
 import           Hakyll.Web.Template
-import           Hakyll                        (makeItem, Compiler)
-import           Control.Monad                 ( (<=<) )
 
 sitemapTemplate :: Compiler Template
 sitemapTemplate = compileTemplateItem <=< makeItem $ raw

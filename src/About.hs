@@ -5,13 +5,13 @@ module About (
 ) where
 
 import           Control.Monad.Trans (lift)
-import           Hakyll              (applyTemplate, compile, constField,
-                                      create, defaultContext, idRoute, makeItem,
-                                      relativizeUrls, route)
+import           Hakyll (applyTemplate, compile, constField, create,
+                         defaultContext, idRoute, makeItem, relativizeUrls,
+                         route)
 
-import           Markup.About        (aboutTemplate)
-import           Markup.Default      (defaultTemplate)
-import           Misc                (TagsReader)
+import           Markup.About (aboutTemplate)
+import           Markup.Default (defaultTemplate)
+import           Misc (TagsReader)
 
 createAboutPage :: TagsReader
 createAboutPage =

@@ -20,10 +20,10 @@ import           Text.Blaze.Html5 (Html, a, body, customAttribute, div,
                                    (!))
 import qualified Text.Blaze.Html5.Attributes as A
 
+import           Control.Monad ((<=<))
+import           Hakyll (Compiler, makeItem)
 import           Markup.Footer
 import           Markup.Head
-import           Hakyll                        (makeItem, Compiler)
-import           Control.Monad                 ( (<=<) )
 
 defaultTemplate :: Compiler Template
 defaultTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw

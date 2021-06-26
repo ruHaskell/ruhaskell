@@ -11,9 +11,9 @@ import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
+import           Control.Monad ((<=<))
+import           Hakyll (Compiler, makeItem)
 import           Markup.PostList (postList)
-import           Hakyll                        (makeItem, Compiler)
-import           Control.Monad                 ( (<=<) )
 
 postsTemplate :: Compiler Template
 postsTemplate = compileTemplateItem <=< makeItem  . renderHtml $ raw

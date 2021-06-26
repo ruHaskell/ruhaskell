@@ -15,29 +15,29 @@ module Context (
     postContext
 ) where
 
-import           Data.Aeson          (FromJSON, Value (Null), parseJSON,
-                                      withArray)
-import           Data.Aeson.Types    (parseEither)
-import           Data.Foldable       (toList)
+import           Data.Aeson (FromJSON, Value (Null), parseJSON, withArray)
+import           Data.Aeson.Types (parseEither)
+import           Data.Foldable (toList)
 import qualified Data.HashMap.Strict as HashMap
-import           Data.List           (intercalate, intersperse, isPrefixOf)
-import           Data.Maybe          (fromMaybe)
-import           Data.Time           (TimeLocale (..))
-import           GHC.Generics        (Generic)
-import           GHC.Stack           (HasCallStack)
-import           Misc                (TagsAndAuthors, aHost, getNameOfAuthor,
-                                      getRussianNameOfCategory)
-import           Numeric.Natural     (Natural)
-import           System.FilePath     (takeBaseName, takeDirectory)
+import           Data.List (intercalate, intersperse, isPrefixOf)
+import           Data.Maybe (fromMaybe)
+import           Data.Time (TimeLocale (..))
+import           GHC.Generics (Generic)
+import           GHC.Stack (HasCallStack)
+import           Misc (TagsAndAuthors, aHost, getNameOfAuthor,
+                       getRussianNameOfCategory)
+import           Numeric.Natural (Natural)
+import           System.FilePath (takeBaseName, takeDirectory)
 
-import           Text.Blaze.Html             (toHtml, toValue, (!))
-import qualified Text.Blaze.Html5            as H
+import           Text.Blaze.Html (toHtml, toValue, (!))
+import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 
-import Hakyll (Compiler, Context, Identifier, Item, MonadMetadata, Tags,
-               constField, dateField, dateFieldWith, defaultContext, field,
-               fromFilePath, getMetadata, getRoute, getTags, itemIdentifier,
-               tagsFieldWith, toFilePath, toUrl)
+import           Hakyll (Compiler, Context, Identifier, Item, MonadMetadata,
+                         Tags, constField, dateField, dateFieldWith,
+                         defaultContext, field, fromFilePath, getMetadata,
+                         getRoute, getTags, itemIdentifier, tagsFieldWith,
+                         toFilePath, toUrl)
 
 newtype TimePos = TimePos {seconds :: Natural}
 
