@@ -1,0 +1,1111 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Задачка про Святого Клауса
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : dotted 1px #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : solid 1px #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : dotted 1px #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : dotted 1px #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : solid 1px #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : solid 0px #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : solid 1px #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : solid 1px #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : solid 1px #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://www.reddit.com/r/ruhaskell/" id="sl-3" title="Наш реддит-канал">
+                                <i class="fa fa-reddit-alien reddit-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Задачка про Святого Клауса
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%90%D1%80%D1%82%D1%83%D1%80%20%D0%A4%D0%B0%D0%B9%D0%B7%D1%80%D0%B0%D1%85%D0%BC%D0%B0%D0%BD%D0%BE%D0%B2.html">Артур Файзрахманов</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 mar 13<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/tasks.html">Задачи</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/%D0%B4%D0%BB%D1%8F%20%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B8%D1%85.html">для начинающих</a>&quot;, &quot;<a href="../../../../../tags/STM.html">STM</a>&quot;, &quot;<a href="../../../../../tags/%D1%82%D1%80%D0%B0%D0%BD%D0%B7%D0%B0%D0%BA%D1%86%D0%B8%D0%B8.html">транзакции</a>&quot;, &quot;<a href="../../../../../tags/%D0%A1%D0%B0%D0%BD%D1%82%D0%B0%20%D0%9A%D0%BB%D0%B0%D1%83%D1%81.html">Санта Клаус</a>&quot;, &quot;<a href="../../../../../tags/Simon%20Peyton%20Jones.html">Simon Peyton Jones</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    <div class="href-to-original">
+        <a href="https://www.fpcomplete.com/user/simonpj/beautiful-concurrency/4-the-santa-claus-problem" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
+    </div>
+
+
+    </div>
+</div>
+
+
+<div>
+    <h2 id="решение-использующее-программные-транзакции-в-памяти-stm">Решение, использующее программные транзакции в памяти (STM)</h2>
+<blockquote>
+<p>Святой Клаус постоянно спит, пока его не разбудят либо все его девять оленей, вернувшихся с выходных, либо троица эльфов (всего их десять). Если он разбужен оленями, тогда он запрягает каждого из них в свои сани, развозит с с ними игрушки, а после, распрягает и отпускает на отдых. Если же Клауса разбудили эльфы, тогда он указывает каждой группе эльфов их мастерскую, беседует с ними по вопросам производства и придумывания игрушек, и в конце концов указывает им выйти (позволяет им вернуться к работе). Если Клауса ждут как эльфы, так и олени, он должен в первую очередь выбрать оленей.</p>
+</blockquote>
+<h2 id="олени-и-эльфы">Олени и эльфы</h2>
+<p>Итак, у Клауса есть две группы, одна для оленей, другая для эльфов. Каждый эльф (или олень) стремится вступить в свою группу. Когда это случается, он видит двое «врат». Певые врата позволяют Клаусу управлять тем, когда эльфы могут входить в мастерскую и знать, когда мастерская уже заполнена. Подобным образом вторые врата управляют выходом эльфов из мастерской. Клаус в своё время ожидает до тех пор, пока одна из его групп будет готова, а потом использует её врата для назначения помошникам (эльфам или оленям) их задач. Таким образом, жизнь помошников — бесконечный круг: попробовать вступить в группу, проийти через врата под управлением Клауса, а потом снова пробовать вступить в свою группу, спустя некоторое время.</p>
+<p>Отключим предупреждения о «затемнении» имён:</p>
+<p>Нам потребуеются слудующие подключения:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Concurrent</span>        (<span class="dt">ThreadId</span>, forkIO, threadDelay)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Concurrent.STM</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Monad</span>             (forever)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">System.Random</span>             (getStdRandom, randomR)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">System.IO</span>                 ( <span class="dt">BufferMode</span>(<span class="dt">LineBuffering</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>                                 , hSetBuffering, stdout)</span></code></pre></div>
+<p>Переводя это словесное описание в Хаскель, мы получим следующий код для вхождения эльфа в группу:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ot">elf1 ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>elf1 <span class="fu">group</span> elf_id <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    (in_gate, out_gate) <span class="ot">&lt;-</span> joinGroup <span class="fu">group</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    passGate in_gate</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    meetInStudy elf_id</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    passGate out_gate</span></code></pre></div>
+<p>Эльф отправляется в свою группу <code>Group</code>, а целое число <code>Int</code> — это порядковый номер эльфа. Этот номер используется только для вызова 𝘧 «встреча в мастерской» <code>meetInStudy</code>, которая просто печает сообщение о том, что происходит:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="ot">meetInStudy ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>meetInStudy idt <span class="ot">=</span> <span class="fu">putStrLn</span> <span class="op">$</span> <span class="st">&quot;Эльф #&quot;</span> <span class="op">++</span> <span class="fu">show</span> idt <span class="op">++</span> <span class="st">&quot; встретился в мастерской&quot;</span></span></code></pre></div>
+<p>Функция «войти в группу» <code>joinGroup</code> вводит эльфа в группу, а 𝘧 «пройти врата» <code>passGate</code> проводит его через все врата.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="ot">joinGroup ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Gate</span>, <span class="dt">Gate</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ot">passGate ::</span> <span class="dt">Gate</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span></code></pre></div>
+<p>Код для оленей схож, только олени развозят игрушки вместо того, чтобы идти в мастрескую.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="ot">deliverToys ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>deliverToys idt <span class="ot">=</span> <span class="fu">putStrLn</span> (<span class="st">&quot;Олень #&quot;</span> <span class="op">++</span> <span class="fu">show</span> idt <span class="op">++</span> <span class="st">&quot; развозит игрушки&quot;</span>)</span></code></pre></div>
+<p>Так как действия — величины первого порядка, мы можем описать обощенный код:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="ot">helper1 ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> () <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>helper1 <span class="fu">group</span> do_task <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    (in_gate, out_gate) <span class="ot">&lt;-</span> joinGroup <span class="fu">group</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    passGate in_gate</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    do_task</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    passGate out_gate</span></code></pre></div>
+<p>Второй аргумент 𝘧 «помошник1» <code>helper1</code> — действие ввода—вывода — есть задание для помошника, которое он выполняет между прохождениями через врата. Теперь мы можем описать частные случаи для эльфа и оленя:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>elf1,<span class="ot"> reindeer1 ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>elf1      gp idt <span class="ot">=</span> helper1 gp (meetInStudy idt)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>reindeer1 gp idt <span class="ot">=</span> helper1 gp (deliverToys idt)</span></code></pre></div>
+<h2 id="врата-и-группы">Врата и Группы</h2>
+<p>Первая асбтракция — это «Врата», нам нужны следующие возможности:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="ot">newGate ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">STM</span> <span class="dt">Gate</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="ot">passGate ::</span> <span class="dt">Gate</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="ot">operateGate ::</span> <span class="dt">Gate</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span></code></pre></div>
+<p>Вместимость врат ограничена числом <code>n</code>, которое указывается при создании врат, и переменное оставшееся свободное место. Оставшееся место убавляется, когда помошник проходит врата, если же места нет, тогда проход (вызов <code>passGate</code>) блокируется. В момент создания врат их свободное место устанавливается равным нулю, так что ни один помошник не может пройти в них. Клаус открывает ворота, используя 𝘧 «отпереть врата» <code>operateGate</code>, которая устанвливает свободное место врат равным их вместимости.</p>
+<p>Вот возможное описание <strong>Врат</strong>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Gate</span> <span class="ot">=</span> <span class="dt">MkGate</span> <span class="dt">Int</span> (<span class="dt">TVar</span> <span class="dt">Int</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>newGate n <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    tv <span class="ot">&lt;-</span> newTVar <span class="dv">0</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="fu">return</span> (<span class="dt">MkGate</span> n tv)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>passGate (<span class="dt">MkGate</span> _ tv) <span class="ot">=</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>    atomically <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>        n_left <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>        check (n_left <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>        writeTVar tv (n_left <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>operateGate (<span class="dt">MkGate</span> n tv) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>    atomically (writeTVar tv n)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a>    atomically <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>        n_left <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>        check (n_left <span class="op">==</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>Первая строчка описывает новый <em>тип данных</em>, с единственным коструктором величин этого типа «Сделать Врата» <code>mkGate</code>.</p>
+<p>У конструктора два параметра: целое число, определяющее вместимость врат, и переменная <code>TVar</code>, которая указывает сколько помошников могут пройти через врата до тех пор пока они не закроються. Если в переменной записан <code>0</code>, значит врата заперты.</p>
+<p>Функция «новые врата» создаёт новые Врата <code>Gate</code> выделяя память под переменную TVar, а потом создаёт значение используя конструктор «Создать Врата» <code>MkGame</code>. Функция «пройти врата» <code>passGate</code>, напротив, избавляется от конструктора MkGate с помощью сопоставления с образцом; после чего она уменьшает значение, хранимое в переменной, заведомо проверяя, есть ли за воротами свободное место с помощью примитива «проверить» <code>check</code>. Наконец, 𝘧 «отпереть врата» сначала открывает врата, записывая в переменную полную вместимость, а потом блокируется до тех пор, пока не кончится свбодное место.</p>
+<p>Для <strong>Групп</strong> нам нужны следующие возможности:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="ot">newGroup ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Group</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="ot">joinGroup ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Gate</span>, <span class="dt">Gate</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="ot">awaitGroup ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">STM</span> (<span class="dt">Gate</span>, <span class="dt">Gate</span>)</span></code></pre></div>
+<p>И снова, Группа после создания изначально пуста, и обладает определённой вместимостью. Эльф может присоединиться к группе, используя 𝘧 «войти в группу», способную блокировать вход до тех пор, пока группа заполнена. Клаус использует 𝘧 «подождать группу» для ожидания наполнения группы; когда она заполняется Клаус получает в распоряжение Врата, а Группа в тот же момент преобразуется, получая свежую пару врат, что даёт возможность усердным эльфам формировать новые троицы.</p>
+<p>Вот возможное описание:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Group</span> <span class="ot">=</span> <span class="dt">MkGroup</span> <span class="dt">Int</span> (<span class="dt">TVar</span> (<span class="dt">Int</span>, <span class="dt">Gate</span>, <span class="dt">Gate</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>newGroup n <span class="ot">=</span> atomically <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    g1 <span class="ot">&lt;-</span> newGate n; g2 <span class="ot">&lt;-</span> newGate n</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    tv <span class="ot">&lt;-</span> newTVar (n, g1, g2)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    <span class="fu">return</span> (<span class="dt">MkGroup</span> n tv)</span></code></pre></div>
+<p>И вновь, <strong>Группа</strong> описанна как новый тип данных, у которого есть конструктор <code>MkGroup</code> и два поля: полная вместимость группы и передаваемая переменная <code>TVar</code>, содержащая количество свободных мест и врата группы. Создание новой группы подобно созданию новых врат: создаёться новая переменная и возвращаеться структура, построенная конструктором <code>MkGroup</code>.</p>
+<p>Воплощение 𝘧𝘧 <code>joinGroup</code> и <code>awaitGroup</code> так или иначе определяются этими структурами:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>joinGroup (<span class="dt">MkGroup</span> _ tv) <span class="ot">=</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    atomically <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>        (n_left, g1, g2) <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>        check (n_left <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>        writeTVar tv (n_left <span class="op">-</span> <span class="dv">1</span>, g1,g2)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>        <span class="fu">return</span> (g1, g2)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>awaitGroup (<span class="dt">MkGroup</span> n tv) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>        (n_left, g1, g2) <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>        check (n_left <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>        g1' <span class="ot">&lt;-</span> newGate n; g2' <span class="ot">&lt;-</span> newGate n</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>        writeTVar tv (n, g1', g2')</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>        <span class="fu">return</span> (g1,g2)</span></code></pre></div>
+<p>Обратите внимание на то, что 𝘧 <code>awaitGroup</code> создаёт новые врата при перевоплощении группы <em>(в оригинале реинициализации)</em>. Это даёт возможность собираться новой группе, пока предыдущая всё ещё общается с Клаусом в мастерской, исключая опасность того, что какой—либо эльф из новой группы обгонит зазевавшегося эльфа из старой группы.</p>
+<h2 id="главная-программа">Главная программа</h2>
+<p>Сперва наперво, мы определим внешнюю структуру программы, тем более что мы до сих пор не описали самого Клауса. Вот он:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    hSetBuffering stdout <span class="dt">LineBuffering</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    elf_group <span class="ot">&lt;-</span> newGroup <span class="dv">3</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    <span class="fu">sequence_</span> [elf elf_group n <span class="op">|</span> n <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">10</span>]]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    rein_group <span class="ot">&lt;-</span> newGroup <span class="dv">9</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>    <span class="fu">sequence_</span> [reindeer rein_group n <span class="op">|</span> n <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">9</span>]]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>    forever (santa elf_group rein_group)</span></code></pre></div>
+<p>В первой строке задётся тип буфферизации, об этом я расскажу чуть позже, пока можно смело опустить эту строку. На второй строке создаётся Группа для эльфов с вместимостью равной <code>3</code>. Третья строка более таинственная: здесь используется так называемое «описание списка» (list comprehention), которое создаёт список действий ввода—вывода и применяет 𝘧 «последоватьльность» <code>sequence_</code>, чтобы выполнить их последовательно. Описание списка <code>[e|x&lt;-xs]</code> читается как «список всех e, где x выбираются из списка xs». Таким образом, sequence_ получит в качестве аргумента следующий список:</p>
+<p><code>[elf elf_group 1, elf elf_group 2, ..., elf elf_group 10]</code></p>
+<p>Каждый перечисленный вызов даёт действие ввода—вывода, порождающее создаёт процессорную «нить» для эльфа. Функция <code>sequence_</code> получает список действий и возвращает одно действие, которое при исполнении запустит каждое действие из полученного списка по порядку:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fu">sequence_</span><span class="ot"> ::</span> [<span class="dt">IO</span> a] <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span></code></pre></div>
+<blockquote>
+<p><code>sequence_ :: Monad m =&gt; [m a] -&gt; m ()</code> Выполнить действия по очереди слева направо, и Evaluate each action in the sequence from left to right, and ignore the results.</p>
+</blockquote>
+<p>Функция «эльф» <code>elf</code> построенна из 𝘧 <code>elf1</code>, но имеет две особенности. Во—первых, мы хотим, чтобы эльф бесконечно проходил один и тот же круг; во—вторых, чтобы она (функция) выполнялась в отдельной нити:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="ot">elf ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">ThreadId</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>elf g n <span class="ot">=</span> forkIO <span class="op">$</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>    forever <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>        elf1 g n</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>        randomDelay</span></code></pre></div>
+<p>Функция «ответвить Ввод-Вывод» <code>forkIO</code> порождадет новую нить и исполняет свой аргумент в ней. Аргумент <code>forkIO</code> в свою очередь вызывает 𝘧 «без конца» <code>forever</code>, которая без конца повторно исполняет свой аргумент.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="ot">forever ::</span> <span class="dt">IO</span> () <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="co">-- постоянно исполнять одно и то же действие</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>forever act <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>    act</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>    forever act</span></code></pre></div>
+<p>Наконец, выражение <code>elf1 g n</code> — и есть то дейтсвие ввода—вывода, которое мы хотим повторять бесконечно спустя произвольно выбранный промежуток времени:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="ot">randomDelay ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="co">-- Сделать произвольную задержку от 1 до 1'000'000 микросекунд</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>randomDelay <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>    waitTime <span class="ot">&lt;-</span> getStdRandom (randomR (<span class="dv">1</span>, <span class="dv">1000000</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>    threadDelay waitTime</span></code></pre></div>
+<p>Оставшаяся часть главной программы вполне скажет всё сама за себя: мы создаём девять оленей подобно тому, как мы создавали десять эльфов, с той лишь разницей, что мы используем 𝘧 «олень» <code>reindeer</code> вместо <code>elf</code>. Смотрите:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="ot">reindeer ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">ThreadId</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>reindeer g n <span class="ot">=</span> forkIO <span class="op">$</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>    forever <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>        reindeer1 g n</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>        randomDelay</span></code></pre></div>
+<p>Главный код под конец снова использует <code>forever</code> для постоянного повторного исполнения 𝘧 «святой клаус» <code>santa</code>. Теперь осталось описать только самого Клауса.</p>
+<h2 id="описание-клауса">Описание Клауса</h2>
+<p>Клаус самый интересный участник этой маленькой пьесы, потому что именно он делает выбор. Он ждёт пока не соберёться одна из групп: эльфов или оленей. Как только он отдал своё предпочтение одной из групп, он должен провести её иснтруктаж. Вот и сам код:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="ot">santa ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>santa elf_gp rein_gp <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>    <span class="fu">putStrLn</span> <span class="st">&quot;----------&quot;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>    (task, (in_gate, out_gate)) <span class="ot">&lt;-</span> atomically <span class="op">$</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>        orElse (chooseGroup rein_gp <span class="st">&quot;развозить игрушки&quot;</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>               (chooseGroup elf_gp <span class="st">&quot;идти в мастерскую&quot;</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>    <span class="fu">putStrLn</span> <span class="op">$</span> <span class="st">&quot;Хо! Хо! Хо! Пора &quot;</span> <span class="op">++</span> task</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    operateGate in_gate</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>        <span class="co">-- сейчас помошники выполняют задания</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a>    operateGate out_gate</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a>  <span class="kw">where</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a><span class="ot">    chooseGroup ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">STM</span> (<span class="dt">String</span>, (<span class="dt">Gate</span>, <span class="dt">Gate</span>))</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true"></a>    chooseGroup g task <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true"></a>        gates <span class="ot">&lt;-</span> awaitGroup g</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true"></a>        <span class="fu">return</span> (task, gates)</span></code></pre></div>
+<p>Выбор осуществляется с помощью 𝘧 «или если» <code>orElse</code>, которая сначала пробует выбрать группу оленей, таким образом отдавая им препочтение, а затем — группу эльфов. Функция «выбрать группу» <code>chooseGroup</code> исполняет действие «ждать группу» <code>awaitGroup</code> для указанной группы и возвращает в качестве итога пару, содержащую строку, отражающую задание (развозить игрушки или идти в мастерскую), и врата, которые нужно использовать Клаусу, чтобы назначить группе задания. Как только выбор сделан, Клаус сообщаяет об этом и оперирует вратами по—порядку.</p>
+<p>Такое решение работает хорошо, но мы всё же рассмотрим ещё одно, более общее решение, потому что 𝘧 <code>santa</code> отражает очень распространённый случай в программировании. Он сводиться к следующему: процессорная нить (Клаус в нашем случае) делает выбор между одной из атомарных транзакций (группы операций, которые формируют единое целое, подробнее см. <a href="https://ru.wikipedia.org/wiki/Транзакция_(значения)">Вики</a>), за которой следует одна или несколько транзакций, логически вытакающих друг из друга. Ещё один распространённый пример данного случая — получить сообщение из нескольких очередей с сообщениями, произвести с ним действия и повторить всё снова. В нашем случае, логические цепочки действий для эльфов и оленей были очень похожими — в обоих случаях Клаус должен напечатать сообщение и произвести действия с вратами. Однако, если Клаусу нужно будет выполнять разные действия для эльфов и оленей такой подход не сработает. Один из путей решения — возвращать логическую величину типа <code>Bool</code>, отражающую сделанный выбор, и выбирать дальнейшее направление действий в зависимости от этой величины; однако, как только появляется дополнительный выбор это решение становится неприемлимым. Вот другой подход, который подходит лучше:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="ot">santa ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>santa elf_gp rein_gp <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>    <span class="fu">putStrLn</span> <span class="st">&quot;----------&quot;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>    choose [(awaitGroup rein_gp, run <span class="st">&quot;развозить игрушки&quot;</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>            (awaitGroup elf_gp, run <span class="st">&quot;идти в мастерскую&quot;</span>)]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a> <span class="kw">where</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a><span class="ot">   run ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> (<span class="dt">Gate</span>,<span class="dt">Gate</span>) <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a>   run task (in_gate,out_gate) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a>       <span class="fu">putStrLn</span> <span class="op">$</span> <span class="st">&quot;Хо! Хо! Хо! Пора &quot;</span> <span class="op">++</span> task <span class="op">++</span> <span class="st">&quot;\n&quot;</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>       operateGate in_gate</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a>       operateGate out_gate</span></code></pre></div>
+<p>Функция «выбор» <code>choose</code> подобна охраняемой команде: она принимает список пар, ждёт до тех пор, когда первый компонент пары будет «готов к запуску», а потом исполняет второй компонент. Таким образом, тип <code>choose</code> выглядит так:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="ot">choose ::</span> [(<span class="dt">STM</span> a, a <span class="ot">-&gt;</span> <span class="dt">IO</span> ())] <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span></code></pre></div>
+<p>В роли охранника здесь выступает действие, выполняющее программные транзацкии в в памяти <em>(далее <code>ПТП</code>, оригинальные термин — <code>STM</code>)</em>, и возвращающее величину типа <code>a</code>; когда действие <code>ПТП</code> выполнено <em>(то есть не было вызова 𝘧 «повтор» <code>retry</code>)</em>, <code>choose</code> может передать полученную величину во второй компонент, который в свою очередь должен быть функцией, ожидающей на входе величину типа <code>a</code>. Имея это в виду, разобраться с 𝘧 <code>santa</code> гораздо проще. В ней используется <code>awaitGroup</code> для ожидания готовой группы; 𝘧 <code>choose</code> использует пару врат, полученных от <code>awaitGroup</code> и перадаёт их функции «запуск» <code>run</code>. Последняя последовательно управляет вратами — впомните, <code>operateGate</code> делает блокировку пока эльфы (или олени) проходят через врата.</p>
+<p>Код <code>choice</code> краток, но немного мудрён:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a>choose choices <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>    act <span class="ot">&lt;-</span> atomically <span class="op">$</span> <span class="fu">foldr1</span> orElse actions</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>    act</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a>  <span class="kw">where</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a><span class="ot">    actions ::</span> [<span class="dt">STM</span> (<span class="dt">IO</span> ())]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>    actions <span class="ot">=</span> [ <span class="kw">do</span> val <span class="ot">&lt;-</span> guard</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a>                   <span class="fu">return</span> (rhs val)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a>              <span class="op">|</span> (guard, rhs) <span class="ot">&lt;-</span> choices ]</span></code></pre></div>
+<p>Сначала она формирует <code>actions</code> — список действий ПТП, которые в последствии соединяются функций <code>orElse</code> (в итоге вызова <code>foldr1</code> ⊕ [<em>x<sub>1</sub></em>, … , <em>x<sub>n</sub></em>] получаем <em>x<sub>1</sub></em> ⊕ <em>x<sub>2</sub></em> ⊕ … ⊕ <em>x<sub>n</sub></em>). Итогом каждого такого действия ПТП так же является действие, но в контексте ввода—вывода, проще говоря, то, что нужно сделать после выбора. Вот почему каждое действие в списке имеет такой крутой тип <code>STM (IO ())</code>. Код 𝘧 <code>choice</code> сначала делает атомарную выборку из списка альтернатив, получая действие <code>act</code>, чей итог имеет тип <code>IO ()</code>; в конце концов происходит выполнение действия <code>act</code>. Список <code>actions</code> определён в выражении <code>where</code> взятием каждой пары <code>(guard,rhs)</code> из списка <code>choices</code>, запуском охранника (действие <code>ПТП</code>), и возвращением действия ввода—вывода, получаемое передачей <code>rhs</code> в действие «пропушенное» <em>(возвращенное)</em> охранником.</p>
+<h2 id="компиляция-и-запуск-программы">Компиляция и запуск программы</h2>
+<p>Я <em>(Сеймон Пейтон Джонс, автор оригинальной статьи, прим. переводчика)</em> представил здесь <em>весь</em> код решения. Вы можете просто добавить подходящие подключения в самом верху, этого должно быть достаточно:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Concurrent</span>        (<span class="dt">ThreadId</span>, forkIO, threadDelay)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Concurrent.STM</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Monad</span>             (forever)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">System.Random</span>             (getStdRandom, randomR)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">System.IO</span>                 ( <span class="dt">BufferMode</span>(<span class="dt">LineBuffering</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>                                 , hSetBuffering, stdout)</span></code></pre></div>
+<p>Испробуйте сами <em>(ниже приведён конечный код, предложенный автором как есть)</em>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Concurrent.STM</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">Control.Concurrent</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a><span class="kw">import</span> <span class="dt">System.Random</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a>    elf_gp <span class="ot">&lt;-</span> newGroup <span class="dv">3</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a>    <span class="fu">sequence_</span> [ elf elf_gp n <span class="op">|</span> n <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">10</span>]]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>    rein_gp <span class="ot">&lt;-</span> newGroup <span class="dv">9</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>    <span class="fu">sequence_</span> [ reindeer rein_gp n <span class="op">|</span> n <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">9</span>]]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>    forever (santa elf_gp rein_gp)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>  <span class="kw">where</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>    elf      gp <span class="fu">id</span> <span class="ot">=</span> forkIO (forever (<span class="kw">do</span> elf1 gp <span class="fu">id</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a>                                         randomDelay))</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>    reindeer gp <span class="fu">id</span> <span class="ot">=</span> forkIO (forever (<span class="kw">do</span> reindeer1 gp <span class="fu">id</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>                                         randomDelay))</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true"></a><span class="ot">santa ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true"></a>santa elf_group rein_group <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true"></a>    <span class="fu">putStr</span> <span class="st">&quot;----------\n&quot;</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true"></a>    choose [(awaitGroup rein_group, run <span class="st">&quot;deliver toys&quot;</span>),</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true"></a>            (awaitGroup elf_group,  run <span class="st">&quot;meet in my study&quot;</span>)]</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true"></a>  <span class="kw">where</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true"></a><span class="ot">    run ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> (<span class="dt">Gate</span>,<span class="dt">Gate</span>) <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true"></a>    run task (in_gate,out_gate) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true"></a>        <span class="fu">putStr</span> (<span class="st">&quot;Ho! Ho! Ho! let's &quot;</span> <span class="op">++</span> task <span class="op">++</span> <span class="st">&quot;\n&quot;</span>)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true"></a>        operateGate in_gate</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true"></a>        operateGate out_gate</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true"></a><span class="ot">helper1 ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> () <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true"></a>helper1 <span class="fu">group</span> do_task <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true"></a>    (in_gate, out_gate) <span class="ot">&lt;-</span> joinGroup <span class="fu">group</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true"></a>    passGate in_gate</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true"></a>    do_task</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true"></a>    passGate out_gate</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true"></a></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true"></a>elf1,<span class="ot"> reindeer1 ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true"></a>elf1      <span class="fu">group</span> <span class="fu">id</span> <span class="ot">=</span> helper1 <span class="fu">group</span> (meetInStudy <span class="fu">id</span>)</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true"></a>reindeer1 <span class="fu">group</span> <span class="fu">id</span> <span class="ot">=</span> helper1 <span class="fu">group</span> (deliverToys <span class="fu">id</span>)</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true"></a></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true"></a>meetInStudy <span class="fu">id</span> <span class="ot">=</span> <span class="fu">putStr</span> (<span class="st">&quot;Elf &quot;</span> <span class="op">++</span> <span class="fu">show</span> <span class="fu">id</span> <span class="op">++</span> <span class="st">&quot; meeting in the study\n&quot;</span>)</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true"></a>deliverToys <span class="fu">id</span> <span class="ot">=</span> <span class="fu">putStr</span> (<span class="st">&quot;Reindeer &quot;</span> <span class="op">++</span> <span class="fu">show</span> <span class="fu">id</span> <span class="op">++</span> <span class="st">&quot; delivering toys\n&quot;</span>)</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true"></a></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true"></a><span class="co">---------------</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Group</span> <span class="ot">=</span> <span class="dt">MkGroup</span> <span class="dt">Int</span> (<span class="dt">TVar</span> (<span class="dt">Int</span>, <span class="dt">Gate</span>, <span class="dt">Gate</span>))</span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true"></a></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true"></a><span class="ot">newGroup ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Group</span></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true"></a>newGroup n <span class="ot">=</span> atomically (<span class="kw">do</span> g1 <span class="ot">&lt;-</span> newGate n</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true"></a>                            g2 <span class="ot">&lt;-</span> newGate n</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true"></a>                            tv <span class="ot">&lt;-</span> newTVar (n, g1, g2)</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true"></a>                            <span class="fu">return</span> (<span class="dt">MkGroup</span> n tv))</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true"></a></span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true"></a><span class="ot">joinGroup ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Gate</span>,<span class="dt">Gate</span>)</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true"></a>joinGroup (<span class="dt">MkGroup</span> n tv)</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true"></a>  <span class="ot">=</span> atomically (<span class="kw">do</span> (n_left, g1, g2) <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true"></a>                   check (n_left <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true"></a>                   writeTVar tv (n_left<span class="op">-</span><span class="dv">1</span>, g1, g2)</span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true"></a>                   <span class="fu">return</span> (g1,g2))</span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true"></a></span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true"></a><span class="ot">awaitGroup ::</span> <span class="dt">Group</span> <span class="ot">-&gt;</span> <span class="dt">STM</span> (<span class="dt">Gate</span>,<span class="dt">Gate</span>)</span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true"></a>awaitGroup (<span class="dt">MkGroup</span> n tv) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true"></a>    (n_left, g1, g2) <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb24-63"><a href="#cb24-63" aria-hidden="true"></a>    check (n_left <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb24-64"><a href="#cb24-64" aria-hidden="true"></a>    new_g1 <span class="ot">&lt;-</span> newGate n</span>
+<span id="cb24-65"><a href="#cb24-65" aria-hidden="true"></a>    new_g2 <span class="ot">&lt;-</span> newGate n</span>
+<span id="cb24-66"><a href="#cb24-66" aria-hidden="true"></a>    writeTVar tv (n,new_g1,new_g2)</span>
+<span id="cb24-67"><a href="#cb24-67" aria-hidden="true"></a>    <span class="fu">return</span> (g1,g2)</span>
+<span id="cb24-68"><a href="#cb24-68" aria-hidden="true"></a></span>
+<span id="cb24-69"><a href="#cb24-69" aria-hidden="true"></a><span class="co">---------------</span></span>
+<span id="cb24-70"><a href="#cb24-70" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">Gate</span>  <span class="ot">=</span> <span class="dt">MkGate</span> <span class="dt">Int</span> (<span class="dt">TVar</span> <span class="dt">Int</span>)</span>
+<span id="cb24-71"><a href="#cb24-71" aria-hidden="true"></a></span>
+<span id="cb24-72"><a href="#cb24-72" aria-hidden="true"></a><span class="ot">newGate ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">STM</span> <span class="dt">Gate</span></span>
+<span id="cb24-73"><a href="#cb24-73" aria-hidden="true"></a>newGate n <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-74"><a href="#cb24-74" aria-hidden="true"></a>    tv <span class="ot">&lt;-</span> newTVar <span class="dv">0</span></span>
+<span id="cb24-75"><a href="#cb24-75" aria-hidden="true"></a>    <span class="fu">return</span> (<span class="dt">MkGate</span> n tv)</span>
+<span id="cb24-76"><a href="#cb24-76" aria-hidden="true"></a></span>
+<span id="cb24-77"><a href="#cb24-77" aria-hidden="true"></a><span class="ot">passGate ::</span> <span class="dt">Gate</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-78"><a href="#cb24-78" aria-hidden="true"></a>passGate (<span class="dt">MkGate</span> n tv)</span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true"></a>  <span class="ot">=</span> atomically (<span class="kw">do</span> n_left <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb24-80"><a href="#cb24-80" aria-hidden="true"></a>                   check (n_left <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb24-81"><a href="#cb24-81" aria-hidden="true"></a>                   writeTVar tv (n_left<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb24-82"><a href="#cb24-82" aria-hidden="true"></a></span>
+<span id="cb24-83"><a href="#cb24-83" aria-hidden="true"></a><span class="ot">operateGate ::</span> <span class="dt">Gate</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-84"><a href="#cb24-84" aria-hidden="true"></a>operateGate (<span class="dt">MkGate</span> n tv) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-85"><a href="#cb24-85" aria-hidden="true"></a>    atomically (writeTVar tv n)</span>
+<span id="cb24-86"><a href="#cb24-86" aria-hidden="true"></a>    atomically (<span class="kw">do</span> n_left <span class="ot">&lt;-</span> readTVar tv</span>
+<span id="cb24-87"><a href="#cb24-87" aria-hidden="true"></a>                   check (n_left <span class="op">==</span> <span class="dv">0</span>))</span>
+<span id="cb24-88"><a href="#cb24-88" aria-hidden="true"></a></span>
+<span id="cb24-89"><a href="#cb24-89" aria-hidden="true"></a><span class="co">----------------</span></span>
+<span id="cb24-90"><a href="#cb24-90" aria-hidden="true"></a><span class="ot">forever ::</span> <span class="dt">IO</span> () <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-91"><a href="#cb24-91" aria-hidden="true"></a><span class="co">-- Repeatedly perform the action</span></span>
+<span id="cb24-92"><a href="#cb24-92" aria-hidden="true"></a>forever act <span class="ot">=</span> forever' act <span class="dv">10</span></span>
+<span id="cb24-93"><a href="#cb24-93" aria-hidden="true"></a>  <span class="kw">where</span> <span class="co">-- cheating here to make it stop eventually</span></span>
+<span id="cb24-94"><a href="#cb24-94" aria-hidden="true"></a><span class="ot">    forever' ::</span> <span class="dt">IO</span> () <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-95"><a href="#cb24-95" aria-hidden="true"></a>    forever' act <span class="dv">0</span> <span class="ot">=</span> <span class="fu">return</span> ()</span>
+<span id="cb24-96"><a href="#cb24-96" aria-hidden="true"></a>    forever' act n <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-97"><a href="#cb24-97" aria-hidden="true"></a>        act</span>
+<span id="cb24-98"><a href="#cb24-98" aria-hidden="true"></a>        forever' act (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb24-99"><a href="#cb24-99" aria-hidden="true"></a></span>
+<span id="cb24-100"><a href="#cb24-100" aria-hidden="true"></a><span class="ot">randomDelay ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-101"><a href="#cb24-101" aria-hidden="true"></a><span class="co">-- Delay for a random time between 1 and 1000,000 microseconds</span></span>
+<span id="cb24-102"><a href="#cb24-102" aria-hidden="true"></a>randomDelay <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-103"><a href="#cb24-103" aria-hidden="true"></a>    waitTime <span class="ot">&lt;-</span> getStdRandom (randomR (<span class="dv">1</span>, <span class="dv">1000000</span>))</span>
+<span id="cb24-104"><a href="#cb24-104" aria-hidden="true"></a>    threadDelay waitTime</span>
+<span id="cb24-105"><a href="#cb24-105" aria-hidden="true"></a></span>
+<span id="cb24-106"><a href="#cb24-106" aria-hidden="true"></a><span class="ot">choose ::</span> [(<span class="dt">STM</span> a, a <span class="ot">-&gt;</span> <span class="dt">IO</span> ())] <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-107"><a href="#cb24-107" aria-hidden="true"></a>choose choices <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb24-108"><a href="#cb24-108" aria-hidden="true"></a>    to_do <span class="ot">&lt;-</span> atomically (<span class="fu">foldr1</span> orElse stm_actions)</span>
+<span id="cb24-109"><a href="#cb24-109" aria-hidden="true"></a>    to_do</span>
+<span id="cb24-110"><a href="#cb24-110" aria-hidden="true"></a>  <span class="kw">where</span></span>
+<span id="cb24-111"><a href="#cb24-111" aria-hidden="true"></a><span class="ot">    stm_actions ::</span> [<span class="dt">STM</span> (<span class="dt">IO</span> ())]</span>
+<span id="cb24-112"><a href="#cb24-112" aria-hidden="true"></a>    stm_actions <span class="ot">=</span> [ <span class="kw">do</span> val <span class="ot">&lt;-</span> guard</span>
+<span id="cb24-113"><a href="#cb24-113" aria-hidden="true"></a>                       <span class="fu">return</span> (rhs val)</span>
+<span id="cb24-114"><a href="#cb24-114" aria-hidden="true"></a>                  <span class="op">|</span> (guard, rhs) <span class="ot">&lt;-</span> choices ]</span></code></pre></div>
+<pre><code>[1 of 1] Compiling Main             ( santa.lhs, interpreted )
+Ok, modules loaded: Main.
+*Main&gt; main
+----------
+Хо! Хо! Хо! Пора развозить игрушки
+
+Олень #1 развозит игрушки
+Олень #2 развозит игрушки
+Олень #3 развозит игрушки
+Олень #4 развозит игрушки
+Олень #5 развозит игрушки
+Олень #6 развозит игрушки
+Олень #7 развозит игрушки
+Олень #8 развозит игрушки
+Олень #9 развозит игрушки
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+Эльф #1 встретился в мастерской
+Эльф #2 встретился в мастерской
+Эльф #3 встретился в мастерской
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+Эльф #4 встретился в мастерской
+Эльф #5 встретился в мастерской
+Эльф #6 встретился в мастерской
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+Эльф #7 встретился в мастерской
+Эльф #8 встретился в мастерской
+Эльф #9 встретился в мастерской</code></pre>
+<h2 id="несколько-слов-про-буфферизацию-от-переводчика">Несколько слов про буфферизацию <em>(от переводчика)</em></h2>
+<p>В оригинальной статье не было упомянуто о буфферизации, в моей системе полученная программа давала такой вывод:</p>
+<pre><code>[1 of 1] Compiling Main             ( santa.lhs, interpreted )
+Ok, modules loaded: Main.
+*Main&gt; main
+----------
+Хо! Хо! Хо! Пора развозить игрушки
+
+Олень #1 развозитО ОООООООлилллллллегееееееенрннннннньуььььььь ш       #к#######2и3456789
+       ррррррррааааааааззззззззввввввввооооооооззззззззиииииииитттттттт        ииииииииггггггггрррррррруууууууушшшшшшшшккккккккииииииии
+
+
+
+
+
+
+
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+ЭльЭфЭл ль#ьф1ф   #в#2с3 т врвсестттрирелетстияил лсвся я м вав с мтмаеасрстстекерорсйск
+коойй
+
+----------
+Хо! Хо! Хо! Пора идти в мастерскую
+
+ЭльЭфЭл ль#ьф4ф   #в#5с6 т врвсестттрирелетстияил лсвся я м вав с мтмаеасрстстекерорсйск
+коойй
+
+----------</code></pre>
+<p>Эльфы и олени «живут» в отдельных процессорных нитях, не мешая друг другу. Так все олени входят в свою группу почти одновременно. Как только олень присоединяется к группе, печатается сообщение. В моей систему буфферизация по умолчанию выключена, это приводит к тому, что вывод из всех нитей перемешивается, создавая эффект «заикания». Чтобы получить нормальный вывод нужно включить построчную буфферизацию для стандартного вывода <code>stdout</code>, чтобы сообщения разных нитей печатались целыми строками, а не по—символьно.</p>
+<h2 id="вместо-заключения">Вместо заключения</h2>
+<p>Если вам интересно увидеть полный перевод всех статьей из <a href="https://www.fpcomplete.com/user/simonpj/beautiful-concurrency">цикла «Beautiful Concurrency»</a> Саймона Пейтона Джонса об использовании ПТП, дайте мне знать, я постараюсь перевести недостающие части.</p>
+<p><em>P.S. Автор перевода старается переводить все термины (даже хорошо устоявшиеся) на русский язык, так как перевод, изобилующий большим количеством иностранных терминов, жаргонных и заимствованных для меня ничем не отличается от неперведённого текста.</em></p>
+<p><em>P.P.S.</em> Ввиду этого, я буду очень признателен, если кто—нибудь предложит хорошое слово на замену <code>транзакции</code>. Ещё одно слово, которое трудно сходу заменяется — <code>альтернатива</code>.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2018 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

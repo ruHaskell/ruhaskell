@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>ruHaskell</title>
+        <link>https://ruhaskell.org</link>
+        <description><![CDATA[Русскоязычное сообщество Haskell-разработчиков]]></description>
+        <atom:link href="https://ruhaskell.org/feed.xml" rel="self"
+                   type="application/rss+xml" />
+        <lastBuildDate>Tue, 06 Apr 2021 00:00:00 UT</lastBuildDate>
+        <item>
+    <title>Слово в защиту RecordWildCards</title>
+    <link>https://ruhaskell.org/posts/extensions/2021/04/06/RecordWildCards.html</link>
+    <description><![CDATA[Способы использования расширения `RecordWildCards` без порчи кода.]]></description>
+    <pubDate>Tue, 06 Apr 2021 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/extensions/2021/04/06/RecordWildCards.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Cofree Will Tear Us Apart</title>
+    <link>https://ruhaskell.org/posts/packages/2018/05/23/cofree-will-tear-us-apart.html</link>
+    <description><![CDATA[Речь пойдет о том, как всего одна несущая алгебраическая конструкция позволила решить задачу рециркулирующих данных в общем виде.]]></description>
+    <pubDate>Wed, 23 May 2018 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/packages/2018/05/23/cofree-will-tear-us-apart.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Haskell + Raspberry Pi Zero W = шаг в embedded-мир</title>
+    <link>https://ruhaskell.org/posts/projects/2018/05/19/haskell-on-raspberry-pi.html</link>
+    <description><![CDATA[Haskell универсален, не так ли? А запустим-ка его на новеньком Raspberry Pi Zero W.]]></description>
+    <pubDate>Sat, 19 May 2018 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/projects/2018/05/19/haskell-on-raspberry-pi.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Эффекты в Haskell</title>
+    <link>https://ruhaskell.org/posts/theory/2018/01/18/effects-haskell.html</link>
+    <description><![CDATA[Реализация эффектов в Haskell.]]></description>
+    <pubDate>Thu, 18 Jan 2018 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/theory/2018/01/18/effects-haskell.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Эффекты и чистые функции</title>
+    <link>https://ruhaskell.org/posts/theory/2018/01/10/effects.html</link>
+    <description><![CDATA[Попытка объяснить эффекты без монад.]]></description>
+    <pubDate>Wed, 10 Jan 2018 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/theory/2018/01/10/effects.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Полнофункциональные гетерогенные списки</title>
+    <link>https://ruhaskell.org/posts/dynamic/2017/09/01/Fully-functional-heterogeneous-lists.html</link>
+    <description><![CDATA[Использование гетерогенных списков. Фильтрация по классам типов. Вызов соответствующих функций. Реализация концепций instanceOf и asInstanceOf.]]></description>
+    <pubDate>Fri, 01 Sep 2017 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/dynamic/2017/09/01/Fully-functional-heterogeneous-lists.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>react-flux: React-powered Web GUI на Haskell</title>
+    <link>https://ruhaskell.org/posts/talks/2017/04/06/react-flux-gui-for-haskell.html</link>
+    <description><![CDATA[Доклад призван продемонстрировать возможность построения Web GUI с использованием GHCJS и библиотеки react-flux - "обертки" над ReactJS, отличающейся использованием подхода "Flux" для работы с состоянием приложения.]]></description>
+    <pubDate>Thu, 06 Apr 2017 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/talks/2017/04/06/react-flux-gui-for-haskell.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Haskell вместо СУБД</title>
+    <link>https://ruhaskell.org/posts/talks/2017/04/06/haskell-as-db.html</link>
+    <description><![CDATA[Опыт отказа от реляционной СУБД в веб-проекте в пользу in-memory структуры данных и CAS (Content-addressable storage). Зачем это было сделано и что получилось в итоге.]]></description>
+    <pubDate>Thu, 06 Apr 2017 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/talks/2017/04/06/haskell-as-db.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Если нельзя писать на Haskell, но очень хочется</title>
+    <link>https://ruhaskell.org/posts/talks/2017/04/06/haskell-anyway.html</link>
+    <description><![CDATA[Мы рассмотрим задачу построение OSC-контроллеров с графическим интерфейсом (в духе TouchOSC) и как писать таким образом UI на Haskell. На примере этой задачи мы рассмотрим альтернативный способ написание программ на Haskell. Мы можем написать небольшой интерпретатор на языке, который лучше справляется с данной задачей и можем генерировать код для интерпретатора из Haskell.]]></description>
+    <pubDate>Thu, 06 Apr 2017 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/talks/2017/04/06/haskell-anyway.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+<item>
+    <title>Интеграция с API внешних сервисов</title>
+    <link>https://ruhaskell.org/posts/talks/2017/04/06/external-api-integration.html</link>
+    <description><![CDATA[Опыт использования Haskell для для генерации HTTP клиентов для внешнего API. О проблемах, с которыми приходится сталкиваться во время разработки, возможных способах их минимизировать, а также о том, как Haskell помогает нам генерировать адекватную и всегда актуальную документацию для нашего API.]]></description>
+    <pubDate>Thu, 06 Apr 2017 00:00:00 UT</pubDate>
+    <guid>https://ruhaskell.org/posts/talks/2017/04/06/external-api-integration.html</guid>
+    <dc:creator>Денис Шевченко</dc:creator>
+</item>
+
+    </channel>
+</rss>

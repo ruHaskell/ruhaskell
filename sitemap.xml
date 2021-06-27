@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/extensions/2021/04/06/RecordWildCards.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2018/05/23/cofree-will-tear-us-apart.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/projects/2018/05/19/haskell-on-raspberry-pi.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2018/01/18/effects-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2018/01/10/effects.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/dynamic/2017/09/01/Fully-functional-heterogeneous-lists.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2017/04/06/react-flux-gui-for-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2017/04/06/haskell-as-db.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2017/04/06/haskell-anyway.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2017/04/06/external-api-integration.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2017/04/06/meetup-2017-spring-videos.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2017/03/31/goal-or-instrument.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2017/03/28/meetup-spring.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2017/02/11/meetup-spring-call-for-papers.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2017/01/06/dep-yandex-direct.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2016/12/16/liquidhaskell-hello.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/projects/2016/09/13/hsoc-live-profile.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/08/28/haskell-ffi-abilities-and-issues.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/08/18/simple-mmo-games-in-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/08/18/ivory-high-performance-code-for-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/08/18/elm-almost-painless-frontend.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/08/18/cpp-concepts-and-haskell-type-classes.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2016/08/18/meetup-2016-summer-videos.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2016/07/28/meetup-summer.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/numeric/2016/06/01/statistics-test-suite-part1.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/04/05/better-services-with-servant.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/03/27/dependent-types-in-haskell-ghc-8.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/03/26/monads-for-drummers.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2016/03/20/database-storage.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2016/01/06/serialization-with-deptypes.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/12/30/ruhaskell-one-year.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/12/06/postgresql-hasql-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/12/06/meetup-2015-winter-videos.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/11/30/nix-with-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/11/26/nix-hello-world.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/11/25/nix-idea.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/11/05/meetup-winter-register.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2015/10/21/HaskellLuaHowTo.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/10/16/bananasandlenses.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/10/10/meetup-winter-2015.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/10/09/issue8.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/10/02/issue7.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/09/25/issue6.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/09/10/issue5.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/projects/2015/09/04/liscript.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/09/04/issue4.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2015/09/01/wai-rpc.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/08/27/issue3.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/08/19/stack-and-yesod.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/08/13/issue2.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/07/13/from-cabal-to-stack.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/cast/2015/07/05/issue1.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/07/01/meet-up-summer-2015-videos.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/06/21/types-intro-or-how-to-avoid-desintegration.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/06/21/lazy-evaluation.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/06/21/haskell-for-pythonista.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/06/21/csound-expression-library-edsl-music-frp.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/06/21/cloud-haskell.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/talks/2015/06/21/anonymous-records.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/05/29/meet-up-summer-2015-open.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2015/05/04/smarter-validation.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/events/2015/04/10/meet-up-summer-2015.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/algorithms/2015/03/14/binomial-queues.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/tasks/2015/03/13/stm-santa-claus-problem.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/elm/2015/03/06/elm-architecture.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2015/03/05/aeson-next.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/projects/2015/02/19/static-data-modules.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2015/02/15/restricted-io.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2015/02/13/mvars.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2015/02/05/yesod-haste-honey-tar.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2015/02/03/aeson-hello-world.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/typesystem/2015/01/30/relational-algebra.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2015/01/28/lenses-real-world.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2015/01/23/lenses-hello-world.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/gui/2015/01/22/threepenny.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/elm/2015/01/22/elm-hello.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/packages/2015/01/21/configurator.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/theory/2015/01/20/the-what-are-monads-fallacy.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/01/19/hflags.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/utils/2015/01/15/npy-parsing.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/projects/2015/01/10/about-weather.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/tasks/2014/12/29/haskell-fur-tree.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/27/yesod-raw-deploy.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/26/yesod-i18n.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/24/yesod-widgets.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/23/yesod-templates.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/22/yesod-structure-others.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/21/yesod-structure-templates.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/20/yesod-structure-handler.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/19/yesod-structure-config.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2014/12/18/yesod-hello-world.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/web/2013/12/16/minimal-keter.html</loc>
+        </url>
+    
+        <url>
+            <loc>https://ruhaskell.org/posts/dynamic/2013/06/08/polyvariadic.html</loc>
+        </url>
+    
+    </urlset>
+    
