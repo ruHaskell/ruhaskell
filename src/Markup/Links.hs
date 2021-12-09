@@ -11,7 +11,7 @@ import qualified Data.Text.Lazy as Text
 import           Hakyll (Compiler, makeItem)
 import           Hakyll.Web.Template (Template, compileTemplateItem)
 import           Text.Blaze.Html.Renderer.Text (renderHtml)
-import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, strong, ul, (!))
+import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, strong, ul, (!), p)
 import           Text.Blaze.Html5.Attributes (class_, href, id)
 
 
@@ -105,6 +105,10 @@ raw = do
                 a ! href "https://typeclasses.com/phrasebook" $
                     "The Haskell Phrasebook"
                 " — хаскельный разговорник"
+        p $ do
+            a ! hrep "https://github.com/ruHaskell/ruhaskell/wiki/Books"
+                "Здесь"
+            " можно почитать мнения участников сообщества об этих и других книгах про Haskell"
 
     courses = do
         h3 "Курсы"
