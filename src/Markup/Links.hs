@@ -143,7 +143,7 @@ raw = do
             h3 "Общение"
             ul $ do
                 li $ do
-                    strong "Gitter"
+                    strong "Gitter (чаты)"
                     ul $ do
                         li $
                             a ! href "https://gitter.im/ruHaskell/home" $
@@ -169,7 +169,7 @@ raw = do
                                 "blah"
                             " — оффтопик"
                 li $ do
-                    strong "Reddit"
+                    strong "Reddit (форумы)"
                     ul $ do
                         li $ do
                             a ! href "https://www.reddit.com/r/haskell" $
@@ -180,7 +180,7 @@ raw = do
                                 "/r/ruhaskell"
                             " — русскоязычный субреддит"
                 li $ do
-                    strong "Telegram"
+                    strong "Telegram (чаты и каналы)"
                     ul $ do
                         li $ do
                             a ! href "https://t.me/haskellru" $ "@haskellru"
@@ -218,3 +218,6 @@ raw = do
                     a ! href "https://mail.haskell.org/mailman/listinfo" $
                         "Haskell Mailing Lists"
                     " — все списки рассылки, преимущественно англоязычные"
+                li $
+                    a ! href "https://github.com/ruHaskell/ruhaskell/discussions" $
+                        "GitHub Discussions (форум)"
