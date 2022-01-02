@@ -1,6 +1,6 @@
 ---
+author: Юрий Сыровецкий
 title: Результаты опроса сообщества RuHaskell
-published: true
 tags: haskell, ruhaskell, community, survey
 ---
 
@@ -52,6 +52,7 @@ tags: haskell, ruhaskell, community, survey
 </table>
 
 Прочее:
+
 - haskell wiki
 - телеграм-каналы
 
