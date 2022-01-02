@@ -4,11 +4,11 @@
 #   https://docs.haskellstack.org/en/stable/lock_files
 
 snapshots:
-- original: lts-18.19
+- original: lts-18.20
   completed:
-    sha256: 32716534fff554b7f90762130fdb985cabf29f157758934dd1c8f3892a646430
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/19.yaml
-    size: 586103
+    sha256: 8699812d2b2c1f83d6ad1261de9cf628ed36a1cfc14f19d67188e005e7a3a39d
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/20.yaml
+    size: 586106
 packages:
 - original:
     hackage: hakyll-4.15.1.0
