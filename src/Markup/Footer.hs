@@ -15,7 +15,7 @@ commonFooter =
                 div ! A.class_ "col-lg-4 col-md-4 col-sm-4 col-xs-4 center" $ hakyll
                 div ! A.class_ "col-lg-4 col-md-4 col-sm-4 col-xs-4 right" $  mit
   where
-    copyright = "© 2014-2021 ruHaskell"
+    copyright = "© 2014-2022 ruHaskell"
 
     mit =
         a ! A.href "https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" ! A.id "mit-link" $ do
