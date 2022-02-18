@@ -215,6 +215,14 @@ raw = do
                                 "ruHaskell"
                             " — новости русскоязычного сообщества"
                 li $ do
+                    strong "Discord"
+                    ul $ do
+                        li $ do
+                            a ! href "https://discord.gg/XUhXxf5Fmv" $
+                                "#haskell"
+                            " — канал в рускоязычном сообществе [RU] Programming"
+ 
+                li $ do
                     a ! href "https://mail.haskell.org/mailman/listinfo" $
                         "Haskell Mailing Lists"
                     " — все списки рассылки, преимущественно англоязычные"
