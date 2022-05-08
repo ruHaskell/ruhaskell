@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE BlockArguments #-}
 
 module Markup.Links (
     linksTemplate
@@ -29,6 +30,7 @@ raw = do
         courses
         podcasts
         discussion
+        jobs
   where
     official = do
         h3 "Язык"
@@ -221,7 +223,7 @@ raw = do
                             a ! href "https://discord.gg/XUhXxf5Fmv" $
                                 "#haskell"
                             " — канал в рускоязычном сообществе [RU] Programming"
- 
+
                 li $ do
                     a ! href "https://mail.haskell.org/mailman/listinfo" $
                         "Haskell Mailing Lists"
@@ -229,3 +231,23 @@ raw = do
                 li $
                     a ! href "https://github.com/ruHaskell/ruhaskell/discussions" $
                         "GitHub Discussions (форум)"
+
+    jobs = do
+        h3 "Работа"
+        ul do
+            li do
+                a ! href "https://t.me/haskell_job" $ "@haskell_job"
+                " — канал с хаскельными вакансиями"
+            li do
+                a ! href "https://t.me/haskell_cv" $ "@haskell_cv"
+                " — чат для поиска работы"
+                " и обсуждения работодателей"
+            li do
+                a ! href "https://www.functionaljobs.com" $ "Functional Jobs"
+                " — вакансии с ФП по всему миру"
+            li do
+                a ! href "https://functional.works-hub.com" $ "Functional Works"
+                " — вакансии с ФП по всему миру"
+            li do
+                a ! href "https://haskell.careers" $ "Haskell Careers"
+                " — вакансии с Хаскелем по всему миру"
