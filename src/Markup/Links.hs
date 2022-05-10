@@ -199,6 +199,9 @@ raw = do
                             " — чат для поиска работы"
                             " и обсуждения работодателей"
                         li $ do
+                            a ! href "https://t.me/HaskellGameDev" $ "@HaskellGameDev"
+                            " — чат для игроделов"
+                        li $ do
                             a ! href "https://t.me/haskell_en" $ "@haskell_en"
                             " — англоязычный хаскельный чат"
                         li $ do
