@@ -177,10 +177,6 @@ raw = do
                             a ! href "https://www.reddit.com/r/haskell" $
                                 "/r/haskell"
                             " — основной англоязычный субреддит"
-                        li $ do
-                            a ! href "https://www.reddit.com/r/ruhaskell" $
-                                "/r/ruhaskell"
-                            " — русскоязычный субреддит"
                 li $ do
                     strong "Telegram (чаты и каналы)"
                     ul $ do
