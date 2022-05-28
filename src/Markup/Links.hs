@@ -106,7 +106,12 @@ raw = do
             li $ do
                 a ! href "https://typeclasses.com/phrasebook" $
                     "The Haskell Phrasebook"
-                " — хаскельный разговорник"
+                " — онлайн-«разговорник»"
+            li do
+                a ! href "https://typeclasses.com" $ "Type Classes"
+                " — учебник и сборник статей по отдельным фичам"
+                " от Джули Моронуки и Криса Мартина"
+                " (доступ платный)"
 
     courses = do
         h3 "Курсы"
