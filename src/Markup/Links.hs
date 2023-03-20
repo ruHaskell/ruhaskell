@@ -12,7 +12,7 @@ import qualified Data.Text.Lazy as Text
 import           Hakyll (Compiler, makeItem)
 import           Hakyll.Web.Template (Template, compileTemplateItem)
 import           Text.Blaze.Html.Renderer.Text (renderHtml)
-import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, strong, ul, (!))
+import           Text.Blaze.Html5 (Html, a, div, h1, h3, li, strong, ul, (!), p)
 import           Text.Blaze.Html5.Attributes (class_, href, id)
 
 
@@ -118,6 +118,10 @@ raw = do
                 " — учебник и сборник статей по отдельным фичам"
                 " от Джули Моронуки и Криса Мартина"
                 " (доступ платный)"
+        p $ do
+            a ! hrep "https://github.com/ruHaskell/ruhaskell/wiki/Books"
+                "Здесь"
+            " можно почитать мнения участников сообщества об этих и других книгах про Haskell"
 
     courses = do
         h3 "Курсы"
