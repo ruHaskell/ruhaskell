@@ -82,11 +82,6 @@ socialLinks =
 
         span ! A.class_ "social-links-separator" $ ""
 
-        a ! A.href "https://www.reddit.com/r/ruhaskell/" ! A.id "sl-3" ! A.title "Наш реддит-канал" $
-            i ! A.class_ "fa fa-reddit-alien reddit-color" ! customAttribute "aria-hidden" "true" $ ""
-
-        span ! A.class_ "social-links-separator" $ ""
-
         a ! A.href "https://github.com/ruHaskell/ruhaskell" ! A.id "sl-4" ! A.title "Мы живём на GitHub" $
             i ! A.class_ "fa fa-github github-color" ! customAttribute "aria-hidden" "true" $ ""
 

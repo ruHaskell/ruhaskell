@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE BlockArguments #-}
 
 module Markup.Links (
     linksTemplate
@@ -29,6 +30,7 @@ raw = do
         courses
         podcasts
         discussion
+        jobs
   where
     official = do
         h3 "Язык"
@@ -98,13 +100,24 @@ raw = do
             li $ do
                 a   ! href  "http://dmkpress.com\
                             \/catalog/computer/programming/functional\
+                            \/978-5-97060-694-0/"
+                    $ "Программируй на Haskell."
+                " Книга, которую в сообществе часто рекомендуют в качестве первой книги по Haskell."
+            li $ do
+                a   ! href  "http://dmkpress.com\
+                            \/catalog/computer/programming/functional\
                             \/978-5-97060-025-2/"
                     $ "Изучай Haskell во имя добра!"
                 " Знаменитая книга для новичков с весёлыми картинками."
             li $ do
                 a ! href "https://typeclasses.com/phrasebook" $
                     "The Haskell Phrasebook"
-                " — хаскельный разговорник"
+                " — онлайн-«разговорник»"
+            li do
+                a ! href "https://typeclasses.com" $ "Type Classes"
+                " — учебник и сборник статей по отдельным фичам"
+                " от Джули Моронуки и Криса Мартина"
+                " (доступ платный)"
         p $ do
             a ! hrep "https://github.com/ruHaskell/ruhaskell/wiki/Books"
                 "Здесь"
@@ -147,7 +160,7 @@ raw = do
             h3 "Общение"
             ul $ do
                 li $ do
-                    strong "Gitter"
+                    strong "Gitter (чаты)"
                     ul $ do
                         li $
                             a ! href "https://gitter.im/ruHaskell/home" $
@@ -173,18 +186,14 @@ raw = do
                                 "blah"
                             " — оффтопик"
                 li $ do
-                    strong "Reddit"
+                    strong "Reddit (форумы)"
                     ul $ do
                         li $ do
                             a ! href "https://www.reddit.com/r/haskell" $
                                 "/r/haskell"
                             " — основной англоязычный субреддит"
-                        li $ do
-                            a ! href "https://www.reddit.com/r/ruhaskell" $
-                                "/r/ruhaskell"
-                            " — русскоязычный субреддит"
                 li $ do
-                    strong "Telegram"
+                    strong "Telegram (чаты и каналы)"
                     ul $ do
                         li $ do
                             a ! href "https://t.me/haskellru" $ "@haskellru"
@@ -200,6 +209,9 @@ raw = do
                             a ! href "https://t.me/haskell_cv" $ "@haskell_cv"
                             " — чат для поиска работы"
                             " и обсуждения работодателей"
+                        li $ do
+                            a ! href "https://t.me/HaskellGameDev" $ "@HaskellGameDev"
+                            " — чат для игроделов"
                         li $ do
                             a ! href "https://t.me/haskell_en" $ "@haskell_en"
                             " — англоязычный хаскельный чат"
@@ -219,6 +231,37 @@ raw = do
                                 "ruHaskell"
                             " — новости русскоязычного сообщества"
                 li $ do
+                    strong "Discord"
+                    ul $ do
+                        li $ do
+                            a ! href "https://discord.gg/XUhXxf5Fmv" $
+                                "#haskell"
+                            " — канал в рускоязычном сообществе [RU] Programming"
+
+                li $ do
                     a ! href "https://mail.haskell.org/mailman/listinfo" $
                         "Haskell Mailing Lists"
                     " — все списки рассылки, преимущественно англоязычные"
+                li $
+                    a ! href "https://github.com/ruHaskell/ruhaskell/discussions" $
+                        "GitHub Discussions (форум)"
+
+    jobs = do
+        h3 "Работа"
+        ul do
+            li do
+                a ! href "https://t.me/haskell_job" $ "@haskell_job"
+                " — канал с хаскельными вакансиями"
+            li do
+                a ! href "https://t.me/haskell_cv" $ "@haskell_cv"
+                " — чат для поиска работы"
+                " и обсуждения работодателей"
+            li do
+                a ! href "https://www.functionaljobs.com" $ "Functional Jobs"
+                " — вакансии с ФП по всему миру"
+            li do
+                a ! href "https://functional.works-hub.com" $ "Functional Works"
+                " — вакансии с ФП по всему миру"
+            li do
+                a ! href "https://haskell.careers" $ "Haskell Careers"
+                " — вакансии с Хаскелем по всему миру"
