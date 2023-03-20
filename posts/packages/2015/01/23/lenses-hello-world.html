@@ -1,0 +1,971 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Линзы: Hello World!
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Линзы: Hello World!
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%94%D0%B5%D0%BD%D0%B8%D1%81%20%D0%A8%D0%B5%D0%B2%D1%87%D0%B5%D0%BD%D0%BA%D0%BE.html">Денис Шевченко</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 jan 23<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/packages.html">Пакеты</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/lens.html">lens</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <p>Приветствую!</p>
+<p>В общем, надоело мне, друзья! Сто раз я уже слышал про эти линзы, а что они такое, понятия не имел. Давайте же наконец разберёмся.</p>
+<p>В основу данной заметки лёг мой вольный перевод <a href="http://taylor.fausak.me/2014/08/03/lenses-from-the-ground-up/">прекрасной статьи</a>, с некоторыми изменениями.</p>
+<h2 id="атлет">Атлет</h2>
+<p>Есть у нас атлет, и есть у него имя. Определим следующий тип:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Main.hs</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Athlete</span> <span class="ot">=</span> <span class="dt">Athlete</span> <span class="dt">String</span></span></code></pre></div>
+<p>И захотелось нам изменять/получать имя атлета. Определяем две функции:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getName ::</span> <span class="dt">Athlete</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>getName (<span class="dt">Athlete</span> name) <span class="ot">=</span> name</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">setName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Athlete</span> <span class="ot">-&gt;</span> <span class="dt">Athlete</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>setName newName (<span class="dt">Athlete</span> _) <span class="ot">=</span> <span class="dt">Athlete</span> newName</span></code></pre></div>
+<p>Теперь главный код:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> setName <span class="st">&quot;Taylor Fausak&quot;</span> athleteWithoutName</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> getName realAthlete</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> nameOfRealAthlete</span></code></pre></div>
+<p>Перед нами - классические геттер (<code>getName</code>) и сеттер (<code>setName</code>). Всё предельно просто. Однако в реальном проекте так делать не рекомендуется. Рано или поздно у атлета вслед за именем появится дата рождения, рост, знак Зодиака, любимое блюдо, девичья фамилия мамы и т.п. И что же, на каждое такое поле определять свою пару геттер/сеттер?? Нет, нас категорически не устраивает такое решение.</p>
+<h2 id="упрощаем">Упрощаем</h2>
+<p>Автоматизация - наше всё. Пишем:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Main.hs</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Athlete</span> <span class="ot">=</span> <span class="dt">Athlete</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> athleteWithoutName { name <span class="ot">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> name realAthlete</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> nameOfRealAthlete</span></code></pre></div>
+<p>Вооот, так уже значительно лучше. Компилятор сделал скучную работу за нас. Теперь у нас есть поле <code>name</code>, которое <em>уже</em> является и сеттером, и геттером. Ура, победа! Но, как вы видите, заметка на этом не заканчивается, ибо имеется ещё одна проблема.</p>
+<h2 id="одноимённые-поля">Одноимённые поля</h2>
+<p>Атлеты атлетами, но вскоре у нас появился клуб (возможно, атлетов):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Main.hs</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Athlete</span> <span class="ot">=</span> <span class="dt">Athlete</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Club</span> <span class="ot">=</span> <span class="dt">Club</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+<p>Увы и ах, компилятор грубо оборвёт наше счастье следующей ошибкой:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Multiple</span> declarations of ‘name’</span></code></pre></div>
+<p>К сожалению, нельзя использовать одно и то же поле <code>name</code> в подобной манере, ибо компилятор путается, что где. Ну что ж, поможем компилятору и разнесём типы <code>Athlete</code> и <code>Club</code> по разным модулям:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Club.hs</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Club</span> <span class="kw">where</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Club</span> <span class="ot">=</span> <span class="dt">Club</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Athlete.hs</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Athlete</span> <span class="kw">where</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Athlete</span> <span class="ot">=</span> <span class="dt">Athlete</span> {<span class="ot"> name ::</span> <span class="dt">String</span> }</span></code></pre></div>
+<p>Теперь пишем:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Main.hs</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Athlete</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Club</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> athleteWithoutName { name <span class="ot">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> name realAthlete</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> nameOfRealAthlete</span></code></pre></div>
+<p>Но капризный компилятор и этому варианту не будет рад, ибо хотя прежняя ошибка ушла, пришла новая:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">src/Main.hs:9:51:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Ambiguous</span> occurrence ‘name’</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">It</span> could refer to either ‘Athlete.name’,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                             <span class="ex">imported</span> from ‘Athlete’ at src/Main.hs:3:1-14</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                             <span class="kw">(</span><span class="ex">and</span> originally defined at src/Athlete.hs:3:26-29<span class="kw">)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                          <span class="ex">or</span> ‘Club.name’,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                             <span class="ex">imported</span> from ‘Club’ at src/Main.hs:4:1-11</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                             <span class="kw">(</span><span class="ex">and</span> originally defined at src/Club.hs:3:20-23<span class="kw">)</span></span></code></pre></div>
+<p>Когда мы с вами глядим на эту строку:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>athleteWithoutName { name <span class="ot">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</span></code></pre></div>
+<p>нам предельно ясно, какое <code>name</code> имеется в виду, но компилятор не столь понятлив. Ладно, удовлетворим его каприз и уточним:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Main.hs</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Athlete</span> <span class="kw">as</span> <span class="dt">A</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Club</span>    <span class="kw">as</span> <span class="dt">C</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> athleteWithoutName { A.name <span class="ot">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> A.name realAthlete</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        clubWithoutName    <span class="ot">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        realClub           <span class="ot">=</span> clubWithoutName { C.name <span class="ot">=</span> <span class="st">&quot;Fixed Touring&quot;</span> }</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        nameOfRealClub     <span class="ot">=</span> C.name realClub</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> <span class="op">$</span> nameOfRealAthlete <span class="op">++</span> <span class="st">&quot;, &quot;</span> <span class="op">++</span> nameOfRealClub</span></code></pre></div>
+<p>Теперь всё работает. Но такое решение тоже не торт. Рано или поздно количество модулей увеличится, и между alias-именами модулей могут возникнуть коллизии. Конечно, мы можем не использовать alias-имена и указывать имя модуля целиком:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Athlete.name realAthlete</span></code></pre></div>
+<p>но каждый раз уточнять “модульную принадлежность” наших полей - это скучновато.</p>
+<h2 id="отказ-от-одноимённых-полей">Отказ от одноимённых полей</h2>
+<p>В конце концов, раз от них проблемы, так давайте же избавимся от них:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Club.hs</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Club</span> <span class="kw">where</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Club</span> <span class="ot">=</span> <span class="dt">Club</span> {<span class="ot"> clubName ::</span> <span class="dt">String</span> }</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Athlete.hs</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Athlete</span> <span class="kw">where</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Athlete</span> <span class="ot">=</span> <span class="dt">Athlete</span> {<span class="ot"> athleteName ::</span> <span class="dt">String</span> }</span></code></pre></div>
+<p>И далее пишем так:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Main.hs</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Athlete</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Club</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> athleteWithoutName { athleteName <span class="ot">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> athleteName realAthlete</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        clubWithoutName    <span class="ot">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        realClub           <span class="ot">=</span> clubWithoutName { clubName <span class="ot">=</span> <span class="st">&quot;Fixed Touring&quot;</span> }</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        nameOfRealClub     <span class="ot">=</span> clubName realClub</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> <span class="op">$</span> nameOfRealAthlete <span class="op">++</span> <span class="st">&quot;, &quot;</span> <span class="op">++</span> nameOfRealClub</span></code></pre></div>
+<p>Никаких коллизий, всё прекрасно работает, но это некрасивое решение. Ведь мы постоянно сами себя повторяем:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>athleteWithoutName { athleteName <span class="ot">=</span> <span class="st">&quot;Taylor Fausak&quot;</span> }</span></code></pre></div>
+<p>Читается как “масло масляное”. Нет, мы любим Haskell за его красоту, поэтому желаем чего-то лучшего.</p>
+<h2 id="именной-класс-типов">Именной класс типов</h2>
+<p>Определим класс для работы с типами, имеющими имя:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">HasName</span> a <span class="kw">where</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    getName ::</span> a <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    setName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>Теперь создадим экземпляры этого класса для наших атлетов и клубов:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="kw">where</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    getName athlete <span class="ot">=</span> athleteName athlete</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    setName newName athlete <span class="ot">=</span> athlete { athleteName <span class="ot">=</span> newName }</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="kw">where</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    getName club <span class="ot">=</span> clubName club</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    setName newName club <span class="ot">=</span> club { clubName <span class="ot">=</span> newName }</span></code></pre></div>
+<p>И теперь пишем:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> setName <span class="st">&quot;Taylor Fausak&quot;</span> athleteWithoutName</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> getName realAthlete</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        clubWithoutName    <span class="ot">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        realClub           <span class="ot">=</span> setName <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        nameOfRealClub     <span class="ot">=</span> getName realClub</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> <span class="op">$</span> nameOfRealAthlete <span class="op">++</span> <span class="st">&quot;, &quot;</span> <span class="op">++</span> nameOfRealClub</span></code></pre></div>
+<p>Ну что ж, такое решение значительно красивее, ведь никакого “масла масляного” уже нет. Казалось бы, мы нашли идеальное решение, но…</p>
+<h2 id="разные-типы">Разные типы</h2>
+<p>Что произойдёт, если тип поля <code>name</code> у атлета станет другим, нежели у клуба? Допустим, мы решили использовать более продвинутый тип <code>Text</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Athlete.hs</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Athlete</span> <span class="kw">where</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Text</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Athlete</span> <span class="ot">=</span> <span class="dt">Athlete</span> {<span class="ot"> athleteName ::</span> <span class="dt">Text</span> }</span></code></pre></div>
+<p>К сожалению, всё тут же сломается:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">src/Main.hs:11:25:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Couldn</span><span class="st">'t match type ‘Data.Text.Internal.Text’ with ‘[Char]’</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="st">    Expected type: String</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">      Actual type: Data.Text.Internal.Text</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="st">    In the expression: athleteName athlete</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">    In an equation for ‘getName’:</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="st">        getName athlete = athleteName athlete</span></span></code></pre></div>
+<p>Вспомним класс типов <code>HasName</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">HasName</span> a <span class="kw">where</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    getName ::</span> a <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    setName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>Методы этого класса дружат с обыкновенной строкой, а им тут подсовывают какой-то <code>Text</code>… Но врагу не сдаётся наш гордый Варяг! Сделаем класс более обобщённым:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">HasName</span> a b <span class="kw">where</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    getName ::</span> a <span class="ot">-&gt;</span> b</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    setName ::</span> b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>Кстати, чтобы это работало, добавим необходимые Haskell-расширения в начале модуля <code>Main.hs</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE FlexibleInstances #-}</span></span></code></pre></div>
+<p>Теперь изменим экземпляры класса для наших типов:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="dt">Text</span> <span class="kw">where</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    getName athlete <span class="ot">=</span> athleteName athlete</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    setName newName athlete <span class="ot">=</span> athlete { athleteName <span class="ot">=</span> newName }</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="dt">String</span> <span class="kw">where</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    getName club <span class="ot">=</span> clubName club</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    setName newName club <span class="ot">=</span> club { clubName <span class="ot">=</span> newName }</span></code></pre></div>
+<p>Здесь мы учли разность типов имён атлетов и клубов. И теперь пишем:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> empty</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> setName (<span class="fu">pack</span> <span class="st">&quot;Taylor Fausak&quot;</span>) athleteWithoutName</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> getName realAthlete</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        clubWithoutName    <span class="ot">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        realClub           <span class="ot">=</span> setName <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        nameOfRealClub     <span class="ot">=</span> getName realClub</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> <span class="op">$</span> unpack nameOfRealAthlete <span class="op">++</span> <span class="st">&quot;, &quot;</span> <span class="op">++</span> nameOfRealClub</span></code></pre></div>
+<p>Работает:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Taylor</span> Fausak, Fixed Touring</span></code></pre></div>
+<p>Это весьма хорошее решение, и мы могли бы на этом остановиться, но существует иной путь.</p>
+<h2 id="линзы">Линзы</h2>
+<p>Определим новый тип:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Lens</span> a b <span class="ot">=</span> <span class="dt">Lens</span> {<span class="ot"> get ::</span> a <span class="ot">-&gt;</span> b</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                     ,<span class="ot"> set ::</span> b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                     }</span></code></pre></div>
+<p>Перед нами - главная идея линз. Мы ведь хотим сделать работу с геттерами и сеттерами максимально изящной, не правда ли? Так вот идея в том, чтобы создать линзу (для русскоязычного читателя привычнее будет термин “лупа”), позволяющую нам сфокусироваться на каком-то значении. А фокусироваться нам нужно как раз для того, чтобы изменять (<code>set</code>) или получать (<code>get</code>).</p>
+<p>Но чтобы всё это работало, мы должны определить линзы для каждого из наших типов:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ot">athleteNameLens ::</span> <span class="dt">Lens</span> <span class="dt">Athlete</span> <span class="dt">Text</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>athleteNameLens <span class="ot">=</span> <span class="dt">Lens</span> { get <span class="ot">=</span> \athlete <span class="ot">-&gt;</span> athleteName athlete</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                       , set <span class="ot">=</span> \newName athlete <span class="ot">-&gt;</span> athlete { athleteName <span class="ot">=</span> newName }</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                       }</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="ot">clubNameLens ::</span> <span class="dt">Lens</span> <span class="dt">Club</span> <span class="dt">String</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>clubNameLens <span class="ot">=</span> <span class="dt">Lens</span> { get <span class="ot">=</span> \club <span class="ot">-&gt;</span> clubName club</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                    , set <span class="ot">=</span> \newName club <span class="ot">-&gt;</span> club { clubName <span class="ot">=</span> newName }</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                    }</span></code></pre></div>
+<p>Мы определили линзу <code>athleteNameLens</code> для фокусировки на имени атлета, а также линзу <code>clubNameLens</code> для фокусировки на имени клуба. Фактически, <code>get</code> и <code>set</code> - это лямбда-обёртки для работы с уже известным нам полем <code>athleteName</code>.</p>
+<p>Возможно, вы спросите, зачем нужны такие сложности? Но взгляните на новое определение экземпляров класса <code>HasName</code>:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">HasName</span> a b <span class="kw">where</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    name ::</span> <span class="dt">Lens</span> a b</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Athlete</span> <span class="dt">Text</span> <span class="kw">where</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    name <span class="ot">=</span> athleteNameLens</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Club</span> <span class="dt">String</span> <span class="kw">where</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    name <span class="ot">=</span> clubNameLens</span></code></pre></div>
+<p>Всё сильно упростилось. Класс <code>HasName</code> теперь содержит одно-единственное “линзовое” значение <code>name</code>. Соответственно, в каждом экземпляре этого класса мы просто заявляем: “Значение <code>name</code> теперь связано с конкретной линзой, определённой для данного типа.”</p>
+<p>И вот теперь наш главный код приобретает следующий вид:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> athleteWithoutName <span class="ot">=</span> <span class="dt">Athlete</span> empty</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        realAthlete        <span class="ot">=</span> set name (<span class="fu">pack</span> <span class="st">&quot;Taylor Fausak&quot;</span>) athleteWithoutName</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        nameOfRealAthlete  <span class="ot">=</span> get name realAthlete</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        clubWithoutName    <span class="ot">=</span> <span class="dt">Club</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        realClub           <span class="ot">=</span> set name <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        nameOfRealClub     <span class="ot">=</span> get name realClub</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="fu">putStrLn</span> <span class="op">$</span> unpack nameOfRealAthlete <span class="op">++</span> <span class="st">&quot;, &quot;</span> <span class="op">++</span> nameOfRealClub</span></code></pre></div>
+<p>Элегантно, не правда ли? Читается теперь как поэма:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>set name <span class="st">&quot;Fixed Touring&quot;</span> clubWithoutName</span></code></pre></div>
+<p>Здесь <code>set</code> фокусируется на имени клуба через линзу <code>name</code>. Мы как будто говорим: “Измени то, на что смотрит эта линза”, или “Получи то, на что смотрит эта линза”. Грубо и схематично это можно представить себе так:</p>
+<pre><code>действие -&gt; линза -&gt; нечто, к чему применяется действие</code></pre>
+<h2 id="правда">Правда</h2>
+<p>А правда, друзья мои, состоит в том, что всё вышеизложенное есть не более чем мааааааленькая демонстрация. Существует мощный пакет <a href="http://hackage.haskell.org/package/lens">lens</a>, в котором всё уже реализовано очень умными людьми. К рассмотрению возможностей этого пакета мы приступим в следующих статьях.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

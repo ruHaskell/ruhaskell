@@ -1,0 +1,849 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Зависимые типы на примере взаимодействия с Яндекс.Директ API
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Зависимые типы на примере взаимодействия с Яндекс.Директ API
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%A0%D0%BE%D0%BC%D0%B0%D0%BD%20%D0%9A%D0%B8%D1%80%D0%B5%D0%B5%D0%B2.html">Роман Киреев</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2017 jan 06<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/web.html">Веб</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D1%8B%D0%B5%20%D1%82%D0%B8%D0%BF%D1%8B.html">зависимые типы</a>&quot;, &quot;<a href="../../../../../tags/%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0%20%D1%82%D0%B8%D0%BF%D0%BE%D0%B2.html">семейства типов</a>&quot;, &quot;<a href="../../../../../tags/web.html">web</a>&quot;, &quot;<a href="../../../../../tags/Servant.html">Servant</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <p>Здравствуйте.</p>
+<p>Зависимые типы (<a href="http://strictlypositive.org/vfl.pdf">The view from the left</a>, <a href="http://cs.stackexchange.com/questions/49888/what-is-a-brief-but-complete-explanation-of-a-pure-dependent-type-system">What is a brief but complete explanation of a pure/dependent type system?</a>) набирают популярность и в будущем <a href="https://typesandkinds.wordpress.com/2016/07/24/dependent-types-in-haskell-progress-report">будут добавлены</a> в GHC. Однако, зависимые типы ассоциируются с доказательством теорем и формализацией различных систем, так что их польза может быть неочевидной для рядового программиста. В этом посте мы рассмотрим зависимые типы на примере простой программистской задачи – типобезопасного взаимодействия с <a href="https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/">Яндекс.Директ API v5</a>.</p>
+<p>Популяризации зависимых типов для программирования немало способствует библиотека Servant, используемая как для предоставления типизированного API (servant-server), так и для написания запросов к уже существующему (servant-client). Мы будем использовать эту библиотеку (объясняние принципа ее работы выходит за рамки данного поста, желающие могут ознакомиться с докладом <a href="https://ruhaskell.org/posts/talks/2016/04/05/better-services-with-servant.html">Делаем свою жизнь проще с Servant</a>). Однако, встроенными в Servant зависимыми типами дело не ограничится, и мы добавим еще своих.</p>
+<p><a href="https://github.com/effectfully/yandex-direct">Репозиторий с кодом</a>.</p>
+<h1 id="план">План</h1>
+<p>Мы опишем несколько базовых сущностей Яндекс.Директ API: метод (add, get), операция, результат операции, объект (наименования словарей, объявления, кампании) и определим зависимо-типизированную функцию, которая позволяет вызвать любой метод, параметризованный некоторым объектом, и принять ответ, тип которого зависит от вызванного метода и типа объекта.</p>
+<h1 id="операции">Операции</h1>
+<p>Яндекс.Директ API <a href="https://tech.yandex.ru/direct/doc/dg/best-practice/principles-docpage/">предоставляет</a> довольно много методов, которые можно выполнять, поэтому выберем небольшое подмножество (я буду опускать <code>deriving (...)</code> везде):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Method</span> <span class="ot">=</span> <span class="dt">Add</span> <span class="op">|</span> <span class="dt">Get</span></span></code></pre></div>
+<p>Операцией является метод с переданными ему параметрами:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Operation</span> a <span class="ot">=</span> <span class="dt">Operation</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> method ::</span> <span class="op">!</span><span class="dt">Method</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> params ::</span> <span class="op">!</span>a</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Каждая операция возвращает некоторый результат:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Result</span> r <span class="ot">=</span> <span class="dt">Result</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> result ::</span> r</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Разные методы возвращают значения разных типов. В случае использования метода <code>add</code>, возвращается структура <code>AddResults</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">AddResults</span> <span class="ot">=</span> <span class="dt">AddResults</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getAddResults ::</span> [<span class="dt">ActionResult</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">ActionResult</span> <span class="ot">=</span> <span class="dt">ActionResult</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getId       ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> <span class="dt">Integer</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getWarnings ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> [<span class="dt">ExceptionNotification</span>])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getErrors   ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> [<span class="dt">ExceptionNotification</span>])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">ExceptionNotification</span> <span class="ot">=</span> <span class="dt">ExceptionNotification</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getCode    ::</span> <span class="op">!</span><span class="dt">Int</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getMessage ::</span> <span class="op">!</span><span class="dt">Text</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getDetails ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> <span class="dt">Text</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Если же используется метод <code>get</code>, то результат зависит от параметра, с которым метод был вызван. К примеру, если методу <code>get</code> был передан параметр типа <code>DictionaryNames</code> (по сути список названий словарей)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">DictionaryNames</span> <span class="ot">=</span> <span class="dt">DictionaryNames</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getDictionaryNames ::</span> [<span class="dt">DictionaryNameEnum</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">DictionaryNameEnum</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">GeoRegions</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">SupplySidePlatforms</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">...</span></span></code></pre></div>
+<p>то результатом будет <code>Dictionaries</code> (тип, изоморфный гетерогенному списку всех словарей, каждый из которых завернут в <code>Maybe</code>, так что для каждого словаря, который не был запрошен, будет возвращено <code>Nothing</code>):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Dictionaries</span> <span class="ot">=</span> <span class="dt">Dictionaries</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getGeoRegions          ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> [<span class="dt">GeoRegionsItem</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getSupplySidePlatforms ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> [<span class="dt">SupplySidePlatformsItem</span>])</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  , <span class="op">...</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">GeoRegionsItem</span> <span class="ot">=</span> <span class="dt">GeoRegionsItem</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getGeoRegionId   ::</span> <span class="op">!</span><span class="dt">Integer</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getGeoRegionName ::</span> <span class="op">!</span><span class="dt">Text</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getGeoRegionType ::</span> <span class="op">!</span><span class="dt">Text</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getParentId      ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> <span class="dt">Integer</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">SupplySidePlatformsItem</span> <span class="ot">=</span> <span class="dt">SupplySidePlatformsItem</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getTitle ::</span> <span class="op">!</span><span class="dt">Text</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Таким образом тип возвращаемого значения зависит от вызванного метода и от типа параметра, ему переданного. В коде это выглядит следующим образом:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">ResultOf</span> m a <span class="kw">where</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ResultOf</span> <span class="dt">'Add</span> a               <span class="ot">=</span> <span class="dt">AddResults</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ResultOf</span> <span class="dt">'Get</span> <span class="dt">DictionaryNames</span> <span class="ot">=</span> <span class="dt">Dictionaries</span></span></code></pre></div>
+<p>Поскольку методы являются значениями, а Пи-типов в Haskell еще нет, мы должны использовать технику под названием singleton types, чтобы поднять на уровень типов то, что существует на уровне значений (на эту тему тоже был <a href="https://ruhaskell.org/posts/theory/2016/01/06/serialization-with-deptypes.html">пост</a>):</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">SMethod</span> m <span class="kw">where</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">SAdd</span><span class="ot"> ::</span> <span class="dt">SMethod</span> <span class="dt">'Add</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">SGet</span><span class="ot"> ::</span> <span class="dt">SMethod</span> <span class="dt">'Get</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ot">evalSMethod ::</span> <span class="dt">SMethod</span> m <span class="ot">-&gt;</span> <span class="dt">Method</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>evalSMethod <span class="dt">SAdd</span> <span class="ot">=</span> <span class="dt">Add</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>evalSMethod <span class="dt">SGet</span> <span class="ot">=</span> <span class="dt">Get</span></span></code></pre></div>
+<h1 id="объекты">Объекты</h1>
+<p>Яндекс.Директ API является весьма разветвленным: с его помощью можно обрабатывать объявления, группы объявлений, кампании, расширения, ключевые слова и многое другое. Мы напишем обобщенную функцию, которая позволит передать вызываемому методу любой из этих объектов.</p>
+<p>Сначала пару примеров. Объявления:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Ads</span> <span class="ot">=</span> <span class="dt">Ads</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getAds ::</span> [<span class="dt">AdAddItem</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">AdAddItem</span> <span class="ot">=</span> <span class="op">...</span></span></code></pre></div>
+<p>Кампании:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Campaigns</span> <span class="ot">=</span> <span class="dt">Campaigns</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getCampaigns ::</span> [<span class="dt">CampaignAddItem</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">CampaignAddItem</span> <span class="ot">=</span> <span class="op">...</span></span></code></pre></div>
+<p>Адресом для обработки запросов, имеющих отношение к объявлениям, является “https://api.direct.yandex.com/json/v5/ads”, а адресом для обработки запросов, имеющих отношение к кампаниям, является “https://api.direct.yandex.com/json/v5/campaigns”. Все остальные объекты также имеют собственные адреса для обработки запросов. Так что заведем класс типов</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">ToJSON</span> a <span class="ot">=&gt;</span> <span class="dt">Entity</span> a <span class="kw">where</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  entityName ::</span> a <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Entity</span> <span class="dt">Ads</span> <span class="kw">where</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  entityName _ <span class="ot">=</span> <span class="st">&quot;ads&quot;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Entity</span> <span class="dt">Campaigns</span> <span class="kw">where</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  entityName _ <span class="ot">=</span> <span class="st">&quot;campaigns&quot;</span></span></code></pre></div>
+<p>То есть каждый объект должен быть сериализуем в JSON, чтобы его можно было передать по сети, и иметь имя, которое составляет часть адреса для запросов.</p>
+<h1 id="api">API</h1>
+<p>Опишем API Директа с помощью инструментов, предоставляемых Servant:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://tech.yandex.ru/direct/doc/dg/concepts/headers-docpage/</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">DirectAPI</span> a r <span class="ot">=</span> <span class="dt">Header</span> <span class="st">&quot;Authorization&quot;</span>   <span class="dt">Text</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                  <span class="op">:&gt;</span> <span class="dt">Header</span> <span class="st">&quot;Accept-Language&quot;</span> <span class="dt">Text</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                  <span class="op">:&gt;</span> <span class="dt">Header</span> <span class="st">&quot;Client-Login&quot;</span>    <span class="dt">Text</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                  <span class="op">:&gt;</span> <span class="dt">ReqBody</span> '[<span class="dt">JSON</span>] (<span class="dt">Operation</span> a)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                  <span class="op">:&gt;</span> <span class="dt">Post</span>    '[<span class="dt">JSON</span>] (<span class="dt">Result</span>    r)</span></code></pre></div>
+<p><code>a</code> – тип параметра вызываемого метода, <code>r</code> – тип возвращаемого результата. Операция автоматически сериализуется в JSON, результат автоматически десериализуется из JSON.</p>
+<p>Нам также понадобится Директ-специфичный конфиг:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">DirectConfig</span> <span class="ot">=</span> <span class="dt">DirectConfig</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getToken ::</span> <span class="op">!</span><span class="dt">Text</span>         <span class="co">-- https://tech.yandex.ru/direct/doc/dg/concepts/auth-token-docpage/</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getLogin ::</span> <span class="op">!</span>(<span class="dt">Maybe</span> <span class="dt">Text</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ,<span class="ot"> getHost  ::</span> <span class="op">!</span><span class="dt">Text</span>         <span class="co">-- Может быть как &quot;api.direct.yandex.com&quot;,</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                              <span class="co">--          так и &quot;api-sandbox.direct.yandex.com&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>И мы наконец можем собрать все вместе и определить основную функцию для общения с API Директа:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ot">perform ::</span> (<span class="dt">FromJSON</span> (<span class="dt">ResultOf</span> m a), <span class="dt">Entity</span> a)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        <span class="ot">=&gt;</span> <span class="dt">DirectConfig</span> <span class="ot">-&gt;</span> <span class="dt">Manager</span> <span class="ot">-&gt;</span> <span class="dt">SMethod</span> m <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">ClientM</span> (<span class="dt">ResultOf</span> m a)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>perform (<span class="dt">DirectConfig</span> token login host) manager smethod entity <span class="ot">=</span> result <span class="op">&lt;$&gt;</span> run <span class="kw">where</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  proxy <span class="ot">=</span> <span class="dt">Proxy</span><span class="ot"> ::</span> <span class="dt">Proxy</span> (<span class="dt">DirectAPI</span> a r)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  auth  <span class="ot">=</span> <span class="dt">Just</span> <span class="op">$</span> <span class="st">&quot;Bearer &quot;</span> <span class="ot">`mappend`</span> token</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  lang  <span class="ot">=</span> <span class="dt">Just</span> <span class="st">&quot;ru&quot;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  oper  <span class="ot">=</span> <span class="dt">Operation</span> (evalSMethod smethod) entity</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  url   <span class="ot">=</span> <span class="dt">BaseUrl</span> <span class="dt">Https</span> (unpack host) <span class="dv">443</span> <span class="op">$</span> <span class="st">&quot;/json/v5/&quot;</span> <span class="op">++</span> entityName entity</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  run   <span class="ot">=</span> client proxy auth lang login oper manager url</span></code></pre></div>
+<p>(В новых версиях Servant <code>Manager</code> является частью <code>ClientM</code>, но на момент написания поста в последнем LTS-снимке на Stackage используется старая версия). <code>perform</code> принимает Директ-специфичный конфиг, менеджер соединения, метод, который следует вызвать, в форме синглтона и объект, который будет передан методу. Из сигнатуры <code>perform</code> видно, что тип возвращаемого значения (<code>ResultOf m a</code>) действительно зависит от вызванного метода (<code>m</code> в <code>SMethod m</code>) и от типа параметра (<code>a</code>), ему переданного. В остальном мы просто используемым базовый функционал, предоставляемый Servant.</p>
+<h1 id="заключение">Заключение</h1>
+<p>С помощью зависимо-типизированного Servant можно декларативно описать API, и избавиться от необходимости вручную сериализовать-десериализовать данные. Однако, типы данных, приходящих в ответ на запрос, могут зависеть от содержимого запроса, но зависимые типы и здесь позволяют выразить все необходимые инварианты.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

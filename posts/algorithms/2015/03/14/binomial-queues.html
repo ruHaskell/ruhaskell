@@ -1,0 +1,945 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Биномиальные очереди как вложенные данные
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Биномиальные очереди как вложенные данные
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%92%D0%B5%D1%80%D1%88%D0%B8%D0%BB%D0%BE%D0%B2.html">Александр Вершилов</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 mar 14<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/algorithms.html">Алгоритмы</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/%D1%82%D0%B8%D0%BF%D1%8B.html">типы</a>&quot;, &quot;<a href="../../../../../tags/%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B.html">алгоритмы</a>&quot;, &quot;<a href="../../../../../tags/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4.html">перевод</a>&quot;, &quot;<a href="../../../../../tags/Okasaki.html">Okasaki</a>&quot;, &quot;<a href="../../../../../tags/%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.html">структуры данных</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+    <div class="href-to-original">
+        <a href="http://okasaki.blogspot.ru/2009/10/binomial-queues-as-nested-type.html" target="_blank">Оригинал <span class="fa fa-external-link"></span></a>
+    </div>
+
+
+    </div>
+</div>
+
+
+<div>
+    <p>Моисей Котович (Maciej Kotowicz) недавно задал вопрос в спискe
+рассылки <a href="https://mail.haskell.org/pipermail/haskell-cafe/">Haskell Cafe</a>, о том как реализовать биномиальные очереди
+(так же известные как биномиальные кучи) используя хитрые
+возможности системы типов так, чтобы система проверки корректности типов (type-checker)
+могла проверить все инварианты формы структуры данных. Этот вопрос напомнил мне о
+дискуссии с коллегой летом 1998 года про использование вложенных типов для
+гарантии соблюдения инвариантов формы. Немного порывшись в архивах,
+я нашёл это письмо, которое и представляю здесь.</p>
+<p>Я поиграл с биномиальными очередями как вложенным типом данных,
+и я думаю, что вы найдете результат интересным.</p>
+<h2 id="обзор">Обзор</h2>
+<p>Позвольте мне сначала дать краткий обзор обычной реализации
+биномиальнух очередей. Вспомним, что биномиальное дерево имеет
+следующую форму:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Tree</span> a <span class="ot">=</span> <span class="dt">Node</span> a [<span class="dt">Tree</span> a]</span></code></pre></div>
+<p>У биномиального дерева ранга <span class="math inline">\(k\)</span> есть <span class="math inline">\(k\)</span> детей рангов <span class="math inline">\(k-1 \ldots 0\)</span>
+сохраненных в списке с в порядке убывания ранга. Заметьте, что мы
+можем объединять два пирамидально-упорядоченных (heap-ordered) биномиальных
+дерева ранга <span class="math inline">\(k\)</span>, получая пирамидально-упорядоченное дерево ранга <span class="math inline">\(k+1\)</span> следующим образом:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>combine a<span class="op">@</span>(<span class="dt">Node</span> x xs) b<span class="op">@</span>(<span class="dt">Node</span> y ys)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   <span class="op">|</span> x <span class="op">&lt;=</span> y    <span class="ot">=</span> <span class="dt">Node</span> x (b <span class="op">:</span> xs)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> <span class="dt">Node</span> y (a <span class="op">:</span> ys)</span></code></pre></div>
+<p>Далее, биномиальная очередь это список пирамидально-упорядоченных биномиальных деревьев
+в порядке возрастания рангов <em>[переводчик: тут было высоты (height)]</em> (но не обязательно последовательных рангов).
+Для хранения рангов деревьев, которые присуствуют в структуре, мы будем
+использовать их позиции в списке. Как следствие, в списке будут присутсвовать
+пустые ранги. Данная структура может быть реализована следующим образом:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Binom</span> a <span class="ot">=</span> [<span class="dt">Maybe</span> (<span class="dt">Tree</span> a)]</span></code></pre></div>
+<p>или более эффективно</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Binom</span> a <span class="ot">=</span> <span class="dt">Nil</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>             <span class="op">|</span> <span class="dt">Zero</span> (<span class="dt">Binom</span> a)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>             <span class="op">|</span> <span class="dt">One</span> (<span class="dt">Tree</span> a) (<span class="dt">Binom</span> a)</span></code></pre></div>
+<p>или ещё лучше распаковав <code>Tree</code> в конструкторе <code>One</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Binom</span> a <span class="ot">=</span> <span class="dt">Nil</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>             <span class="op">|</span> <span class="dt">Zero</span> (<span class="dt">Binom</span> a)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             <span class="op">|</span> <span class="dt">One</span> a [<span class="dt">Tree</span> a] (<span class="dt">Binom</span> a)</span></code></pre></div>
+<p>Я не буду рассматривать все операции – они подробно рассмотрены в других источниках.
+Я просто опишу две функции. Первая, <code>add</code>, берёт дерево и список (где ранг дерева
+имеет тот же ранг, что и первый элемент в списке), и возвращает новый список.
+Эта операция является аналогом функции инкремента на бинарных числах.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ot">add ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> [<span class="dt">Tree</span> a] <span class="ot">-&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> <span class="dt">Binom</span> a</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>add x xs <span class="dt">Nil</span> <span class="ot">=</span> <span class="dt">One</span> x xs <span class="dt">Nil</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>add x xs (<span class="dt">Zero</span> h) <span class="ot">=</span> <span class="dt">One</span> x xs h</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>add x xs (<span class="dt">One</span> y ys h)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> x <span class="op">&lt;=</span> y    <span class="ot">=</span> <span class="dt">Zero</span> (add x (<span class="dt">Node</span> y ys <span class="op">:</span> xs) h)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> <span class="dt">Zero</span> (add y (<span class="dt">Node</span> x xs <span class="op">:</span> ys) h)</span></code></pre></div>
+<p>Функция объедиения (<code>merge</code>) записывается похожим образом и
+работает так же как и функция сложения бинарных чисел.</p>
+<p>Наконец, функция <code>getMin</code> возвращает минимальный элемент в очереди
+и очередь без этого элемента. Вспомогательная фунция <code>getMin_</code>
+возвращает тройку: минимальный элемент в одном из суффиксов (?) очереди,
+список детей, связанных с этим минимальным элеменом, и суффикс без этого элемента.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin_ ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, [<span class="dt">Tree</span> a], <span class="dt">Binom</span> a)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>getMin_ (<span class="dt">Zero</span> h) <span class="ot">=</span> <span class="kw">case</span> getMin_ h <span class="kw">of</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                     (y,ys,h') <span class="ot">-&gt;</span> (y,ys,<span class="dt">Zero</span> h')</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>getMin_ (<span class="dt">One</span> x xs <span class="dt">Nil</span>) <span class="ot">=</span> (x,xs,<span class="dt">Nil</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>getMin_ (<span class="dt">One</span> x xs h) <span class="ot">=</span> <span class="kw">case</span> getMin_ h <span class="kw">of</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                         (y,ys,h') <span class="op">|</span> x <span class="op">&lt;=</span> y    <span class="ot">-&gt;</span> (x,xs,<span class="dt">Zero</span> h)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">-&gt;</span> (y,ys,<span class="dt">One</span> x xs h')</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, <span class="dt">Binom</span> a)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>getMin h <span class="ot">=</span> <span class="kw">let</span> (x,xs,h') <span class="ot">=</span> getMin_ h</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>           <span class="kw">in</span> (x,merge (list2binom xs <span class="dt">Nil</span>) h')</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>list2binom [] h <span class="ot">=</span> h</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>list2binom (<span class="dt">Node</span> x xs <span class="op">:</span> ys) h <span class="ot">=</span> list2binom ys (<span class="dt">One</span> x xs h)</span></code></pre></div>
+<p>Заметьте, что когда <code>getMin</code> получает список дочерних элементов, она
+превращает их в правильную биномиальную очередь, разворачивая список и
+заменяя каждую пару конструкторов <code>Node</code> и <code>(:)</code> на конструктор <code>One</code>).</p>
+<h2 id="вложенное-представление---первая-попытка.">Вложенное представление - первая попытка.</h2>
+<p>Следуя тем же путём, который мы использовали для проектирования
+других вложенных типов данных, мы получаем следующее представление биномиальных
+очередей.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Binom_</span> a b <span class="ot">=</span> <span class="dt">Nil</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="dt">Zero</span> (<span class="dt">Binom_</span> a (<span class="dt">Trees</span> a b))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="dt">One</span> a b (<span class="dt">Binom_</span> a (<span class="dt">Trees</span> a b))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Trees</span> a b <span class="ot">=</span> (a, b, b)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Binom</span> a <span class="ot">=</span> <span class="dt">Binom_</span> a ()</span></code></pre></div>
+<p>Например, список детей</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  (<span class="dt">Node</span> x3 xs3 <span class="op">:</span> <span class="dt">Node</span> x2 xs2 <span class="op">:</span> <span class="dt">Node</span> x1 xs1 <span class="op">:</span> <span class="dt">Node</span> x0 xs0 <span class="op">:</span> [])</span></code></pre></div>
+<p>будет представлен вложенными тройками</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  (xs3,xs3', (x2,xs2', (x1,xs1', (x0,xs0', ()))))</span></code></pre></div>
+<p>(где <span class="math inline">\(xsN'\)</span> - соотвествующее преобразование <span class="math inline">\(xsN\)</span>)</p>
+<p>Все функции записываются очень просто, за исключением <code>getMin</code> и <code>getMin_</code>
+которые должны инкрементально строить функцию разворота, для того, чтобы
+превратить</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  (xs3,xs3', (x2,xs2', (x1,xs1', (x0,xs0', ()))))</span></code></pre></div>
+<p>в</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">One</span> x0 xs0' (<span class="dt">One</span> x1 xs1' (<span class="dt">One</span> x2 xs2' (<span class="dt">One</span> x3 xs3' <span class="dt">Nil</span>)))</span></code></pre></div>
+<p>В результате того, что данная функция строится инкрементально,
+реализация оказывается примерно на 10% медленнее, чем оригинальная.</p>
+<h2 id="перерыв-о-развороте-списков">Перерыв о развороте списков</h2>
+<p>Предположим, что мы хотим использовать следующий тип данных. Последовательности
+с тремя операциями:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">empty ::</span> <span class="dt">ReversableSeq</span> a</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ot">cons  ::</span> a <span class="ot">-&gt;</span> <span class="dt">ReversableSeq</span> a <span class="ot">-&gt;</span> <span class="dt">ReversableSeq</span> a</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ot">rev   ::</span> <span class="dt">ReversableSeq</span> a <span class="ot">-&gt;</span> [a]</span></code></pre></div>
+<p>с очевидной семантикой: <code>const</code> должен иметь сложность <code>O(1)</code>, но <code>rev</code> может
+может иметь сложность <code>O(n)</code>. Разумной реализацией может быть список со
+следующими операциями:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ReversableSeq</span> a <span class="ot">=</span> [a]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>empty <span class="ot">=</span> []</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cons <span class="ot">=</span> (<span class="op">:</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>rev <span class="ot">=</span> <span class="fu">reverse</span></span></code></pre></div>
+<p>но, если вы повнимательнее посмотрите на него, то увидите, что тут получается достаточно
+много дополнительных накладных расходов на сопоставление с образцом (pattern matching), которые <code>reverse</code>
+выполняет на каждом шагу. Ещё в давнем 1985 году, John Hughes придумал представление,
+которое убирает эти расходы</p>
+<pre class="haskll"><code>type ReversableSeq a = [a] -&gt; [a]
+empty = id
+cons x xs = xs . (x:)
+rev xs = xs []</code></pre>
+<p>Результатом <code>cons 1 (cons 2 (cons 3 empty))</code> будет функция</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span> <span class="op">.</span> (<span class="dv">3</span><span class="op">:</span>) <span class="op">.</span> (<span class="dv">2</span><span class="op">:</span>) <span class="op">.</span> (<span class="dv">1</span><span class="op">:</span>)</span></code></pre></div>
+<p>которая будучи применена к <code>[]</code> функцией <code>rev</code> возвращает <code>[3,2,1]</code>. Один из
+вариантов представить как работает эта структура, это представить список с “дырками” в концах, <code>cons</code>
+заполняет эту дырку элементом и другой дыркой, а операция <code>rev</code> заполняет
+дырку <code>[]</code>. (Это структура похожа на разностныме списки из логического программирования…)</p>
+<p>Применяя этот же трюк к обычному представлению биномиальных очередей
+мы получаем представление</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Binom</span> a <span class="ot">=</span> <span class="dt">Nil</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>             <span class="op">|</span> <span class="dt">Zero</span> (<span class="dt">Binom</span> a)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>             <span class="op">|</span> <span class="dt">One</span> a (<span class="dt">Binom</span> a <span class="ot">-&gt;</span> <span class="dt">Binom</span> a) (<span class="dt">Binom</span> a)</span></code></pre></div>
+<p>которое оказывается примерно на 10% быстрее оригинального.</p>
+<h2 id="вложенное-представление-вторая-попытка">Вложенное представление – вторая попытка</h2>
+<p>Ok, давайте попробуем сделать вложенный тип данных. Концептуально
+вложение должно следить за нашей позицией в очереди так, что мы
+будем знать ранг текущего дерева, и мы не можем смешать деревья
+разных рангов. Мы строим гипотезу о некоем базовом типе обозначающем
+начало списка, и тип-преобразование <code>Succ</code>, который модифицирует тип
+одновременно с тем, как мы движемся вниз по очереди.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Base</span> <span class="ot">=</span> <span class="op">???</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Succ</span> b <span class="ot">=</span> <span class="op">???</span>  <span class="co">-- this might need to be Succ a b</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Binom</span> a <span class="ot">=</span> <span class="dt">Binom_</span> a <span class="dt">Base</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Binom_</span> a b <span class="ot">=</span> <span class="dt">Nil</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="dt">Zero</span> (<span class="dt">Binom_</span> a (<span class="dt">Succ</span> b))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="dt">One</span> a (<span class="dt">Binom_</span> a <span class="op">???</span> <span class="ot">-&gt;</span> <span class="dt">Binom_</span> a <span class="op">???</span>) (<span class="dt">Binom_</span> a (<span class="dt">Succ</span> b))</span></code></pre></div>
+<p>Теперь, какие типы мы должны подставить в конструктур <code>One</code>? Так.. функция <code>(Binom_ a ??? -&gt;  Binom_ a ???)</code>
+описывает дочерние элементы текущего узла. Если у текущего узла ранг <span class="math inline">\(k\)</span> то, эти элементы имеют ранги <span class="math inline">\(0 .. k-1\)</span>.
+Функция <code>(Binom_ a ??? -&gt; Binom_ a ???)</code> получает очередь, начинающуюся на ранге <span class="math inline">\(k\)</span>, и добавляет
+детей перед ним, возвращая очередь, начинающуюся с ранга <span class="math inline">\(0\)</span>. Т.о. <code>???</code> может быть заполнено
+как</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="dt">One</span> a (<span class="dt">Binom_</span> a b <span class="ot">-&gt;</span> <span class="dt">Binom_</span> a <span class="dt">Base</span>) (<span class="dt">Binom_</span> a (<span class="dt">Succ</span> b))</span></code></pre></div>
+<p>или просто</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="dt">One</span> a (<span class="dt">Binom_</span> a b <span class="ot">-&gt;</span> <span class="dt">Binom</span> a) (<span class="dt">Binom_</span> a (<span class="dt">Succ</span> b))</span></code></pre></div>
+<p>Теперь, какие конструкторы должны быть у <code>Base</code> и <code>Succ</code>? Это не важно, поскольку мы никогда не будем
+строить данные этих типов, мы просто используем эти типы, чтобы описать позицию в очереди.
+Поэтому мы можем определить <code>Base</code> и <code>Succ</code> как</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Base</span> <span class="ot">=</span> <span class="dt">Void</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Succ</span> b <span class="ot">=</span> <span class="dt">S</span> <span class="dt">Void</span></span></code></pre></div>
+<p>Мне кажется, что это очень интересные типы по следующим причинам:</p>
+<p>Они включают стрелочный тип (arrow type), который мы не часто встречаем.
+В правой части определения типа данных (на самом деле только в конструкторе <code>One</code>)
+есть входжения <code>Binom_</code> не менее чем трех различных типов</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Binom_</span> a b</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Binom_</span> a <span class="dt">Base</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="dt">Binom_</span> a (<span class="dt">Succ</span> b)</span></code></pre></div>
+<p>Я видел, когда встречались два вхождения, но не три.
+Эти типы никогда не используются, а служат для поддержания инвариантов (в этом случае того,
+что три различные ранга не должны быть перепутаны). [Комментарий от 2009года: сегодня
+такие штуки называются фантомными типами.]. В определенном смысле это делает типы менее
+интересными, но приводят к интересному свойству, что код отвечает свойству удаления типов (“type erasure”):
+если вы удалите типы из всех функций, то получите такой же код как и для оптимизированного обычного представления..</p>
+<p>Благодаря этому свойству удаления типов, вы можете ожидать, что вы получите код настолько
+же быстрый как и для обычного оптимизированного представления, но на самом деле он примерно
+на 10% медленее – или грубо говоря настолько же быстрый как и обычногое представление.
+Это происходит поскольку дополнительные типы скрывают возможные оптимизации, которые программист
+может сделать (и какие я сделал в случае обычного оптимизированного представления).</p>
+<p>Вспомним тип <code>getMin_</code> в обычном предславлении и то, как он был использован функцией <code>getMin</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin_ ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, [<span class="dt">Tree</span> a], <span class="dt">Binom</span> a)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, <span class="dt">Binom</span> a)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>getMin h <span class="ot">=</span> <span class="kw">let</span> (x,xs,h') <span class="ot">=</span> getMin_ h</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>           <span class="kw">in</span> (x,merge (list2binom xs <span class="dt">Nil</span>) h')</span></code></pre></div>
+<p>Для оптимизированного представления он превращается в</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin_ ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, <span class="dt">Binom</span> a <span class="ot">-&gt;</span> <span class="dt">Binom</span> a, <span class="dt">Binom</span> a)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, <span class="dt">Binom</span> a)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>getMin h <span class="ot">=</span> <span class="kw">let</span> (x,xs,h') <span class="ot">=</span> getMin_ h</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>           <span class="kw">in</span> (x,merge (xs <span class="dt">Nil</span>) h')</span></code></pre></div>
+<p>Теперь рассмотрим оптимизированные вложенные типы. Мы не можем просто записать</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin_ ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom_</span> a b <span class="ot">-&gt;</span> (a, <span class="dt">Binom_</span> a b <span class="ot">-&gt;</span> <span class="dt">Binom</span> a, <span class="dt">Binom_</span> a b)</span></code></pre></div>
+<p>поскольку мы не знаем ранг дерева во второй компоненте тройки. (Заметьте,
+что если бы у нас были экзистенциальные типы, то мы могли бы записать</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin_ ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom_</span> a b <span class="ot">-&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                    (a, exists c<span class="op">.</span> <span class="dt">Binom_</span> a c <span class="ot">-&gt;</span> <span class="dt">Binom</span> a, <span class="dt">Binom_</span> a b)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="ot">getMin ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> <span class="dt">Binom</span> a <span class="ot">-&gt;</span> (a, <span class="dt">Binom</span> a)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>getMin h <span class="ot">=</span> <span class="kw">let</span> (x,xs,h') <span class="ot">=</span> getMin_ h</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>           <span class="kw">in</span> (x,merge (xs <span class="dt">Nil</span>) h')</span></code></pre></div>
+<p>Некоторые реализации на самом деле поддерживают экзистенциальные типы,
+но в ограниченных возможностях, и могут приводить к потере эффективности
+при их использовании…)</p>
+<p>Вместо возвращения дочерних элементов и затем применения их к <code>Nil</code>,
+мы можем сначала применить дочерние элементы к <code>Nil</code>, а затем вернуть
+результат, получив тип</p>
+<p>~~~~~~haskell
+getMin_ :: Ord a =&gt; Binom_ a b -&gt; (a, Binom a, Binom_ a b)</p>
+<p>getMin :: Ord a =&gt; Binom a -&gt; (a, Binom a)
+getMin h = let (x,xs,h’) = getMin_ h
+in (x,merge xs h’)
+~~~~~</p>
+<p>Возможность записать функцию в таком виде опирается на ленивость, т.к. нам
+требуется, чтобы вычислись только дочерние элементы настоящего минимума,
+а не всех детей временных минимумов, которые мы получаем при построении.
+Хотя это обозначает, что мы строим гораздо больше thunks вида <code>(xs Nil)</code>
+при построении результата. И построение этих thunks очевидно достаточно
+дорого.</p>
+<p>Дополнение 2009 года: Ralf Hinze предложил похожее представление в Разделе 6
+“Numerical Representations as Higher-Order Nested Datatypes”. Сегодня
+вы скорее всего захотите использовать более хитрые структуры типов, такие
+как зависимые типы или, например, Обобщенные алебраические типы, то все равно
+разве это не удивительно, насколько далеко мы можем зайти используя только
+вложенные типы.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

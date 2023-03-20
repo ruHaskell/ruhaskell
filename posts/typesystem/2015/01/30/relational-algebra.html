@@ -1,0 +1,1014 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Реализация реляционной алгебры
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Реализация реляционной алгебры
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%92%D0%B5%D1%80%D1%88%D0%B8%D0%BB%D0%BE%D0%B2.html">Александр Вершилов</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 jan 30<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/typesystem.html">Система типов</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/%D0%B2%D0%B5%D0%BB%D0%BE%D1%81%D0%B8%D0%BF%D0%B5%D0%B4.html">велосипед</a>&quot;, &quot;<a href="../../../../../tags/%D1%82%D0%B8%D0%BF%D1%8B.html">типы</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <p>Пока все умные люди занимаются обсуждением records и OFR мы попробуем в очередной
+раз изобрести колесо и попытаться сделать гетерогенные записи.
+Поскольку просто делать такие записи не интересно, то попытаемся так же
+представить простенькую библиотеку для реляционной алгебры. Данный пост посвящен
+в основном отработке подходов к работе с типами и не очень полезен с прикладной
+точки зрения.</p>
+<p>Данный пост является <a href="https://wiki.haskell.org/Literate_programming">Literate Haskell</a> файлом и может быть вставлен в редактор.
+При написании поста использовался компилятор Glasgow Haskell Compiler версии 7.8 и на более
+ранних версиях код не будет работать, во всяком случае без изменений.</p>
+<p>Для начала загрузим немножно расширений:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE DataKinds #-}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE FlexibleContexts #-}</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE FlexibleInstances #-}</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE FunctionalDependencies #-}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE GADTs #-}</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE PolyKinds #-}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE TypeFamilies #-}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE TypeOperators #-}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE UndecidableInstances #-}</span></span></code></pre></div>
+<p>И используемых модулей.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Relational.Algebra</span> <span class="kw">where</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Proxy</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Set</span> (<span class="dt">Set</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">Set</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">GHC.TypeLits</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Unsafe.Coerce</span></span></code></pre></div>
+<p>Для построения реляционной алгебры нам нужно будет уметь представлять множества
+кортежей, где у каждого кортежа есть атрибуты определенного типа. Для представления
+кортежей можно использовать различные способы, например, пакет <a href="https://hackage.haskell.org/package/dependent-map">dependent-map</a>,
+или <a href="https://hackage.haskell.org/package/HList">гетерогенные списки</a>, но поскольку
+велосипеды строить интересно, то ниже приведено построение гетерогенных списков,
+работающих очень похоже на HList.</p>
+<p>Для дальнейшей работы нам потребуется два типа, тут можно обойтись и одним, но
+так проще. Для начала, введем тип данных, обозначающий, что поле “вида” <code>а</code>, имеет
+тип <code>b</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> a <span class="op">:-&gt;</span> b <span class="ot">=</span> <span class="dt">V</span> b <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span></code></pre></div>
+<p>Здесь важно, что <code>:-&gt;</code> является оберткой типа или типом данных, а не синонимом типа,
+поскольку это позволяет сохранять информацию о “теге” <code>a</code>.</p>
+<p>Пример:</p>
+<pre><code>*Main&gt; V 5 :: &quot;String&quot; :-&gt; Int
+V 5
+*Main&gt; :t it
+it :: &quot;String&quot; :-&gt; Int</code></pre>
+<p>Здесь мы построили тегированную запись и показали, что тип сохраняется.</p>
+<p>Так же введем тип, отвечающий предыдущему на уровне типов</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> a <span class="op">:--&gt;</span> b</span></code></pre></div>
+<p>Данное действие совершенно не обязательно, но так удобнее работать.</p>
+<p>Теперь все готово для ввода кортежей,</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">HRec</span><span class="ot"> ::</span> [<span class="op">*</span>] <span class="ot">-&gt;</span> <span class="op">*</span> <span class="kw">where</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">HNil</span><span class="ot">  ::</span> <span class="dt">HRec</span> '[]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">HCons</span><span class="ot"> ::</span> a <span class="ot">-&gt;</span> <span class="dt">HRec</span> xs <span class="ot">-&gt;</span> <span class="dt">HRec</span> ((b <span class="op">:-&gt;</span> a) '<span class="op">:</span> xs)</span></code></pre></div>
+<p>Так мы построили кортеж в виде связного списка, каждый из узлов которого параметризован
+типом <span class="math inline">\(b \rightarrow a\)</span>, обозначающим, что имени <code>b</code> соответсвует значение типа <code>a</code>.
+Для такой записи доступ к значению, к сожалению, будет линейным от размера записи,
+но это когда-нибудь можно будет исправить.</p>
+<p>Добавим полезный инстанс:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Show</span> (<span class="dt">HRec</span> '[]) <span class="kw">where</span> <span class="fu">show</span> _ <span class="ot">=</span> <span class="st">&quot;HNil&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">KnownSymbol</span> s, <span class="dt">Show</span> (<span class="dt">HRec</span> xs), <span class="dt">Show</span> a) <span class="ot">=&gt;</span> <span class="dt">Show</span> (<span class="dt">HRec</span> ((s <span class="op">:-&gt;</span> a) '<span class="op">:</span> xs)) <span class="kw">where</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">show</span> as<span class="op">@</span>(<span class="dt">HCons</span> _ hs)  <span class="ot">=</span> <span class="st">&quot;HCons (&quot;</span> <span class="op">++</span> inner <span class="dt">Proxy</span> as <span class="op">++</span> <span class="st">&quot;) (&quot;</span> <span class="op">++</span> <span class="fu">show</span> hs <span class="op">++</span> <span class="st">&quot;)&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="kw">where</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ot">       inner ::</span> (<span class="dt">Show</span> a, <span class="dt">KnownSymbol</span> s) <span class="ot">=&gt;</span> <span class="dt">Proxy</span> s <span class="ot">-&gt;</span> <span class="dt">HRec</span> ((s <span class="op">:-&gt;</span> a)'<span class="op">:</span>xs) <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>       inner p (<span class="dt">HCons</span> a _) <span class="ot">=</span> symbolVal p <span class="op">++</span> <span class="st">&quot; :--&gt; &quot;</span> <span class="op">++</span> <span class="fu">show</span> a</span></code></pre></div>
+<p>Пример использования:</p>
+<pre><code> *Main&gt; let t = (HCons &quot;q&quot; (HCons 5 HNil) :: HRec [&quot;Name&quot; :-&gt; String, &quot;Age&quot; :-&gt; Int])
+ *Main&gt; t
+ HCons (Name :--&gt; &quot;q&quot;) (HCons (Age :--&gt; 5) (HNil))
+ *Main&gt; :t t
+ t :: HRec '[&quot;Name&quot; :--&gt; String, &quot;Age&quot; :--&gt; Int]</code></pre>
+<p>Для того, чтобы кортежи могли находиться во множествах, введем <code>Eq</code> и <code>Ord</code> инстансы:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Eq</span> (<span class="dt">HRec</span> '[]) <span class="kw">where</span> _ <span class="op">==</span> _ <span class="ot">=</span> <span class="dt">True</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">Eq</span> b, <span class="dt">Eq</span> (<span class="dt">HRec</span> xs)) <span class="ot">=&gt;</span> <span class="dt">Eq</span> (<span class="dt">HRec</span> ((a <span class="op">:-&gt;</span> b) '<span class="op">:</span> xs)) <span class="kw">where</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  (<span class="dt">HCons</span> a as) <span class="op">==</span> (<span class="dt">HCons</span> b bs) <span class="ot">=</span> a <span class="op">==</span> b <span class="op">&amp;&amp;</span> as <span class="op">==</span> bs</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Ord</span> (<span class="dt">HRec</span> '[]) <span class="kw">where</span> <span class="fu">compare</span> _ _ <span class="ot">=</span> <span class="dt">EQ</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">Ord</span> b, <span class="dt">Ord</span> (<span class="dt">HRec</span> xs)) <span class="ot">=&gt;</span> <span class="dt">Ord</span> (<span class="dt">HRec</span> ((a <span class="op">:-&gt;</span> b) '<span class="op">:</span> xs)) <span class="kw">where</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>   (<span class="dt">HCons</span> a as) <span class="ot">`compare`</span> (<span class="dt">HCons</span> b bs) <span class="ot">=</span> a <span class="ot">`compare`</span> b <span class="op">&lt;&gt;</span> as <span class="ot">`compare`</span> bs</span></code></pre></div>
+<p>Для представления множеств используем обертку:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">RelSet</span> xs <span class="ot">=</span> <span class="dt">RS</span> {<span class="ot"> unRS ::</span> <span class="dt">Set</span> (<span class="dt">HRec</span> xs) }</span></code></pre></div>
+<p>Тут вполне можно использовать и синоним типа, но это будет хуже, т.к. newtype является
+ещё и прокси и может служить для передачи информации о типе. Если кто хочет, то
+может самостоятельно проверить использование синонима типа в данном контексте.</p>
+<p>Начнем с простых операций над множествами:</p>
+<h2 id="объедиение-пересечение-вычитание">Объедиение, Пересечение, Вычитание</h2>
+<p>Данные операции работают над множествами с кортежами одинакового типа, и являются
+обычными теорекомножественными операциями, поэтому не предоставляют большого
+интереса, но все же с них проще начинать.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ot">union ::</span> <span class="dt">Ord</span> (<span class="dt">HRec</span> xs) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>union (<span class="dt">RS</span> sx) (<span class="dt">RS</span> sy) <span class="ot">=</span> <span class="dt">RS</span> <span class="op">$</span> sx <span class="ot">`Set.union`</span> sy</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">intersection ::</span> <span class="dt">Ord</span> (<span class="dt">HRec</span> xs) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>intersection (<span class="dt">RS</span> sx) (<span class="dt">RS</span> sy) <span class="ot">=</span> <span class="dt">RS</span> <span class="op">$</span> sx <span class="ot">`Set.intersection`</span> sy</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ot">subtraction ::</span> <span class="dt">Ord</span> (<span class="dt">HRec</span> xs) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>subtraction (<span class="dt">RS</span> sx) (<span class="dt">RS</span> sy) <span class="ot">=</span> <span class="dt">RS</span> <span class="op">$</span> sx <span class="dt">Set</span><span class="op">.</span>\\ sy</span></code></pre></div>
+<h2 id="переименование">Переименование</h2>
+<p>Переименованием называется унарная операция <span class="math inline">\(\rho_{a / b}(R)\)</span> результатом которой является
+множество равное <span class="math inline">\(R\)</span>, за исключением того, что все аттрибуты <code>a</code> в кортежах переименованы в <code>b</code>.</p>
+<p>Рассмотрим сначала переименование на типах, т.е. если у нас есть список на уровне типов
+<code>[s -&gt; a] :: [*]</code> и список переименований <code>[s -&gt; g] :: [*]</code> и если <span class="math inline">\(s_n = g_n\)</span>, то тогда
+мы переименовываем <span class="math inline">\(s_n -&gt; a \rightarrow g_n -&gt; a\)</span>. Это можно сделать рекурсивно, для
+каждого из элементов списка <span class="math inline">\(G\)</span> мы проходим по всем элементам списка <code>a</code>, переименовывая если имена совпадают.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Rename</span> (<span class="ot">a ::</span> [<span class="op">*</span>]) (<span class="ot">b ::</span> [<span class="op">*</span>])<span class="ot"> ::</span> [<span class="op">*</span>] <span class="kw">where</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="dt">Rename</span> '[]       bs <span class="ot">=</span> '[]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="dt">Rename</span> (a '<span class="op">:</span> as) bs <span class="ot">=</span> <span class="dt">RenameInner</span> a bs '<span class="op">:</span> <span class="dt">Rename</span> as bs</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">RenameInner</span> (<span class="ot">a ::</span> <span class="op">*</span>) (<span class="ot">b ::</span> [<span class="op">*</span>])<span class="ot"> ::</span> <span class="op">*</span> <span class="kw">where</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="dt">RenameInner</span>     a         '[]           <span class="ot">=</span> a</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="dt">RenameInner</span> (s <span class="op">:--&gt;</span> a) (s <span class="op">:--&gt;</span> g '<span class="op">:</span> bs) <span class="ot">=</span> g <span class="op">:--&gt;</span> a</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       <span class="dt">RenameInner</span>     a      (    g    '<span class="op">:</span> bs) <span class="ot">=</span> <span class="dt">RenameInner</span> a bs</span></code></pre></div>
+<p>Примеры использования:</p>
+<pre><code> *Main&gt; :kind! Rename [&quot;Foo&quot; :--&gt; Int,&quot;Bar&quot; :--&gt; ()] [&quot;Foo&quot; :--&gt; &quot;Bar&quot;, &quot;Bar&quot; :--&gt; &quot;Foo&quot;]
+ Rename [&quot;Foo&quot; :--&gt; Int,&quot;Bar&quot; :--&gt; ()] [&quot;Foo&quot; :--&gt; &quot;Bar&quot;, &quot;Bar&quot; :--&gt; &quot;Foo&quot;] :: [*]
+ = '[&quot;Bar&quot; :--&gt; Int, &quot;Foo&quot; :--&gt; ()]</code></pre>
+<p>Так же мы можем использовать это при определении записей:</p>
+<pre><code>*Main&gt; show (HCons 5 (HCons () HNil) :: HRec (Rename [&quot;Foo&quot; :--&gt; Int,&quot;Bar&quot; :--&gt; ()] [&quot;Foo&quot; :--&gt; &quot;Bar&quot;, &quot;Bar&quot; :--&gt; &quot;Foo&quot;]))
+&quot;HCons (Bar :--&gt; 5) (HCons (Foo :--&gt; ()) (HNil))&quot;</code></pre>
+<p>Теперь надо научиться переименовывать записи на уровне значений.
+Для этого введем вспомогательную функцию. Данная функция конструирует
+прокси, описывающий тип значения, которое получится после переименования.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ot">rrename ::</span> <span class="dt">Rename'</span> <span class="dt">HRec</span> a (<span class="dt">Rename</span> a b) <span class="ot">=&gt;</span> <span class="dt">HRec</span> a <span class="ot">-&gt;</span> proxy b <span class="ot">-&gt;</span> <span class="dt">HRec</span> (<span class="dt">Rename</span> a b)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>rrename h r <span class="ot">=</span> rrename' h (pp h r)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span><span class="ot"> pp ::</span> proxy1 a <span class="ot">-&gt;</span> proxy2 b <span class="ot">-&gt;</span> <span class="dt">Proxy</span> (<span class="dt">Rename</span> a b)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        pp _ _ <span class="ot">=</span> <span class="dt">Proxy</span></span></code></pre></div>
+<p>Здесь для передачи типов используется явный конструктор прокси,
+что во многих случаях может быть заменено использованием расширения
+<code>ScopedTypeVariables</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">Rename'</span> s (<span class="ot">a ::</span> [<span class="op">*</span>])  (<span class="ot">b ::</span> [<span class="op">*</span>]) <span class="kw">where</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rrename' ::</span> s a <span class="ot">-&gt;</span> proxy b <span class="ot">-&gt;</span> s b</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Rename'</span> <span class="dt">HRec</span> '[] '[] <span class="kw">where</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  rrename' <span class="dt">HNil</span> _ <span class="ot">=</span> <span class="dt">HNil</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Rename'</span> <span class="dt">HRec</span> as bs <span class="ot">=&gt;</span> <span class="dt">Rename'</span> <span class="dt">HRec</span> ((x <span class="op">:-&gt;</span> a) '<span class="op">:</span> as) ((y <span class="op">:-&gt;</span> a) '<span class="op">:</span> bs) <span class="kw">where</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  rrename' (<span class="dt">HCons</span> a as) p <span class="ot">=</span> <span class="dt">HCons</span> a (rrename' as (pp p))</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">where</span><span class="ot"> pp ::</span> proxy (a '<span class="op">:</span> as) <span class="ot">-&gt;</span> <span class="dt">Proxy</span> as</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>          pp _ <span class="ot">=</span> <span class="dt">Proxy</span></span></code></pre></div>
+<p>Пример:</p>
+<pre><code>*Main&gt; rrename t (Proxy :: Proxy '[&quot;Foo&quot; :-&gt; &quot;Zoo&quot;])
+HCons (Zoo :--&gt; 5) (HCons (Bar :--&gt; ()) (HNil))</code></pre>
+<p>Но как внимательный читатель уже заметил, представление соверешенно не изменяется,
+поэтому справедлива будет следующая реализация:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ot">rename'' ::</span> <span class="dt">HRec</span> a <span class="ot">-&gt;</span> proxy b <span class="ot">-&gt;</span> <span class="dt">HRec</span> (<span class="dt">Rename</span> a b)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>rename''  h _ <span class="ot">=</span> unsafeCoerce h</span></code></pre></div>
+<pre><code> *Main&gt; rrename'' t (Proxy :: Proxy '[&quot;Foo&quot; :--&gt; &quot;Zoo&quot;])
+ HCons (Zoo :-&gt; 5) (HCons (Bar :-&gt; ()) (HNil))</code></pre>
+<p>Задание. Проверим, что будет если мы попробуем переименовать несуществующее поле:</p>
+<pre><code> *Main&gt; :kind! Rename [&quot;Foo&quot; :-&gt; Int,&quot;Bar&quot; :-&gt; ()] [&quot;Foo&quot; :--&gt; &quot;E&quot;, &quot;Zoo&quot; :--&gt; &quot;Foo&quot;]
+ Rename [&quot;Foo&quot; :-&gt; Int,&quot;Bar&quot; :-&gt; ()] [&quot;Foo&quot; :--&gt; &quot;E&quot;, &quot;Zoo&quot; :--&gt; &quot;Foo&quot;] :: [*]
+ = '[&quot;E&quot; :-&gt; Int, &quot;Bar&quot; :-&gt; ()]</code></pre>
+<p>Как изменить код таким образом, чтобы такое переименование было запрещено (не выводилось)?</p>
+<p>Собственно, теперь можно представить саму реализацию метода:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ρ<span class="ot"> ::</span> <span class="dt">RelSet</span> a <span class="ot">-&gt;</span> proxy b <span class="ot">-&gt;</span> <span class="dt">RelSet</span> (<span class="dt">Rename</span> a b)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ρ  r _ <span class="ot">=</span> unsafeCoerce r</span></code></pre></div>
+<h2 id="проекция">Проекция</h2>
+<p>При выполнении проекции выделяется «вертикальная» вырезка отношения-операнда с естественным уничтожением потенциально возникающих кортежей-дубликатов.</p>
+<p>Как обычно, начнем с функции, работающей на уровне типов:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Project'</span> a b <span class="kw">where</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Project'</span> s       '[]     <span class="ot">=</span> '[]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Project'</span> s    (b '<span class="op">:</span> bs)  <span class="ot">=</span> <span class="dt">ProjectInner'</span> s b '<span class="op">:</span> <span class="dt">Project'</span> s bs</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">ProjectInner'</span> s b <span class="kw">where</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ProjectInner'</span> (s <span class="op">:-&gt;</span> a '<span class="op">:</span> as) s <span class="ot">=</span> s <span class="op">:-&gt;</span> a</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ProjectInner'</span> (   a    '<span class="op">:</span> as) s <span class="ot">=</span> <span class="dt">ProjectInner'</span> as s</span></code></pre></div>
+<p>Пример:</p>
+<pre><code> *Main&gt; :kind! Project' [&quot;Foo&quot; :-&gt; Int,&quot;Bar&quot; :-&gt; ()] '[&quot;Foo&quot;]
+ Project' [&quot;Foo&quot; :-&gt; Int,&quot;Bar&quot; :-&gt; ()] '[&quot;Foo&quot;] :: [*]
+ = '[&quot;Foo&quot; :-&gt; Int]</code></pre>
+<p>Для построения проекции сначала постоим вспомогательную функцию,
+которая по имени атрибута достает значение из кортежа:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ot">rlookupP ::</span> <span class="dt">Lookup</span> s a b c <span class="ot">=&gt;</span> s a <span class="ot">-&gt;</span> <span class="dt">Proxy</span> b <span class="ot">-&gt;</span> c</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>rlookupP s b <span class="ot">=</span> rlookup' <span class="dt">Proxy</span> b s</span></code></pre></div>
+<p>Опять же, строим класс для итерирования по структуре. Данный
+класс является более полиморфным, чем необходимо, т.к. в данном
+случае он полиморфен по структуре, к которой делаются запросы.
+Так же этот класс использует функциональные зависимости, которые
+обозначают, что параметры типа <code>s a b</code> однозначно определяют тип <code>c</code>.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">Lookup</span> s a b c <span class="op">|</span> s a b <span class="ot">-&gt;</span> c <span class="kw">where</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rlookup' ::</span> <span class="dt">Proxy</span> a <span class="ot">-&gt;</span> <span class="dt">Proxy</span> b <span class="ot">-&gt;</span> s a <span class="ot">-&gt;</span> c</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Lookup</span> <span class="dt">HRec</span> ( (n <span class="op">:-&gt;</span> a) '<span class="op">:</span> xs ) n a <span class="kw">where</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  rlookup' _ _ (<span class="dt">HCons</span> a _) <span class="ot">=</span> a</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Lookup</span> <span class="dt">HRec</span> xs n c <span class="ot">=&gt;</span> <span class="dt">Lookup</span> <span class="dt">HRec</span> ( (m <span class="op">:-&gt;</span> a) '<span class="op">:</span> xs ) n c <span class="kw">where</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  rlookup' pa pb (<span class="dt">HCons</span> _ xs) <span class="ot">=</span> rlookup' (pa' pa) pb xs</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">where</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="ot">      pa' ::</span> <span class="dt">Proxy</span> (a '<span class="op">:</span> xs) <span class="ot">-&gt;</span> <span class="dt">Proxy</span> xs</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>      pa' _ <span class="ot">=</span> <span class="dt">Proxy</span></span></code></pre></div>
+<p>При помощи вспомогательного класса можно построить саму проекцию.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">Project</span> s a b c <span class="op">|</span> s a b <span class="ot">-&gt;</span> c <span class="kw">where</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rproject ::</span> s a <span class="ot">-&gt;</span> <span class="dt">Proxy</span> b <span class="ot">-&gt;</span> s c</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Project</span> <span class="dt">HRec</span> a '[] '[] <span class="kw">where</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  rproject _ _ <span class="ot">=</span> <span class="dt">HNil</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">Project</span> <span class="dt">HRec</span> a bs c, <span class="dt">Lookup</span> <span class="dt">HRec</span> a b k) <span class="ot">=&gt;</span> <span class="dt">Project</span> <span class="dt">HRec</span> a (b '<span class="op">:</span> bs) ((b <span class="op">:-&gt;</span> k) '<span class="op">:</span> c) <span class="kw">where</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  rproject xs p <span class="ot">=</span> rcons (pHead p)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>                        (rlookupP xs (pHead p))</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>                        (rproject xs (pTail p))</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">where</span><span class="ot"> pHead ::</span> <span class="dt">Proxy</span> (b '<span class="op">:</span> bs) <span class="ot">-&gt;</span> <span class="dt">Proxy</span> b</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>          pHead _ <span class="ot">=</span> <span class="dt">Proxy</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="ot">          pTail ::</span> <span class="dt">Proxy</span> (b '<span class="op">:</span> bs) <span class="ot">-&gt;</span> <span class="dt">Proxy</span> bs</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>          pTail _ <span class="ot">=</span> <span class="dt">Proxy</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ot">rcons ::</span> <span class="dt">Proxy</span> b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">HRec</span> c <span class="ot">-&gt;</span> <span class="dt">HRec</span> ( (b <span class="op">:-&gt;</span> a) '<span class="op">:</span> c)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>rcons _ <span class="ot">=</span> <span class="dt">HCons</span></span></code></pre></div>
+<p>Пример:</p>
+<pre><code>  *Main&gt; rproject t (Proxy :: Proxy '[&quot;Bar&quot;])
+  HCons (Bar :-&gt; ()) (HNil)</code></pre>
+<p>Теперь сделаем такую же операцию для множеств, заодно убрав прокси:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>π<span class="ot"> ::</span> (<span class="dt">Project</span> <span class="dt">HRec</span> xs ys ys, <span class="dt">Ord</span> (<span class="dt">HRec</span> ys)) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> ys</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>π <span class="ot">=</span> inner <span class="dt">Proxy</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span><span class="ot"> inner ::</span> (<span class="dt">Project</span> <span class="dt">HRec</span> xs ys ys, <span class="dt">Ord</span> (<span class="dt">HRec</span> ys)) <span class="ot">=&gt;</span> <span class="dt">Proxy</span> ys <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> ys</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        inner p (<span class="dt">RS</span> sx) <span class="ot">=</span> <span class="dt">RS</span> <span class="op">$</span> Set.map (<span class="ot">`rproject`</span> p) sx</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ot">projection ::</span> (<span class="dt">Project</span> <span class="dt">HRec</span> xs ys ys, <span class="dt">Ord</span> (<span class="dt">HRec</span> ys)) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> ys</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>projection <span class="ot">=</span> π</span></code></pre></div>
+<h2 id="выборка">Выборка</h2>
+<p>Для выборки придется немного пофантазировать. И сначалы мы реализуем частный
+случай для выборки, когда условия можно записать в виде <code>a &amp;&amp; b &amp;&amp; c</code>, где <code>a</code>,<code>b</code>,<code>c</code>,
+условия на соотвествующие атрибуты.</p>
+<p>Для этого введем класс предикатов по кортежу:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">RPredicate</span> s a b <span class="kw">where</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rpredicate ::</span> s a <span class="ot">-&gt;</span> s b <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
+<p>И предикатов по конкретному типу:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">RPredicate1</span> s a b <span class="kw">where</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rpredicate1 ::</span> s a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RPredicate</span> <span class="dt">HRec</span> s '[] <span class="kw">where</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  rpredicate _ _ <span class="ot">=</span> <span class="dt">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">RPredicate</span> <span class="dt">HRec</span> s ps, <span class="dt">RPredicate1</span> <span class="dt">HRec</span> s (n <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>))) <span class="ot">=&gt;</span> <span class="dt">RPredicate</span> <span class="dt">HRec</span> s (( n <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>)) '<span class="op">:</span> ps) <span class="kw">where</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  rpredicate s h<span class="op">@</span>(<span class="dt">HCons</span> _ xs) <span class="ot">=</span> rpredicate1 s (v h) <span class="op">&amp;&amp;</span> rpredicate s xs</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">where</span><span class="ot"> v ::</span> <span class="dt">HRec</span> (n <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) '<span class="op">:</span> b) <span class="ot">-&gt;</span> (n <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>))</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>          v (<span class="dt">HCons</span> f _) <span class="ot">=</span> <span class="dt">V</span> f</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RPredicate1</span> <span class="dt">HRec</span> ((s <span class="op">:-&gt;</span> a) '<span class="op">:</span> as) (s <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>)) <span class="kw">where</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  rpredicate1 (<span class="dt">HCons</span> a _) (<span class="dt">V</span> f) <span class="ot">=</span> f a</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RPredicate1</span> <span class="dt">HRec</span> as f <span class="ot">=&gt;</span> <span class="dt">RPredicate1</span> <span class="dt">HRec</span> (a '<span class="op">:</span> as) f <span class="kw">where</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  rpredicate1 (<span class="dt">HCons</span> _ as) <span class="ot">=</span> rpredicate1 as</span></code></pre></div>
+<p>Задание. Как можно построить обобщенное решение, позволяющее конструировать произвольные
+предикаты.</p>
+<p>Теперь мы можем построить выборку из множества:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>σ<span class="ot"> ::</span> (<span class="dt">RPredicate</span> <span class="dt">HRec</span> xs ys) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">HRec</span> ys <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>σ (<span class="dt">RS</span> sx) h <span class="ot">=</span> <span class="dt">RS</span> <span class="op">$</span> Set.filter (<span class="ot">`rpredicate`</span> h) sx</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ot">selection ::</span> (<span class="dt">RPredicate</span> <span class="dt">HRec</span> xs ys) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">HRec</span> ys <span class="ot">-&gt;</span> <span class="dt">RelSet</span> xs</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>selection <span class="ot">=</span> σ</span></code></pre></div>
+<p>Так же введем частный случай, предикат частичного совпадения:
+если у нас есть две записи, одна из которых является подмножеством другой, то мы хотим
+проверять совпадает ли их пересечение.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">EqPred</span> z <span class="kw">where</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">EqPred</span> '[] <span class="ot">=</span> '[]</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">EqPred</span> ((n <span class="op">:-&gt;</span> a) '<span class="op">:</span> xs) <span class="ot">=</span> (n <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>)) '<span class="op">:</span> <span class="dt">EqPred</span> xs</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">EqPredicate</span> s a b <span class="op">|</span> s a <span class="ot">-&gt;</span> b <span class="kw">where</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  eqPredicate ::</span> s a <span class="ot">-&gt;</span> s b</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">EqPredicate</span> <span class="dt">HRec</span> '[] '[] <span class="kw">where</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  eqPredicate <span class="dt">HNil</span> <span class="ot">=</span> <span class="dt">HNil</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">EqPredicate</span> <span class="dt">HRec</span> as bs, <span class="dt">Eq</span> a) <span class="ot">=&gt;</span> <span class="dt">EqPredicate</span> <span class="dt">HRec</span> ((n <span class="op">:-&gt;</span> a) '<span class="op">:</span> as) ((n <span class="op">:-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>)) '<span class="op">:</span> bs) <span class="kw">where</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  eqPredicate (<span class="dt">HCons</span> x xs) <span class="ot">=</span> <span class="dt">HCons</span> (<span class="op">==</span>x) (eqPredicate xs)</span></code></pre></div>
+<h2 id="произведение">Произведение</h2>
+<p>Произведением множеств <span class="math inline">\(R_1=\{a_1,\ldots,a_n\}\)</span> и <span class="math inline">\(R_2=\{b_1,\ldots,b_n\}\)</span> называется
+множество <span class="math inline">\(R_3=\{a_1,\ldots,a_n,b_1,\ldots,b_n\}\)</span> с прямым перебором всех элементов.</p>
+<p>Как обычно, сначала пишем функцию работающую на уровне типов:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Append</span> xs ys <span class="kw">where</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Append</span> '[] ys <span class="ot">=</span> ys</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Append</span> (x '<span class="op">:</span> xs) ys <span class="ot">=</span> x '<span class="op">:</span> <span class="dt">Append</span> xs ys</span></code></pre></div>
+<p>И затем конструируем классы типов для объединения:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">Merge</span> s a b c <span class="op">|</span> s a b <span class="ot">-&gt;</span> c <span class="kw">where</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rmerge ::</span> s a <span class="ot">-&gt;</span> s b <span class="ot">-&gt;</span> s c</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Merge</span> <span class="dt">HRec</span> '[] b b <span class="kw">where</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  rmerge <span class="dt">HNil</span> xs <span class="ot">=</span> xs</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Merge</span> <span class="dt">HRec</span> as b c <span class="ot">=&gt;</span> <span class="dt">Merge</span> <span class="dt">HRec</span> (a '<span class="op">:</span> as) b (a '<span class="op">:</span> c) <span class="kw">where</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  rmerge (<span class="dt">HCons</span> x xs) s <span class="ot">=</span> <span class="dt">HCons</span> x (rmerge xs s)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ot">multiplication ::</span> (<span class="dt">Merge</span> <span class="dt">HRec</span> xs ys (<span class="dt">Append</span> xs ys), <span class="dt">Ord</span> (<span class="dt">HRec</span> (<span class="dt">Append</span> xs ys))) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> ys <span class="ot">-&gt;</span> <span class="dt">RelSet</span> (<span class="dt">Append</span> xs ys)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>multiplication (<span class="dt">RS</span> sx) (<span class="dt">RS</span> sy) <span class="ot">=</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">RS</span> <span class="op">$</span> Set.fromList [ x <span class="ot">`rmerge`</span> y</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>                    <span class="op">|</span> x <span class="ot">&lt;-</span> Set.toList sx</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                    , y <span class="ot">&lt;-</span> Set.toList sy</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                    ]</span></code></pre></div>
+<h2 id="деление">Деление</h2>
+<p>И напоследок деление, строящееся аналогичным образом:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Minus</span> xs ys <span class="kw">where</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Minus</span> xs '[] <span class="ot">=</span> xs</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Minus</span> xs (y '<span class="op">:</span> ys) <span class="ot">=</span> <span class="dt">Minus</span> (<span class="dt">MinusInner</span> xs y) ys</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">MinusInner</span> xs y <span class="kw">where</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MinusInner</span> (y '<span class="op">:</span> xs) y <span class="ot">=</span> xs</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MinusInner</span> (x '<span class="op">:</span> xs) y <span class="ot">=</span> x '<span class="op">:</span> <span class="dt">MinusInner</span> xs y</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode haskell literate"><code class="sourceCode haskell"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ot">division ::</span> (<span class="dt">Eq</span> (<span class="dt">RelSet</span> ys), <span class="dt">Ord</span> (<span class="dt">HRec</span> ys), <span class="dt">Project</span> <span class="dt">HRec</span> xs ys ys, <span class="dt">RPredicate</span> <span class="dt">HRec</span> xs (<span class="dt">EqPred</span> (<span class="dt">Minus</span> xs ys)), <span class="dt">EqPredicate</span> <span class="dt">HRec</span> (<span class="dt">Minus</span> xs ys) (<span class="dt">EqPred</span> (<span class="dt">Minus</span> xs ys)), <span class="dt">Ord</span> (<span class="dt">HRec</span> (<span class="dt">Minus</span> xs ys)), <span class="dt">Project</span> <span class="dt">HRec</span> xs (<span class="dt">Minus</span> xs ys) (<span class="dt">Minus</span> xs ys)) <span class="ot">=&gt;</span> <span class="dt">RelSet</span> xs <span class="ot">-&gt;</span> <span class="dt">RelSet</span> ys <span class="ot">-&gt;</span> <span class="dt">RelSet</span> (<span class="dt">Minus</span> xs ys)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>division rx ry <span class="ot">=</span> <span class="dt">RS</span> <span class="op">$</span> Set.fromList [ s <span class="op">|</span> (s,v) <span class="ot">&lt;-</span> [ (x, projection (selection rx (eqPredicate x))) <span class="op">|</span> x <span class="ot">&lt;-</span> Set.toList (unRS <span class="op">$</span> projection rx)], v <span class="op">==</span> ry]</span></code></pre></div>
+<h2 id="заключение">Заключение</h2>
+<p>Зачем все это может быть нужно? В данном случае – просто так, для отработки работы
+с типами и гетерогенными записями. Части похожих задач могут возникать в произвольных
+местах, в проектах, и хорошо бы иметь представление о работе с ними.</p>
+<p>Если код выше можно как-то обобщить или упростить или обсудить какой-то из вопросов
+отдельно, то буду рад комментариям.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

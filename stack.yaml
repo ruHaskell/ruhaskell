@@ -1,8 +1,0 @@
-resolver: lts-18.20
-
-extra-deps:
-  - hakyll-4.15.1.0
-
-flags:
-  hakyll:
-    checkexternal: false

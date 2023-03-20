@@ -1,0 +1,1037 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Генерация модулей со статичными данными
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Генерация модулей со статичными данными
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D0%B0%D0%BD%D1%82%D0%B8%D0%BD%20%D0%97%D1%83%D0%B4%D0%BE%D0%B2.html">Константин Зудов</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 feb 19<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/projects.html">Проекты</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5.html">данные</a>&quot;, &quot;<a href="../../../../../tags/AST.html">AST</a>&quot;, &quot;<a href="../../../../../tags/%D0%BC%D0%B5%D1%82%D0%B0%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.html">метапрограммирование</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <h1 id="задача">Задача</h1>
+<p>При работе над парсером <a href="http://commonmark.org">CommonMark</a> мне было необходимо
+парсить именованные <a href="https://ru.wikipedia.org/wiki/Мнемоники_в_HTML">HTML мнемоники</a>.
+Если опустить неважные для данного примера детали, спецификация CommonMark требует
+следующих правил при разборе мнемоник:</p>
+<ul>
+<li>Именованная мнемоника состоит из символа <code>&amp;</code> + любое корректное для HTML5 имя
+мнемоники + символ <code>;</code>. Например <code>&amp;copy;</code>.</li>
+<li>Строки не находящиеся в списке корректных мнемоник не признаются мнемониками
+при разборе.</li>
+<li><a href="https://html.spec.whatwg.org/multipage/entities.json">Следующий JSON файл</a>
+является aвторитетным источником корректных имён и соответствующих им Unicode-кодов</li>
+<li>С целью сделать формат независимы от HTML все корректные мнемоники должны быть
+конвертированны в Unicode-знаки.</li>
+<li>Некорректные мнемоники должны быть оставлены в тексте неизмененными</li>
+</ul>
+<p>Эта статья не о парсинге CommonMark, но при решении задачи описанной выше
+возникает следующая проблема: в процессе парсинга нам нужно консультироваться
+со списком корректных строк и в случае если разбираемая строка является корректной
+мнемоникой заменять её на соответствующие Unicode-знаки.</p>
+<p>Как отмечено выше, источник корректных мнемоник является JSON файлом, размером 144K.
+И удерживать его в памяти используя подходящую структуру данных (например Map)
+не составит никакого труда.</p>
+<p>Если бы мы писали на javascript, то можно было бы просто подключить этот файл
+и ходить в него как в обычный js-объект. Но к счастливому сожалению мы пишем на
+Хаскелле и наш блистательный компилятор категорически откажется компилировать JSON
+файл.</p>
+<h1 id="наивное-решение">Наивное решение</h1>
+<p>Один из возможных вариантов решения, хранить где-нибудь наш JSON файл и читать его при
+запуске парсера. Или распарсить один раз в нужную структуру, а потом
+сериализировать в бинарный файл из которого загружать. Но мне такой подход не
+нравится по определённым причинам:</p>
+<ul>
+<li>необходимость таскать этот файл с собой</li>
+<li>небходимость загружать его при запуске</li>
+<li>Некрасивость решения. В самом деле, нам всего лишь нужно работать со
+статичной структурой данных которая не так уж и часто меняется, зачем тут
+вообще какой-то IO?</li>
+<li>Необходимость в дополнительных зависимостях. В моем парсере вовсе не нужна
+библиотека для чтения JSON, зачем её тащить только ради того чтобы прочитать
+файл со списком мнемоник.</li>
+</ul>
+<h1 id="как-сделать-лучше">Как сделать лучше?</h1>
+<p>Очевидное решение которое избавлено от всех вышеперечисленных минусов пришло
+быстро: нужно засунуть все эти данные в обычный хаскелльный модуль, в виде
+большого списка и спокойно использовать его из любого модуля моей программы.</p>
+<p>Такое решение можно применить во многих других приложениях. К примеру, в
+веб-приложении мы можем захотеть предоставить пользователю выбор города в котором он
+живёт в зависимости от выбранной страны и области. Обычно для этого ходят в
+базу данных, но разве это необходимо если список городов небольшой и помещается
+в память?</p>
+<p>Если честно, моим первым порывом было открыть файл в vim и записать хитрый
+макрос который отформатируют данные как мне надо. Подумав и осознав провальность
+этой идеи я подумал, что можно воспользоваться неплохим инструментом <a href="http://stedolan.github.io/jq/">jq</a>.
+Не менее глупая идея.</p>
+<p>Первая достойная идея заключалась в том, что распарсить файл из ghci, а потом
+скопировать получившийся список и вставить в мой модуль. Вполне реально, быстро,
+но так же некрасиво.</p>
+<p>В конце концов я пришёл к выводу, что подходящим решением будет написать небольшой
+скрипт на Хаскелле, который распарсит JSON файл, а затем полностью сгенерирует
+желаемый модуль.</p>
+<p>Почему отдельный скрипт, а не Template Haskell внутри программы? Смотрите
+выше – необходимость в дополнительных зависимостях на template-haskell и aeson.</p>
+<p>Так как задача разбора мнемоник вполне общая, я решил сделать из этого библиотеку.</p>
+<p>Итак, приступим. Библиотека будет содержать два модуля: <code>Text.Html5.Entity.Data</code> –
+автоматически генерируемый модуль содержащий только данные, и <code>Text.Html5.Entity</code> –
+файл содержащий удобные функции для работы с этими данными.</p>
+<h1 id="пишем-код-который-напишет-код">Пишем код который напишет код</h1>
+<p>Начнем с автогенерируемого модуля. Вначале некоторые прагмы и несколько импортов.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- file: generation/Generate.hs</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Control.Applicative</span> ((&lt;$&gt;))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Aeson</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.ByteString.Lazy</span> <span class="kw">as</span> <span class="dt">BS</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.HashMap.Lazy</span> <span class="kw">as</span> <span class="dt">HM</span></span></code></pre></div>
+<p>Для начала распарсим JSON файл в список тупл <code>[(String, [Int])]</code>, где <code>String</code>
+описывает мнемонику, а [Int] соответствующий список Unicode-кодов.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">EntityVal</span> <span class="ot">=</span> <span class="dt">EntityVal</span> {<span class="ot"> codepoints ::</span> [<span class="dt">Integer</span>] } <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Eq</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">EntityVal</span> <span class="kw">where</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    parseJSON (<span class="dt">Object</span> o) <span class="ot">=</span> <span class="dt">EntityVal</span> <span class="op">&lt;$&gt;</span> o <span class="op">.:</span> <span class="st">&quot;codepoints&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    parseJSON _ <span class="ot">=</span> <span class="fu">error</span> <span class="st">&quot;Not an object&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Entities</span> <span class="ot">=</span> [(<span class="dt">String</span>, [<span class="dt">Int</span>])]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;entities.json&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="dt">Just</span> (<span class="ot">entMap ::</span> <span class="dt">Entities</span>) <span class="ot">=</span> HM.toList <span class="op">.</span> HM.map codepoints <span class="op">&lt;$&gt;</span> decode entFile</span></code></pre></div>
+<p>Если вы знакомы с пакетом <a href="https://hackage.haskell.org/package/aeson">Aeson</a>,
+то все должно быть понятно. В противном случае не обращайте внимание это не самая
+важная часть статьи, важно то что мы прочитали файл “entities.json” и распарсили
+его в нужные нам данные в нужном нам виде.</p>
+<p>Стоит отметить, что я намеренно не извлекал из JSON файла поля “characters”, так
+как имея Unicode-код соответствующий ему знак можно получить с помощью функции
+<code>Data.Char.chr</code>.</p>
+<p>Итак. Данные у нас есть, теперь нужно сгенерировать код который будет их содержать.</p>
+<p>Для этого есть немного устаревшая, но прекрасно подходящая библиотека
+<a href="https://hackage.haskell.org/package/haskell-src/"><code>haskell-src</code></a> которая
+позволяет парсить и печать код стандарта Haskell98 в и из AST(Abstract Syntax Tree)
+соответственно.</p>
+<p>Из этой библиотеке нам понадобиться несколько модулей, так что:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Language.Haskell.Syntax</span> <span class="co">-- описание AST</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Language.Haskell.Pretty</span> <span class="co">-- модуль для печати сгенерированного кода</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Language.Haskell.Parser</span> <span class="co">-- модуль для разбора существующего кода</span></span></code></pre></div>
+<h2 id="а-зачем-нам-parser-мы-же-вроде-генерировать-собирались">А зачем нам Parser, мы же вроде генерировать собирались?</h2>
+<p>Дело в том, что запись кода в форме AST достаточна многословна. Оцените сами,
+в форме AST вот эти простые объявления импортов,</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Map</span> (<span class="dt">Map</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Set</span> (<span class="dt">Set</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></span></code></pre></div>
+<p>будут выглядеть вот так:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>[ <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Map&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="op">$</span> <span class="dt">Module</span> <span class="st">&quot;M&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>               (<span class="dt">Just</span> (<span class="dt">False</span>, [ <span class="dt">HsIVar</span> <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                             , <span class="dt">HsIAbs</span> <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Map&quot;</span>]))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>, <span class="dt">HsImportDecl</span> noloc (<span class="dt">Module</span> <span class="st">&quot;Data.Set&quot;</span>) <span class="dt">True</span> (<span class="dt">Just</span> <span class="op">$</span> <span class="dt">Module</span> <span class="st">&quot;S&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               (<span class="dt">Just</span> (<span class="dt">False</span>, [ <span class="dt">HsIVar</span> <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                             , <span class="dt">HsIAbs</span> <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;Set&quot;</span>]))]</span></code></pre></div>
+<p>Я ленив и поэтому решил сделать шаблон <code>Template.hs</code> с содержимым в автоматической
+генерации которого я не нуждаюсь, а потом распарсить этот шаблон и дополнить его
+сгенерированным содержимым.</p>
+<p>Вот сам шаблон, содержащий все необходимые импорты и объявления типов:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- file: Template.hs</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Map</span> (<span class="dt">Map</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Set</span> (<span class="dt">Set</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ot">entityMap ::</span> <span class="dt">Map</span> <span class="dt">String</span> [<span class="dt">Int</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ot">entitySet ::</span> <span class="dt">Set</span> <span class="dt">String</span></span></code></pre></div>
+<p>Как видите я объявил две функции <code>entityMap</code> и <code>entitySet</code>. <code>entityMap</code> это просто
+<code>Map</code> со строками-мнемониками в качестве ключей и списками знаков в качестве значений.
+<code>entitySet</code> это <code>Set</code> содержащий только строки-мнемоники для того чтобы можно
+было быстро проверять корректность мнемоник.</p>
+<p>Чуть позже я покажу как распарсить этот шаблон и дополнить его сгенерированными
+данными. Но вначале нужно сгенерировать эти данные.</p>
+<p>AST хаскелла достаточно объемный, но разобраться с ним не составит труда если
+следовать <a href="https://hackage.haskell.org/package/haskell-src-1.0.2.0/docs/Language-Haskell-Syntax.html">документации</a>
+на haddock.</p>
+<p>Начнём с определения AST функции <code>entitySet</code>. Для начала напишем прототип на нашем
+привычном языке:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>entitySet <span class="ot">=</span> S.fromList []</span></code></pre></div>
+<p>В списке который я оставил пустым должны быть все наши 2000+ мнемоник.</p>
+<p>Главная часть объявления нашей функции это выражение <code>S.fromList []</code>, вот как
+оно будет выглядеть в форме AST:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="op">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>) (<span class="dt">HsList</span> [])</span></code></pre></div>
+<p>Если разбить это выражение на части, то оно состоит из применения функции <code>S.fromList</code>
+к пустому списку. Думаю у вас не составит проблемы соотнести эти части с AST
+приведённым выше.</p>
+<p>Но нам не нужно выражение возвращающее пустой <code>Set</code>, нам нужен <code>Set</code> с нашими
+мнемониками. Объявим функцию <code>mkEntitySet :: Entities -&gt; HsExp</code> которая
+принимает список мнемоник, и возвращает выражение с <code>Set</code>-ом этих мнемоник:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">mkEntitySet ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mkEntitySet ents <span class="ot">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="op">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                         (<span class="dt">HsList</span> <span class="op">$</span> <span class="fu">map</span> (<span class="dt">HsLit</span> <span class="op">.</span> <span class="dt">HsString</span> <span class="op">.</span> <span class="fu">fst</span>) ents)</span></code></pre></div>
+<p>Ничего очень нового, разве что вместо пустого списка мы имеем <code>map (HsLit . HsString . fst) ents</code>.
+Которое превращает список мнемоник <code>ents</code> в список строковых литералов.</p>
+<p>Функция mkEntityMap которая делает аналогичное для <code>entityMap</code> не намного сложнее:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">mkEntityMap ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mkEntityMap ents <span class="ot">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="op">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;M&quot;</span>) <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                         (<span class="dt">HsList</span> <span class="op">$</span> <span class="fu">map</span> mkMapElemTup ents)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ot">mkMapElemTup ::</span> (<span class="dt">String</span>, [<span class="dt">Integer</span>]) <span class="ot">-&gt;</span> <span class="dt">HsExp</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>mkMapElemTup (name, codes) <span class="ot">=</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">HsTuple</span> [ <span class="dt">HsLit</span> <span class="op">$</span> <span class="dt">HsString</span> name</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            , <span class="dt">HsList</span> <span class="op">$</span> <span class="fu">map</span> (<span class="dt">HsLit</span> <span class="op">.</span> <span class="dt">HsInt</span>) codes</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            ] </span></code></pre></div>
+<p>Но постойте, ведь <code>mkEntitySet</code> и <code>mkEntityMap</code> это всего-лишь объявления выражений
+мы так и не привязали их к именам функций. Привяжем же:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">decls ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> [<span class="dt">HsDecl</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>decls ents <span class="ot">=</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    [ <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entityMap&quot;</span>) []</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                               (<span class="dt">HsUnGuardedRhs</span> (mkEntityMap ents)) []]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    , <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entitySet&quot;</span>) []</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                               (<span class="dt">HsUnGuardedRhs</span> (mkEntitySet ents)) []]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>noloc <span class="ot">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
+<p>За исключением небольшой (оправданной) многословности, все просто. <code>SrcLoc</code>
+указывает на местоположение объявления в файле, но при генерации кода оно не имеет
+значения.</p>
+<p>Похоже что мы закончили с генерацией данных. Все что осталось это распарсить
+шаблон, дополнить его нашими определениями и записать это все в файл. Здесь все
+ещё проще. Дополним нашу <code>main</code> функцию:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;generation/entities.json&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="dt">Just</span> entMap <span class="ot">=</span> HM.toList <span class="op">.</span> HM.map codepoints <span class="op">&lt;$&gt;</span> decode entFile</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ParseOk</span> template <span class="ot">&lt;-</span> parseModule <span class="op">&lt;$&gt;</span> <span class="fu">readFile</span> <span class="st">&quot;generation/Template.hs&quot;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">writeFile</span> <span class="st">&quot;src/Text/Html5/Entity/Data.hs&quot;</span> <span class="op">$</span> prettyPrint </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                                              <span class="op">$</span> appendTemplate template entMap</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ot">appendTemplate ::</span> <span class="dt">HsModule</span> <span class="ot">-&gt;</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsModule</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>appendTemplate (<span class="dt">HsModule</span> srcLoc modName exports imports decls') ents <span class="ot">=</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">HsModule</span> srcLoc modName exports imports (decls' <span class="op">++</span> decls ents)</span></code></pre></div>
+<p>На этом наш код для генерации модуля с данными готов. Вот его полный исходник:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE OverloadedStrings #-}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Control.Applicative</span> ((&lt;$&gt;))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Aeson</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.ByteString.Lazy</span> <span class="kw">as</span> <span class="dt">BS</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.HashMap.Lazy</span> <span class="kw">as</span> <span class="dt">HM</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Language.Haskell.Syntax</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Language.Haskell.Pretty</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Language.Haskell.Parser</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">EntityVal</span> <span class="ot">=</span> <span class="dt">EntityVal</span> {<span class="ot"> codepoints ::</span> [<span class="dt">Integer</span>] } <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Eq</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">EntityVal</span> <span class="kw">where</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    parseJSON (<span class="dt">Object</span> o) <span class="ot">=</span> <span class="dt">EntityVal</span> <span class="op">&lt;$&gt;</span> o <span class="op">.:</span> <span class="st">&quot;codepoints&quot;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    parseJSON _ <span class="ot">=</span> <span class="fu">error</span> <span class="st">&quot;Not an object&quot;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Entity</span> <span class="ot">=</span> [(<span class="dt">String</span>, [<span class="dt">Int</span>])]</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    entFile <span class="ot">&lt;-</span> BS.readFile <span class="st">&quot;generation/entities.json&quot;</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="dt">Just</span> entMap <span class="ot">=</span> HM.toList <span class="op">.</span> HM.map codepoints <span class="op">&lt;$&gt;</span> decode entFile</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ParseOk</span> template <span class="ot">&lt;-</span> parseModule <span class="op">&lt;$&gt;</span> <span class="fu">readFile</span> <span class="st">&quot;generation/Template.hs&quot;</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">writeFile</span> <span class="st">&quot;src/Text/Html5/Entity/Data.hs&quot;</span> <span class="op">$</span> prettyPrint </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>                                              <span class="op">$</span> appendTemplate template entMap</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">-- | AST generation</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="ot">appendTemplate ::</span> <span class="dt">HsModule</span> <span class="ot">-&gt;</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsModule</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>appendTemplate (<span class="dt">HsModule</span> srcLoc modName exports imports decls') ents <span class="ot">=</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">HsModule</span> srcLoc modName exports imports (decls' <span class="op">++</span> decls ents)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="ot">decls ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> [<span class="dt">HsDecl</span>]</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>decls ents <span class="ot">=</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    [ <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entityMap&quot;</span>) []</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                               (<span class="dt">HsUnGuardedRhs</span> (mkEntityMap ents)) []]</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    , <span class="dt">HsFunBind</span> [<span class="dt">HsMatch</span> noloc (<span class="dt">HsIdent</span> <span class="st">&quot;entitySet&quot;</span>) []</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>                               (<span class="dt">HsUnGuardedRhs</span> (mkEntitySet ents)) []]</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="ot">mkEntityMap ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>mkEntityMap ents <span class="ot">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="op">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;M&quot;</span>) <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>                         (<span class="dt">HsList</span> <span class="op">$</span> <span class="fu">map</span> mkMapElemTup ents)</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="ot">mkMapElemTup ::</span> (<span class="dt">String</span>, [<span class="dt">Integer</span>]) <span class="ot">-&gt;</span> <span class="dt">HsExp</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>mkMapElemTup (name, codes) <span class="ot">=</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    <span class="dt">HsTuple</span> [ <span class="dt">HsLit</span> <span class="op">$</span> <span class="dt">HsString</span> name</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>            , <span class="dt">HsList</span> <span class="op">$</span> <span class="fu">map</span> (<span class="dt">HsLit</span> <span class="op">.</span> <span class="dt">HsInt</span>) codes</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>            ] </span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="ot">mkEntitySet ::</span> <span class="dt">Entities</span> <span class="ot">-&gt;</span> <span class="dt">HsExp</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>mkEntitySet ents <span class="ot">=</span> <span class="dt">HsApp</span> (<span class="dt">HsVar</span> <span class="op">$</span> <span class="dt">Qual</span> (<span class="dt">Module</span> <span class="st">&quot;S&quot;</span>) <span class="op">$</span> <span class="dt">HsIdent</span> <span class="st">&quot;fromList&quot;</span>)</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>                         (<span class="dt">HsList</span> <span class="op">$</span> <span class="fu">map</span> (<span class="dt">HsLit</span> <span class="op">.</span> <span class="dt">HsString</span> <span class="op">.</span> <span class="fu">fst</span>) ents)</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="ot">noloc ::</span> <span class="dt">SrcLoc</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>noloc <span class="ot">=</span> <span class="dt">SrcLoc</span> <span class="st">&quot;&quot;</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
+<p>Попробуем запустить и получим вот такой результат:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Text.Html5.Entity.Data</span> <span class="kw">where</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Map</span> (<span class="dt">Map</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Set</span> (<span class="dt">Set</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ot">entityMap ::</span> <span class="dt">Map</span> <span class="dt">String</span> [<span class="dt">Int</span>]</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ot">entitySet ::</span> <span class="dt">Set</span> <span class="dt">String</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>entityMap</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> M.fromList</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>      [(<span class="st">&quot;&amp;intlarhk;&quot;</span>, [<span class="dv">10775</span>]), (<span class="st">&quot;&amp;male;&quot;</span>, [<span class="dv">9794</span>]), (<span class="st">&quot;&amp;not;&quot;</span>, [<span class="dv">172</span>])<span class="op">.....</span>]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>entitySet</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> S.fromList</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      [<span class="st">&quot;&amp;intlarhk;&quot;</span>, <span class="st">&quot;&amp;male;&quot;</span>, <span class="st">&quot;&amp;not;&quot;</span>, <span class="st">&quot;&amp;clubs;&quot;</span>, <span class="st">&quot;&amp;cudarrl;&quot;</span><span class="op">.....</span>]</span></code></pre></div>
+<h1 id="доступ-к-данным">Доступ к данным</h1>
+<p>Данные у нас есть, дело осталось за малым, написать удобные функции для доступа
+к этим данным:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Text.Html5.Entity</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Control.Applicative</span> ((&lt;$&gt;))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span>           <span class="dt">Data.Char</span> (chr)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">S</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Text.Html5.Entity.Data</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="ot">entityCodePoints ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [<span class="dt">Int</span>]</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>entityCodePoints ent <span class="ot">=</span> M.lookup ent entityMap</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="ot">entityChars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">String</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>entityChars ent <span class="ot">=</span> <span class="fu">map</span> <span class="fu">chr</span> <span class="op">&lt;$&gt;</span> M.lookup ent entityMap</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="ot">isValidEntity ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>isValidEntity ent <span class="ot">=</span> S.member ent entitySet</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="ot">nameToEntity ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>nameToEntity name <span class="ot">=</span> <span class="ch">'&amp;'</span> <span class="op">:</span> name <span class="op">++</span> <span class="st">&quot;;&quot;</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="ot">entityNameCodePoints ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [<span class="dt">Int</span>]</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>entityNameCodePoints <span class="ot">=</span> entityCodePoints <span class="op">.</span> nameToEntity</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="ot">entityNameChars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">String</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>entityNameChars <span class="ot">=</span> entityChars <span class="op">.</span> nameToEntity</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="ot">isValidEntityName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>isValidEntityName name <span class="ot">=</span> S.member (nameToEntity name) entitySet</span></code></pre></div>
+<h1 id="заключение">Заключение</h1>
+<p>Поставленная проблема решена. Конечно для полной законченности нужно поработать
+над оптимизацией. В целом идея генерации
+таких модулей не нова, к примеру существует инструмент <a href="https://www.gnu.org/software/gperf/">gperf</a>
+который генерирует C(++) код для поиска по хеш-таблицам построенных на основе списков строк.
+Тем не менее, я не смог найти примеров использования этой техники в Хаскелле,
+хотя наверняка они есть. Было бы интересно написать библиотеку которая упрощала
+бы генерацию вот таких модулей, с другой стороны куда уж проще, непосредственно
+генерирующий код умещается в 20-30 строк.</p>
+<p>Получившуюся библиотеку я разместил на hackage под именем <a href="https://hackage.haskell.org/package/html5-entity">html5-entity</a>.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

