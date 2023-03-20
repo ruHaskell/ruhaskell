@@ -16,9 +16,9 @@ module Context (
 ) where
 
 import           Data.Aeson (FromJSON, Value (Null), parseJSON, withArray)
+import qualified Data.Aeson.KeyMap as KeyMap
 import           Data.Aeson.Types (parseEither)
 import           Data.Foldable (toList)
-import qualified Data.HashMap.Strict as HashMap
 import           Data.List (intercalate, intersperse, isPrefixOf)
 import           Data.Maybe (fromMaybe)
 import           Data.Time (TimeLocale (..))
@@ -176,7 +176,7 @@ getTalkMetadata iid@(toFilePath -> file) | "posts/talks/" `isPrefixOf` file = do
     either (\e -> error $ file ++ ", metadata.talk: " ++ e) pure $
         parseEither parseJSON $
         fromMaybe Null $
-        HashMap.lookup "talk" metadata
+        KeyMap.lookup "talk" metadata
 getTalkMetadata _ = fail "not a talk"
 
 youtubeSnippet :: TalkVideo -> String

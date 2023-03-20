@@ -110,17 +110,18 @@ raw = do
                     $ "Изучай Haskell во имя добра!"
                 " Знаменитая книга для новичков с весёлыми картинками."
             li $ do
-                a ! href "https://typeclasses.com/phrasebook" $
-                    "The Haskell Phrasebook"
+                a   ! href "https://typeclasses.com/phrasebook"
+                    $ "The Haskell Phrasebook"
                 " — онлайн-«разговорник»"
-            li do
-                a ! href "https://typeclasses.com" $ "Type Classes"
+            li $ do
+                a   ! href "https://typeclasses.com"
+                    $ "Type Classes"
                 " — учебник и сборник статей по отдельным фичам"
                 " от Джули Моронуки и Криса Мартина"
                 " (доступ платный)"
         p $ do
-            a ! hrep "https://github.com/ruHaskell/ruhaskell/wiki/Books"
-                "Здесь"
+            a ! href "https://github.com/ruHaskell/ruhaskell/wiki/Books"
+              $ "Здесь"
             " можно почитать мнения участников сообщества об этих и других книгах про Haskell"
 
     courses = do

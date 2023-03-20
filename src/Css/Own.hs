@@ -85,7 +85,7 @@ ownCss = Lazy.toStrict . render $ do
     a # hover ? do
         color           "#5493ff"
         textDecoration  none
-        borderBottom    solid (px 1) "#999999"
+        borderBottom    (px 1) solid "#999999"
 
     a # visited ? aStyle
 
@@ -98,55 +98,55 @@ ownCss = Lazy.toStrict . render $ do
 
     "#authors-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#about-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#tags-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#categories-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#links-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#sl-1" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#sl-2" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#sl-3" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#sl-4" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#sl-5" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#go-home" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#hakyll-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "#mit-link" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     ".fpconf-link" ?
         fontSizePct     120
@@ -200,7 +200,7 @@ ownCss = Lazy.toStrict . render $ do
 
     ".name-of-category" ? do
         fontSizePct     85
-        border          solid (px 1) "#ffbcb1"
+        border          (px 1) solid "#ffbcb1"
         borderRadius    (px 3) (px 3) (px 3) (px 3)
         backgroundColor "#fec1b7"
         paddingTopPx    3
@@ -252,7 +252,7 @@ ownCss = Lazy.toStrict . render $ do
 
     ".undecorated" ? do
         textDecoration  none
-        borderBottom    solid (px 0) "#ffffff"
+        borderBottom    (px 0) solid "#ffffff"
 
     "img[src*='#center']" ? do
         marginAuto
@@ -274,7 +274,7 @@ ownCss = Lazy.toStrict . render $ do
 
     ".tag-default" ? do
         backgroundColor "#fec1b7"
-        border          solid (px 1) "#ffbcb1"
+        border          (px 1) solid "#ffbcb1"
         color           inherit
 
     ".sourceCode" ? code ?
@@ -283,7 +283,7 @@ ownCss = Lazy.toStrict . render $ do
     "pre.sourceCode" ? do
         fontFamily      ["Roboto Mono"] [monospace]
         fontSizePct     94
-        border          solid (px 1) "#fbe7d8"
+        border          (px 1) solid "#fbe7d8"
         borderRadius    (px 3) (px 3) (px 3) (px 3)
         backgroundColor "#fdf6e3"
         color           "#073642"
@@ -298,7 +298,7 @@ ownCss = Lazy.toStrict . render $ do
         fontFamily      ["Roboto Mono"] [monospace]
         fontSizePct     94
         borderRadius    (px 3) (px 3) (px 3) (px 3)
-        border          solid (px 1) "#fbe7d8"
+        border          (px 1) solid "#fbe7d8"
         backgroundColor "#fdf6e3"
         color           "#000"
         paddingTopPx    1
@@ -331,4 +331,4 @@ ownCss = Lazy.toStrict . render $ do
     aStyle = do
         color           "#2d3644"
         textDecoration  none
-        borderBottom    dotted (px 1) "#333333"
+        borderBottom    (px 1) dotted "#333333"

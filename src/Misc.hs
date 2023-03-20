@@ -11,9 +11,10 @@ module Misc
 
 import           Control.Monad.Reader (ReaderT)
 import           Data.Aeson (Value (String))
-import qualified Data.HashMap.Lazy as HashMap
+import qualified Data.Aeson.KeyMap as KeyMap
 import           Data.Map (Map)
 import qualified Data.Map as Map
+import           Data.Maybe (fromMaybe)
 import qualified Data.Text as Text
 import           Hakyll (Identifier, MonadMetadata, Rules, Tags, compile,
                          getMetadata, match, templateCompiler, trim)
@@ -36,7 +37,7 @@ getNameOfAuthor :: (MonadMetadata m, MonadFail m) => Identifier -> m [String]
 getNameOfAuthor identifier = do
     metadata <- getMetadata identifier
         -- Собираем атрибуты статьи в обычный ассоциативный контейнер.
-    author <- case HashMap.lookupDefault "Не указан" "author" metadata of
+    author <- case fromMaybe (String "Не указан") (KeyMap.lookup "author" metadata) of
         String author -> pure author
         _             -> fail "expected String"
     return [trim $ Text.unpack author]

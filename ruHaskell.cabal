@@ -4,7 +4,7 @@ synopsis:            Website of Russian community of Haskell-developers
 
 homepage:            http://ruhaskell.org
 
-license: 	     MIT
+license:             MIT
 license-file:        LICENSE
 
 author:              Denis Shevchenko

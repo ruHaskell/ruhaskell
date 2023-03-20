@@ -1,5 +1,5 @@
 with (import <nixpkgs> {}).pkgs;
-let pkg = haskellngPackages.callPackage
+let pkg = haskellPackages.callPackage
             ({ mkDerivation, aeson, base, blaze-html, clay, containers, filepath, hakyll
              , mtl, pandoc, split, string-qq, text, time, unordered-containers, stdenv
              }:
