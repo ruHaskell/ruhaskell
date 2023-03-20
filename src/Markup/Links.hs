@@ -100,6 +100,12 @@ raw = do
             li $ do
                 a   ! href  "http://dmkpress.com\
                             \/catalog/computer/programming/functional\
+                            \/978-5-97060-694-0/"
+                    $ "Программируй на Haskell."
+                " Книга, которую в сообществе часто рекомендуют в качестве первой книги по Haskell."
+            li $ do
+                a   ! href  "http://dmkpress.com\
+                            \/catalog/computer/programming/functional\
                             \/978-5-97060-025-2/"
                     $ "Изучай Haskell во имя добра!"
                 " Знаменитая книга для новичков с весёлыми картинками."
