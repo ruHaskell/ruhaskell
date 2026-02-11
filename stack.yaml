@@ -1,7 +1,4 @@
-snapshot: lts-21.25
-
-extra-deps:
-  - clay-0.16.1
+snapshot: lts-22.44
 
 flags:
   hakyll:

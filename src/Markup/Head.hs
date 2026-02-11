@@ -2,18 +2,28 @@
 {-# LANGUAGE QuasiQuotes #-}
 
 module Markup.Head (
-    commonHead
+    commonHead,
 ) where
 
+import Prelude hiding (head)
 
-import           Prelude hiding (head)
+import Data.String.QQ
+import Text.Blaze.Html5 (
+    Html,
+    head,
+    link,
+    meta,
+    script,
+    style,
+    title,
+    toHtml,
+    toValue,
+    (!),
+ )
+import Text.Blaze.Html5.Attributes qualified as A
 
-import           Data.String.QQ
-import           Text.Blaze.Html5
-import qualified Text.Blaze.Html5.Attributes as A
-
-import           Css.Own (ownCss)
-import           Misc (aHost)
+import Css.Own (ownCss)
+import Misc (aHost)
 
 commonHead :: Html
 commonHead = head $ do
@@ -22,25 +32,30 @@ commonHead = head $ do
     meta ! A.charset "utf-8"
 
     -- Для мобильных экранов.
-    meta ! A.name "viewport"
-         ! A.content "width=device-width, initial-scale=1.0"
+    meta
+        ! A.name "viewport"
+        ! A.content "width=device-width, initial-scale=1.0"
 
-    meta ! A.name "description"
-         ! A.content ""
+    meta
+        ! A.name "description"
+        ! A.content ""
 
-    meta ! A.name "author"
-         ! A.content ""
+    meta
+        ! A.name "author"
+        ! A.content ""
 
-    link ! A.rel "icon"
-         ! A.type_ "image/png"
-         ! A.href (toValue $ imgRoot <> "favicon.ico")
+    link
+        ! A.rel "icon"
+        ! A.type_ "image/png"
+        ! A.href (toValue $ imgRoot <> "favicon.ico")
 
     cssLink "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    jsLink  "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    jsLink "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
     cssLink "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
-    jsLink  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
+    jsLink "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
 
-    script ! A.type_ "text/x-mathjax-config" $ [s|
+    script ! A.type_ "text/x-mathjax-config" $
+        [s|
         MathJax.Hub.Config({
             extensions: ["tex2jax.js"],
             jax: ["input/TeX", "output/HTML-CSS"],
@@ -55,7 +70,7 @@ commonHead = head $ do
             },
         });
         |]
-    jsLink  "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    jsLink "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
     style $ toHtml ownCss
 
@@ -66,10 +81,11 @@ commonHead = head $ do
     script ! A.src "https://apis.google.com/js/platform.js" $ "" -- async defer
 
     -- RSS feed.
-    link ! A.rel "alternate"
-         ! A.type_ "application/rss+xml"
-         ! A.title "RSS"
-         ! A.href (toValue $ aHost ++ "/feed.xml")
+    link
+        ! A.rel "alternate"
+        ! A.type_ "application/rss+xml"
+        ! A.title "RSS"
+        ! A.href (toValue $ aHost ++ "/feed.xml")
   where
     cssLink :: String -> Html
     cssLink url = link ! A.rel "stylesheet" ! A.href (toValue url)
@@ -81,7 +97,8 @@ commonHead = head $ do
     imgRoot = "/static/images/"
 
 googleAnalytics :: String
-googleAnalytics = [s|
+googleAnalytics =
+    [s|
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
