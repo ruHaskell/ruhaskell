@@ -60,7 +60,6 @@ executable ruHaskell
                      , string-qq
                      , text
                      , time
-                     , unordered-containers
 
   default-language:    Haskell2010
 
