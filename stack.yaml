@@ -1,7 +1,7 @@
-resolver: lts-18.20
+snapshot: lts-20.11
 
 extra-deps:
-  - hakyll-4.15.1.0
+  - clay-0.16.1
 
 flags:
   hakyll:
