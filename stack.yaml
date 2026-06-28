@@ -1,4 +1,4 @@
-snapshot: lts-23.28
+snapshot: lts-24.40
 
 flags:
   hakyll:
