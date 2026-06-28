@@ -1,0 +1,871 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Nix: начало
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    Nix: начало
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%94%D0%B5%D0%BD%D0%B8%D1%81%20%D0%A8%D0%B5%D0%B2%D1%87%D0%B5%D0%BD%D0%BA%D0%BE.html">Денис Шевченко</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2015 nov 26<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/utils.html">Утилиты</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/Nix.html">Nix</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <p>Всем привет!</p>
+<p>Итак, от <a href="http://ruhaskell.org/posts/utils/2015/11/25/nix-idea.html">идейной теории</a> перейдём к практике. Надо же, наконец, попробовать этот Nix на вкус…</p>
+<h2 id="платформа">Платформа</h2>
+<p>Я долго думал, где же проводить все свои эксперименты, и решил-таки делать их на NixOS, через VirtualBox. Конечно, заявлено о работе Nix и на OS X, но уж лучше на NixOS, нативнее будет. ;-) Сказано - сделано. Иду <a href="http://nixos.org/nixos/download.html">сюда</a> и скачиваю последний (а именно версии <code>15.09</code>) образ для VB. Импортирую, запускаю, вижу знакомый KDE. Начнём. Все манипуляции проводятся в Konsole.</p>
+<p><strong>ВАЖНО!</strong> У меня нет цели тупо продублировать <a href="http://nixos.org/nix/manual/">официальное Nix-руководство</a> на русском языке. В рамках этой и следующих статей я лишь хочу пройтись по интересующим меня практичным аспектам работы с Nix. Разумеется, особое ударение будет сделано на Haskell-разработку в Nix-среде. ;-)</p>
+<h2 id="устанавливаем-пакет">Устанавливаем пакет</h2>
+<p>В начале мы имеем фактически голую систему, в которой нет даже Vim. Вот с него и начнём.</p>
+<p>Простейший способ установить какой-либо пакет на NixOS таков: идём <a href="http://nixos.org/nixos/packages.html">сюда</a> и ищем пакет. Нахожу <code>vim-7.4.827</code>, нажимаю на него - и вижу следующее:</p>
+<pre><code>Install command:    $ nix-env -iA nixos.pkgs.vim (NixOS channel)
+Nix expression:     pkgs/applications/editors/vim/default.nix
+Platforms:          i686-linux, x86_64-linux
+Homepage:           http://www.vim.org
+License:            Not specified
+Maintainers:        Jason O'Conal &lt;jason@oconal.id.au&gt;
+Long description:   Not specified</code></pre>
+<p>Первая строка - то что нам нужно, название <code>Install command</code> говорит само за себя. Ввожу:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-env <span class="at">-iA</span> nixos.pkgs.vim</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">installing</span> ‘vim-7.4.827’</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">these</span> paths will be fetched <span class="er">(</span><span class="ex">5.65</span> MiB download, 27.06 MiB unpacked<span class="kw">)</span><span class="bu">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">fetching</span> path ‘/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827’...</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">***</span> Downloading ‘https://cache.nixos.org/nar/1pxi5nvpvfn27lxi789qjqb5gp2dbsabagc2y7ldnj8c20py9ix1.nar.xz’ <span class="er">(</span><span class="ex">signed</span> by ‘cache.nixos.org-1’<span class="kw">)</span> <span class="ex">to</span> ‘/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827’...</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">%</span> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                                 <span class="ex">Dload</span>  Upload   Total   Spent    Left  Speed</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">100</span> 5782k  100 5782k    0     0   601k      0  0:00:09  0:00:09 <span class="at">--:--:--</span>  681k</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">building</span> path<span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">‘/nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment’</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">created</span> 2 symlinks in user environment</span></code></pre></div>
+<p>Сразу после этого команда <code>vim</code> уже доступна в консоли. А теперь давайте разбираться.</p>
+<h2 id="где">Где</h2>
+<p>Во-первых, куда именно установился <code>vim</code>? Как мы уже знаем, Nix устанавливает каждый пакет в своё уникальное место, где-то в недрах <code>/nix/store/</code>. Более того, мы уже видели это место, оно было показано нам в сообщении при установке:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">these</span> paths will be fetched <span class="er">(</span><span class="ex">5.65</span> MiB download, 27.06 MiB unpacked<span class="kw">)</span><span class="bu">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827</span></span></code></pre></div>
+<p>Давайте проверим:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls /nix/store/ <span class="kw">|</span> <span class="fu">grep</span> vim</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827</span></span></code></pre></div>
+<p>Да, это тот самый хэш. Заглянем внутрь:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bin</span> share</span></code></pre></div>
+<p>Вполне ожидаемое содержимое: внутри <code>bin</code> лежат исполняемые файлы (такие как <code>vim</code>, <code>vimdiff</code>, <code>vimtutor</code>), а внутри <code>share/vim/vim74/</code> - Vim-плагины.</p>
+<h2 id="профиль-и-окружение">Профиль и окружение</h2>
+<p>Итак, <code>vim</code> теперь живёт в своём уютном мирке. Однако если мы проверим, откуда доступна команда <code>vim</code>, то увидим следующее:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> which vim</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/demo/.nix-profile/bin/vim</span></span></code></pre></div>
+<p>Хм… Странно. Разве мы не должны были увидеть <code>/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/bin/vim</code>? Что это за <code>~/.nix-profile/</code> такой?</p>
+<p>Посмотрим-ка на него внимательнее:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> ~/.nix-profile</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> .nix-profile <span class="at">-</span><span class="op">&gt;</span> /nix/var/nix/profiles/per-user/demo/profile</span></code></pre></div>
+<p>Ага, перед нами символьная ссылка, и ведёт она куда-то в недра <code>/nix</code>. Заглянем поглубже:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/var/nix/profiles/per-user/demo/profile</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> /nix/var/nix/profiles/per-user/demo/profile <span class="at">-</span><span class="op">&gt;</span> profile-1-link</span></code></pre></div>
+<p>Опять ссылка. Глубже:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/var/nix/profiles/per-user/demo/profile-1-link</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> /nix/var/nix/profiles/per-user/demo/profile-1-link <span class="at">-</span><span class="op">&gt;</span> /nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment</span></code></pre></div>
+<p>И вновь ссылка, на этот раз на нечто любопытное: в хранилище <code>/nix/store</code> мы видим некое <code>user-environment</code>. Так, пользовательское окружение… Уж не то ли самое это окружение, куда устанавливается мой софт? Проверим:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment/</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">total</span> 92</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> bin <span class="at">-</span><span class="op">&gt;</span> /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/bin</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> manifest.nix <span class="at">-</span><span class="op">&gt;</span> /nix/store/2i6jvy2q2m8gcgiszsh4zw5dvx7133hd-env-manifest.nix</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> share <span class="at">-</span><span class="op">&gt;</span> /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/share</span></code></pre></div>
+<p>Так вот же оно! Внутри моего окружения я вижу ссылки на части установленного мною <code>vim</code>. Теперь-то понятно, почему команда <code>vim</code> была доступна через <code>~/.nix-profile/</code>: это просто цепочка ссылок. Концептуально её можно изобразить так:</p>
+<pre><code>my-profile -&gt; user-environment -&gt; software</code></pre>
+<p>Только что мы узнали нечто очень важное. Оказывается, утверждение, что “у каждого пользователя есть своё собственное окружение, куда он устанавливает софт”, не совсем корректно, ибо может ввести нас в заблуждение. Складывается впечатление, будто в моём домашнем каталоге есть какой-то особый каталог, в который устанавливаются мои пакеты, типа <code>/home/demo/.my-nix-packages/trali-vali/vim-7.4.827/</code>. В действительности же это не так: все пакеты хранятся в <code>/nix/store</code>, а в моём профиле есть лишь <em>упоминание</em> о некоторых из них.</p>
+<p>Кстати, а давайте проверим эту догадку. Вдруг мы неправы?</p>
+<h2 id="общий-vim">Общий vim</h2>
+<p>Создадим-ка второго пользователя, по имени <code>demo2</code>, и, войдя под ним, проверим:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">vim:</span> command not found</span></code></pre></div>
+<p>Мы знаем, что <code>vim</code> в системе уже существует, но пользователь <code>demo2</code> не знает об этом. Давайте повторим процедуру установки <code>vim</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-env <span class="at">-iA</span> nixos.pkgs.vim</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">installing</span> ‘vim-7.4.827’</span></code></pre></div>
+<p>Опа, как мы и предполагали! Пользователь <code>demo2</code> запросил установку пакета <code>vim</code>, но поскольку этот пакет уже живёт в нашей системе, никакой установки в действительности не произошло. Уверен, вы уже догадались, что же произошло на самом деле: в окружении пользователя <code>demo2</code> просто появились символьные ссылки на <em>тот же самый</em> пакет <code>vim</code>. Убедимся же в этом:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> which vim</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/demo2/.nix-profile/bin/vim</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> ~/.nix-profile</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> /home/demo2/.nix-profile <span class="at">-</span><span class="op">&gt;</span> /nix/var/nix/profiles/per-user/demo2/profile</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/var/nix/profiles/per-user/demo2/profile</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> /nix/var/nix/profiles/per-user/demo2/profile <span class="at">-</span><span class="op">&gt;</span> profile-1-link</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/var/nix/profiles/per-user/demo2/profile-1-link</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> /nix/var/nix/profiles/per-user/demo2/profile-1-link <span class="at">-</span><span class="op">&gt;</span> /nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/store/77qhgp784j2qia0v9dj98b76cra70qmm-user-environment</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="ex">total</span> 92</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> bin <span class="at">-</span><span class="op">&gt;</span> /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/bin</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> manifest.nix <span class="at">-</span><span class="op">&gt;</span> /nix/store/2i6jvy2q2m8gcgiszsh4zw5dvx7133hd-env-manifest.nix</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> share <span class="at">-</span><span class="op">&gt;</span> /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/share</span></code></pre></div>
+<p>Это именно то, что мы и ожидали увидеть: тот же самый хэш, та же самая версия <code>vim</code>! Таким образом, концептуально сложившуюся ситуацию можно изобразить так:</p>
+<pre><code>demo-profile  -&gt; /nix/store/user-environment -&gt; /nix/store/vim-7.4.827
+              /
+demo2-profile</code></pre>
+<p>Два пользователя пользуются общим пакетом <code>vim</code>! Это в высшей степени рациональный подход, поскольку нет никакого дубляжа. Даже если бы в нашей системе было сто пользователей, то, когда все они запросят установку пакета <code>vim</code> одной и той же версии, тогда один-единственный пакет <code>vim</code> просто расшарится между ними, через ссылки в их профилях.</p>
+<h2 id="видит-око-да-зуб-неймёт">Видит око, да зуб неймёт</h2>
+<p>Постойте, возразите вы, но если два пользователя <code>demo</code> и <code>demo2</code> пользуются одним и тем же пакетом <code>vim</code> - это же опасно! А что если <code>demo2</code> возьмёт и удалит его! Ну или сломает чего-нибудь! Это что же, у <code>demo</code> <code>vim</code> тоже исчезнет или поломается??!</p>
+<p>Резонное возражение. Давайте похулиганим от имени <code>demo2</code>. Попробуем переименовать исполняемый файл <code>vim</code>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/bin</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv vim vimTraliVali</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mv:</span> cannot move ‘vim’ to ‘vimTraliVali’: Read-only file system</span></code></pre></div>
+<p>Ага, разбежались! Вы должны помнить из предыдущей статьи, что Nix воспринимает пакеты так же, как значения в Haskell-коде: будучи единожды созданными, они уже не могут быть изменены. В этом и заключается Nix-чистота (purity). Оба пользователя ссылаются на пакет <code>vim</code>, но ни один из них не <em>владеет</em> им.</p>
+<p>Ну хорошо, возразите вы вновь, но ведь Nix же умеет удалять пакеты?! Ладно, не будем ничего ломать, но что произойдёт, если <code>demo2</code> удалит <code>vim</code>?</p>
+<p>Разумеется, Nix умеет удалять пакеты, сделаем же это:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-env <span class="at">--uninstall</span> vim</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uninstalling</span> ‘vim-7.4.827’</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">building</span> path<span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">‘/nix/store/0fw4wpbrgix115lh93ahfik2r0hvv7n0-user-environment’</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ex">created</span> 0 symlinks in user environment</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ex">vim:</span> command not found</span></code></pre></div>
+<p>О нет, что же мы натворили-то?! Как же теперь быть бедному <code>demo</code>? А давайте проверим. Перелогинимся под <code>demo</code> и:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim <span class="at">--version</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">VIM</span> <span class="at">-</span> Vi IMproved 7.4 <span class="er">(</span><span class="ex">2013</span> Aug 10, compiled Jan 01 1970 00:00:01<span class="kw">)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Included</span> patches: 1-827</span></code></pre></div>
+<p>Магия? Вовсе нет. Когда мы выполнили команду:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-env <span class="at">--uninstall</span> vim</span></code></pre></div>
+<p>никакого удаления в действительности не произошло. В самом деле, если бы пакет <code>vim</code> реально исчез - как бы тогда его мог видеть пользователь <code>demo</code>? Как вы уже, вероятно, догадались, произошло только одно: удаление той самой символьной ссылки на пакет <code>vim</code> из профиля <code>demo2</code>. И это вполне логично: если с конкретным пакетом пользователя связывает лишь соответствующая ссылка из его профиля, тогда удаление пакета сводится к удалению этой ссылки. Это похоже на указатель в языке C: если мы потеряли некую “ссылку” на область памяти в куче - всё, эта память потеряна для нас навсегда, однако это вовсе не означает, что эта память тут же была очищена, ведь на эту же область памяти вполне может ссылаться кто-то другой.</p>
+<p>Пока пользователь <code>demo</code> продолжает ссылаться на пакет <code>vim</code>, этот пакет никак не может быть удалён. Оно и понятно: если бы мы могли удалить пакет, на который кто-то ссылается, тогда у кого-то что-нибудь сломалось бы, а это недопустимо.</p>
+<p>Ну хорошо, а что же будет, если и <code>demo</code> удалит <code>vim</code>? Сказано - сделано:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-env <span class="at">--uninstall</span> vim</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uninstalling</span> ‘vim-7.4.827’</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">vim:</span> command not found</span></code></pre></div>
+<p>Всё, скончался наш <code>vim</code>. Впрочем, скончался ли? Ведь мы же помним тот самый хэш, ну-ка проверим:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-al</span> /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/bin/vim</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> /nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827/bin/vim</span></code></pre></div>
+<p>Опа… А почему же <code>vim</code> никуда не исчез? А потому что мы мусор не почистили.</p>
+<p>Помните идею GC (сборщика мусора)? Удалять только то, что никому не нужно. Так вот в Nix есть собственный GC. Пакет <code>vim</code> больше никому не нужен, ведь оба пользователя, когда-то работающие с ним, удалили его. Значит, теперь можно почистить мусор. Это не происходит автоматически, нужно запустить команду:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-collect-garbage <span class="at">-d</span></span></code></pre></div>
+<p>И вот теперь - всё. Помимо всего прочего, мы увидим строку:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deleting</span> ‘/nix/store/yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827’</span></code></pre></div>
+<p>Покойся с миром, <code>vim</code>.</p>
+<h2 id="а-если-воскресить">А если воскресить?</h2>
+<p>Давайте заново установим <code>vim</code>. В конце концов, он мне нужен, привык я к нему:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nix-env <span class="at">-iA</span> nixos.pkgs.vim</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">installing</span> ‘vim-7.4.827’</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div>
+<p>И вот <code>vim</code> вновь с нами. Но самое интересное в том, что если мы посмотрим в <code>/nix/store/</code>, то увидим:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls /nix/store/ <span class="kw">|</span> <span class="fu">grep</span> vim</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">yblqgyrn4jgwfg89qp9041i0n2z26v5b-vim-7.4.827</span></span></code></pre></div>
+<p>Круто, правда? Хэш-то тот же самый! А всё потому, что это не просто какое-то случайное криптозначение, а хэш от входных конфигурационных параметров для данного пакета. Ну а раз <code>vim</code> тот же самый и входные параметры те же - значит и хэш останется прежним. И сколько бы раз мы ни удаляли и не устанавливали пакет <code>vim</code> одной и той же версии - результат будет гарантированно одинаковым. Да-да, это хорошо нам знакомая философия чистой функции - если на вход подали те же значения, то и на выходе всегда получим одно и то же.</p>
+<h2 id="в-итоге">В итоге</h2>
+<p>В итоге мы поняли, что Nix - весьма умная система. Лишнюю работу не делает, чистоту хранит, безопасно удаляет. Ну точно в духе Haskell! ;-)</p>
+<p>Разумеется, всё вышеизложенное - это лишь азы азов. А вот в следующих статьях начнутся вещи поинтереснее.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

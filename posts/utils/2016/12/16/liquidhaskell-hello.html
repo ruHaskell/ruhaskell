@@ -1,0 +1,920 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            LiquidHaskell: знакомство
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content>
+        <meta name="author" content>
+        <link rel="icon" type="image/png" href="../../../../../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js">
+            
+        </script>
+        <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] },
+            TeX: {
+                extensions: ["AMScd.js", "enclose.js"],
+            },
+        });
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            
+        </script>
+        <style>
+            
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700|Roboto+Mono:400,400i,700&subset=cyrillic);
+body
+{
+  font-family      : "Roboto Condensed", sans-serif;
+  font-size        : 18px;
+  background-color : #f6f6f6;
+  background-image : url("/static/images/satinweave.png");
+}
+
+a:hover
+{
+  color : black !important;
+}
+
+a:link
+{
+  color : black !important;
+}
+
+a:visited
+{
+  color : black !important;
+}
+
+a:active
+{
+  color : black !important;
+}
+
+.footer
+{
+  margin         : 0px auto 0px auto;
+  max-width      : 86%;
+  padding-top    : 70px;
+  padding-bottom : 50px;
+  color          : #777777;
+  font-size      : 94%;
+}
+
+.left
+{
+  text-align : left;
+}
+
+.right
+{
+  text-align : right;
+}
+
+.center
+{
+  text-align : center;
+}
+
+h1
+{
+  text-align     : center;
+  font-size      : 200%;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+}
+
+h2
+{
+  font-size      : 160%;
+  padding-top    : 30px;
+  padding-bottom : 25px;
+}
+
+h3
+{
+  font-size      : 140%;
+  padding-top    : 25px;
+  padding-bottom : 20px;
+}
+
+a
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:hover
+{
+  color           : #5493ff;
+  text-decoration : none;
+  border-bottom   : 1px solid #999999;
+}
+
+a:visited
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+a:active
+{
+  color           : #2d3644;
+  text-decoration : none;
+  border-bottom   : 1px dotted #333333;
+}
+
+.href-to-original
+{
+  text-align  : right;
+  font-size   : 90%;
+  padding-top : 10px;
+}
+
+#authors-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#about-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#tags-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#categories-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#links-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-1
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-2
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-3
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-4
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#sl-5
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#go-home
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#hakyll-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+#mit-link
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+.fpconf-link
+{
+  font-size : 120%;
+}
+
+.fby-link
+{
+  font-size : 120%;
+}
+
+.friends-separator
+{
+  padding-left : 30px;
+}
+
+.navigation
+{
+  max-width      : 86%;
+  margin         : 0px auto 0px auto;
+  padding-top    : 40px;
+  padding-bottom : 40px;
+  font-size      : 120%;
+}
+
+.links
+{
+  margin-top     : 17px;
+  font-size      : 90%;
+  padding-bottom : 10px;
+}
+
+.logo-area
+{
+  text-align : center;
+}
+
+.social-links
+{
+  text-align : right;
+  margin-top : 10px;
+  font-size  : 140%;
+}
+
+.social-links-separator
+{
+  padding-right : 20px;
+}
+
+.links-separator
+{
+  padding-right : 20px;
+}
+
+.reddit-color
+{
+  color : #ff4500;
+}
+
+.twitter-color
+{
+  color : #1da1f2;
+}
+
+.gitter-color
+{
+  color : #e10454;
+}
+
+.github-color
+{
+  color : #000000;
+}
+
+.rss-color
+{
+  color : #ff924a;
+}
+
+.name-of-category
+{
+  font-size        : 85%;
+  border           : 1px solid #ffbcb1;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fec1b7;
+  padding-top      : 3px;
+  padding-bottom   : 3px;
+  padding-left     : 5px;
+  padding-right    : 5px;
+  margin-right     : 22px;
+}
+
+.post-info
+{
+  color          : #777777;
+  font-size      : 90%;
+  font-family    : "Roboto Mono", monospace;
+  text-align     : left;
+  padding-top    : 10px;
+  padding-bottom : 60px;
+}
+
+.post-list
+{
+  padding         : 0px 0px 0px 0px;
+  margin          : 0px 0px 0px 0px;
+  list-style-type : none;
+  font-size       : 110%;
+}
+
+
+.post-list li
+{
+  margin-top     : 21px;
+  padding-bottom : 21px;
+}
+
+
+.post-list a
+{
+  text-decoration : none;
+}
+
+
+.post-list a:hover
+{
+  text-decoration : none;
+}
+
+.post-comments
+{
+  padding-left  : 15px;
+  padding-right : 5px;
+  font-size     : 90%;
+  color         : #777777;
+}
+
+.comments-link
+{
+  font-size : 90%;
+  color     : #777777;
+}
+
+.post-date
+{
+  text-align : right;
+  color      : #888888;
+}
+
+.archive-button
+{
+  padding-top : 26px;
+}
+
+.undecorated
+{
+  text-decoration : none;
+  border-bottom   : 0px solid #ffffff;
+}
+
+img[src*='#center']
+{
+  margin    : 0px auto 0px auto;
+  display   : block;
+  max-width : 100%;
+}
+
+.social-buttons-separator
+{
+  padding-top : 40px;
+}
+
+.heart-color
+{
+  color : #ff3a1d;
+}
+
+.tags-cloud
+{
+  text-align     : center;
+  padding-top    : 30px;
+  padding-bottom : 30px;
+  margin         : 0px auto 0px auto;
+  max-width      : 60%;
+}
+
+.tag-default
+{
+  background-color : #fec1b7;
+  border           : 1px solid #ffbcb1;
+  color            : inherit;
+}
+
+
+.sourceCode code
+{
+  font-family : "Roboto Mono", monospace;
+}
+
+pre.sourceCode
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border           : 1px solid #fbe7d8;
+  border-radius    : 3px 3px 3px 3px;
+  background-color : #fdf6e3;
+  color            : #073642;
+  padding-top      : 10px;
+  padding-bottom   : 10px;
+  padding-left     : 15px;
+  padding-right    : 15px;
+  margin-top       : 20px;
+  margin-bottom    : 20px;
+}
+
+
+#content p > code
+{
+  font-family      : "Roboto Mono", monospace;
+  font-size        : 94%;
+  border-radius    : 3px 3px 3px 3px;
+  border           : 1px solid #fbe7d8;
+  background-color : #fdf6e3;
+  color            : #000000;
+  padding-top      : 1px;
+  padding-bottom   : 1px;
+  padding-left     : 4px;
+  padding-right    : 4px;
+}
+
+
+pre.sourceCode span.kw
+{
+  color       : #007020;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.dt
+{
+  color : #902000;
+}
+
+
+pre.sourceCode span.dv
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.bn
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.fl
+{
+  color : #40a070;
+}
+
+
+pre.sourceCode span.ch
+{
+  color : #4070a0;
+}
+
+
+pre.sourceCode span.co
+{
+  color : #60a0b0;
+}
+
+
+pre.sourceCode span.ot
+{
+  color : #007020;
+}
+
+
+pre.sourceCode span.al
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+
+pre.sourceCode span.fu
+{
+  color : #06287e;
+}
+
+
+pre.sourceCode span.er
+{
+  color       : #fa0202;
+  font-weight : 600;
+}
+
+th, td
+{
+  border-color : #808080;
+  border-style : solid;
+  border-width : 1px;
+}
+
+:target
+{
+  background-color : #ffff00;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
+        </style>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58217738-1', 'auto');
+ga('send', 'pageview');
+
+        </script>
+        <script>
+            window.___gcfg = { lang: 'ru' };
+        </script>
+        <script src="https://apis.google.com/js/platform.js">
+            
+        </script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ruhaskell.org/feed.xml">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="links">
+                            <a href="../../../../../authors.html" id="authors-link">
+                                Авторы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../tags.html" id="tags-link">
+                                Темы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../categories.html" id="categories-link">
+                                Разделы
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../about.html" id="about-link">
+                                О нас
+                            </a>
+                            <span class="links-separator">
+                                
+                            </span>
+                            <a href="../../../../../links.html" id="links-link">
+                                Ресурсы
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <div class="logo-area">
+                            <a href="../../../../../" title="Домой" id="go-home">
+                                <img src="../../../../../static/images/logo.svg" alt="ruHaskell" width="100">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="social-links">
+                            <a href="../../../../../links.html#discussion" id="sl-1" title="Общение">
+                                <i class="fa fa-commenting gitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://twitter.com/ruHaskell" id="sl-2" title="Следите за нашим Твиттером">
+                                <i class="fa fa-twitter twitter-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="https://github.com/ruHaskell/ruhaskell" id="sl-4" title="Мы живём на GitHub">
+                                <i class="fa fa-github github-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                            <span class="social-links-separator">
+                                
+                            </span>
+                            <a href="../../../../../feed.xml" id="sl-5" title="Наш RSS">
+                                <i class="fa fa-rss rss-color" aria-hidden="true">
+                                    
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="content">
+                <h1>
+    LiquidHaskell: знакомство
+</h1>
+<div class="row">
+    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8">
+        <div class="post-info">
+            <strong>let</strong> author&nbsp;&nbsp;&nbsp;= "<a href="../../../../../authors/%D0%94%D0%B5%D0%BD%D0%B8%D1%81%20%D0%A8%D0%B5%D0%B2%D1%87%D0%B5%D0%BD%D0%BA%D0%BE.html">Денис Шевченко</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= fromGregorian 2016 dec 16<br />
+&nbsp;&nbsp;&nbsp;&nbsp;category = "<a href="../../../../../categories/utils.html">Утилиты</a>"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [&quot;<a href="../../../../../tags/LiquidHaskell.html">LiquidHaskell</a>&quot;]
+
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+        
+
+    </div>
+</div>
+
+
+<div>
+    <p>Приветствую вас, друзья!</p>
+<p>Сегодня мы познакомимся с удивительным инструментом, который поможет сделать наш Haskell-код ещё более надёжным и предсказуемым. Возможно, эта статья положит начало циклу публикаций, ведь русскоязычных материалов про LiquidHaskell, насколько мне известно, ешё нет. У меня была честь выступить с докладом об этом инструменте на <a href="http://fpconf.ru/">второй fpconf</a>. Если вы там не были - читайте.</p>
+<h2 id="не-всё-коту-масленица">Не всё коту масленица…</h2>
+<p>Все мы любим сильную статическую типизацию (а если вдруг вы её не любите - вам определённо нужно её полюбить). Типы - это палка, вооружившись которой, компилятор часто бьёт нас по голове, строго указывая на наши ошибки. Типы делают наш код предсказуемым, и это избавляет нас от множества проблем. От множества, но не от всех.</p>
+<p>Рассмотрим код:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">average ::</span> <span class="dt">Foldable</span> t <span class="ot">=&gt;</span> t <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>average ns <span class="ot">=</span> <span class="fu">sum</span> ns <span class="ot">`div`</span> <span class="fu">length</span> ns</span></code></pre></div>
+<p>Функция <code>average</code> даёт нам средее значение элементов списка, складывая значения элементов и деля эту сумму на их число. Эта функция отлично справляется со своими обязанностями, но лишь до тех пор, пока мы, по злому ли умыслу или ненароком, не применим её к пустому списку:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="fu">print</span> <span class="op">.</span> average <span class="op">$</span> []  <span class="co">-- Ой...</span></span></code></pre></div>
+<p>В этом случае функция <code>length</code> радостно вернёт 0, а функция <code>div</code> столь же радостно разделит сумму на этот самый 0…</p>
+<p>Вот ещё пример:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">checkProtocol ::</span> [<span class="dt">IP</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>checkProtocol <span class="ot">=</span> isIPv4 <span class="op">.</span> <span class="fu">head</span></span></code></pre></div>
+<p>Задумка была предельно проста: взять список IP-адресов и проверить их тип, IPv4 или IPv6. Список всегда содержал адреса одного типа, поэтому достаточно было проверить любой из них. Кроме того, список этот никогда не был пустым, поэтому разработчик обращался к первому из адресов. И вот однажды список этот - кто бы мог предположить? - оказался-таки пустым:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="fu">print</span> <span class="op">.</span> checkProtocol <span class="op">$</span> []  <span class="co">-- И снова ой...</span></span></code></pre></div>
+<p>В этом случае функция <code>head</code>, как ни в чём ни бывало, попытался взять голову списка. Пустого на этот раз…</p>
+<p>А вот моё любимое:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">getUserName ::</span> <span class="dt">Home</span> <span class="ot">-&gt;</span> <span class="dt">Text</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>getUserName homeDir <span class="ot">=</span> parts <span class="op">!!</span> <span class="dv">2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    parts <span class="ot">=</span> splitOn <span class="st">&quot;/&quot;</span> homeDir</span></code></pre></div>
+<p>И снова всё просто и понятно: из полного пути к домашнему каталогу пользователя мы извлекаем его имя, разбивая путь по прямым слэшам. В результате третьим по счёту элементом списка <code>parts</code> и будет искомое имя. Для простоты автор этого кода отбросил экзотические случаи путей к домашнему каталогу, подразумевая лишь канонические <code>/home/user</code> на Linux и <code>/Users/user</code> на Mac. И эта функция отлично работала на этих системах, пока однажды - ну кто бы мог подумать? - её не запустили на Windows. Напомню, пути в Windows не содержат прямых слэшей, что привело к тому, что список <code>parts</code> не имел третьего по счёту элемента, и попытка обратиться к оному… Ну, вы поняли.</p>
+<p>Что хуже всего, все эти примеры прекрасно компилируются. GHC не обмолвится ни единым предупреждением, и будет прав: с точки зрения языка Haskell нет никаких проблем ни в делении на ноль, ни в обращении к несуществующему элементу списка. Но мы-то с вами знаем, что проблемы есть! Просто лежат они не в области языка, а в области здравого смысла.</p>
+<p>А вот если честно, друзья, чего бы нам по-настоящему хотелось, глядя на подобный код? Нет, не побить автора, я о другом. Нам бы хотелось, чтобы такой код не прошёл компиляцию. Как было бы здоров, правда?</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Preprocessing</span> executable <span class="st">'proj'</span> for proj-0.1.0.0...</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1</span> of 1] Compiling Main             <span class="er">(</span> <span class="ex">src/Main.hs,</span> .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/proj/proj-tmp/Main.o <span class="kw">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/denis/proj/src/Main.hs:9:24:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Are</span> you a fool<span class="pp">?</span>! You cannot divide by zero! Go away!!</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">--</span>  While building package proj-0.1.0.0 using:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="ex">/home/denis/.stack/setup-exe-cache/x86_64-linux/Cabal-simple_mPHDZzAJ_1.22.5.0_ghc-7.10.3</span> <span class="at">--builddir</span><span class="op">=</span>.stack-work/dist/x86_64-linux/Cabal-1.22.5.0 build exe:proj <span class="at">--ghc-options</span> <span class="st">&quot; -ddump-hi -ddump-to-file&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Process</span> exited with code: ExitFailure 1</span></code></pre></div>
+<p>К сожалению, наш любимый компилятор не способен на это. А значит, нам нужен инструмент, который способен.</p>
+<h2 id="liquidhaskell">LiquidHaskell</h2>
+<p>Когда-то группа умных людей из Калифорнийского Университета в Сан-Диего задумалась о том, что неплохо было бы усовершенствовать наши типы. Ведь что такое, по сути своей, тип? Тип - это понятное человеку обозначение множества значений. Например, сказать “Поле <code>v</code> имеет тип <code>Int</code>” - это то же самое, что сказать “Поле <code>v</code> на 64-разрядной платформе содержит целочисленное значение в промежутке от <code>-9223372036854775808</code> до <code>9223372036854775807</code> включительно”. Тип отражает наши ожидания в отношении значения, и мы крайне признательны компилятору за его пристальное наблюдение за типами. Однако нам редко нужны столь широкие промежутки фактических значений. Например, не всякое целочисленное значение может быть отрицательным. Но типу <code>Int</code> всё равно, нет никаких препятствий запихнуть в него значение меньше нуля. А значит, нам нужен способ как-то уточнить наши ожидания. Так вот упомянутые люди из Калифорнийского Университета предложили делать это так:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>{v <span class="op">:</span> <span class="dt">Int</span> <span class="op">|</span> v <span class="op">&gt;</span> <span class="dv">0</span>}</span></code></pre></div>
+<p>Перед нами - тип. Да-да, вся эта конструкция задаёт новый тип, только тип хитрый. Он состоит из двух частей - базового типа и логического уточнения:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>{v <span class="op">:</span> <span class="dt">Int</span>  <span class="op">|</span> v <span class="op">&gt;</span> <span class="dv">0</span>      }</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">Base</span>   <span class="dt">Refinement</span></span></code></pre></div>
+<p><code>Base</code> - это обыкновенный Хаскельный тип, а <code>Refinement</code> - это логическое уточнение. Здесь мы как бы говорим: “Значение <code>v</code> будет не просто целочисленным, но обязательно положительным!” Предикат <code>v &gt; 0</code> - это и есть самое интересное, поскольку в нём отражены те наши ожидания, соответствие которым не в состоянии проверить компилятор.</p>
+<p>Теперь введём имя для нашего нового типа:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Positive</span> <span class="ot">=</span> {v <span class="op">:</span> <span class="dt">Int</span> <span class="op">|</span> v <span class="op">&gt;</span> <span class="dv">0</span>}</span></code></pre></div>
+<p>Так вот тип <code>Positive</code> - это и есть Liquid-тип. Вы спросите, откуда такое название, Liquid? Полное название звучит так: Logically Qualified Data Type, то есть Логически Уточнённый Тип Данных. Но, согласитесь, длинновато звучит. В итоге подумали создатели, подумали - и решили сделать псевдо-аббревиатуру путём выбрасывания лишних букв:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Logically</span> Qualified Data Type</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">L</span>  i      Qu    i d      Type</span></code></pre></div>
+<p>Прикольно, не правда ли? И запомнить легко.</p>
+<p>Но уже слышу ваш вопрос: “И что же теперь прикажете делать с этим <code>Positive</code>? Ведь та странного вида конструкция с фигурными скобками не является частью языка Haskell.” Совершенно верно, не является. Эта конструкция родом из математики, она задаёт множество (а мы уже знаем, что тип и есть некое множество). И мы действительно не можем вставить этот “построитель множества” в Haskell-код, компилятор не имеет ни малейшего понятия, что делать с этим <code>Positive</code>. Поэтому был создан отдельный инструмент и выложен на <a href="http://hackage.haskell.org/package/liquidhaskell">Hackage</a>. Этот инструмент понимает Liquid-типы и знает, что с ними делать.</p>
+<p>Любопытно, что идея улучшать типы с помощью предикативной логики нашла своё первое воплощение не в Haskell, а в OCaml. Затем, в 2012 году, была успешно защищена докторская диссертация, темой которой была реализация Liquid-типов в Haskell, и уже в 2013 году появился пакет <code>liquidhaskell</code>. То есть, как видите, инструмент весьма свежий, и некоторые из Haskell-разработчиков ещё даже не слышали о нём.</p>
+<h2 id="приготовимся">Приготовимся</h2>
+<p>Ставим пакет <code>liquidhaskell</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> stack install liquidhaskell</span></code></pre></div>
+<p>Увы, он пока ещё не добавлен в Stackage-снимки, поэтому придётся расширить наш <code>stack.yaml</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extra-deps</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> daemons-0.2.1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> located-base-0.1.1.0</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> dotgen-0.4.2</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> intern-0.9.1.4</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> fgl-visualize-0.1.0.1</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> liquid-fixpoint-0.5.0.1</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> liquidhaskell-0.6.0.0</span></span></code></pre></div>
+<p>После сборки в нашем распоряжении окажется команда <code>liquid</code>, её-то мы и будем использовать далее.</p>
+<p>Впрочем, если бы мы прямо сейчас запустили её, то увидели бы это:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> liquid </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">LiquidHaskell</span> Copyright 2009-15 Regents of the University of California. All Rights Reserved.</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">liquid:</span> <span class="op">&lt;</span>no location info<span class="op">&gt;</span>: Error: Uh oh.</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">LiquidHaskell</span> requires an SMT Solver, i.e. z3, cvc4, or mathsat to be installed.</span></code></pre></div>
+<p>Дело в том, что мы забыли про важную штуку, без которой <code>liquid</code> работать не в состоянии. Нам нужен доказыватель теорем (theorem prover). Именно он поможет делать выводы о нашем коде. Ведь <code>liquid</code> - это статический верификатор кода, то есть инструмент, который должен делать суждения о корректности нашего кода, не запуская его. Понятное дело, что без математики тут не обойтись, потому мы и должны установить предложенный пакет:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sudo apt install z3</span></code></pre></div>
+<p>Не беспокойтесь, для других дистрибутивов он тоже есть. И в homebrew вы тоже <a href="http://brewformulas.org/Z3">найдёте</a> этот пакет.</p>
+<p>Теперь мы готовы к работе. Но прежде чем продолжать, я должен признаться: <code>liquidhaskell</code> пока что работает только с <code>ghc-7.*</code>, и если вы уже перешли на 8 версию компилятора - жаль, но вам придётся подождать новую версию верификатора. Впрочем, есть хорошая новость: авторы пакета <a href="https://github.com/ucsd-progsys/liquidhaskell/issues/726">работают над этим</a>.</p>
+<h2 id="пример-с-портом">Пример с портом</h2>
+<p>Теперь выберем какой-нибудь проект и создадим новый модуль для нашей первой спецификации:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Liquid.Spec.Port</span> <span class="kw">where</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">{-@</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">    type NotRootPort = {p : Int | 1024 &lt;= p &amp;&amp; p &lt;= 65535}</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">@-}</span></span></code></pre></div>
+<p>Странный модуль, не правда ли? Кода нет, есть лишь многострочный комментарий. Этот-то комментарий нам и нужен, ведь он является спецификацией для <code>liquid</code>. И если для компилятора этой спецификации не существует (ибо GHC молчаливо игнорирует комментарии), то для команды <code>liquid</code> эта спецификация - всё, что нужно для работы.</p>
+<p>Итак, есть в нашем приложении непривилигированные порты для Linux-системы. Тип этих портов - это не просто целое число, но такое число, которое входит в диапазон от <code>1024</code> до <code>65535</code> включительно. Этот факт и отражён в спецификации:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>{p <span class="op">:</span> <span class="dt">Int</span> <span class="op">|</span> <span class="dv">1024</span> <span class="op">&lt;=</span> p <span class="op">&amp;&amp;</span> p <span class="op">&lt;=</span> <span class="dv">65535</span>}</span></code></pre></div>
+<p>Теперь, при определении такого порта, мы пишем:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Liquid.Spec.Port</span> ()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ localPort :: NotRootPort @-}</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ot">localPort ::</span> <span class="dt">Int</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>localPort <span class="ot">=</span> <span class="dv">3010</span></span></code></pre></div>
+<p>Обратите внимание, как мы импортировали модуль со спецификацией, с пустыми скобками. Это нужно для того, чтобы избежать предупреждения от компилятора, ведь с его точки зрения в данном модуле ничего нет, а значит и его импорт бессмысленнен.</p>
+<p>Далее мы определяем тип для <code>localPort</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ localPort :: NotRootPort @-}</span> <span class="co">-- Liquid-тип</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ot">localPort ::</span> <span class="dt">Int</span>                 <span class="co">-- Haskell-тип</span></span></code></pre></div>
+<p>Да, мы указываем тип дважды: для <code>liquid</code> и для компилятора. А вот теперь происходит самое интересно. Запустим верификатор:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> stack exec <span class="at">--</span> liquid src/Main.hs</span></code></pre></div>
+<p>где <code>src/Main.hs</code> - путь к верифицируемому модулю. Понятно, что запуск в <code>stack</code>-контексте необходим, чтобы <code>liquid</code> видел импортируемые модули.</p>
+<p>В результате вы увидите, что же <code>liquid</code> думает о вашем коде. В примере выше значение порта <code>3010</code>, что входит в ожидаемый промежуток значений, а значит, вы увидите слово <code>SAFE</code>. Таким образом <code>liquid</code> сообщает о том, что все ваши ожидания в отношении значений в данном модуле оправдались. Если же мы напишем так:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ localPort :: NotRootPort @-}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ot">localPort ::</span> <span class="dt">Int</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>localPort <span class="ot">=</span> <span class="dv">22</span>  <span class="co">-- Ой...</span></span></code></pre></div>
+<p>результатом будет <code>UNSAFE</code> (с довольно-таки внушительным сообщением об ошибке), ведь значение <code>22</code> выходит за рамки наших ожиданий.</p>
+<h2 id="и-как-же-работает-эта-магия">И как же работает эта магия?</h2>
+<p>Да, без магии не обошлось, если считать математику магией. Сама идея судить о корректности кода без его запуска отнюдь не новая: некоторые из соответствующих алгоритмов были сформулированы и описаны ещё в 70-х годах прошлого века (взгляните на <a href="http://www.cs.utexas.edu/users/misra/scannedPdf.dir/AssertionGraph.pdf">эту</a> публикацию). Авторы <code>liquidhaskell</code> решили не изобретать велосипед и взять то, что можно взять. Поэтому они соединили алгоритм <a href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system">Хиндли-Милнера</a> (это тот самый механизм, который используется в Haskell для автоматического выведения типов) с предикативной логикой, получив на выходе… зависимый тип, то есть такой тип, который зависит от конкретного значения. Взгляните:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ type NotRootPort = {p : Int | 1024 &lt;= p &amp;&amp; p &lt;= 65535} @-}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ type RootPort    = {p : Int | 0    &lt;= p &amp;&amp; p &lt;  1024}  @-}</span></span></code></pre></div>
+<p>Хотя базовый тип в основе типов <code>NotRootPort</code> и <code>RootPort</code> один и тот же, эти типы воспринимаются <code>liquid</code> как абсолютно разные, а ведь это именно то, что нам было нужно, ведь привилигированный порт и не привилигированный - это действительно разные вещи. ;-)</p>
+<p>Таким образом, на стадии компиляции (да-да, под капотом <code>liquid</code> используется <code>ghc</code>) выведенные типы наподобие <code>NotRootPort</code> сравниваются с конкретными значениями, такими как <code>3010</code>, и упомянутый выше доказыватель теорем пытается разрешить (solve) соответствие или несоответствие. Так мы и получаем на выходе <code>SAFE</code> или <code>UNSAFE</code>.</p>
+<p>Впрочем, если вы хотите больших подробностей - ознакомьтесь с прекрасной публикацией <a href="http://goto.ucsd.edu/~rjhala/papers/real_world_liquid.pdf">“LiquidHaskell: Experience with Refinement Types in the Real World”</a>. Если же вы не боитесь крутой математики и желаете познать все тонкости математической магии внутри <code>liquid</code> - тогда вашему вниманию предложена диссертация <a href="http://goto.ucsd.edu/~pmr/papers/rondon-liquid-types.pdf">“Liquid Types”</a>.</p>
+<h2 id="презумпция-виновности">Презумпция виновности</h2>
+<p>Что ж, продолжим. Определим тип для ненулевого целочисленного значения:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Liquid.Spec.Num</span> <span class="kw">where</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">{-@</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">    type NotZero = {p : Int | p != 0}</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">@-}</span></span></code></pre></div>
+<p>Ура! Отныне нам не страшна проблема деления на ноль. Определим же функцию безопасного деления:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ okDiv :: Int -&gt; NotZero -&gt; Int @-}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ot">okDiv ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>okDiv <span class="ot">=</span> <span class="fu">div</span></span></code></pre></div>
+<p>Внутри стандартная функция <code>div</code>, но тип делителя объявлен как ненулевой. Поэтому, если мы напишем так:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="fu">print</span> <span class="op">$</span> <span class="dv">123</span> <span class="ot">`okDiv`</span> <span class="dv">0</span></span></code></pre></div>
+<p>и попытаемся верифицировать такой код, то результат будет <code>UNSAFE</code>.</p>
+<p>Но, как мы знаем, многие значения в нашей программе отнюдь на захардкожены, они берутся из внешнего мира. Сказано - сделано:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> (<span class="fu">readLn</span><span class="ot"> ::</span> <span class="dt">IO</span> <span class="dt">Int</span>) <span class="op">&gt;&gt;=</span> <span class="fu">print</span> <span class="op">.</span> okDiv <span class="dv">512</span></span></code></pre></div>
+<p>Берём из ввода то, что является целым числом (проверки для простоты опущены, пусть там действительно будет целое число) и выводим результат деления <code>512</code> на это число. И что же выдаст нам <code>liquid</code>? Удивлены вы или нет, выдаст он <code>UNSAFE</code>. Но почему? А вдруг число, полученное извне, действительно будет ненулевым? В этом-то и дело: принцип “а вдруг” тут не пройдёт. У <code>liquid</code> нет оснований считать, что прилетевшее извне не будет равно нулю, а значит получите <code>UNSAFE</code>.</p>
+<p>Авторы <code>liquid</code> решили, что лучше назвать хороший код плохим, нежели плохой хорошим. Поэтому код считается небезопасным до тех пор, пока не доказана его безопасность. Из этого вытекает важный вывод: если код назван <code>UNSAFE</code>, он теоретически может и не быть плохим, но если уж назван <code>SAFE</code> - значит он сто пудов хороший!</p>
+<p>Поэтому такой пример придётся дополнить явной проверкой:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> (<span class="fu">readLn</span><span class="ot"> ::</span> <span class="dt">IO</span> <span class="dt">Int</span>) <span class="op">&gt;&gt;=</span> divideIt</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    divideIt <span class="dv">0</span> <span class="ot">=</span> <span class="fu">putStrLn</span> <span class="st">&quot;Go away!&quot;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    divideIt v <span class="ot">=</span> <span class="fu">print</span> <span class="op">$</span> <span class="dv">512</span> <span class="ot">`okDiv`</span> v</span></code></pre></div>
+<p>Вот теперь результат будет <code>SAFE</code>.</p>
+<h2 id="измерения">Измерения</h2>
+<p>Рассмотрим ещё один пример:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ot">servicePorts ::</span> [<span class="dt">Port</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>servicePorts <span class="ot">=</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">3000</span>, <span class="dv">3001</span>, <span class="dv">3010</span>, <span class="dv">3011</span>, <span class="dv">3012</span>, <span class="dv">3013</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">3013</span>, <span class="dv">3014</span>, <span class="dv">3020</span>, <span class="dv">3030</span>, <span class="dv">3040</span>, <span class="dv">3050</span>]</span></code></pre></div>
+<p>Это список портов для тестовых сервисов. И всё бы хорошо, но в список закралась досадная ошибка. Вы не видите её? Порт <code>3013</code> продублирован, а по сценарию теста порты обязаны быть уникальными. Что же делать?</p>
+<p>Когда мы говорим об уникальности элементов, на ум приходит <code>Set</code>, не правда ли? Проблема в том, что если мы сконструируем из этого списка <code>Set</code>, повторяющееся значение <code>3013</code> будет тихо выброшено. Да, иногда это допустимо, а что если нет? Призовём на помощь <code>liquid</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Liquid.Spec.List</span> <span class="kw">where</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Set</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ </span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">    type ListUnique a = {v : [a] | NoDups v}</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">@-}</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ </span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">    predicate NoDups L = Set_emp (dups L)</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">@-}</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">{-@</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">    measure dups :: [a] -&gt; (Set a)</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">    dups ([])   = {v | Set_emp v}</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">    dups (x:xs) = {v | v =</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">        if (Set_mem x (listElts xs))</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">            then (Set_cup (Set_sng x) (dups xs))</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">            else (dups xs)}</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">@-}</span></span></code></pre></div>
+<p>Ух, крутяк, давайте теперь разбираться в этом. Первым делом мы определяем тип <code>ListUnique</code>, смысл его очевиден: уникальным является такой список, в котором нет повторяющихся элементов, то есть такой, для которого справедлив предикат <code>NoDups</code>. Он, в свою очередь, отражает такую ситуацию, в которой список повторяющихся элементов <code>dups</code> будет пустым. И вот тут начинается самое интересное.</p>
+<p>Мы определяем <code>measure</code> (“измерение”) по имени <code>dups</code>. Воспринимайте <code>measure</code> как магическую функцию, ибо она выполняется не в процессе запуска программы, а в процессе статической верификации. А теперь взгляните на её реализацию. Видите функции с префиксом <code>Set_</code>? Это не просто функции, это тоже измерения, определённые в недрах пакета <code>liquidhaskell</code>. Но постойте, что-то в этих <code>Set_</code> есть до боли знакомое… Так это же из <code>Set</code> взято! В самом деле <code>Set_emp</code> - это от предиката <code>empty</code>, а <code>Set_mem</code> - от предиката <code>member</code>. Так вот что мы сделали на самом деле! Мы определили рекурсивную функцию <code>dups</code> точно так же, как если бы мы просто писали обыкновенную живую проверку на уникальность. А магия <code>liquid</code> позволила нам определить соответствующие измерения и использовать их в момент верификации. Круто, правда?</p>
+<p>И потому теперь мы можем написать так:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">{-@ servicePorts :: ListUnique NotRootPort @-}</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ot">servicePorts ::</span> [<span class="dt">Port</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>servicePorts <span class="ot">=</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">3000</span>, <span class="dv">3001</span>, <span class="dv">3010</span>, <span class="dv">3011</span>, <span class="dv">3012</span>, <span class="dv">3013</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">3013</span>, <span class="dv">3014</span>, <span class="dv">3020</span>, <span class="dv">3030</span>, <span class="dv">3040</span>, <span class="dv">3050</span>]</span></code></pre></div>
+<p>И будьте уверены, такой код не пройдёт верификацию, <code>liquid</code> выдаст нам простыню ошибочного сообщения и <code>UNSAFE</code>.</p>
+<p>Кроме того, обратите внимание на использование нашего старого знакомого <code>NotRootPort</code>. Liquid-типы можно комбинировать так же, как обычные Haskell-типы: мы определили уникальный список непривилигированных портов.</p>
+<h2 id="да-но-ведь-это-всего-лишь-комментарии">“Да, но ведь это всего лишь комментарии!”</h2>
+<p>Этот вопрос нельзя оставить без ответа. В самом деле, вся эта верификационная красота существует лишь в мире Haskell-комментариев. Значит, компилятор не воспрепятствует нам использовать ту же функцию <code>okDiv</code> для коварного деления на ноль!</p>
+<p>Нет, не помешает. Но что помешает нам с вами прогонять команду <code>liquid</code> <em>перед</em> компиляцией? Мы смело можем делать это, ведь, как уже было сказано, внутри <code>liquid</code> используется <code>ghc</code>, а это значит, что помимо Liquid-типов проверяется и всё остальное. Это даёт нам важное преимущество: если команда <code>liquid</code> отработала успешно - значит и у компилятора претензий не будет. Так что открываем наш CI-конфиг (у нас ведь у всех есть такой, не правда ли?) и смело ставим шаг <code>liquid</code>-верификации перед шагом сборки. Если верификация не прошла - валим сборку как неудачную и идём в код разбираться, что к чему.</p>
+<h2 id="ссылки">Ссылки</h2>
+<p>Дабы избавить вас от лишнего гугления, вот вам полезные ссылки.</p>
+<ul>
+<li><a href="http://goto.ucsd.edu/~rjhala/liquid/haskell/blog/about/">Официальный сайт</a>. Как обычно: ссылки на материалы по теме, а также интересные блогозаписи от авторов пакета.</li>
+<li><a href="https://github.com/ucsd-progsys/liquidhaskell">GitHub-репозиторий</a>. Кстати, на issue авторы отвечают весьма оперативно.</li>
+<li><a href="http://goto.ucsd.edu:8090/index.html">Онлайн-демонстрация</a>. Да-да, всю эту красоту можно попробовать в браузере.</li>
+<li><a href="https://www.youtube.com/watch?v=vQrutfPAERQ">Презентация на LambdaConf 2015</a>. Довольно длинная, но разжёвано хорошо.</li>
+</ul>
+<p>И на десерт - поддержка LiquidHaskell для редакторов:</p>
+<ul>
+<li><a href="https://github.com/ucsd-progsys/liquid-types.vim">Vim</a>.</li>
+<li><a href="https://github.com/ucsd-progsys/liquid-types.el">Emacs</a>.</li>
+<li><a href="https://github.com/ucsd-progsys/liquid-types-spacemacs">Spacemacs</a>.</li>
+</ul>
+<p>Признаться, я не пробовал эти расширения, так что пишите в комментариях, как они.</p>
+<h2 id="продолжение-следует">Продолжение следует…</h2>
+<p>Да, друзья, как бы ни хотелось мне продолжить, но шибко большие публикации воспринимаются тяжело. Так что ждите следующих заметок: поверьте, я рассказал про <code>liquidhaskell</code> не всё.</p>
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div id="socialButtons">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-size="large">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</div>
+<div class="social-buttons-separator">
+    
+</div>
+<div>
+    <div id="disqus_thread"></div>    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ruhaskell'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    
+</div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 left">
+                        © 2014-2022 ruHaskell
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center">
+                        <a href="http://jaspervdj.be/hakyll/" id="hakyll-link">
+                            <span>
+                                Мы
+                            </span>
+                            <i class="fa fa-heart heart-color" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                Hakyll
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right">
+                        <a href="https://github.com/ruHaskell/ruhaskell/blob/master/LICENSE" id="mit-link">
+                            <i class="fa fa-balance-scale" aria-hidden="true">
+                                
+                            </i>
+                            <span>
+                                MIT
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,5 +1,0 @@
-snapshot: lts-24.40
-
-flags:
-  hakyll:
-    checkexternal: false
