@@ -213,13 +213,6 @@ raw = do
                         li $ do
                             a ! href "https://t.me/HaskellGameDev" $ "@HaskellGameDev"
                             " — чат для игроделов"
-                        li $ do
-                            a ! href "https://t.me/haskell_en" $ "@haskell_en"
-                            " — англоязычный хаскельный чат"
-                        li $ do
-                            a ! href "https://t.me/haskell_blah" $
-                                "@haskell_blah"
-                            " — оффтопик"
                 li $ do
                     strong "Twitter"
                     ul $ do
