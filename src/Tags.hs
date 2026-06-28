@@ -159,15 +159,16 @@ createPageWithTagsCloud specificTags
 -- Формируем страницу с облаком тематических тегов.
 createPageWithAllTags :: TagsReader
 createPageWithAllTags = do
-    tagsAndAuthors <- ask
-    lift $ createPageWithTagsCloud (head tagsAndAuthors)
-                                   "tags.html"
-                                   110
-                                   220
-                                   "Темы"
-                                   "tagsCloud"
-                                   tagsTemplate
-    return ()
+    firstTag : _ <- ask
+    lift $
+        createPageWithTagsCloud
+            firstTag
+            "tags.html"
+            110
+            220
+            "Темы"
+            "tagsCloud"
+            tagsTemplate
 
 -- Формируем страницу с облаком категорий.
 createPageWithAllCategories :: TagsReader
@@ -219,10 +220,8 @@ convertSpecificTagsToLinks tagsAndAuthors specificTags aTitle =
 -- Делаем тематические теги ссылками, что позволит отфильтровать статьи по тегам.
 convertTagsToLinks :: TagsReader
 convertTagsToLinks = do
-    tagsAndAuthors <- ask
-    lift $ convertSpecificTagsToLinks tagsAndAuthors
-                                      (head tagsAndAuthors)
-                                      "Всё по теме"
+    tagsAndAuthors@(firstTag : _) <- ask
+    lift $ convertSpecificTagsToLinks tagsAndAuthors firstTag "Всё по теме"
     return ()
 
 -- Делаем названия категорий ссылками, что позволит отфильтровать статьи по категориям.
